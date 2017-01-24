@@ -1,0 +1,3 @@
+/home/alexandre/Documents/CuraEngine/build/CMakeFiles/CuraEngine.dir
+/home/alexandre/Documents/CuraEngine/build/CMakeFiles/clipper.dir
+/home/alexandre/Documents/CuraEngine/build/CMakeFiles/_CuraEngine.dir
