@@ -77,7 +77,7 @@ private:
 	 *
 	 * @return True if a point was found, false otherwise
 	 */
-	bool tracePointStraightUp(const Point3& P3_0, const Point3& P3_1, const Point3& startPoint, Point3& resultPoint);
+	bool findZValueOf2DPointon3DLine(const Point3& P3_0, const Point3& P3_1, const Point& startPoint, Point3& resultPoint);
 
 	/**
 	 * Given a face in a mesh and 1 or 2 points on the sides of the face, splits the face along those points, while
@@ -151,8 +151,8 @@ private:
 
 	// isOn finds out if c is on the same line as the one formed by points
 	// a and b, collinear and within help with this
-	bool isOn(Point a, Point b, Point c);
-	bool collinear(Point a, Point b, Point c);
+	bool isOn(const Point a, const Point b, const Point c);
+	bool collinear(const Point a, const Point b, const Point c);
 	bool within(double p, double q, double r);
 };
 

@@ -297,7 +297,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 				// therefore we find if the point is above or below the two other
 				if (!isEdgeVertex) {
 					Point3 secondPoint;
-					if (tracePointStraightUp(otherVertices[0]->p, otherVertices[1]->p, result.first, secondPoint)) {
+					if (findZValueOf2DPointon3DLine(otherVertices[0]->p, otherVertices[1]->p, Point(result.first.x, result.first.y), secondPoint)) {
 						result.second = secondPoint;
 					}
 				}
@@ -308,9 +308,12 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 				Point p0_flat = Point(otherVertices[0]->p.x, otherVertices[0]->p.y);
 				Point p1_flat = Point(otherVertices[1]->p.x, otherVertices[1]->p.y);
 				Point p2_flat = Point(otherVertices[2]->p.x, otherVertices[2]->p.y);
+				Point3 result;
 
 				if (isOn(p0_flat, p1_flat, splitPoint)) {
-					if (tracePointStraightUp(otherVertices[0]->p, otherVertices[1]->p, ))
+					if (findZValueOf2DPointon3DLine(otherVertices[0]->p, otherVertices[1]->p, splitPoint, result)) {
+
+					}
 				}
 				else if (isOn(p0_flat, p2_flat, splitPoint)) {
 
@@ -336,21 +339,18 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 	return numSplitPoints;
 }
 
-bool VolumeDecomposer::tracePointStraightUp(const Point3& P3_0, const Point3& P3_1, const Point3& startPoint, Point3& resultPoint) {
-	bool isHigherThanBoth = startPoint.z > P3_0.z && startPoint.z > P3_1.z;
-	bool isLowerThanBoth = startPoint.z < P3_0.z && startPoint.z < P3_1.z;
+bool VolumeDecomposer::findZValueOf2DPointon3DLine(const Point3& P3_0, const Point3& P3_1, const Point& startPoint, Point3& resultPoint) {
+	const Point flat_p0 = Point(P3_0.x, P3_0.y);
+	const Point flat_p1 = Point(P3_1.x, P3_1.y);
 
-	// If the middle point is between two points (in the z-direction), or the middle point
-	// is below both other points (in the z-direction), then there is another point above it to
-	// split the face by
-	if ((!isLowerThanBoth && !isHigherThanBoth) || isLowerThanBoth) {
+	if (isOn(flat_p0, flat_p1, startPoint)) {
 		const Point3 P3_vertexDiff = Point3(P3_1.x, P3_1.y, 0) - Point3(P3_0.x, P3_0.y, 0);
-		const Point3 P3_intersectDiff = Point3(startPoint.x, startPoint.y, 0) - Point3(P3_0.x, P3_0.y, 0);
+		const Point3 P3_intersectDiff = Point3(startPoint.X, startPoint.Y, 0) - Point3(P3_0.x, P3_0.y, 0);
 		int t = P3_vertexDiff.vSize() / P3_intersectDiff.vSize();
 
 		int intersection_z = (1 - t) * P3_0.z + t * P3_1.z;
 
-		resultPoint = Point3(startPoint.x, startPoint.y, intersection_z);
+		resultPoint = Point3(startPoint.X, startPoint.Y, intersection_z);
 		return true;
 	}
 
