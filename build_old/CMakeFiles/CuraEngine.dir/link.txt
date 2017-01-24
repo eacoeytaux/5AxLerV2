@@ -1,1 +1,0 @@
-/usr/bin/c++    -Wall -static-libstdc++   CMakeFiles/CuraEngine.dir/src/main.cpp.o  -o CuraEngine -rdynamic lib_CuraEngine.a libclipper.a /usr/local/lib/libArcus.so.1.1.0 /usr/local/lib/libprotobuf.so -lpthread -Wl,-rpath,/usr/local/lib: 
