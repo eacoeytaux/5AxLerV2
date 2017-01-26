@@ -295,7 +295,6 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 			// If there are no common vertices, this is a parallel face where the intersecting points
 			// are in the middle of the triangle somewhere
 			else {
-<<<<<<< HEAD
 				Point3 firstPoint;
 				Point3 secondPoint;
 				unsigned int numPointsFound = 0;
@@ -325,40 +324,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 					log("[ERROR] There were two split points but only %d 3D-points found to match them\n", numPointsFound);
 				} else {
 					numSplitPoints = 2;
-=======
-				Point p0_flat = Point(otherVertices[0]->p.x, otherVertices[0]->p.y);
-				Point p1_flat = Point(otherVertices[1]->p.x, otherVertices[1]->p.y);
-				Point p2_flat = Point(otherVertices[2]->p.x, otherVertices[2]->p.y);
-				Point3 result;
-
-				if (isOn(p0_flat, p1_flat, splitPoint)) {
-					if (findZValueOf2DPointon3DLine(otherVertices[0]->p, otherVertices[1]->p, splitPoint, result)) {
-
-					}
->>>>>>> d059cb9d8db7582fce5ae2fea344ec21141647c0
 				}
-				else if (isOn(p0_flat, p2_flat, splitPoint)) {
-
-				} else {
-
-<<<<<<< HEAD
-			if (numPointsFound < 2) {
-				if (findZValueOf2DPointon3DLine(v0.p, v2.p, splitPoint2, secondPoint)) {
-					result.second = secondPoint;
-					numPointsFound++;
-				}
-				else {
-					log("[ERROR] Could not find the z-value of a point <%d, %d> on a non-parallel face\n", splitPoint2.X, splitPoint2.Y);
-				}
-			}
-
-			if (numPointsFound < 2) {
-				log("[ERROR] There were two split points but only %d 3D-points found to match them\n", numPointsFound);
-			} else {
-				numSplitPoints = 2;
-=======
-				}
->>>>>>> d059cb9d8db7582fce5ae2fea344ec21141647c0
 			}
 			break;
 		}

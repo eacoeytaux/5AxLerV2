@@ -30,3 +30,6 @@
 
 # The build folder
 /build
+
+# The LOG output
+LOG
