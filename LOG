@@ -17,8 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Loading ./5axistests/fdmprinter.def.json...
 Loading ./5axistests/fdmextruder.def.json...
 Loading ./5axistests/Pillar.STL from disk...
-loading './5axistests/Pillar.STL' took 0.001 seconds
-Loaded from disk in 0.040s
+loading './5axistests/Pillar.STL' took 0.000 seconds
+Loaded from disk in 0.048s
 [WARNING]  -s mesh_position_z="0" -s center_object="false" -s wireframe_nozzle_clearance="1" -s wireframe_roof_drag_along="0.8" -s wireframe_roof_fall_down="2" -s wireframe_straight_before_down="20" -s wireframe_strategy="compensate" -s wireframe_drag_along="0.6" -s wireframe_top_jump="0.6" -s wireframe_flat_delay="0.1" -s wireframe_top_delay="0" -s wireframe_flow_flat="100" -s wireframe_printspeed_flat="5" -s wireframe_printspeed_up="5" -s wireframe_printspeed_bottom="5" -s wireframe_height="3" -s magic_fuzzy_skin_thickness="0.3" -s magic_fuzzy_skin_enabled="false" -s support_conical_angle="30" -s support_conical_enabled="false" -s skin_outline_count="0" -s coasting_min_volume="0.8" -s coasting_volume="0.064" -s coasting_enable="false" -s draft_shield_height_limitation="full" -s draft_shield_enabled="false" -s magic_mesh_surface_mode="normal" -s meshfix_union_all_remove_holes="false" -s meshfix_union_all="true" -s ooze_shield_enabled="false" -s wireframe_roof_outer_delay="0.2" -s prime_tower_position_y="200" -s prime_tower_enable="false" -s raft_base_fan_speed="0" -s raft_interface_fan_speed="0" -s raft_surface_fan_speed="0" -s raft_base_jerk="20" -s raft_interface_acceleration="3000" -s anti_overhang_mesh="false" -s raft_surface_acceleration="3000" -s raft_base_speed="15" -s raft_interface_speed="15" -s raft_surface_speed="20" -s raft_base_line_spacing="1.6" -s raft_base_thickness="0.3" -s raft_interface_line_width="0.7" -s raft_interface_thickness="0.15" -s raft_surface_thickness="0.1" -s raft_surface_layers="2" -s support_mesh="false" -s raft_airgap="0.3" -s prime_tower_position_x="200" -s raft_margin="15" -s brim_outside_only="true" -s retraction_amount="6.5" -s material_diameter="2.85" -s machine_max_acceleration_z="100" -s support_join_distance="2" -s material_extrusion_cool_down_speed="0.7" -s coasting_speed="90" -s infill_pattern="grid" -s acceleration_topbottom="3000" -s material_final_print_temperature="195" -s infill_before_walls="true" -s infill_sparse_thickness="0.1" -s retraction_hop_enabled="false" -s material_flow_dependent_temperature="false" -s prime_tower_flow="100" -s sub_div_rad_add="0.4" -s alternate_carve_order="true" -s machine_max_feedrate_x="500" -s mesh_position_x="0" -s meshfix_keep_open_polygons="false" -s gradual_infill_step_height="5" -s wireframe_roof_inset="3" -s dual_pre_wipe="true" -s support_line_distance="2.66" -s skin_no_small_gaps_heuristic="true" -s wireframe_flow_connection="100" -s layer_start_y="0" -s material_initial_print_temperature="200" -s raft_base_acceleration="3000" -s switch_extruder_prime_speed="20" -s acceleration_infill="3000" -s z_seam_y="100" -s material_flow="100" -s skirt_brim_speed="30" -s carve_multiple_volumes="true" -s xy_offset="0" -s jerk_infill="20" -s cool_fan_speed_0="0" -s raft_base_line_width="0.8" -s z_seam_x="100" -s travel_compensate_overlapping_walls_x_enabled="true" -s skin_overlap_mm="0.02" -s speed_equalize_flow_enabled="false" -s wall_0_inset="0" -s infill_mesh="false" -s print_sequence="all_at_once" -s default_material_print_temperature="210" -s support_line_width="0.4" -s fill_perimeter_gaps="everywhere" -s support_top_distance="0.1" -s support_xy_distance_overhang="0.2" -s top_bottom_pattern="lines" -s cool_fan_speed_max="100" -s bottom_layers="6" -s magic_fuzzy_skin_point_dist="0.8" -s retraction_count_max="90" -s cool_fan_enabled="true" -s wall_0_wipe_dist="0.2" -s raft_surface_line_width="0.4" -s wall_line_width_x="0.4" -s wall_line_count="2" -s cool_min_layer_time="5" -s prime_tower_line_width="0.4" -s raft_interface_jerk="20" -s skin_line_width="0.4" -s prime_tower_wipe_enabled="true" -s support_use_towers="true" -s retraction_enable="true" -s machine_filament_park_distance="16" -s sub_div_rad_mult="100" -s extruder_prime_pos_z="0" -s machine_nozzle_head_distance="3" -s machine_acceleration="4000" -s infill_line_distance="2" -s jerk_support_infill="20" -s machine_shape="rectangular" -s jerk_skirt_brim="20" -s retract_at_layer_change="false" -s top_bottom_pattern_0="lines" -s machine_center_is_zero="false" -s retraction_combing="all" -s machine_nozzle_tip_outer_diameter="1" -s magic_spiralize="false" -s infill_wipe_dist="0.04" -s machine_nozzle_expansion_angle="45" -s machine_gcode_flavor="RepRap (Marlin/Sprinter)" -s travel_avoid_distance="0.625" -s machine_max_acceleration_x="9000" -s meshfix_extensive_stitching="false" -s infill_line_width="0.4" -s multiple_mesh_overlap="0.15" -s raft_surface_jerk="20" -s acceleration_travel="5000" -s machine_nozzle_cool_down_speed="2" -s mesh_position_y="0" -s retraction_extra_prime_amount="0" -s material_bed_temp_wait="true" -s gradual_infill_steps="0" -s support_tower_roof_angle="65" -s material_print_temp_wait="true" -s speed_equalize_flow_max="150" -s skirt_gap="3" -s z_seam_type="shortest" -s machine_name="Unknown" -s top_layers="8" -s machine_width="100" -s jerk_travel_layer_0="20" -s cool_min_layer_time_fan_speed_max="10" -s material_flow_temp_graph="[[3.5,200],[7.0,240]]" -s retraction_hop_after_extruder_switch="true" -s wireframe_bottom_delay="0" -s layer_0_z_overlap="0.22" -s gantry_height="1e+11" -s switch_extruder_retraction_speed="20" -s support_interface_enable="false" -s ooze_shield_dist="2" -s machine_end_gcode="M104 S0
 M140 S0
 ;Retract the filament
@@ -34,8 +34,8 @@ G92 E0" -s speed_topbottom="30" -s machine_min_cool_heat_time_window="50" -s sup
 Progress: start accomplished in 0.000s
 Starting slice...
 Slicing model...
-slice of mesh took 0.020 seconds
-slice make polygons took 0.052 seconds
+slice of mesh took 0.029 seconds
+slice make polygons took 0.055 seconds
 [CUSTOM] 1) polygons size: 1, open polys size: 0, poly faces size: 1, height: 350
 [CUSTOM] Polygon ID: 0
 	v0: [151599, 75399, 25399], v1: [151599, 50000, 101599], v2: [151599, 50000, 0] (intersects: false)
@@ -26368,9 +26368,13 @@ slice make polygons took 0.052 seconds
 	v0: [126200, 75399, 25399], v1: [151599, 75399, 101599], v2: [151599, 75399, 25399] (intersects: false)
 	v0: [126200, 75399, 76200], v1: [151599, 75399, 101599], v2: [126200, 75399, 25399] (intersects: false)
 	v0: [126200, 75399, 76200], v1: [50000, 75399, 101599], v2: [151599, 75399, 101599] (intersects: true)
-[INFO] numSplitPoints = 1
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 1
+[INFO] numSplitPoints = 2
 	[INFO] splitPoints[0] = <126200, 75399, 76200>, splitPoints[1] = <126200, 75399, 101599>
 	v0: [75399, 75399, 76200], v1: [50000, 75399, 101599], v2: [126200, 75399, 76200] (intersects: true)
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 1
 [INFO] numSplitPoints = 1
 	[INFO] splitPoints[0] = <126200, 75399, 76200>, splitPoints[1] = <0, 0, 0>
 	v0: [75399, 75399, 76200], v1: [50000, 75399, 0], v2: [50000, 75399, 101599] (intersects: false)
@@ -26379,11 +26383,15 @@ slice make polygons took 0.052 seconds
 	v0: [75399, 50000, 25399], v1: [50000, 50000, 101599], v2: [50000, 50000, 0] (intersects: false)
 	v0: [75399, 50000, 76200], v1: [50000, 50000, 101599], v2: [75399, 50000, 25399] (intersects: false)
 	v0: [75399, 50000, 76200], v1: [151599, 50000, 101599], v2: [50000, 50000, 101599] (intersects: true)
-[INFO] numSplitPoints = 1
-	[INFO] splitPoints[0] = <50000, 50000, 101599>, splitPoints[1] = <0, 0, 0>
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 0
+[INFO] numSplitPoints = 2
+	[INFO] splitPoints[0] = <126199, 50000, 93132>, splitPoints[1] = <126199, 50000, 101599>
 	v0: [126200, 50000, 76200], v1: [151599, 50000, 101599], v2: [75399, 50000, 76200] (intersects: true)
-[INFO] numSplitPoints = 1
-	[INFO] splitPoints[0] = <75399, 50000, 76200>, splitPoints[1] = <0, 0, 0>
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 1
+[INFO] numSplitPoints = 2
+	[INFO] splitPoints[0] = <126200, 50000, 76200>, splitPoints[1] = <126200, 50000, 93132>
 	v0: [126200, 50000, 76200], v1: [151599, 50000, 0], v2: [151599, 50000, 101599] (intersects: false)
 	v0: [151599, 75399, 25399], v1: [151599, 50000, 101599], v2: [151599, 50000, 0] (intersects: false)
 [CUSTOM] Polygon ID: 1
@@ -26402,19 +26410,27 @@ slice make polygons took 0.052 seconds
 	v0: [75399, 126200, 25399], v1: [50000, 126200, 101599], v2: [50000, 126200, 0] (intersects: false)
 	v0: [75399, 126200, 76200], v1: [50000, 126200, 101599], v2: [75399, 126200, 25399] (intersects: false)
 	v0: [75399, 126200, 76200], v1: [95304, 126200, 101599], v2: [50000, 126200, 101599] (intersects: true)
-[INFO] numSplitPoints = 1
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 1
+[INFO] numSplitPoints = 2
 	[INFO] splitPoints[0] = <75399, 126200, 76200>, splitPoints[1] = <75399, 126200, 101599>
 	v0: [95304, 126200, 76200], v1: [95304, 126200, 101599], v2: [75399, 126200, 76200] (intersects: true)
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 1
 [INFO] numSplitPoints = 1
 	[INFO] splitPoints[0] = <75399, 126200, 76200>, splitPoints[1] = <0, 0, 0>
 	v0: [95304, 126200, 101599], v1: [95304, 126200, 76200], v2: [95304, 151599, 101599] (intersects: false)
 	v0: [95304, 151599, 101599], v1: [95304, 126200, 76200], v2: [95304, 151599, 76200] (intersects: false)
 	v0: [95304, 151599, 76200], v1: [50000, 151599, 101599], v2: [95304, 151599, 101599] (intersects: true)
-[INFO] numSplitPoints = 1
-	[INFO] splitPoints[0] = <75400, 151599, 126998>, splitPoints[1] = <0, 0, 0>
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 0
+[INFO] numSplitPoints = 2
+	[INFO] splitPoints[0] = <75400, 151599, 87358>, splitPoints[1] = <75400, 151599, 101599>
 	v0: [75399, 151599, 76200], v1: [50000, 151599, 101599], v2: [95304, 151599, 76200] (intersects: true)
-[INFO] numSplitPoints = 1
-	[INFO] splitPoints[0] = <95304, 151599, 76200>, splitPoints[1] = <0, 0, 0>
+[INFO] In numSplitPoints = 1 case
+[INFO] numCommonVertices = 1
+[INFO] numSplitPoints = 2
+	[INFO] splitPoints[0] = <75399, 151599, 76200>, splitPoints[1] = <75399, 151599, 87359>
 [CUSTOM] 761) polygons size: 3, open polys size: 0, poly faces size: 3, height: 76350
 [CUSTOM] Polygon ID: 0
 	v0: [151599, 75399, 101599], v1: [151599, 50000, 101599], v2: [151599, 75399, 25399] (intersects: false)
@@ -35776,17 +35792,17 @@ slice make polygons took 0.052 seconds
 	v0: [95304, 151599, 101599], v1: [95304, 126200, 76200], v2: [95304, 151599, 76200] (intersects: false)
 	v0: [95304, 151599, 76200], v1: [50000, 151599, 101599], v2: [95304, 151599, 101599] (intersects: false)
 	v0: [75399, 151599, 76200], v1: [50000, 151599, 101599], v2: [95304, 151599, 76200] (intersects: false)
-Progress: slice accomplished in 1.371s
+Progress: slice accomplished in 1.535s
 Starting layerparts...
-Progress: layerparts accomplished in 0.037s
+Progress: layerparts accomplished in 0.036s
 Starting inset+skin...
 Layer count: 1014
-Progress: inset+skin accomplished in 0.662s
+Progress: inset+skin accomplished in 0.670s
 Starting support...
-Progress: support accomplished in 0.009s
+Progress: support accomplished in 0.014s
 Starting export...
-Progress: export accomplished in 7.104s
-Total time elapsed  9.20s.
+Progress: export accomplished in 7.372s
+Total time elapsed  9.65s.
 Gcode header after slicing:
 ;FLAVOR:RepRap
 ;TIME:100718

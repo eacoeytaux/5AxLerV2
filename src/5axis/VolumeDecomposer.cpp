@@ -175,16 +175,18 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 	// }
 
 	Polygons diff;
+
+	// If the face is a simple polyline and that polyline is on the egde of the intersecting
+	// polygon, then the line may not be correctly cut, so we expand the polygon by 1
+	// and hope the small inaccuracy in resulting coordinates doesn't matter.
+	// Later code also compensates for this by checking for equality within +/- 1 of each coord
+	// TODO: Fix this
+	intersectingPoly = intersectingPoly.offset(1);
 	if (facePolyArea == 0) {
-		// If the face is a simple polyline and that polyline is on the egde of the intersecting
-		// polygon, then the line may not be correctly cut, so we expand the polygon by 1
-		// and hope the small inaccuracy in resulting coordinates doesn't matter.
-		// Later code also compensates for this by checking for equality within +/- 1 of each coord
-		// TODO: Fix this
-		intersectingPoly = intersectingPoly.offset(1);
 		ClipperLib::PolyTree diffTree = facePoly.lineSegmentDifference(intersectingPoly);
 		PolygonRef diffRef = PolygonRef(diffTree.GetFirst()->Contour);
-		// log("Number of nodes in tree: %d\n", diffTree.Total());
+		// log("[INFO] Number of nodes in tree: %d\n", diffTree.Total());
+		// log("[INFO] %s\n", polygonRefToString(diffRef).c_str());
 
 		// ClipperLib::PolyNode* pn = diffTree.GetFirst();
 		// while (pn) {
@@ -206,29 +208,13 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 	unsigned int numSplitPoints = 0;
 	const PolygonRef cutPoly = diff[0];
 	for (unsigned int i = 0; i < cutPoly.size() && numSplitPoints < 2; ++i) {
-		Point cutPolyPt = cutPoly[i];
+		Point* cutPolyPt = &(cutPoly[i]);
 
-		if (intersectingPoly.inside(cutPolyPt, true)) {
-			splitPoints[numSplitPoints] = &cutPolyPt;
+		if (intersectingPoly.inside(*cutPolyPt, true) && !intersectingPoly.inside(*cutPolyPt, false)) {
+			splitPoints[numSplitPoints] = cutPolyPt;
 			++numSplitPoints;
 		}
 
-		// for (unsigned int j = 0; j < facePolyRef.size(); ++j) {
-			// Point facePt = facePolyRef[j];
-
-			// log("cutPolyPt: <%d, %d>, facePt: <%d, %d> (%d, %d)\n", cutPolyPt.X, cutPolyPt.Y, facePt.X, facePt.Y, cutPolyPt.X <= facePt.X + 1, cutPolyPt.X >= facePt.X - 1);
-			
-			// This is to deal with the max +-1 change in coordinate from offset the intersecting polygon by 1 earlier
-			// if (cutPolyPt.X <= facePt.X + 1 && cutPolyPt.X >= facePt.X - 1 &&
-			// 	cutPolyPt.Y <= facePt.Y + 1 && cutPolyPt.Y >= facePt.Y - 1) {
-			// 	break;
-			// }
-
-			// if (j == (facePolyRef.size() - 1)) {
-			// 	splitPoints[numSplitPoints] = &cutPolyPt;
-			// 	++numSplitPoints;
-			// }
-		// }
 	}
 
 	switch (numSplitPoints) {
@@ -240,6 +226,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 		//	* A face parallel to the +z-axis
 		//	* A non-parallel face that intersects with the intersecting polygon only by a single vertex
 		case 1: {
+			log("[INFO] In numSplitPoints = 1 case\n");
 			Point splitPoint = *(splitPoints[0]);
 			unsigned int numCommonVertices = 0;
 			const MeshVertex* commonVertices[2];
@@ -274,11 +261,12 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 				otherVertices[2 - numCommonVertices] = &v2;
 			}
 
-
+			log("[INFO] numCommonVertices = %d\n", numCommonVertices);
 			// If there are 2 common vertices, that means this is a face parallel to the +z-axis
 			// and the split is along one of the sides of the face
 			if (numCommonVertices == 2) {
 				result = std::make_pair(commonVertices[0]->p, commonVertices[1]->p);
+				numSplitPoints = 2;
 			}
 			// If there is one common vertex, this is either a non-parallel face
 			// that barely touches the polygon with one vertex, or a parallel face
@@ -300,26 +288,42 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 					Point3 secondPoint;
 					if (findZValueOf2DPointon3DLine(otherVertices[0]->p, otherVertices[1]->p, Point(result.first.x, result.first.y), secondPoint)) {
 						result.second = secondPoint;
+						numSplitPoints = 2;
 					}
 				}
 			}
 			// If there are no common vertices, this is a parallel face where the intersecting points
 			// are in the middle of the triangle somewhere
 			else {
-
+				Point3 firstPoint;
 				Point3 secondPoint;
+				unsigned int numPointsFound = 0;
+				result = std::make_pair(Point3(0, 0, 0), Point3(0, 0, 0));
 
-				if (findZValueOf2DPointon3DLine(otherVertices[0]->p, otherVertices[1]->p, splitPoint, secondPoint)) {
-					result.first = secondPoint;
+				if (findZValueOf2DPointon3DLine(v0.p, v1.p, splitPoint, firstPoint)) {
+					result.first = firstPoint;
+					numPointsFound++;
 				}
-				else if (findZValueOf2DPointon3DLine(otherVertices[1]->p, otherVertices[2]->p, splitPoint, secondPoint)) {
-					result.first = secondPoint;
+				if (findZValueOf2DPointon3DLine(v1.p, v2.p, splitPoint, (numPointsFound ? secondPoint : firstPoint))) {
+					if (numPointsFound) {
+						result.second = secondPoint;
+					} else {
+						result.first = firstPoint;
+					}
+					numPointsFound++;
 				}
-				else if (findZValueOf2DPointon3DLine(otherVertices[0]->p, otherVertices[2]->p, splitPoint, secondPoint)) {
-					result.first = secondPoint;
+
+				if (numPointsFound < 2) {
+					if (findZValueOf2DPointon3DLine(v0.p, v2.p, splitPoint, secondPoint)) {
+						result.second = secondPoint;
+						numPointsFound++;
+					}
 				}
-				else {
-					log("[ERROR] Could not find a second point of intersection for point <%d, %d> on a face which is parallel to the +z-axis\n", splitPoint.X, splitPoint.Y);
+				
+				if (numPointsFound < 2) {
+					log("[ERROR] There were two split points but only %d 3D-points found to match them\n", numPointsFound);
+				} else {
+					numSplitPoints = 2;
 				}
 			}
 			break;
@@ -347,7 +351,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 				numPointsFound++;
 			}
 
-			if (numPointsFound == 1) {
+			if (numPointsFound < 2) {
 				if (findZValueOf2DPointon3DLine(v0.p, v2.p, splitPoint2, secondPoint)) {
 					result.second = secondPoint;
 					numPointsFound++;
@@ -355,8 +359,12 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 				else {
 					log("[ERROR] Could not find the z-value of a point <%d, %d> on a non-parallel face\n", splitPoint2.X, splitPoint2.Y);
 				}
-			} else {
+			}
+
+			if (numPointsFound < 2) {
 				log("[ERROR] There were two split points but only %d 3D-points found to match them\n", numPointsFound);
+			} else {
+				numSplitPoints = 2;
 			}
 			break;
 		}
@@ -375,9 +383,10 @@ bool VolumeDecomposer::findZValueOf2DPointon3DLine(const Point3& P3_0, const Poi
 	if (isOn(flat_p0, flat_p1, startPoint)) {
 		const Point3 P3_vertexDiff = Point3(P3_1.x, P3_1.y, 0) - Point3(P3_0.x, P3_0.y, 0);
 		const Point3 P3_intersectDiff = Point3(startPoint.X, startPoint.Y, 0) - Point3(P3_0.x, P3_0.y, 0);
-		int t = P3_vertexDiff.vSize() / P3_intersectDiff.vSize();
+		double t = (double)P3_intersectDiff.vSize() / (double)P3_vertexDiff.vSize();
 
-		int intersection_z = (1 - t) * P3_0.z + t * P3_1.z;
+		// int intersection_z = (1 - t) * P3_0.z + t * P3_1.z;
+		int intersection_z = (P3_1.z - P3_0.z) * t + P3_0.z;
 
 		resultPoint = Point3(startPoint.X, startPoint.Y, intersection_z);
 		return true;
@@ -466,7 +475,10 @@ std::string VolumeDecomposer::polygonRefToString(const PolygonRef& pref) {
 	for (unsigned int i = 0; i < pref.size(); ++i) {
 		const Point p = pref[i];
 
-		ret += "\t#" + std::to_string(i) + ": <" + std::to_string(p.X) + ", " + std::to_string(p.Y) + ">\n";
+		ret += "\t#" + std::to_string(i) + ": <" + std::to_string(p.X) + ", " + std::to_string(p.Y) + ">";
+		if (i < pref.size() - 1) {
+			ret += "\n";
+		}
 	}
 	return ret;
 }
