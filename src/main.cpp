@@ -20,6 +20,8 @@
 
 #include "settings/SettingsToGV.h"
 
+#include "5axis/MeshToSTL.hpp"
+
 namespace cura
 {
     
