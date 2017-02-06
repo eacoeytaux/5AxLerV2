@@ -115,6 +115,7 @@ set(engine_SRCS # Except main.cpp.
 
     src/5axis/VolumeDecomposer.cpp
 	src/5axis/MeshToSTL.cpp
+    src/5axis/comms/SerialComms.cpp
 )
 
 # List of tests. For each test there must be a file tests/${NAME}.cpp and a file tests/${NAME}.h.
