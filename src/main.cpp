@@ -21,6 +21,7 @@
 #include "settings/SettingsToGV.h"
 
 #include "5axis/MeshToSTL.hpp"
+#include "5axis/CollisionDetection.hpp"
 
 namespace cura
 {
