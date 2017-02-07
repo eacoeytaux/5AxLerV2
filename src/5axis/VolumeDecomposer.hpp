@@ -99,12 +99,12 @@ private:
 	 * @param faceID The ID of the face in the mesh
 	 * @param comparisonPoly A Polygon object storing the polygons to check the face against
 	 *
-	 * @return A tuple where the first element is a boolean that's true if the face is an overhang
-	 *		   intersect, and false otherwise. The second element is -1 if the face is not an overhang
-	 *		   intersect, otherwise it stores the index of the polygon in comparisonPoly that the face
-	 *		   is an overhang intersect of.
+	 * @return A tuple where the first element is a number that indicates how many polygons it is an
+	 *		   an overhang of. If this number is 0, this face is not an overhang intersect. The second
+	 *		   part of the tuple is a vector which contains the IDs of the polygon the face
+	 *		   is an overhang on in the slice.
 	 */
-	std::pair<bool, int> faceIsOverhangIntersect(Mesh& mesh, int faceID, Polygons& comparisonPoly);
+	bool faceIsOverhangIntersect(const Mesh& mesh, int faceID, const PolygonRef& comparisonPoly);
 
 	/**
 	 * findPolyFaceIntersection is fairly straightforward:
@@ -151,9 +151,11 @@ private:
 
 	// isOn finds out if c is on the same line as the one formed by points
 	// a and b, collinear and within help with this
-	bool isOn(const Point a, const Point b, const Point c);
-	bool collinear(const Point a, const Point b, const Point c);
+	bool isOn(const Point a, const Point b, const Point c, int tolerance = 0);
+	bool collinear(const Point a, const Point b, const Point c, int tolerance = 0);
 	bool within(double p, double q, double r);
+
+	Point closestPointOnLine(const Point start, const Point end, const Point pt);
 };
 
 }

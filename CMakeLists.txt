@@ -115,6 +115,7 @@ set(engine_SRCS # Except main.cpp.
 
     src/5axis/VolumeDecomposer.cpp
 	src/5axis/MeshToSTL.cpp
+    src/5axis/comms/SerialComms.cpp
 	src/5axis/SequenceNode.cpp
 	src/5axis/collisionDetection.cpp
 

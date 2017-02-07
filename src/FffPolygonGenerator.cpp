@@ -108,50 +108,6 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
     // meshgroup->clear();///Clear the mesh face and vertex data, it is no longer needed after this point, and it saves a lot of memory.
 
     VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0], slicerList[0]); 
-
-    // for (unsigned int mesh_idx = 0; mesh_idx < slicerList.size(); ++mesh_idx) {
-    //     Slicer* meshSlicer = slicerList[mesh_idx];
-    //     std::vector<SlicerLayer> layers = meshSlicer->layers;
-
-    //     for (unsigned int layer_idx = 0; layer_idx < layers.size(); ++layer_idx) {
-    //         SlicerLayer layer = layers[layer_idx];
-    //         Polygons polys = layer.polygons;
-    //         Polygons openPolys = layer.openPolylines;
-    //         std::vector<std::vector<int>> polyFaces = layer.polyFaces;
-
-    //         log("[CUSTOM] %d) polygons size: %d, open polys size: %d, poly faces size: %d, height: %d\n", layer_idx, polys.size(), openPolys.size(), polyFaces.size(), initial_slice_z + layer_thickness * layer_idx);
-
-    //         // For printing the polygons
-    //         for (unsigned int poly_idx = 0; poly_idx < polys.size(); ++poly_idx) {
-    //             const PolygonRef polyRef = polys[poly_idx];
-
-    //             log("[CUSTOM] Polygon ID: %d\n", poly_idx);
-    //             for (unsigned int point_idx = 0; point_idx < polyRef.size(); ++point_idx) {
-    //                 Point p = polyRef[point_idx];
-
-    //                 log("\t(%d) %d, %d\n", point_idx, p.X, p.Y);
-    //             }
-    //         }
-
-    //         // For printing the faces in each polygon
-    //         Mesh& mesh = meshgroup->meshes[0];
-    //         for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
-    //             std::vector<int> faces = polyFaces[polyfaces_idx];
-
-    //             log("[CUSTOM] Polygon #%d\n", polyfaces_idx);
-
-    //             for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
-    //                 int faceID = faces[face_idx];
-    //                 const MeshFace& face = mesh.faces[faceID];
-    //                 const MeshVertex& v0 = mesh.vertices[face.vertex_index[0]];
-    //                 const MeshVertex& v1 = mesh.vertices[face.vertex_index[1]];
-    //                 const MeshVertex& v2 = mesh.vertices[face.vertex_index[2]];
-
-    //                 log("\tv0: [%d, %d, %d], v1: [%d, %d, %d], v2: [%d, %d, %d]\n", v0.p.x - 50000, v0.p.y - 50000, v0.p.z, v1.p.x - 50000, v1.p.y - 50000, v1.p.z, v2.p.x - 50000, v2.p.y - 50000, v2.p.z);
-    //             }
-    //         }
-    //     }
-    // }
     // END CUSTOM CODE
 
     for(unsigned int meshIdx=0; meshIdx < slicerList.size(); meshIdx++)
