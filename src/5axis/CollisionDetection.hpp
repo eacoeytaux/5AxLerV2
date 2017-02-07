@@ -14,54 +14,91 @@
 
 #include "SequenceNode.hpp"
 #include "../mesh.h"
+#include "Slicer.h"
+#include "settings.h"
+#include "MeshGroup.h"
+#include "SliceDataStorage.h"
+#include "FffProcessor.h"
 
 namespace cura {
-	
 	class CollisionDetection {
+		
 	public:
+		SequenceNode& sequenceGraph;
+		MeshGroup *meshgroup;
+		
 		/**
 		 * Finds all collisions in a sequence of sub-meshes
 		 *
 		 * @param sequence parent node of sequence graph
 		 */
-		void detectPrintCollisions(SequenceNode &);
+		void detectPrintCollisions(SequenceNode &, MeshGroup*);
 		
-		bool checkMeshAndAABB(Mesh, AABB3D);
+		//copied from cura
+		int64_t interpolate(int64_t x, int64_t x0, int64_t x1, int64_t y0, int64_t y1) const
+		{
+			int64_t dx_01 = x1 - x0;
+			int64_t num = (y1 - y0) * (x - x0);
+			num += num > 0 ? dx_01/2 : -dx_01/2; // add in offset to round result
+			int64_t y = y0 + num / dx_01;
+			return y;
+		}
+		
+		//copied from cura
+		SlicerSegment project2D(Point3& p0, Point3& p1, Point3& p2, int32_t z) const
+		{
+			SlicerSegment seg;
+			
+			seg.start.X = interpolate(z, p0.z, p1.z, p0.x, p1.x);
+			seg.start.Y = interpolate(z, p0.z, p1.z, p0.y, p1.y);
+			seg.end  .X = interpolate(z, p0.z, p2.z, p0.x, p2.x);
+			seg.end  .Y = interpolate(z, p0.z, p2.z, p0.y, p2.y);
+			
+			return seg;
+		}
+		
 	private:
+		
+		void specialSlice(Mesh* mesh, int initial, int thickness, int slice_layer_count, bool keep_none_closed, bool extensive_stitching);
+		
 		/**
 		 * Finds all aabb collision on on a node, the recursively calls itself on all children
 		 *
 		 * @param node current node of sequence graph
 		 */
-		void recursiveAabb( SequenceNode &);
+		void recursiveAabb(SequenceNode &);
 		
 		/**
 		 * Finds all collision possibilites using axis-aligned bounded boxes
 		 *
-		 * @param printingMesh Mesh of node which is being printed in collision situation
-		 * @param collidingMesh Mesh of node which may be colliding with the nozzle
 		 *
 		 * @return bool True if there is a collision detected between the two Mesh's, False if not
 		 */
-		void aabbCollisionDetection(Mesh, Mesh);
+		void aabbCollisionDetection(SequenceNode &, SequenceNode &, std::vector<SequenceNode> &);
 		
 		/**
-		 * Deterministically detects any collsions that may occur during the print
+		 * Performs collision detection using the slice method
 		 *
-		 * @param printingMesh Mesh of node which is being printed in collision situation
-		 * @param collidingMesh Mesh of node which may be colliding with the nozzle
-		 *
-		 * @return bool True if there is a collision detected between the two Mesh's, False if not
+		 * @param root node of the collision graph
 		 */
-		void preciseCollisionDetection(Mesh, Mesh);
-		
-		int faceBoxOverlap( AABB3D, std::vector<FPoint3>);
+		void sliceCollisionDetection(SequenceNode &, std::vector<SequenceNode> &);
 		
 		/**
-		 *  
+		 * helper functions
 		 *
 		 */
-		std::vector<float> projection(std::vector<FPoint3>, FPoint3);
+		
+		static std::vector<std::vector<int>> extractRotation(std::vector<std::vector<int>>);
+		
+		static int faceBoxOverlap(AABB3D, std::vector<Point3>);
+		
+		static std::vector<float> projection(std::vector<Point3>, Point3);
+		static std::vector<float> projection(std::vector<Point3>, FPoint3);
+		
+		static double dot(FPoint3, Point3);
+		static int dot(Point3 a, Point3 b);
+		
+	
 	};
 }
 

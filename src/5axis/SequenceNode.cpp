@@ -22,4 +22,8 @@ namespace cura {
 		size++;
 		return;
 	}
+	
+	int SequenceNode::getId(){
+		return id;
+	}
 }

@@ -116,6 +116,8 @@ set(engine_SRCS # Except main.cpp.
     src/5axis/VolumeDecomposer.cpp
 	src/5axis/MeshToSTL.cpp
 	src/5axis/SequenceNode.cpp
+	src/5axis/collisionDetection.cpp
+
 )
 
 # List of tests. For each test there must be a file tests/${NAME}.cpp and a file tests/${NAME}.h.

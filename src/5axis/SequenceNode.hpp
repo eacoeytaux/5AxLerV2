@@ -13,19 +13,16 @@
 
 #include "../mesh.h"
 
-#endif /* SequenceNode_hpp */
-
-#ifndef MeshToSTL_hpp
-#define MeshToSTL_hpp
-
 namespace cura {
 	
 	class SequenceNode {
 	public:
 		Mesh mesh;
+		FMatrix3x3 transformation;
 		std::vector<SequenceNode*> geometricChildren;
 		std::vector<SequenceNode*> collisionChildren;
 		int size;
+		int id;
 		
 		/**
 		 *Adds a Sequence Node as a direct child
@@ -40,10 +37,12 @@ namespace cura {
 		 *@param child reference to node which is a geometric child
 		 */
 		void addCollisionChild(SequenceNode& child);
+		
+		int getId();
 	private:
 		
 	};
 }
 
 
-#endif /* MeshToSTL_hpp */
+#endif /* SequenceNode_hpp */
