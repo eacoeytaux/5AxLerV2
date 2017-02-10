@@ -54,15 +54,20 @@ void PathSmoother::processLayer() {
 	for (unsigned int command_idx = 0; command_idx < layerCommands.size(); ++ command_idx) {
 		std::shared_ptr<GCommand> comm = layerCommands[command_idx];
 
-		if (comm->getType() == 0) {
-			std::shared_ptr<G0> g0comm = std::static_pointer_cast<G0>(comm);
+		switch (comm->getType()) {
+			case 0: {
+				std::shared_ptr<G0> g0comm = std::static_pointer_cast<G0>(comm);
 
-			logAlways("(%d) %d: %f, %f, %f\n", command_idx, g0comm->getType(), g0comm->X(), g0comm->Y(), g0comm->Z());
-		}
-		else if (comm->getType() == 1) {
-			std::shared_ptr<G1> g1comm = std::static_pointer_cast<G1>(comm);
+				logAlways("(%d) %d: %f, %f, %f\n", command_idx, g0comm->getType(), g0comm->X(), g0comm->Y(), g0comm->Z());
+				break;
+			}
 
-			logAlways("(%d) %d: %f, %f, %f\n", command_idx, g1comm->getType(), g1comm->X(), g1comm->Y(), g1comm->Z());
+			case 1: {
+				std::shared_ptr<G1> g1comm = std::static_pointer_cast<G1>(comm);
+
+				logAlways("(%d) %d: %f, %f, %f\n", command_idx, g1comm->getType(), g1comm->X(), g1comm->Y(), g1comm->Z());
+				break;
+			}
 		}
 	}
 }
