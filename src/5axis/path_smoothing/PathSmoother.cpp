@@ -2,7 +2,6 @@
 #include "../../utils/logoutput.h"
 #include <iostream>
 #include <fstream>
-#include <string.h>
 
 namespace cura {
 
