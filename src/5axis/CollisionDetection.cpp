@@ -8,14 +8,15 @@
 
 #include "CollisionDetection.hpp"
 namespace cura{
-	void CollisionDetection::detectPrintCollisions(SequenceNode & sequence, MeshGroup* group){
+	void CollisionDetection::detectPrintCollisions(SeqGraph sequence){
 		sequenceGraph = sequence; //store the entire graph (root) to be used in collision detections
 		meshgroup = new MeshGroup(FffProcessor::getInstance());
 		
-		recursiveAabb( sequence );
+		//recursiveAabb( sequence );
 		
 	}
 	
+	/*
 	void CollisionDetection::recursiveAabb( SequenceNode & node){
 		std::vector<SequenceNode> possibleCollisions;
 		
@@ -33,28 +34,36 @@ namespace cura{
 			recursiveAabb(*node.geometricChildren[i]);
 		}
 	}
+	 */
 	
-	void CollisionDetection::aabbCollisionDetection(SequenceNode & printingNode, SequenceNode & collidingNode, std::vector<SequenceNode> & possibleCollisions){
+	std::vector<int> CollisionDetection::aabbCollisionDetection(int printingIndex){
+		std::vector<int> possibleCollisions;
+		AABB3D printingNodeAABB = sequenceGraph.getNode(printingIndex).getMesh().getAABB();
 		
 		//TODO: rotate everything so printingNode build direction is +Z
 		
 		//TODO: find max Z direction and extend printingNode AABB to this z value
 		
-		if(printingNode.id != collidingNode.id && printingNode.mesh.getAABB().hit(collidingNode.mesh.getAABB())){
-			possibleCollisions.push_back(collidingNode);
+		for(int i = 0; i < sequenceGraph.size(); i++){
+			AABB3D collidingNodeAABB = sequenceGraph.getNode(i).getMesh().getAABB();
+			
+			if( i != printingIndex && printingNodeAABB.hit(collidingNodeAABB) ){
+				possibleCollisions.push_back(i);
+			}
 		}
-		
+		/*
 		for(int i = 0; i < collidingNode.geometricChildren.size(); i++){
 			aabbCollisionDetection(printingNode, *collidingNode.geometricChildren[i], possibleCollisions);
 		}
+		 */
 		
-		return;
+		return possibleCollisions;
 		
 	}
 	
-	void CollisionDetection::sliceCollisionDetection(SequenceNode & node, std::vector<SequenceNode> & possibleCollisions){
+	void CollisionDetection::sliceCollisionDetection(int printingNode, std::vector<int> possibleCollisions){
 		
-		Mesh currentMesh = node.mesh;
+		Mesh currentMesh = sequenceGraph.getMesh(printingNode);
 		
 		//TODO: Get this matrix from the current nodes build direction
 		FMatrix3x3 transformationMatrix = FMatrix3x3();
@@ -72,12 +81,12 @@ namespace cura{
 		
 		
 		//loop through each node (sub-volume) that the nozzle may collide with when printing the current mesh
-		for( SequenceNode collision : possibleCollisions){
-			Mesh & collisionMesh = collision.mesh;
+		for( int collisionIndex : possibleCollisions){
+			Mesh collisionMesh = sequenceGraph.getMesh(collisionIndex);
 			
 			//apply the transformation
 			//TODO: Apply this transformation to reference, not copy, then account for this transformation so that it doesnt have to be undone but instead worked over
-			for(MeshVertex &vertex : node.mesh.vertices){
+			for(MeshVertex &vertex : collisionMesh.vertices){
 				vertex = transformationMatrix.apply(vertex.p);
 			}
 			
@@ -101,11 +110,13 @@ namespace cura{
 		std::vector<SlicerLayer> layers;
 		//const Mesh* slicedMesh = nullptr; //!< The sliced mesh
 		
+		//CURA CODE
 		assert(slice_layer_count > 0);
 		
 		TimeKeeper slice_timer;
 		
 		layers.resize(slice_layer_count);
+		//END CURA CODE
 		
 		//need to go one layer at a time
 		for(int32_t layer_nr = 0; layer_nr < slice_layer_count; layer_nr++)
@@ -119,7 +130,7 @@ namespace cura{
 		}
 		
 		
-		//loop through each face
+		//CURA CODE
 		for(unsigned int mesh_idx = 0; mesh_idx < mesh->faces.size(); mesh_idx++)
 		{
 			const MeshFace& face = mesh->faces[mesh_idx];
@@ -212,7 +223,7 @@ namespace cura{
 		mesh->expandXY(mesh->getSettingInMicrons("xy_offset"));
 		log("slice make polygons took %.3f seconds\n",slice_timer.restart());
 	}
-	
+	//END CURA CODE
 	
 	static std::vector<std::vector<int>> extractRotation(std::vector<std::vector<int>> fullTransformation){
 		std::vector<std::vector<int>> rotationMatrix;

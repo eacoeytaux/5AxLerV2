@@ -12,7 +12,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "SequenceNode.hpp"
+#include "SeqGraph.hpp"
 #include "../mesh.h"
 #include "Slicer.h"
 #include "settings.h"
@@ -24,17 +24,17 @@ namespace cura {
 	class CollisionDetection {
 		
 	public:
-		SequenceNode& sequenceGraph;
+		SeqGraph sequenceGraph;
 		MeshGroup *meshgroup;
 		
 		/**
 		 * Finds all collisions in a sequence of sub-meshes
 		 *
-		 * @param sequence parent node of sequence graph
+		 * @param sequence The sequence of nodes with populated geometric childre, but initially no collision children
 		 */
-		void detectPrintCollisions(SequenceNode &, MeshGroup*);
+		void detectPrintCollisions(SeqGraph sequence);
 		
-		//copied from cura
+		//CURA CODE
 		int64_t interpolate(int64_t x, int64_t x0, int64_t x1, int64_t y0, int64_t y1) const
 		{
 			int64_t dx_01 = x1 - x0;
@@ -44,7 +44,6 @@ namespace cura {
 			return y;
 		}
 		
-		//copied from cura
 		SlicerSegment project2D(Point3& p0, Point3& p1, Point3& p2, int32_t z) const
 		{
 			SlicerSegment seg;
@@ -56,6 +55,7 @@ namespace cura {
 			
 			return seg;
 		}
+		//END CURA CODE
 		
 	private:
 		
@@ -66,22 +66,24 @@ namespace cura {
 		 *
 		 * @param node current node of sequence graph
 		 */
-		void recursiveAabb(SequenceNode &);
+		//void recursiveAabb(SequenceNode &);
 		
 		/**
 		 * Finds all collision possibilites using axis-aligned bounded boxes
 		 *
+		 * @param printingNode The index of the node which is being printed
 		 *
-		 * @return bool True if there is a collision detected between the two Mesh's, False if not
+		 * @return A vector of potential collisions
 		 */
-		void aabbCollisionDetection(SequenceNode &, SequenceNode &, std::vector<SequenceNode> &);
+		std::vector<int> aabbCollisionDetection(int printingNode);
 		
 		/**
 		 * Performs collision detection using the slice method
 		 *
-		 * @param root node of the collision graph
+		 * @param printingNode The node which is being printed
+		 
 		 */
-		void sliceCollisionDetection(SequenceNode &, std::vector<SequenceNode> &);
+		void sliceCollisionDetection(int printingNode, std::vector<int> possibleCollisions);
 		
 		/**
 		 * helper functions
