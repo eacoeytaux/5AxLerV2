@@ -118,6 +118,7 @@ set(engine_SRCS # Except main.cpp.
     src/5axis/comms/SerialComms.cpp
 	src/5axis/SequenceNode.cpp
 	src/5axis/collisionDetection.cpp
+	src/5axis/seqGraph.cpp
 
 )
 
