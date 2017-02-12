@@ -31,7 +31,12 @@ namespace cura {
 		/**
 		 *The transformation necessary to print sub-volume in positive z-axis at origin
 		 */
-		FMatrix3x3 transformation;
+		FMatrix3x3 transformationToOrigin;
+		
+		/**
+		 *The transformation which moves the mesh back to it's original orientation
+		 */
+		FMatrix3x3 transformationToOriginal;
 		
 		/**
 		 *Get the mesh of this node
@@ -47,6 +52,13 @@ namespace cura {
 		 *@return the rotated Mesh.
 		 */
 		Mesh rotateToOrigin();
+		
+		/**
+		 *Rotates and transforms a mesh so that it's in its original position
+		 *
+		 *@return the rotated Mesh.
+		 */
+		Mesh rotateToOriginal();
 	};
 	
 	class SeqGraph {
@@ -65,6 +77,38 @@ namespace cura {
 		 *vector of each node's collision children indices
 		 */
 		std::vector<std::vector<int>> collisionChildren;
+		
+		/**
+		 *returns the node of the graph with the specified index
+		 *
+		 * @param index the index of the node
+		 *
+		 * @return the node with specified index
+		 */
+		SeqNode getNode(int index){ return graphNodes[index]; }
+		
+		/**
+		 *returns the geometric children of the node with given index
+		 *
+		 * @param index The index of the node
+		 *
+		 * @return the array of the node's geometric children
+		 */
+		std::vector<int> getGeometricChildren(int index){ return geometricChildren[index]; }
+		
+		/**
+		 *returns the mesh of the node with the specified index
+		 *
+		 * @param index The index of the node
+		 *
+		 * @return the mesh of the node
+		 */
+		Mesh getMesh(int index){ return graphNodes[index].getMesh(); }
+		
+		/**
+		 *returns the number of nodes in the graph
+		 */
+		long int size(){ return graphNodes.size(); }
 		
 		/**
 		 *Adds a Sequence Node as a geometric child
