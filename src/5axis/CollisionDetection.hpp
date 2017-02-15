@@ -19,6 +19,7 @@
 #include "MeshGroup.h"
 #include "SliceDataStorage.h"
 #include "FffProcessor.h"
+#include "OBB3D.hpp"
 
 namespace cura {
 	class CollisionDetection {

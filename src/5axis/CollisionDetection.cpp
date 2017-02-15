@@ -38,7 +38,13 @@ namespace cura{
 	
 	std::vector<int> CollisionDetection::aabbCollisionDetection(int printingIndex){
 		std::vector<int> possibleCollisions;
-		AABB3D printingNodeAABB = sequenceGraph.getNode(printingIndex).getMesh().getAABB();
+		SeqNode printingNode = sequenceGraph.getNode(printingIndex);
+		
+		AABB3D * unorientedBB = new AABB3D();
+		OBB3D * obb = new OBB3D(printingNode.getTransformation());
+		
+		//loop through all points in printing node, making the obb and the transformed mesh
+		
 		
 		//TODO: rotate everything so printingNode build direction is +Z
 		
@@ -66,6 +72,9 @@ namespace cura{
 		Mesh currentMesh = sequenceGraph.getMesh(printingNode);
 		
 		//TODO: Get this matrix from the current nodes build direction
+		
+		///////TransformationMatrix3D
+		
 		FMatrix3x3 transformationMatrix = FMatrix3x3();
 		transformationMatrix.m[0][0] = cos(3.14159265);
 		transformationMatrix.m[1][0] = -sin(3.14159265);

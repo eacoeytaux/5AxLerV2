@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 #include "../mesh.h"
+#include "TransformationMatrix3D.hpp"
 
 
 namespace cura {
@@ -31,12 +32,12 @@ namespace cura {
 		/**
 		 *The transformation necessary to print sub-volume in positive z-axis at origin
 		 */
-		FMatrix3x3 transformationToOrigin;
+		TransformationMatrix3D transformationToOrigin;
 		
 		/**
 		 *The transformation which moves the mesh back to it's original orientation
 		 */
-		FMatrix3x3 transformationToOriginal;
+		TransformationMatrix3D transformationToOriginal;
 		
 		/**
 		 *Get the mesh of this node
@@ -45,6 +46,14 @@ namespace cura {
 		 *@return the mesh
 		 */
 		Mesh getMesh(){ return mesh; }
+		
+		/**
+		 *Get the transformation of this node
+		 *The transformation is the transformation matrix which, when applied to the node, orients it so the build direction is along positive Z axis and base it at origin.
+		 *
+		 *@return the mesh
+		 */
+		TransformationMatrix3D getTransformation(){ return transformationToOrigin; }
 		
 		/**
 		 *Rotates and transforms a mesh so that it's build direction is in the positive Z axis.
