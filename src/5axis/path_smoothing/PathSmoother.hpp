@@ -5,18 +5,30 @@
 #include <string>
 #include <sstream>
 #include <memory>
+#include "../../utils/floatpoint.h"
 
 namespace cura {
+
+#define MAX_ACCEL 5
+#define FEEDRATE 5
+#define X_HOME 0
+#define Y_HOME 0
+#define Z_HOME 203
+#define CONTROL_LOOP_FREQ 20000
+#define MAX_ANGLE 0.17453292519943295769236907684886
 
 class GCommand;
 
 class PathSmoother {
 private:
-	// Since G-commands often omit a parameter (e.g. z is specified once and then unspecified
+	// Since G-commands often omit parameters (e.g. z is specified once and then unspecified
 	// for all G-commands after which are at the same z), this keeps track of the most updated
 	// value for each <x, y, z> so that every G0/G1 object can have all three values explicitly
 	// stated regardless of whether they were specified in the g-code
-	double lastX, lastY, lastZ;
+	float lastX, lastY, lastZ;
+
+	// Stores the current position of the print-head
+	float currX, currY, currZ;
 
 	// Stores all G-commands for a single layer
 	std::vector<std::shared_ptr<GCommand>> layerCommands;
@@ -68,6 +80,38 @@ private:
 		split(s, delim, std::back_inserter(elems));
 		return elems;
 	}
+
+	/**
+	 * Takes in a GCommand and returns the command's
+	 * x/y/z values in an FPoint3. If the command is not recognized, the FPoint3
+	 * has value <0, 0, 0> TODO: There's a better way to handle invalid G-commands
+	 *
+	 * @param comm A pointer to the GCommand
+	 *
+	 * @return The FPoint3 containing the G-command positional values
+	 */
+	FPoint3 pointFromGCommand(std::shared_ptr<GCommand> comm);
+
+	/**
+	 * Takes in an array of G-commands and two indices in the array, and finds
+	 * the shortest path segment between the two indices
+	 *
+	 * @param comms The array of commands
+	 * @param start_idx The index of the first command
+	 * @param end_idx The index of the last command (inclusive)
+	 *
+	 * @return The shortest distance
+	 */
+	float shortestSegmentDistance(std::vector<std::shared_ptr<GCommand>>& comms, unsigned int start_idx, unsigned int end_idx);
+
+	/**
+	 * Computes the feedrate for a spline given a spline delta
+	 *
+	 * @param delta The delta to compute the feedrate for
+	 *
+	 * @return A float representing feedrate
+	 */
+	float feedrateFromDelta(float delta);
 public:
 	/**
 	 * PathSmoother accepts a string giving the path to the GCode
@@ -89,24 +133,24 @@ public:
 
 class G0 : public GCommand {
 private:
-	double x, y, z;
+	float x, y, z;
 
 public:
-	G0(double _x, double _y, double _z) : GCommand(0), x(_x), y(_y), z(_z) {};
-	double X() { return x; }
-	double Y() { return y; }
-	double Z() { return z; }
+	G0(float _x, float _y, float _z) : GCommand(0), x(_x), y(_y), z(_z) {};
+	float X() { return x; }
+	float Y() { return y; }
+	float Z() { return z; }
 };
 
 class G1 : public GCommand {
 private:
-	double x, y, z;
+	float x, y, z;
 
 public:
-	G1(double _x, double _y, double _z) : GCommand(1), x(_x), y(_y), z(_z) {};
-	double X() { return x; }
-	double Y() { return y; }
-	double Z() { return z; }
+	G1(float _x, float _y, float _z) : GCommand(1), x(_x), y(_y), z(_z) {};
+	float X() { return x; }
+	float Y() { return y; }
+	float Z() { return z; }
 };
 
 class G28 : public GCommand {

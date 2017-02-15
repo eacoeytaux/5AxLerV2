@@ -9,6 +9,11 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 	// Set the initial value of x/y/z point to be 0, 0, 0
 	lastX = lastY = lastZ = 0;
 
+	// Set the initial value of the current position to home values
+	currX = X_HOME;
+	currY = Y_HOME;
+	currZ = Z_HOME;
+
 	// Open the GCode file
 	std::ifstream file(gcodeFilePath);
 
@@ -57,26 +62,153 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 }
 
 void PathSmoother::processLayer() {
+	// Get the shortest distance from the first 15 path segments
+	float shortestSegmentDist = shortestSegmentDistance(layerCommands, 0, 15);
+	float delta = 0.5 * shortestSegmentDist;
+	float maxFeedrate = feedrateFromDelta(delta);
+
 	// Iterate through each point on the path
-	for (unsigned int command_idx = 0; command_idx < layerCommands.size(); ++ command_idx) {
-		std::shared_ptr<GCommand> comm = layerCommands[command_idx];
+	for (unsigned int command_idx = 0; command_idx < layerCommands.size(); ++command_idx) {
+		FPoint3 points[3];
+		std::shared_ptr<GCommand> commands[3];
+		commands[0] = layerCommands[command_idx];
+		commands[1] = layerCommands[command_idx + 1];
+		commands[2] = layerCommands[command_idx + 2];
 
-		switch (comm->getType()) {
-			case 0: {
-				std::shared_ptr<G0> g0comm = std::static_pointer_cast<G0>(comm);
+		for (unsigned int i = 0; i < 3; ++i) {
+			std::shared_ptr<GCommand> comm = commands[i];
 
-				logAlways("(%d) %d: %f, %f, %f\n", command_idx, g0comm->getType(), g0comm->X(), g0comm->Y(), g0comm->Z());
-				break;
-			}
 
-			case 1: {
-				std::shared_ptr<G1> g1comm = std::static_pointer_cast<G1>(comm);
+		}
 
-				logAlways("(%d) %d: %f, %f, %f\n", command_idx, g1comm->getType(), g1comm->X(), g1comm->Y(), g1comm->Z());
-				break;
-			}
+		FPoint3 lineSegment1Normalized = (points[1] - points[0]).normalized();
+		FPoint3 lineSegment2Normalized = (points[2] - points[1]).normalized();
+
+		float angle = acos((lineSegment1Normalized.x * lineSegment2Normalized.x + lineSegment1Normalized.y * lineSegment2Normalized.y + lineSegment1Normalized.z * lineSegment2Normalized.z));
+
+		FPoint3 v1_vect = lineSegment1Normalized * FEEDRATE;
+		FPoint3 v2_vect = lineSegment2Normalized * FEEDRATE;
+
+		FPoint3 maxAccel_vect = FPoint3(MAX_ACCEL, MAX_ACCEL, MAX_ACCEL);
+		FPoint3 a_vect = (maxAccel_vect * 4) / pow(FEEDRATE, 2);
+		FPoint3 b_vect = lineSegment1Normalized - lineSegment2Normalized;
+
+		float root_x = -b_vect.x / a_vect.x;
+		float root_y = -b_vect.y / a_vect.y;
+		float root_z = -b_vect.z / a_vect.z;
+		float delta = root_x;
+
+		if (delta > 0 && angle > MAX_ANGLE) {
+			logAlways("=== INFO ===\n");
+			logAlways("pi = <%f, %f, %f>, pm = <%f, %f, %f>, pf = <%f, %f, %f>\n", points[0].x, points[0].y, points[0].z, points[1].x, points[1].y, points[1].z, points[2].x, points[2].y, points[2].z);
+			logAlways("ls1n = <%f, %f, %f>, ls2n = <%f, %f, %f>\n", lineSegment1Normalized.x, lineSegment1Normalized.y, lineSegment1Normalized.z, lineSegment2Normalized.x, lineSegment1Normalized.y, lineSegment2Normalized.z);
+			logAlways("v1_vect = <%f, %f, %f>, v2_vect = <%f, %f, %f>\n", v1_vect.x, v1_vect.y, v1_vect.z, v2_vect.x, v2_vect.y, v2_vect.z);
+			logAlways("a_vect = <%f, %f, %f>, b_vect = <%f, %f, %f>\n", a_vect.x, a_vect.y, a_vect.z, b_vect.x, b_vect.y, b_vect.z);
+			logAlways("root_x = %f, root_y = %f, root_z = %f\n", root_x, root_y, root_z);
+
+			if (root_y > delta) delta = root_y;
+			if (root_z > delta) delta = root_z;
+
+			FPoint3 splineEndPoints[2];
+			splineEndPoints[0] = points[1] - lineSegment1Normalized * delta;
+			splineEndPoints[1] = points[1] + lineSegment2Normalized * delta;
+			float t_d = 2 * delta / FEEDRATE;
+
+			FPoint3 c3 = splineEndPoints[0];
+			FPoint3 c2 = v1_vect;
+			FPoint3 c1 = (v2_vect - c2) / (2 * t_d);
+
+			FMatrix3x3 splineMatrix = FMatrix3x3();
+			splineMatrix.m[0][0] = c1.x;
+			splineMatrix.m[1][0] = c1.y;
+			splineMatrix.m[2][0] = c1.z;
+			splineMatrix.m[0][1] = c2.x;
+			splineMatrix.m[1][1] = c2.y;
+			splineMatrix.m[2][1] = c2.z;
+			splineMatrix.m[0][2] = c3.x;
+			splineMatrix.m[1][2] = c3.y;
+			splineMatrix.m[2][2] = c3.z;
+
+			float halfTimeC1 = pow(t_d / 2, 2);
+			float halfTimeC2 = t_d / 2;
+			float halfTimeC3 = 1;
+
+			FPoint3 splineHalfwayPoint = FPoint3(
+				halfTimeC1 * splineMatrix.m[0][0] + halfTimeC2 * splineMatrix.m[0][1] + halfTimeC3 * splineMatrix.m[0][2],
+				halfTimeC1 * splineMatrix.m[1][0] + halfTimeC2 * splineMatrix.m[1][1] + halfTimeC3 * splineMatrix.m[1][2],
+				halfTimeC1 * splineMatrix.m[2][0] + halfTimeC2 * splineMatrix.m[2][1] + halfTimeC3 * splineMatrix.m[2][2]
+			);
+
+			float chord_error = (points[1] - splineHalfwayPoint).vSize();
+
+			logAlways("chord error = %f\n" \
+					  "delta = %f\n" \
+					  "acceleration vector = <%f, %f, %f>\n", chord_error, delta, c1.x / 2, c1.y / 2, c1.z / 2);
+			
+			float ratio = ceil(t_d / (1.0 / CONTROL_LOOP_FREQ));
+			delta = (1.0 / CONTROL_LOOP_FREQ) * FEEDRATE * ratio / 2;
+			logAlways("new delta = %f\n", delta);
 		}
 	}
+}
+
+float PathSmoother::feedrateFromDelta(float delta) {
+	return 1;
+}
+
+float PathSmoother::shortestSegmentDistance(std::vector<std::shared_ptr<GCommand>>& comms, unsigned int start_idx, unsigned int end_idx) {
+	// If the indices are the same, no distance
+	if (start_idx == end_idx) return 0.0;	
+
+	// Define our distance variable and
+	float dist2 = 0;
+	FPoint3 points[2];
+
+	// Find the shortest segment between start_idx and end_idx
+	for (unsigned int command_idx = start_idx; command_idx < end_idx; ++command_idx) {
+		points[0] = pointFromGCommand(layerCommands[command_idx]);
+		points[1] = pointFromGCommand(layerCommands[command_idx + 1]);
+		float dist2_temp = (points[1] - points[0]).vSize2();
+
+		if (dist2_temp < dist2) {
+			dist2 = dist2_temp;
+		}
+	}
+
+	return sqrt(dist2);
+}
+
+FPoint3 PathSmoother::pointFromGCommand(std::shared_ptr<GCommand> comm) {
+	FPoint3 point;
+	switch (comm->getType()) {
+		// G0 command, point is specified XYZ point
+		case 0: {
+			std::shared_ptr<G0> g0comm = std::static_pointer_cast<G0>(comm);
+			
+			point = FPoint3(g0comm->X(), g0comm->Y(), g0comm->Z());
+			break;
+		}
+		// G1 command, point is specified XYZ point
+		case 1: {
+			std::shared_ptr<G1> g1comm = std::static_pointer_cast<G1>(comm);
+			
+			point = FPoint3(g1comm->X(), g1comm->Y(), g1comm->Z());
+			break;
+		}
+		// G28 command, point is the specified HOME values
+		case 28: {
+			std::shared_ptr<G28> g28comm = std::static_pointer_cast<G28>(comm);
+
+			point = FPoint3(X_HOME, Y_HOME, Z_HOME);
+			break;
+		}
+
+		default:
+			logAlways("[ERROR] Could not identify GCode command with type %d\n", comm->getType());
+			point = FPoint3(0, 0, 0);
+	}
+
+	return point;
 }
 
 void PathSmoother::processGCommand(std::string command) {
