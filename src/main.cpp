@@ -20,9 +20,10 @@
 
 #include "settings/SettingsToGV.h"
 
+// CUSTOM CODE
 #include "5axis/MeshToSTL.hpp"
-#include "5axis/SequenceNode.hpp"
-#include "5axis/CollisionDetection.hpp"
+#include "5axis/path_smoothing/PathSmoother.hpp"
+// END CUSTOM CODE
 
 namespace cura
 {
@@ -443,6 +444,13 @@ int main(int argc, char **argv)
         }
         exit(0);
     }
+    // CUSTOM CODE
+    else if (stringcasecompare(argv[1], "velocityprofile") == 0) {
+        char* gcodeFile = argv[2];
+
+        PathSmoother ps = PathSmoother(gcodeFile);
+    }
+    // END CUSTOM CODE
     else
     {
         cura::logError("Unknown command: %s\n", argv[1]);
