@@ -53,7 +53,7 @@ namespace cura{
 		for(int i = 0; i < sequenceGraph.size(); i++){
 			AABB3D collidingNodeAABB = sequenceGraph.getNode(i).getMesh().getAABB();
 			
-			if( i != printingIndex && printingNodeAABB.hit(collidingNodeAABB) ){
+			if( i != printingIndex && collidingNodeAABB.hit(collidingNodeAABB) ){
 				possibleCollisions.push_back(i);
 			}
 		}

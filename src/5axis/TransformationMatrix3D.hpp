@@ -10,7 +10,7 @@
 #define TransformationMatrix3D_hpp
 
 #include <stdio.h>
-#include "intpoint.h"
+#include "../utils/intpoint.h"
 
 
 //this is very similar to cura's FMatrix3x3

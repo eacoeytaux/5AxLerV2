@@ -12,13 +12,14 @@
 #include <stdio.h>
 #include <math.h>
 
+
 #include "SeqGraph.hpp"
 #include "../mesh.h"
-#include "Slicer.h"
-#include "settings.h"
-#include "MeshGroup.h"
-#include "SliceDataStorage.h"
-#include "FffProcessor.h"
+#include "../Slicer.h"
+#include "../settings/settings.h"
+#include "../MeshGroup.h"
+#include "../SliceDataStorage.h"
+#include "../FffProcessor.h"
 #include "OBB3D.hpp"
 
 namespace cura {

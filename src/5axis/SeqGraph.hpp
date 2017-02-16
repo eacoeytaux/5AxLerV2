@@ -14,6 +14,7 @@
 #include "TransformationMatrix3D.hpp"
 
 
+
 namespace cura {
 	
 	class SeqNode {
@@ -26,7 +27,7 @@ namespace cura {
 		/**
 		 *The mesh of the sub-volume represented by this node.
 		 */
-		Mesh & mesh;
+		Mesh mesh;
 		
 		
 		/**

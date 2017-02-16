@@ -10,9 +10,9 @@
 #define OBB3D_hpp
 
 #include <stdio.h>
-#include "intpoint.h"
-#include "AABB3D.h"
-#include "floatpoint.h"
+#include "../utils/intpoint.h"
+#include "../utils/AABB3D.h"
+#include "../utils/floatpoint.h"
 #include "TransformationMatrix3D.hpp"
 
 namespace cura{
