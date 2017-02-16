@@ -382,7 +382,11 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 	
 	while( !faceQueue.empty()){
 		int faceIndex = faceQueue.front();
-		markedFaces[faceIndex] = true;
+		
+		if(faceIndex >= markedFaces.size()){
+			markedFaces.resize(faceIndex+1);
+		}
+		markedFaces.at(faceIndex) = true;
 		
 		Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
 		Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
@@ -390,14 +394,24 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 		
 		parent.addFace(p0, p1, p2);
 		
-		for( int adjacecentFace : mesh.faces[faceIndex].connected_face_index){
-			if( !markedFaces[adjacecentFace] ){
-				faceQueue.push(adjacecentFace);
+		for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+			if( adjacentFace >= markedFaces.size() || !markedFaces[adjacentFace] ){
+				faceQueue.push(adjacentFace);
 			}
 		}
 		faceQueue.pop();
 	}
 	
+	//Error checking to ensure that all faces we processed and added to an new mesh
+	if(markedFaces.size() == mesh.faces.size()){
+		for(int i = 0; i < markedFaces.size(); i++){
+			if(markedFaces.at(i) == false){
+				log("There was a face in the original mesh that was not added to the seperated meshes");
+			}
+		}
+	}else{
+		log("There was a face in the original mesh that was not added to the seperated meshes");
+	}
 	
 	MeshSequence meshSeq = {mesh, childrenMeshes};
 	return meshSeq;
