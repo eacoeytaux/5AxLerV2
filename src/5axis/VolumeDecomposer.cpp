@@ -325,8 +325,10 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 	
 	//create new meshes for all of the sub-meshes (overhangs) using the seed vertices
 	for(int i = 0; i < seedVertices.size(); i++){
-		if( !markedFaces[mesh.vertices[seedVertices[i]].connected_faces[0]] ){ //if any of the faces have been marked, this mesh has already been created so we can skip it
-			
+		int anAdjacentFaceIndex = mesh.vertices[seedVertices[i]].connected_faces[0];
+		
+		if( anAdjacentFaceIndex >= markedFaces.size() || !markedFaces[anAdjacentFaceIndex] ){ //if any of the faces have been marked, this mesh has already been created so we can skip it
+		
 			std::queue<int> faceQueue;
 			Mesh child = new Mesh( FffProcessor::getInstance());
 			
@@ -334,7 +336,12 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 		
 			while( !faceQueue.empty()){
 				int faceIndex = faceQueue.front();
-				markedFaces[faceIndex] = true;
+				
+				if(faceIndex >= markedFaces.size()){
+					markedFaces.resize(faceIndex+1);
+				}
+				
+				markedFaces.at(faceIndex) = true;
 				
 				Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
 				Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
@@ -342,11 +349,12 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 				
 				child.addFace(p0, p1, p2);
 				
-				for( int adjacecentFace : mesh.faces[faceIndex].connected_face_index){
-					if( !markedFaces[adjacecentFace] ){
-						faceQueue.push(adjacecentFace);
+				for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+					if( adjacentFace >= markedFaces.size() || !markedFaces.at(adjacentFace) ){
+						faceQueue.push(adjacentFace);
 					}
 				}
+				
 				faceQueue.pop();
 			}
 			childrenMeshes.push_back(mesh);
@@ -363,6 +371,8 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 	
 	if( seedIndex >= mesh.faces.size()){ //There are no more faces to form the parent mesh
 		log("No Parent mesh found when seperating meshes!");
+		MeshSequence meshSeq = {mesh, childrenMeshes};
+		return meshSeq;
 	}
 	
 	std::queue<int> faceQueue;
@@ -389,7 +399,7 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 	}
 	
 	
-	MeshSequence meshSeq = {parent, childrenMeshes};
+	MeshSequence meshSeq = {mesh, childrenMeshes};
 	return meshSeq;
 }
 
