@@ -287,6 +287,30 @@ void slice(int argc, char **argv)
 #endif
     //Finalize the processor, this adds the end.gcode. And reports statistics.
     FffProcessor::getInstance()->finalize();
+	
+	
+	FMatrix3x3 transformationMatrix = FMatrix3x3();
+	transformationMatrix.m[0][0] = cos(3.14159265/4);
+	transformationMatrix.m[1][0] = -sin(3.14159265/4);
+	transformationMatrix.m[2][0] = 0;
+	transformationMatrix.m[0][1] = sin(3.14159265/4);
+	transformationMatrix.m[1][1] = cos(3.14159265/4);
+	transformationMatrix.m[2][1] = 0;
+	transformationMatrix.m[0][2] = 0;
+	transformationMatrix.m[1][2] = 0;
+	transformationMatrix.m[2][2] = 1;
+	
+	for(MeshVertex &vertex : meshgroup->meshes[0].vertices){
+		vertex = transformationMatrix.apply(vertex.p);
+	}
+	
+	MeshToSTL::constructSTLfromMesh(meshgroup->meshes[0], "rotation.stl");
+	
+	
+	
+	//printf("PPPPPPOINTL:::::   ( %i,  %i,  %i )", point.x, point.y, point.z);
+	
+	//}
 
     delete meshgroup;
 }
@@ -333,7 +357,8 @@ int main(int argc, char **argv)
         print_usage();
         exit(1);
     }
-    
+	printf("\n New rotati");
+	
     if (stringcasecompare(argv[1], "connect") == 0)
     {
         connect(argc, argv);
@@ -433,6 +458,46 @@ int main(int argc, char **argv)
         print_usage();
         exit(1);
     }
-    
+	 /*
+	
+	AABB3D box;
+	box.include(Point3(0,0,0));
+	box.include(Point3(5,5,5));
+	
+	std::vector<Point3> face;
+	face.push_back(Point3(-5,0,-1));
+	face.push_back(Point3(1, 1,6));
+	face.push_back(Point3(1, 0, 0));
+	
+	//CollisionDetection::faceBoxOverlap(box, face);
+	std::vector<std::vector<int>> rotationMatrix;
+	std::vector<int> row;
+	
+	//create a default matrix
+	rotationMatrix.push_back(row);
+	rotationMatrix.push_back(row);
+	rotationMatrix.push_back(row);
+	rotationMatrix.push_back(row);
+	rotationMatrix[0].push_back(1);
+	rotationMatrix[0].push_back(0);
+	rotationMatrix[0].push_back(0);
+	rotationMatrix[0].push_back(0);
+	rotationMatrix[1].push_back(0);
+	rotationMatrix[1].push_back(1);
+	rotationMatrix[1].push_back(0);
+	rotationMatrix[1].push_back(0);
+	rotationMatrix[2].push_back(0);
+	rotationMatrix[2].push_back(0);
+	rotationMatrix[2].push_back(1);
+	rotationMatrix[2].push_back(0);
+	rotationMatrix[3].push_back(0);
+	rotationMatrix[3].push_back(0);
+	rotationMatrix[3].push_back(0);
+	rotationMatrix[3].push_back(1);
+	
+	
+	printf("\n New rotation matrix: \n| %i  %i  %i   %i |\n| %i  %i  %i   %i |\n| %i  %i  %i   %i |\n| %i  %i  %i   %i |\n", rotationMatrix[0][0], rotationMatrix[0][1], rotationMatrix[0][2], rotationMatrix[0][3], rotationMatrix[1][0], rotationMatrix[1][1], rotationMatrix[1][2], rotationMatrix[1][3], rotationMatrix[2][0], rotationMatrix[2][1], rotationMatrix[2][2], rotationMatrix[2][3], rotationMatrix[3][0], rotationMatrix[3][1], rotationMatrix[3][2], rotationMatrix[3][3]);
+
+	*/
     return 0;
 }

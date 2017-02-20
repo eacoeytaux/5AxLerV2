@@ -313,6 +313,110 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 
 	return numPointsFound;
 }
+	
+MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVertices){
+	std::vector<Mesh> childrenMeshes;
+	std::vector<bool> markedFaces;
+	
+	if( seedVertices.empty()){
+		MeshSequence meshSeq = {mesh, childrenMeshes};
+		return meshSeq;
+	}
+	
+	//create new meshes for all of the sub-meshes (overhangs) using the seed vertices
+	for(int i = 0; i < seedVertices.size(); i++){
+		int anAdjacentFaceIndex = mesh.vertices[seedVertices[i]].connected_faces[0];
+		
+		if( anAdjacentFaceIndex >= markedFaces.size() || !markedFaces[anAdjacentFaceIndex] ){ //if any of the faces have been marked, this mesh has already been created so we can skip it
+		
+			std::queue<int> faceQueue;
+			Mesh child = new Mesh( FffProcessor::getInstance());
+			
+			faceQueue.push(mesh.vertices[seedVertices[i]].connected_faces[0]);
+		
+			while( !faceQueue.empty()){
+				int faceIndex = faceQueue.front();
+				
+				if(faceIndex >= markedFaces.size()){
+					markedFaces.resize(faceIndex+1);
+				}
+				
+				markedFaces.at(faceIndex) = true;
+				
+				Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
+				Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
+				Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
+				
+				child.addFace(p0, p1, p2);
+				
+				for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+					if( adjacentFace >= markedFaces.size() || !markedFaces.at(adjacentFace) ){
+						faceQueue.push(adjacentFace);
+					}
+				}
+				
+				faceQueue.pop();
+			}
+			childrenMeshes.push_back(mesh);
+		}
+	}
+	
+	//Find the base mesh, which is the mesh the children will be build upon
+	int seedIndex = 0;
+	
+	//loop until an face that has not been already added to a mesh is found
+	while(!(seedIndex >= markedFaces.size()) && markedFaces[seedIndex]){ //find a face which has not been marked
+			seedIndex++;
+	}
+	
+	if( seedIndex >= mesh.faces.size()){ //There are no more faces to form the parent mesh
+		log("No Parent mesh found when seperating meshes!");
+		MeshSequence meshSeq = {mesh, childrenMeshes};
+		return meshSeq;
+	}
+	
+	std::queue<int> faceQueue;
+	Mesh parent = new Mesh( FffProcessor::getInstance());
+	
+	faceQueue.push(seedIndex);
+	
+	while( !faceQueue.empty()){
+		int faceIndex = faceQueue.front();
+		
+		if(faceIndex >= markedFaces.size()){
+			markedFaces.resize(faceIndex+1);
+		}
+		markedFaces.at(faceIndex) = true;
+		
+		Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
+		Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
+		Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
+		
+		parent.addFace(p0, p1, p2);
+		
+		for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+			if( adjacentFace >= markedFaces.size() || !markedFaces[adjacentFace] ){
+				faceQueue.push(adjacentFace);
+			}
+		}
+		faceQueue.pop();
+	}
+	
+	//Error checking to ensure that all faces we processed and added to an new mesh
+	if(markedFaces.size() == mesh.faces.size()){
+		for(int i = 0; i < markedFaces.size(); i++){
+			if(markedFaces.at(i) == false){
+				log("There was a face in the original mesh that was not added to the seperated meshes");
+			}
+		}
+	}else{
+		log("There was a face in the original mesh that was not added to the seperated meshes");
+	}
+	
+	MeshSequence meshSeq = {mesh, childrenMeshes};
+	return meshSeq;
+}
+
 
 bool VolumeDecomposer::findZValueOf2DPointon3DLine(const Point3& P3_0, const Point3& P3_1, const Point& startPoint, Point3& resultPoint) {
 	const Point flat_p0 = Point(P3_0.x, P3_0.y);
