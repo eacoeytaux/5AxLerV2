@@ -63,119 +63,142 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 
 void PathSmoother::processLayer() {
 	// Get the shortest distance from the first 15 path segments
-	float shortestSegmentDist = shortestSegmentDistance(layerCommands, 0, 15);
-	float delta = 0.5 * shortestSegmentDist;
-	float maxFeedrate = feedrateFromDelta(delta);
+	FPoint3 maxAccel_vect = FPoint3(MAX_ACCEL, MAX_ACCEL, MAX_ACCEL);
+	float maxFeedrate = findMinFeedrate(layerPoints, 0, 15, maxAccel_vect);
+
+	logAlways("[INFO] maxFeedrate = %f\n", maxFeedrate);
 
 	// Iterate through each point on the path
-	for (unsigned int command_idx = 0; command_idx < layerCommands.size(); ++command_idx) {
-		FPoint3 points[3];
-		std::shared_ptr<GCommand> commands[3];
-		commands[0] = layerCommands[command_idx];
-		commands[1] = layerCommands[command_idx + 1];
-		commands[2] = layerCommands[command_idx + 2];
+	// for (unsigned int point_idx = 0; point_idx < layerPoints.size() - 2; ++point_idx) {
+	// 	FPoint3 p1 = layerPoints[point_idx];
+	// 	FPoint3 p2 = layerPoints[point_idx + 1];
+	// 	FPoint3 p3 = layerPoints[point_idx + 2];
 
-		for (unsigned int i = 0; i < 3; ++i) {
-			std::shared_ptr<GCommand> comm = commands[i];
+	// }
+}
 
+void PathSmoother::createSpline(FPoint3 p1, FPoint3 p2, FPoint3 p3, FPoint3 accelProfile, float feedrate) {
+	FPoint3 lineSegment1 = (p2 - p1);
+	FPoint3 lineSegment2 = (p3 - p2);
+	FPoint3 lineSegment1Normalized = lineSegment1.normalized();
+	FPoint3 lineSegment2Normalized = lineSegment2.normalized();
 
-		}
+	float angle = acos((lineSegment1Normalized.x * lineSegment2Normalized.x + lineSegment1Normalized.y * lineSegment2Normalized.y + lineSegment1Normalized.z * lineSegment2Normalized.z));
 
-		FPoint3 lineSegment1Normalized = (points[1] - points[0]).normalized();
-		FPoint3 lineSegment2Normalized = (points[2] - points[1]).normalized();
+	FPoint3 v1_vect = lineSegment1Normalized * feedrate;
+	FPoint3 v2_vect = lineSegment2Normalized * feedrate;
 
-		float angle = acos((lineSegment1Normalized.x * lineSegment2Normalized.x + lineSegment1Normalized.y * lineSegment2Normalized.y + lineSegment1Normalized.z * lineSegment2Normalized.z));
+	FPoint3 a_vect = (accelProfile * 4) / pow(feedrate, 2);
+	FPoint3 b_vect = lineSegment1Normalized - lineSegment2Normalized;
 
-		FPoint3 v1_vect = lineSegment1Normalized * FEEDRATE;
-		FPoint3 v2_vect = lineSegment2Normalized * FEEDRATE;
+	float root_x = -b_vect.x / a_vect.x;
+	float root_y = -b_vect.y / a_vect.y;
+	float root_z = -b_vect.z / a_vect.z;
+	float delta = root_x;
+	if (root_y > delta) delta = root_y;
+	if (root_z > delta) delta = root_z;
 
-		FPoint3 maxAccel_vect = FPoint3(MAX_ACCEL, MAX_ACCEL, MAX_ACCEL);
-		FPoint3 a_vect = (maxAccel_vect * 4) / pow(FEEDRATE, 2);
-		FPoint3 b_vect = lineSegment1Normalized - lineSegment2Normalized;
+	if (delta > 0 && angle > MAX_ANGLE) {
+		logAlways("=== INFO ===\n");
+		logAlways("pi = <%f, %f, %f>, pm = <%f, %f, %f>, pf = <%f, %f, %f>\n", p1.x, p1.y, p1.z, p2.x, p2.y, p2.z, p3.x, p3.y, p3.z);
+		logAlways("ls1n = <%f, %f, %f>, ls2n = <%f, %f, %f>\n", lineSegment1Normalized.x, lineSegment1Normalized.y, lineSegment1Normalized.z, lineSegment2Normalized.x, lineSegment1Normalized.y, lineSegment2Normalized.z);
+		logAlways("v1_vect = <%f, %f, %f>, v2_vect = <%f, %f, %f>\n", v1_vect.x, v1_vect.y, v1_vect.z, v2_vect.x, v2_vect.y, v2_vect.z);
+		logAlways("a_vect = <%f, %f, %f>, b_vect = <%f, %f, %f>\n", a_vect.x, a_vect.y, a_vect.z, b_vect.x, b_vect.y, b_vect.z);
+		logAlways("root_x = %f, root_y = %f, root_z = %f\n", root_x, root_y, root_z);
 
-		float root_x = -b_vect.x / a_vect.x;
-		float root_y = -b_vect.y / a_vect.y;
-		float root_z = -b_vect.z / a_vect.z;
-		float delta = root_x;
+		FPoint3 splineEndPoints[2];
+		splineEndPoints[0] = p2 - lineSegment1Normalized * delta;
+		splineEndPoints[1] = p2 + lineSegment2Normalized * delta;
 
-		if (delta > 0 && angle > MAX_ANGLE) {
-			logAlways("=== INFO ===\n");
-			logAlways("pi = <%f, %f, %f>, pm = <%f, %f, %f>, pf = <%f, %f, %f>\n", points[0].x, points[0].y, points[0].z, points[1].x, points[1].y, points[1].z, points[2].x, points[2].y, points[2].z);
-			logAlways("ls1n = <%f, %f, %f>, ls2n = <%f, %f, %f>\n", lineSegment1Normalized.x, lineSegment1Normalized.y, lineSegment1Normalized.z, lineSegment2Normalized.x, lineSegment1Normalized.y, lineSegment2Normalized.z);
-			logAlways("v1_vect = <%f, %f, %f>, v2_vect = <%f, %f, %f>\n", v1_vect.x, v1_vect.y, v1_vect.z, v2_vect.x, v2_vect.y, v2_vect.z);
-			logAlways("a_vect = <%f, %f, %f>, b_vect = <%f, %f, %f>\n", a_vect.x, a_vect.y, a_vect.z, b_vect.x, b_vect.y, b_vect.z);
-			logAlways("root_x = %f, root_y = %f, root_z = %f\n", root_x, root_y, root_z);
+		float t_d = 2 * delta / feedrate;
 
-			if (root_y > delta) delta = root_y;
-			if (root_z > delta) delta = root_z;
+		FPoint3 c3 = splineEndPoints[0];
+		FPoint3 c2 = v1_vect;
+		FPoint3 c1 = (v2_vect - c2) / (2 * t_d);
 
-			FPoint3 splineEndPoints[2];
-			splineEndPoints[0] = points[1] - lineSegment1Normalized * delta;
-			splineEndPoints[1] = points[1] + lineSegment2Normalized * delta;
-			float t_d = 2 * delta / FEEDRATE;
+		FMatrix3x3 splineMatrix = FMatrix3x3();
+		splineMatrix.m[0][0] = c1.x;
+		splineMatrix.m[1][0] = c1.y;
+		splineMatrix.m[2][0] = c1.z;
+		splineMatrix.m[0][1] = c2.x;
+		splineMatrix.m[1][1] = c2.y;
+		splineMatrix.m[2][1] = c2.z;
+		splineMatrix.m[0][2] = c3.x;
+		splineMatrix.m[1][2] = c3.y;
+		splineMatrix.m[2][2] = c3.z;
 
-			FPoint3 c3 = splineEndPoints[0];
-			FPoint3 c2 = v1_vect;
-			FPoint3 c1 = (v2_vect - c2) / (2 * t_d);
+		float halfTimeC1 = pow(t_d / 2, 2);
+		float halfTimeC2 = t_d / 2;
+		float halfTimeC3 = 1;
 
-			FMatrix3x3 splineMatrix = FMatrix3x3();
-			splineMatrix.m[0][0] = c1.x;
-			splineMatrix.m[1][0] = c1.y;
-			splineMatrix.m[2][0] = c1.z;
-			splineMatrix.m[0][1] = c2.x;
-			splineMatrix.m[1][1] = c2.y;
-			splineMatrix.m[2][1] = c2.z;
-			splineMatrix.m[0][2] = c3.x;
-			splineMatrix.m[1][2] = c3.y;
-			splineMatrix.m[2][2] = c3.z;
+		FPoint3 splineHalfwayPoint = FPoint3(
+			halfTimeC1 * splineMatrix.m[0][0] + halfTimeC2 * splineMatrix.m[0][1] + halfTimeC3 * splineMatrix.m[0][2],
+			halfTimeC1 * splineMatrix.m[1][0] + halfTimeC2 * splineMatrix.m[1][1] + halfTimeC3 * splineMatrix.m[1][2],
+			halfTimeC1 * splineMatrix.m[2][0] + halfTimeC2 * splineMatrix.m[2][1] + halfTimeC3 * splineMatrix.m[2][2]
+		);
 
-			float halfTimeC1 = pow(t_d / 2, 2);
-			float halfTimeC2 = t_d / 2;
-			float halfTimeC3 = 1;
+		float chord_error = (p2 - splineHalfwayPoint).vSize();
 
-			FPoint3 splineHalfwayPoint = FPoint3(
-				halfTimeC1 * splineMatrix.m[0][0] + halfTimeC2 * splineMatrix.m[0][1] + halfTimeC3 * splineMatrix.m[0][2],
-				halfTimeC1 * splineMatrix.m[1][0] + halfTimeC2 * splineMatrix.m[1][1] + halfTimeC3 * splineMatrix.m[1][2],
-				halfTimeC1 * splineMatrix.m[2][0] + halfTimeC2 * splineMatrix.m[2][1] + halfTimeC3 * splineMatrix.m[2][2]
-			);
-
-			float chord_error = (points[1] - splineHalfwayPoint).vSize();
-
-			logAlways("chord error = %f\n" \
-					  "delta = %f\n" \
-					  "acceleration vector = <%f, %f, %f>\n", chord_error, delta, c1.x / 2, c1.y / 2, c1.z / 2);
-			
-			float ratio = ceil(t_d / (1.0 / CONTROL_LOOP_FREQ));
-			delta = (1.0 / CONTROL_LOOP_FREQ) * FEEDRATE * ratio / 2;
-			logAlways("new delta = %f\n", delta);
-		}
+		logAlways("chord error = %f\n" \
+				  "delta = %f\n" \
+				  "acceleration vector = <%f, %f, %f>\n", chord_error, delta, c1.x / 2, c1.y / 2, c1.z / 2);
+		
+		float ratio = ceil(t_d / (1.0 / CONTROL_LOOP_FREQ));
+		delta = (1.0 / CONTROL_LOOP_FREQ) * feedrate * ratio / 2;
+		logAlways("new delta = %f\n", delta);
 	}
 }
 
-float PathSmoother::feedrateFromDelta(float delta) {
-	return 1;
+float PathSmoother::computeFeedrate(FPoint3 s1, FPoint3 s2, FPoint3 accelProfile, float delta) {
+	float s1size = s1.vSize();
+	float s2size = s2.vSize();
+
+	logAlways("[INFO] s1 = <%f, %f, %f>, s2 = <%f, %f, %f>\n", s1.x, s1.y, s1.z, s2.x, s2.y, s2.z);
+	logAlways("[INFO] s1size: %f, s2size: %f, delta: %f\n", s1size, s2size, delta);
+	logAlways("[INFO] accelProfile: <%f, %f, %f>\n", accelProfile.x, accelProfile.y, accelProfile.z);
+
+	float feedrate_x = accelProfile.x * delta * s1size * s2size / (s2size * s1.x - s1size * s2.x);
+	float feedrate_y = accelProfile.y * delta * s1size * s2size / (s2size * s1.y - s1size * s2.y);
+	float feedrate_z = accelProfile.z * delta * s1size * s2size / (s2size * s1.z - s1size * s2.z);
+
+	logAlways("[INFO] feedrates = <%f, %f, %f>\n", feedrate_x, feedrate_y, feedrate_z);
+
+	float min_feedrate = feedrate_x;
+	if (feedrate_y < min_feedrate) min_feedrate = feedrate_y;
+	if (feedrate_z < min_feedrate) min_feedrate = feedrate_z;
+
+	return 2 * sqrt(min_feedrate);
 }
 
-float PathSmoother::shortestSegmentDistance(std::vector<std::shared_ptr<GCommand>>& comms, unsigned int start_idx, unsigned int end_idx) {
+float PathSmoother::findMinFeedrate(std::vector<FPoint3>& points, unsigned int start_idx, unsigned int end_idx, FPoint3 accelProfile) {
 	// If the indices are the same, no distance
-	if (start_idx == end_idx) return 0.0;	
+	if (start_idx == end_idx) return 0.0;
+	if (start_idx - end_idx == 1) return MAX_FEEDRATE;
 
-	// Define our distance variable and
-	float dist2 = 0;
-	FPoint3 points[2];
+	// Define our distance variable and the index to the shortest segment
+	float dist2;
+	unsigned int idx = 0;
 
 	// Find the shortest segment between start_idx and end_idx
-	for (unsigned int command_idx = start_idx; command_idx < end_idx; ++command_idx) {
-		points[0] = pointFromGCommand(layerCommands[command_idx]);
-		points[1] = pointFromGCommand(layerCommands[command_idx + 1]);
-		float dist2_temp = (points[1] - points[0]).vSize2();
+	for (unsigned int point_idx = start_idx; point_idx < end_idx; ++point_idx) {
+		float dist2_temp = (points[point_idx] - points[point_idx + 1]).vSize2();
 
-		if (dist2_temp < dist2) {
+		if (point_idx == 0 || dist2_temp < dist2) {
 			dist2 = dist2_temp;
+			idx = point_idx;
 		}
 	}
 
-	return sqrt(dist2);
+	logAlways("[INFO] Smallest distance^2: %f\n", dist2);
+
+	// The smallest feedrate may be between the shortest segment and the segment before it,
+	// or the shortest segment and the segment after it
+	float delta = sqrt(dist2) * 0.5;
+	float f1 = computeFeedrate(points[idx] - points[idx - 1], points[idx + 1] - points[idx], accelProfile, delta);
+	float f2 = computeFeedrate(points[idx + 1] - points[idx], points[idx + 2] - points[idx + 1], accelProfile, delta);
+
+	if (f1 < f2) return f1;
+	else return f2;
 }
 
 FPoint3 PathSmoother::pointFromGCommand(std::shared_ptr<GCommand> comm) {
@@ -271,6 +294,8 @@ void PathSmoother::processGCommand(std::string command) {
 					layerCommands.push_back(command);
 				}
 
+				layerPoints.push_back(FPoint3(x, y, z));
+
 				// Update the last x, y, and z values to be the current values
 				lastX = x;
 				lastY = y;
@@ -309,6 +334,7 @@ void PathSmoother::processGCommand(std::string command) {
 			// Add the command to the list
 			auto command = std::make_shared<G28>(x, y, z);
 			layerCommands.push_back(command);
+			layerPoints.push_back(FPoint3(x, y, z));
 			break;
 		}
 

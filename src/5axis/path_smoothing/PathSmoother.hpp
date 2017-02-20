@@ -9,13 +9,13 @@
 
 namespace cura {
 
-#define MAX_ACCEL 5
-#define FEEDRATE 5
-#define X_HOME 0
-#define Y_HOME 0
-#define Z_HOME 203
-#define CONTROL_LOOP_FREQ 20000
-#define MAX_ANGLE 0.17453292519943295769236907684886
+#define MAX_ACCEL 5				// mm/s^2
+#define MAX_FEEDRATE 10			// mm/s
+#define X_HOME 0				// mm
+#define Y_HOME 0				// mm
+#define Z_HOME 203				// mm
+#define CONTROL_LOOP_FREQ 20000	// Hz
+#define MAX_ANGLE 0.17453292519943295769236907684886 // 10 degrees
 
 class GCommand;
 
@@ -32,6 +32,7 @@ private:
 
 	// Stores all G-commands for a single layer
 	std::vector<std::shared_ptr<GCommand>> layerCommands;
+	std::vector<FPoint3> layerPoints;
 
 	/**
 	 * Takes in a string containing a G-command, processes it into a GCommand object,
@@ -93,25 +94,42 @@ private:
 	FPoint3 pointFromGCommand(std::shared_ptr<GCommand> comm);
 
 	/**
-	 * Takes in an array of G-commands and two indices in the array, and finds
-	 * the shortest path segment between the two indices
+	 * Takes in an array of 3D points and two indices in the array, and finds the lowest
+	 * feedrate for all segments between the two indices.
 	 *
-	 * @param comms The array of commands
-	 * @param start_idx The index of the first command
-	 * @param end_idx The index of the last command (inclusive)
+	 * @param comms The array of points
+	 * @param start_idx The index of the first point
+	 * @param end_idx The index of the last point (inclusive)
 	 *
-	 * @return The shortest distance
+	 * @return The minimum feedrate
 	 */
-	float shortestSegmentDistance(std::vector<std::shared_ptr<GCommand>>& comms, unsigned int start_idx, unsigned int end_idx);
+	float findMinFeedrate(std::vector<FPoint3>& points, unsigned int, unsigned int, FPoint3);
 
 	/**
-	 * Computes the feedrate for a spline given a spline delta
+	 * Computes the feedrate for a spline between two line segments given an acceleration
+	 * profile specifying the maximum acceleration in each axis and a delta specifying
+	 * the maximum amount of distance along a line segment the spline has
 	 *
-	 * @param delta The delta to compute the feedrate for
+	 * @param segment1 The first line segment
+	 * @param segment2 The second line segment
+	 * @param accelProfile A 3D vector specifying maximum acceleration in all 3 axes
+	 * @param delta The spline delta
 	 *
-	 * @return A float representing feedrate
+	 * @return The feedrate as a float
 	 */
-	float feedrateFromDelta(float delta);
+	float computeFeedrate(FPoint3, FPoint3, FPoint3, float);
+
+	/**
+	 * Creates a continuous spline connecting the three given points (representing
+	 * two line segments) into a smooth path.
+	 *
+	 * @param p1 The startpoint of the first line segment
+	 * @param p2 The middle point (endpoint of the first line segment, startpoint of the second)
+	 * @param p3 The endpoint of the second line segment
+	 * @param accelProfile The maximum acceleration on each axis
+	 * @param feedrate The feedrate for the spline
+	 */
+	void createSpline(FPoint3 p1, FPoint3 p2, FPoint3 p3, FPoint3 accelProfile, float feedrate);
 public:
 	/**
 	 * PathSmoother accepts a string giving the path to the GCode
