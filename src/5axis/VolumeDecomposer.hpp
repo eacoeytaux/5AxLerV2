@@ -68,7 +68,7 @@ private:
 	 * The returned value is the pair of <x, y, z> points which are the endpoints of the line
 	 * which cuts the face in half.
 	 */
-	unsigned int findSplitPoints(Mesh& mesh, int faceID, PolygonRef intersectingPoly, std::pair<Point3, Point3>& result);
+	unsigned int findSplitPoints(Mesh& mesh, int faceID, PolygonRef intersectingPoly, std::vector<std::pair<Point3, Point3>> resultVect);
 
 	/**
 	 * Given two 3D points (P3_0, P3_1) and a third 3D point (startPoint) that is located between
