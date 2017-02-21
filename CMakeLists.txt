@@ -114,8 +114,15 @@ set(engine_SRCS # Except main.cpp.
     src/utils/ProximityPointLink.cpp
 
     src/5axis/VolumeDecomposer.cpp
-    src/5axis/MeshToSTL.cpp
     src/5axis/BuildMap.cpp
+	src/5axis/MeshToSTL.cpp
+    src/5axis/comms/SerialComms.cpp
+	src/5axis/SequenceNode.cpp
+	src/5axis/CollisionDetection.cpp
+	src/5axis/SeqGraph.cpp
+    src/5axis/path_smoothing/PathSmoother.cpp
+	src/5axis/TransformationMatrix3D.cpp
+	src/5axis/OBB3D.cpp
 )
 
 # List of tests. For each test there must be a file tests/${NAME}.cpp and a file tests/${NAME}.h.

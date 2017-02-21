@@ -81,7 +81,7 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
         logError("Layer height %i is disallowed.\n", layer_thickness);
         return false;
     }
-    int initial_slice_z = initial_layer_thickness - layer_thickness / 2;
+	int initial_slice_z = initial_layer_thickness - layer_thickness / 2;
     int slice_layer_count = (storage.model_max.z - initial_slice_z) / layer_thickness + 1;
     if (slice_layer_count <= 0) //Model is shallower than layer_height_0, so not even the first layer is sliced. Return an empty model then.
     {

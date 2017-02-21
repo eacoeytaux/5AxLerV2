@@ -11,7 +11,7 @@
 
 #include <memory>
 
-#include "../libs/clipper/clipper.hpp"
+#include <clipper/clipper.hpp>
 
 #include "../mesh.h"
 #include "../utils/intpoint.h"
