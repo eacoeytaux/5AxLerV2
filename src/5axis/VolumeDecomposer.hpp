@@ -13,6 +13,8 @@
 #include "../utils/floatpoint.h"
 #include "../utils/intpoint.h"
 
+#include "BuildMap.hpp"
+
 namespace cura {
 
 class VolumeDecomposer {
@@ -88,8 +90,8 @@ private:
 	 *	- 2 split points: Finds the points on the side of the face, and splits the triangle along those points
 	 					  If both points are the same, defaults down to a single split point
 	 */
-	void splitFace(Mesh& mesh, int faceID, int numSplitPoints, std::pair<Point3, Point3>& splitPoints);
-
+	void splitFaces(Mesh& mesh, PolygonRef intersectingPolyRef, int faceID, int numSplitPoints, std::pair<Point3, Point3>& splitPoints);
+    
 	/**
 	 * Discovers if the face is an overhang intersection for any of the polygons
 	 * in comparisonPoly. An overhang intersection is a face which is both inside and outside
@@ -127,27 +129,6 @@ private:
 	 * 6. If no intersections are found, an exception is thrown
 	 */
 	FPoint3 findPolyFaceIntersection(Mesh& mesh, int faceID, PolygonRef intersectingPoly, int sliceHeight);
-	
-	/**
-	 * Computes the normal of the given face. Returns an FPoint3, maintains
-	 * float precision.
-	 *
-	 * @param mesh The mesh the face is in
-	 * @param face The face to compute the normal of
-	 *
-	 * @return An FPoint3 object which corresponds to the normal vector
-	 */
-	static FPoint3 faceNormal(const Mesh& mesh, const MeshFace& face);
-
-	/**
-	 * Computes the normal of the given face but truncates floats into ints
-	 *
-	 * @param mesh The mesh the face is in
-	 * @param face The face to compute the normal of
-	 *
-	 * @return A Point3 object which corresponds to the normal vector
-	 */
-	static Point3 truncatedFaceNormal(const Mesh& mesh, const MeshFace& face);
 
 	// isOn finds out if c is on the same line as the one formed by points
 	// a and b, collinear and within help with this

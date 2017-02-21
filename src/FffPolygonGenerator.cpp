@@ -23,7 +23,9 @@
 #include "progress/ProgressEstimator.h"
 #include "progress/ProgressStageEstimator.h"
 #include "progress/ProgressEstimatorLinear.h"
+
 #include "5axis/VolumeDecomposer.hpp"
+#include "5axis/BuildMap.hpp"
 
 
 namespace cura
@@ -107,7 +109,8 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
     // Commented this out so we can still access the mesh later on
     // meshgroup->clear();///Clear the mesh face and vertex data, it is no longer needed after this point, and it saves a lot of memory.
 
-    VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0], slicerList[0]); 
+    VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0], slicerList[0]);
+    BuildMap bm(meshgroup->meshes[0]);
 
     // for (unsigned int mesh_idx = 0; mesh_idx < slicerList.size(); ++mesh_idx) {
     //     Slicer* meshSlicer = slicerList[mesh_idx];
