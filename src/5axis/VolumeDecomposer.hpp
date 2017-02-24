@@ -68,7 +68,7 @@ namespace cura {
          * The returned value is the pair of <x, y, z> points which are the endpoints of the line
          * which cuts the face in half.
          */
-        unsigned int findSplitPoints(Mesh& mesh, int faceID, PolygonRef intersectingPoly, std::vector<std::pair<Point3, Point3>> resultVect);
+        unsigned int findSplitPoints(Mesh& mesh, int faceID, PolygonRef intersectingPoly, std::vector<std::pair<Point3, Point3>>& resultVect);
         
         /**
          * Given two 3D points (P3_0, P3_1) and a third 3D point (startPoint) that is located between
@@ -94,7 +94,7 @@ namespace cura {
          *	- 2 split points: Finds the points on the side of the face, and splits the triangle along those points
 	 					  If both points are the same, defaults down to a single split point
          */
-        void splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, std::pair<Point3, Point3> splitPoints);
+        int splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, std::pair<Point3, Point3> splitPoints);
         
         /**
          * This function takes a mesh, which has been modified to have disjoint parts, and a list of seed vertices

@@ -110,7 +110,7 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
     // meshgroup->clear();///Clear the mesh face and vertex data, it is no longer needed after this point, and it saves a lot of memory.
 
     VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0], slicerList[0]);
-    BuildMap bm(meshgroup->meshes[0]);
+    //BuildMap bm(meshgroup->meshes[0]);
 
     // for (unsigned int mesh_idx = 0; mesh_idx < slicerList.size(); ++mesh_idx) {
     //     Slicer* meshSlicer = slicerList[mesh_idx];
