@@ -63,18 +63,21 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 
 void PathSmoother::processLayer() {
 	// Get the shortest distance from the first 15 path segments
-	FPoint3 maxAccel_vect = FPoint3(MAX_ACCEL, MAX_ACCEL, MAX_ACCEL);
+	FPoint3 maxAccel_vect = FPoint3(MAX_ACCEL/2, MAX_ACCEL/2, MAX_ACCEL/2);
 	float maxFeedrate = findMinFeedrate(layerPoints, 0, 15, maxAccel_vect);
 
 	logAlways("[INFO] maxFeedrate = %f\n", maxFeedrate);
 
 	// Iterate through each point on the path
-	// for (unsigned int point_idx = 0; point_idx < layerPoints.size() - 2; ++point_idx) {
-	// 	FPoint3 p1 = layerPoints[point_idx];
-	// 	FPoint3 p2 = layerPoints[point_idx + 1];
-	// 	FPoint3 p3 = layerPoints[point_idx + 2];
+	for (unsigned int point_idx = 0; point_idx < layerPoints.size() - 2; ++point_idx) {
+		FPoint3 p1 = layerPoints[point_idx];
+		FPoint3 p2 = layerPoints[point_idx + 1];
+		FPoint3 p3 = layerPoints[point_idx + 2];
 
-	// }
+		createSpline(p1, p2, p3, maxAccel_vect, maxFeedrate);
+
+		
+	}
 }
 
 void PathSmoother::createSpline(FPoint3 p1, FPoint3 p2, FPoint3 p3, FPoint3 accelProfile, float feedrate) {
@@ -157,15 +160,15 @@ float PathSmoother::computeFeedrate(FPoint3 s1, FPoint3 s2, FPoint3 accelProfile
 	logAlways("[INFO] s1size: %f, s2size: %f, delta: %f\n", s1size, s2size, delta);
 	logAlways("[INFO] accelProfile: <%f, %f, %f>\n", accelProfile.x, accelProfile.y, accelProfile.z);
 
-	float feedrate_x = accelProfile.x * delta * s1size * s2size / (s2size * s1.x - s1size * s2.x);
-	float feedrate_y = accelProfile.y * delta * s1size * s2size / (s2size * s1.y - s1size * s2.y);
-	float feedrate_z = accelProfile.z * delta * s1size * s2size / (s2size * s1.z - s1size * s2.z);
+	float feedrate_x = abs(accelProfile.x * delta * s1size * s2size / (s2size * (-s1.x) - s1size * s2.x));
+	float feedrate_y = abs(accelProfile.y * delta * s1size * s2size / (s2size * (-s1.y) - s1size * s2.y));
+	float feedrate_z = abs(accelProfile.z * delta * s1size * s2size / (s2size * (-s1.z) - s1size * s2.z));
 
 	logAlways("[INFO] feedrates = <%f, %f, %f>\n", feedrate_x, feedrate_y, feedrate_z);
 
 	float min_feedrate = feedrate_x;
-	if (feedrate_y < min_feedrate) min_feedrate = feedrate_y;
-	if (feedrate_z < min_feedrate) min_feedrate = feedrate_z;
+	if (min_feedrate == 0 || (feedrate_y < min_feedrate && feedrate_y > 0)) min_feedrate = feedrate_y;
+	if (min_feedrate == 0 || (feedrate_z < min_feedrate && feedrate_z > 0)) min_feedrate = feedrate_z;
 
 	return 2 * sqrt(min_feedrate);
 }
@@ -181,9 +184,9 @@ float PathSmoother::findMinFeedrate(std::vector<FPoint3>& points, unsigned int s
 
 	// Find the shortest segment between start_idx and end_idx
 	for (unsigned int point_idx = start_idx; point_idx < end_idx; ++point_idx) {
-		float dist2_temp = (points[point_idx] - points[point_idx + 1]).vSize2();
+		float dist2_temp = (points[point_idx + 1] - points[point_idx]).vSize2();
 
-		if (point_idx == 0 || dist2_temp < dist2) {
+		if (point_idx == start_idx || dist2_temp < dist2) {
 			dist2 = dist2_temp;
 			idx = point_idx;
 		}
@@ -194,11 +197,14 @@ float PathSmoother::findMinFeedrate(std::vector<FPoint3>& points, unsigned int s
 	// The smallest feedrate may be between the shortest segment and the segment before it,
 	// or the shortest segment and the segment after it
 	float delta = sqrt(dist2) * 0.5;
-	float f1 = computeFeedrate(points[idx] - points[idx - 1], points[idx + 1] - points[idx], accelProfile, delta);
-	float f2 = computeFeedrate(points[idx + 1] - points[idx], points[idx + 2] - points[idx + 1], accelProfile, delta);
+	float f1 = computeFeedrate(points[idx + 1] - points[idx], points[idx + 2] - points[idx + 1], accelProfile, delta);
+	float f2 = f1;
+	if (idx > 0) {
+		f2 = computeFeedrate(points[idx] - points[idx - 1], points[idx + 1] - points[idx], accelProfile, delta);
+	}
 
 	if (f1 < f2) return f1;
-	else return f2;
+	return f2;
 }
 
 FPoint3 PathSmoother::pointFromGCommand(std::shared_ptr<GCommand> comm) {

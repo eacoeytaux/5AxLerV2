@@ -9,7 +9,7 @@
 
 namespace cura {
 
-#define MAX_ACCEL 5				// mm/s^2
+#define MAX_ACCEL 10			// mm/s^2
 #define MAX_FEEDRATE 10			// mm/s
 #define X_HOME 0				// mm
 #define Y_HOME 0				// mm

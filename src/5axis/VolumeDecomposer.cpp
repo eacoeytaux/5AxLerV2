@@ -40,9 +40,9 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
 						std::vector<std::pair<Point3, Point3>> splitPoints;
 						int numSplitPairs = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
 						
-						for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < slitPoints.size(); ++splitPointPair_idx) {
-							splitFace(mesh, faceID, numSplitPoints, splitPoints[splitPointPair_idx]);
-						}
+						// for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
+						// 	splitFace(mesh, faceID, numSplitPairs, splitPoints[splitPointPair_idx]);
+						// }
 					}
 				}
 			}
@@ -180,6 +180,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 
 	log("[INFO] facePolyArea = %f\n", facePolyArea);
 	log("[INFO] face:\n%s\n", polygonRefToString(facePoly[0]).c_str());
+	log("[INFO] intersectingPoly:\n%s\n", polygonRefToString(intersectingPolyRef).c_str());
 
 	// Keep the zeros consistent
 	if (facePolyArea == -0) {
@@ -200,7 +201,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 	// The following section gets the diff polygon by subtracting the comparison poly from the face poly
 	Polygons diff;
 
-	log("[INFO] pre-offset intersectingPoly:\n%s\n", polygonRefToString(intersectingPolyRef).c_str());
+	// log("[INFO] pre-offset intersectingPoly:\n%s\n", polygonRefToString(intersectingPolyRef).c_str());
 
 	if (facePolyArea == 0) {
 		// If the face is a simple polyline and that polyline is on the egde of the intersecting
@@ -232,8 +233,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 	for (unsigned int cutPoly_idx = 0; cutPoly_idx < diff.size(); cutPoly_idx++) {
 		// Look for the (up to) two new points, which will be the split point
 		PolygonRef cutPoly = diff[0];
-		log("[INFO] diff size = %d\n", diff.size());
-		log("[INFO] pre-simplification:\n%s\n", polygonRefToString(cutPoly).c_str());
+		// log("[INFO] diff size = %d\n", diff.size());
+		// log("[INFO] pre-simplification:\n%s\n", polygonRefToString(cutPoly).c_str());
 
 		// This step checks if the resulting diff poly is too small/insignificant to be properly split
 		// It uses the ClipperLib simplify function and checks if the resulting poly still exists
@@ -251,7 +252,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 			}
 		}
 
-		log("[INFO] not simplified:\n%s\n", polygonRefToString(cutPoly).c_str());
+		// log("[INFO] not simplified:\n%s\n", polygonRefToString(cutPoly).c_str());
 
 		unsigned int numPointsFound = 0;
 		Point3 pt;
@@ -302,6 +303,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 			// If the split point was not a vertex, we check to see which edge of the face it's
 			// on in order to retrieve the point's z-value
 			else if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
+				log("FIRST IF\n");
 				if (numPointsFound == 0) {
 					result.first = pt;
 				} else {
@@ -310,6 +312,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 				numPointsFound++;
 			}
 			else if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
+				log("SECOND IF\n");
 				if (numPointsFound == 0) {
 					result.first = pt;
 				} else {
@@ -318,6 +321,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 				numPointsFound++;
 			}
 			else if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
+				log("THIRD IF\n");
 				if (numPointsFound == 0) {
 					result.first = pt;
 				} else {
@@ -333,6 +337,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 
 		resultVect.push_back(result);
 		numPairsFound++;
+
+		log("split points: <%d, %d, %d>, <%d, %d, %d>\n", result.first.x, result.first.y, result.first.z, result.second.x, result.second.y, result.second.z);
 	}
 
 	return numPairsFound;
