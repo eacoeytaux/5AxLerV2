@@ -25,7 +25,6 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
     Polygons & comparisonPolys = comparisonSlice.polygons;
     
     unsigned int numLayers = layers.size();
-    //log("Progress: [", 0);
     
     vector<int> seedVertices;
     
@@ -34,12 +33,7 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
         Polygons & polys = slice.polygons;
         Polygons & openPolys = slice.openPolylines;
         std::vector<std::vector<int>> polyFaces = slice.polyFaces;
-        
-//        if ((int)(100.0 * ((double)layer_idx / (double)(numLayers - 1))) % 5 == 0) {
-//            log("=");
-//        }
-        
-        
+           
         // Main loop
         for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
             std::vector<int> faces = polyFaces[polyfaces_idx];
@@ -1007,7 +1001,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
     }
 }
 
-bool VolumeDecomposer::isOn(Point a, Point b, Point c, int tolerance) {
+bool VolumeDecomposer::isOn(Point a, Point b, Point c, unsigned int tolerance) {
     // Return true iff point c intersects the line segment from a to b.
     // (or the degenerate case that all 3 points are coincident)
     if (!collinear(a, b, c, tolerance)) return false;
@@ -1021,12 +1015,16 @@ bool VolumeDecomposer::isOn(Point a, Point b, Point c, int tolerance) {
     }
 }
 
-bool VolumeDecomposer::collinear(Point a, Point b, Point c, int tolerance) {
+bool VolumeDecomposer::collinear(Point a, Point b, Point c, unsigned int tolerance) {
     // Return true iff a, b, and c all lie on the same line.
     int left = abs((b.X - a.X) * (c.Y - a.Y));
     int right = abs((c.X - a.X) * (b.Y - a.Y));
-    //    log("[INFO] (collinear) left: %d, right: %d, tolerance: %d\n", left, right, tolerance);
-    bool areCollin = (right >= left - tolerance) && (right <= left + tolerance);
+
+    // log("SANITY CHECK = (%d - %d) * (%d - %d) = %llu\n", b.X, a.X, c.Y, a.Y, (uint64_t)abs((b.X - a.X) * (c.Y - a.Y)));
+
+    bool areCollin = (right >= (left - (int)tolerance)) && (right <= (left + (int)tolerance));
+    // log("[INFO] (collinear) areCollin = %d, a = <%d, %d>, b = <%d, %d>, c = <%d, %d>, left - tolerance = %d, right = %lld, left = %lld, tolerance = %d\n", areCollin, a.X, a.Y, b.X, b.Y, c.X, c.Y, left - tolerance, right, left, tolerance);
+    // log("[INFO] (%d >= %d) && (%d <= %d) = %d, %d && %d\n", right, left - tolerance, right, left + tolerance, areCollin, right >= (left - (int)tolerance), right <= (left + (int)tolerance));
     return areCollin;
 }
 
@@ -1039,7 +1037,7 @@ Point VolumeDecomposer::closestPointOnLine(const Point start, const Point end, c
     Point lineVec = end - start;
     Point pntVec = pt - start;
     
-    int lineLen = vSize(lineVec);
+    double lineLen = sqrt(vSize2f(lineVec));
     double lineUnitVec_x, lineUnitVec_y, pntVecScaled_x, pntVecScaled_y;
     lineUnitVec_x = double(lineVec.X) / double(lineLen);
     lineUnitVec_y = double(lineVec.Y) / double(lineLen);
@@ -1199,13 +1197,13 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
         // from the face poly and checks to see if that point is a split point
         for (unsigned int i = 0; i < cutPoly.size() && numPointsFound < 2; ++i) {
             Point cutPolyPt = cutPoly[i];
-            
-            // log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
+            bool foundPoint = false;
             
             // The point is a split point only if it's inside (i.e. on the edge) of the comparison
             // poly
             if (!intersectingPoly.inside(cutPolyPt, true)) continue;
             
+            log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
             
             // Check if the split point is any of the face's vertices, in which case
             // we use the vertex value which is better than using the potentially
@@ -1220,6 +1218,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.second = v0.p;
                 }
                 numPointsFound++;
+                foundPoint = true;
             }
             if ((cutPolyPt.X <= v1.p.x + 1 && cutPolyPt.X >= v1.p.x - 1) &&
                 (cutPolyPt.Y <= v1.p.y + 1 && cutPolyPt.Y >= v1.p.y - 1)) {
@@ -1229,6 +1228,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.second = v1.p;
                 }
                 numPointsFound++;
+                foundPoint = true;
             }
             if ((cutPolyPt.X <= v2.p.x + 1 && cutPolyPt.X >= v2.p.x - 1) &&
                 (cutPolyPt.Y <= v2.p.y + 1 && cutPolyPt.Y >= v2.p.y - 1)) {
@@ -1238,32 +1238,42 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.second = v2.p;
                 }
                 numPointsFound++;
+                foundPoint = true;
             }
             // If the split point was not a vertex, we check to see which edge of the face it's
             // on in order to retrieve the point's z-value
             if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
+                    numPointsFound++;
                 } else {
-                    result.second = pt;
+                    if (!(result.first == pt)) {
+                        result.second = pt;
+                        numPointsFound++;
+                    }
                 }
-                numPointsFound++;
             }
             if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
+                    numPointsFound++;
                 } else {
-                    result.second = pt;
+                    if (!(result.first == pt)) {
+                        result.second = pt;
+                        numPointsFound++;
+                    }
                 }
-                numPointsFound++;
             }
             if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
+                    numPointsFound++;
                 } else {
-                    result.second = pt;
+                    if (!(result.first == pt)) {
+                        result.second = pt;
+                        numPointsFound++;
+                    }
                 }
-                numPointsFound++;
             }
         }
         
@@ -1388,12 +1398,13 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 bool VolumeDecomposer::findZValueOf2DPointon3DLine(const Point3& P3_0, const Point3& P3_1, const Point& startPoint, Point3& resultPoint) {
     const Point flat_p0 = Point(P3_0.x, P3_0.y);
     const Point flat_p1 = Point(P3_1.x, P3_1.y);
+
+    log("[INFO] (findZValueOf2DPointon3DLine) P3_0 = <%d, %d, %d>, P3_1 = <%d, %d, %d>\n", P3_0.x, P3_0.y, P3_0.z, P3_1.x, P3_1.y, P3_1.z);
     
     // Checks to see if the given point is actually on the 3D line
-    if (isOn(flat_p0, flat_p1, startPoint, 300)) {
-        // Now it's possible for the point to be slightly off the line, so we get it as close to the actual line as possible
-        Point actualPt = closestPointOnLine(flat_p0, flat_p1, startPoint);
-        
+    Point actualPt = closestPointOnLine(flat_p0, flat_p1, startPoint);
+    float dist = sqrt((actualPt.X - startPoint.X)*(actualPt.X - startPoint.X) + (actualPt.Y - startPoint.Y)*(actualPt.Y - startPoint.Y));
+    if (dist <= 4) {
         // Get the z-value of the x/y combo
         const Point3 P3_vertexDiff = Point3(P3_1.x, P3_1.y, 0) - Point3(P3_0.x, P3_0.y, 0);
         const Point3 P3_intersectDiff = Point3(actualPt.X, actualPt.Y, 0) - Point3(P3_0.x, P3_0.y, 0);

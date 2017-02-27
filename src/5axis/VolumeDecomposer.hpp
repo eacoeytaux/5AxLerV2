@@ -167,8 +167,8 @@ namespace cura {
         
         // isOn finds out if c is on the same line as the one formed by points
         // a and b, collinear and within help with this
-        bool isOn(const Point a, const Point b, const Point c, int tolerance = 0);
-        bool collinear(const Point a, const Point b, const Point c, int tolerance = 0);
+        bool isOn(const Point a, const Point b, const Point c, unsigned int tolerance = 0);
+        bool collinear(const Point a, const Point b, const Point c, unsigned int tolerance = 0);
         bool within(double p, double q, double r);
         
         Point closestPointOnLine(const Point start, const Point end, const Point pt);
