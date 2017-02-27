@@ -9,10 +9,14 @@
 #include "Utility.hpp"
 #include "MeshToSTL.hpp"
 
+#include "5AxLerTests.hpp"
+
 using namespace cura;
 using namespace std;
 
 VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
+    StudentTestCase("hullo");
+    
     // SerialComms sc = SerialComms("/dev/ttyACM0");
     std::vector<SlicerLayer> & layers = slicer->layers;
     
