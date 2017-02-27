@@ -21,7 +21,6 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
     Polygons & comparisonPolys = comparisonSlice.polygons;
     
     unsigned int numLayers = layers.size();
-    log("Progress: [", 0);
     
     vector<int> seedVertices;
     
@@ -30,10 +29,6 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
         Polygons & polys = slice.polygons;
         Polygons & openPolys = slice.openPolylines;
         std::vector<std::vector<int>> polyFaces = slice.polyFaces;
-        
-        if ((int)(100.0 * ((double)layer_idx / (double)(numLayers - 1))) % 5 == 0) {
-            log("=");
-        }
         
         // Main loop
         for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
@@ -1093,7 +1088,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     const MeshVertex& v1 = mesh.vertices[face.vertex_index[1]];
     const MeshVertex& v2 = mesh.vertices[face.vertex_index[2]];
     
-    // log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
+    log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
     
     // Build out the face polygon and retrieve area
     p0 = v0.p;
@@ -1187,7 +1182,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
         for (unsigned int i = 0; i < cutPoly.size() && numPointsFound < 2; ++i) {
             Point cutPolyPt = cutPoly[i];
             
-            // log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
+            log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
             
             // The point is a split point only if it's inside (i.e. on the edge) of the comparison
             // poly
@@ -1261,7 +1256,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
         resultVect.push_back(result);
         numPairsFound++;
 
-        // log("split points: <%d, %d, %d>, <%d, %d, %d>\n", result.first.x, result.first.y, result.first.z, result.second.x, result.second.y, result.second.z);
+        log("split points: <%d, %d, %d>, <%d, %d, %d>\n", result.first.x, result.first.y, result.first.z, result.second.x, result.second.y, result.second.z);
     }
     
     // log("numPairsFound = %d, resultVectSize = %d\n", numPairsFound, resultVect.size());
