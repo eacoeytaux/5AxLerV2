@@ -357,7 +357,6 @@ int main(int argc, char **argv)
         print_usage();
         exit(1);
     }
-	printf("\n New rotati");
 	
     if (stringcasecompare(argv[1], "connect") == 0)
     {

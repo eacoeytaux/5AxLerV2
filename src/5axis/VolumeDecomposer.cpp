@@ -49,9 +49,9 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
                         std::vector<std::pair<Point3, Point3>> splitPoints;
                         int numSplitPairs = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
                         
-                        for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
-                            seedVertices.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
-                        }
+                        // for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
+                        //     seedVertices.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
+                        // }
                     }
                 }
             }
@@ -1103,7 +1103,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     const MeshVertex& v1 = mesh.vertices[face.vertex_index[1]];
     const MeshVertex& v2 = mesh.vertices[face.vertex_index[2]];
     
-    log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
+    // log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
     
     // Build out the face polygon and retrieve area
     p0 = v0.p;
@@ -1114,8 +1114,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     intersectingPoly.add(intersectingPolyRef);
     double facePolyArea = facePoly[0].area();
     
-    log("[INFO] facePolyArea = %f\n", facePolyArea);
-    log("[INFO] face:\n%s\n", polygonRefToString(facePoly[0]).c_str());
+    // log("[INFO] facePolyArea = %f\n", facePolyArea);
+    // log("[INFO] face:\n%s\n", polygonRefToString(facePoly[0]).c_str());
     
     // Keep the zeros consistent
     if (facePolyArea == -0) {
@@ -1136,7 +1136,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     // The following section gets the diff polygon by subtracting the comparison poly from the face poly
     Polygons diff;
     
-    log("[INFO] pre-offset intersectingPoly:\n%s\n", polygonRefToString(intersectingPolyRef).c_str());
+    // log("[INFO] pre-offset intersectingPoly:\n%s\n", polygonRefToString(intersectingPolyRef).c_str());
     
     if (facePolyArea == 0) {
         // If the face is a simple polyline and that polyline is on the egde of the intersecting
@@ -1168,8 +1168,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     for (unsigned int cutPoly_idx = 0; cutPoly_idx < diff.size(); cutPoly_idx++) {
         // Look for the (up to) two new points, which will be the split point
         PolygonRef cutPoly = diff[0];
-        log("[INFO] diff size = %d\n", diff.size());
-        log("[INFO] pre-simplification:\n%s\n", polygonRefToString(cutPoly).c_str());
+        // log("[INFO] diff size = %d\n", diff.size());
+        // log("[INFO] pre-simplification:\n%s\n", polygonRefToString(cutPoly).c_str());
         
         // This step checks if the resulting diff poly is too small/insignificant to be properly split
         // It uses the ClipperLib simplify function and checks if the resulting poly still exists
@@ -1187,7 +1187,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
             }
         }
         
-        log("[INFO] not simplified:\n%s\n", polygonRefToString(cutPoly).c_str());
+        // log("[INFO] not simplified:\n%s\n", polygonRefToString(cutPoly).c_str());
         
         unsigned int numPointsFound = 0;
         Point3 pt;
@@ -1197,17 +1197,18 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
         for (unsigned int i = 0; i < cutPoly.size() && numPointsFound < 2; ++i) {
             Point cutPolyPt = cutPoly[i];
             
-            log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
+            // log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
             
             // The point is a split point only if it's inside (i.e. on the edge) of the comparison
             // poly
             if (!intersectingPoly.inside(cutPolyPt, true)) continue;
             
-            log("[INFO] Point is inside\n");
             
             // Check if the split point is any of the face's vertices, in which case
             // we use the vertex value which is better than using the potentially
             // slightly off split point value
+            // TODO: Quick and dirty hack to have multiple if statements all ligned up,
+            //       change it so it's smarter
             if ((cutPolyPt.X <= v0.p.x + 1 && cutPolyPt.X >= v0.p.x - 1) &&
                 (cutPolyPt.Y <= v0.p.y + 1 && cutPolyPt.Y >= v0.p.y - 1)) {
                 if (numPointsFound == 0) {
@@ -1217,8 +1218,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if ((cutPolyPt.X <= v1.p.x + 1 && cutPolyPt.X >= v1.p.x - 1) &&
-                     (cutPolyPt.Y <= v1.p.y + 1 && cutPolyPt.Y >= v1.p.y - 1)) {
+            if ((cutPolyPt.X <= v1.p.x + 1 && cutPolyPt.X >= v1.p.x - 1) &&
+                (cutPolyPt.Y <= v1.p.y + 1 && cutPolyPt.Y >= v1.p.y - 1)) {
                 if (numPointsFound == 0) {
                     result.first = v1.p;
                 } else {
@@ -1226,8 +1227,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if ((cutPolyPt.X <= v2.p.x + 1 && cutPolyPt.X >= v2.p.x - 1) &&
-                     (cutPolyPt.Y <= v2.p.y + 1 && cutPolyPt.Y >= v2.p.y - 1)) {
+            if ((cutPolyPt.X <= v2.p.x + 1 && cutPolyPt.X >= v2.p.x - 1) &&
+                (cutPolyPt.Y <= v2.p.y + 1 && cutPolyPt.Y >= v2.p.y - 1)) {
                 if (numPointsFound == 0) {
                     result.first = v2.p;
                 } else {
@@ -1237,7 +1238,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
             }
             // If the split point was not a vertex, we check to see which edge of the face it's
             // on in order to retrieve the point's z-value
-            else if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
+            if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
                 } else {
@@ -1245,7 +1246,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
+            if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
                 } else {
@@ -1253,7 +1254,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
+            if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
                 } else {
@@ -1269,9 +1270,11 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
         
         resultVect.push_back(result);
         numPairsFound++;
+
+        // log("split points: <%d, %d, %d>, <%d, %d, %d>\n", result.first.x, result.first.y, result.first.z, result.second.x, result.second.y, result.second.z);
     }
     
-    log("numPairsFound = %d, resultVectSize = %d\n", numPairsFound, resultVect.size());
+    // log("numPairsFound = %d, resultVectSize = %d\n", numPairsFound, resultVect.size());
     return numPairsFound;
 }
 

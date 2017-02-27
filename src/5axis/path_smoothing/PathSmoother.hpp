@@ -9,7 +9,7 @@
 
 namespace cura {
 
-#define MAX_ACCEL 5				// mm/s^2
+#define MAX_ACCEL 10			// mm/s^2
 #define MAX_FEEDRATE 10			// mm/s
 #define X_HOME 0				// mm
 #define Y_HOME 0				// mm
@@ -117,7 +117,17 @@ private:
 	 *
 	 * @return The feedrate as a float
 	 */
-	float computeFeedrate(FPoint3, FPoint3, FPoint3, float);
+	FPoint3 computeFeedrate(FPoint3, FPoint3, FPoint3, float);
+
+	/**
+	 * Accepts a vector and returns its smallest non-zero component. If all components
+	 * are zero, the resulting float is equal to std::numeric_limits<float>::infinity()
+	 *
+	 * @param fp The vector to choose the smallest component of
+	 *
+	 * @return The smallest component as a float
+	 */
+	float chooseSmallestNonZeroComponent(FPoint3 fp);
 
 	/**
 	 * Creates a continuous spline connecting the three given points (representing

@@ -1,0 +1,41 @@
+== START ==
+The first line segment is the first two points of GCode
+We pick the next 14 points to generate the next 15 line segments
+	- When each point is picked, determine the distance of the line segment
+	- Keep track of the shortest line segment
+
+Once shortest line segment is found, compute feedrate with delta = 0.5 * length
+Apply that feedrate to the first line segment for computing the spline
+Release the following velocity profiles:
+1. From current position to first point (non-extruding)
+
+If spline:
+2. From first point to spline beginning, accelerating to reach specified feedrate at spline beginning
+3. Velocity profile for full spline travel (input vel. = output vel.)
+
+No spline:
+2. From first point to second point, accelerating to max feedrate by second point (this only happens if the two path segments are parallel)
+
+== CONTINUE ==
+Get the next point in the GCode sequence
+Check if that segment is shorter than the previous shortest point
+If it is, recompute max feedrate based on it
+If it isn't, and the previous shortest segment is no longer in the buffer, go through all 15 segments and determine the new shortest, determine new feedrate
+If it isn't, and the previous shortest segment is still in the buffer, maintain the previous feedrate
+
+Compute the spline (if any) between this line segment and the next at the specified feedrate
+
+Release the following velocity profiles:
+1. From the feedrate at the entry point of the segment (this is either the first point of the segment or the output point of the previous spline) to the feedrate specified at the output point (either the second point of the segment or the input point of the next spline)
+1.a. If there is no possible s-curve to accelerate the platform, limit whichever feedrate is greater to the smaller one; if this means changing the output feedrate of the previous spline, then recurse to the previous point and change the input feedrate, recomputing an s-curve for reaching it. Continue recursing back if the new s-curve is impossible.
+
+If spline:
+2. Velocity profile for full spline travel
+
+
+== < 15 SEGMENTS LEFT ==
+Use the available segments rather than 15, essentially the same as CONTINUE
+
+3 types of transitions:
+1. Line segments have the same orientation: if the next feedrate is different, compute an s-curve for adjustment centered around the connecting point
+2. Line segments have different orientation: maintain constant feedrate throughout spline, compute s-curve for adjustment to next feedrate after output of spline, if the s-curve cannot accelerate in the distance given, adjust feedrate for both segments
