@@ -2,6 +2,7 @@
 #include "../../utils/logoutput.h"
 #include <iostream>
 #include <fstream>
+#include <cmath>
 
 namespace cura {
 
@@ -35,7 +36,7 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 						if (layer_nr > 0) {
 							processLayer();
 							layerCommands.clear();
-							getchar();
+							// getchar();
 						}
 					}
 					break;
@@ -65,8 +66,7 @@ void PathSmoother::processLayer() {
 	// Get the shortest distance from the first 15 path segments
 	FPoint3 maxAccel_vect = FPoint3(MAX_ACCEL/2, MAX_ACCEL/2, MAX_ACCEL/2);
 	float maxFeedrate = findMinFeedrate(layerPoints, 0, 15, maxAccel_vect);
-
-	logAlways("[INFO] maxFeedrate = %f\n", maxFeedrate);
+	FPoint3 initialVel = FPoint3(0, 0, 0);
 
 	// Iterate through each point on the path
 	for (unsigned int point_idx = 0; point_idx < layerPoints.size() - 2; ++point_idx) {
@@ -74,9 +74,21 @@ void PathSmoother::processLayer() {
 		FPoint3 p2 = layerPoints[point_idx + 1];
 		FPoint3 p3 = layerPoints[point_idx + 2];
 
-		createSpline(p1, p2, p3, maxAccel_vect, maxFeedrate);
+		FPoint3 firstSegmentUnit = (p2 - p1).normalized();
+		float delta = 0.5 * (p2 - p1).vSize();
+		float vm_x = sqrt(maxAccel_vect.x * delta * firstSegmentUnit.x + initialVel.x / 2 + firstSegmentUnit.x * maxFeedrate / 2);
+		float vm_y = sqrt(maxAccel_vect.y * delta * firstSegmentUnit.y + initialVel.y / 2 + firstSegmentUnit.y * maxFeedrate / 2);
+		float vm_z = sqrt(maxAccel_vect.z * delta * firstSegmentUnit.z + initialVel.z / 2 + firstSegmentUnit.z * maxFeedrate / 2);
+		FPoint3 maxInputFeedrate = FPoint3(vm_x, vm_y, vm_z);
 
-		
+		logAlways("sqrt(%f * %f + %f + %f * %f)\n", maxAccel_vect.x, delta, initialVel.x, firstSegmentUnit.x, maxFeedrate);
+		logAlways("sqrt(%f * %f + %f + %f * %f)\n", maxAccel_vect.y, delta, initialVel.y, firstSegmentUnit.y, maxFeedrate);
+		logAlways("sqrt(%f * %f + %f + %f * %f)\n", maxAccel_vect.z, delta, initialVel.z, firstSegmentUnit.z, maxFeedrate);
+
+		logAlways("maxFeedrate = %f\n", maxFeedrate);
+		logAlways("maxInputFeedrate = <%f, %f, %f>\n", maxInputFeedrate.x, maxInputFeedrate.y, maxInputFeedrate.z);
+
+		// createSpline(p1, p2, p3, maxAccel_vect, maxFeedrate);
 	}
 }
 
@@ -152,59 +164,63 @@ void PathSmoother::createSpline(FPoint3 p1, FPoint3 p2, FPoint3 p3, FPoint3 acce
 	}
 }
 
-float PathSmoother::computeFeedrate(FPoint3 s1, FPoint3 s2, FPoint3 accelProfile, float delta) {
+FPoint3 PathSmoother::computeFeedrate(FPoint3 s1, FPoint3 s2, FPoint3 accelProfile, float delta) {
 	float s1size = s1.vSize();
 	float s2size = s2.vSize();
 
-	logAlways("[INFO] s1 = <%f, %f, %f>, s2 = <%f, %f, %f>\n", s1.x, s1.y, s1.z, s2.x, s2.y, s2.z);
-	logAlways("[INFO] s1size: %f, s2size: %f, delta: %f\n", s1size, s2size, delta);
-	logAlways("[INFO] accelProfile: <%f, %f, %f>\n", accelProfile.x, accelProfile.y, accelProfile.z);
+	float feedrate_x = std::abs(accelProfile.x * delta * s1size * s2size / (s2size * (-s1.x) - s1size * s2.x));
+	float feedrate_y = std::abs(accelProfile.y * delta * s1size * s2size / (s2size * (-s1.y) - s1size * s2.y));
+	float feedrate_z = std::abs(accelProfile.z * delta * s1size * s2size / (s2size * (-s1.z) - s1size * s2.z));
 
-	float feedrate_x = abs(accelProfile.x * delta * s1size * s2size / (s2size * (-s1.x) - s1size * s2.x));
-	float feedrate_y = abs(accelProfile.y * delta * s1size * s2size / (s2size * (-s1.y) - s1size * s2.y));
-	float feedrate_z = abs(accelProfile.z * delta * s1size * s2size / (s2size * (-s1.z) - s1size * s2.z));
-
-	logAlways("[INFO] feedrates = <%f, %f, %f>\n", feedrate_x, feedrate_y, feedrate_z);
-
-	float min_feedrate = feedrate_x;
-	if (min_feedrate == 0 || (feedrate_y < min_feedrate && feedrate_y > 0)) min_feedrate = feedrate_y;
-	if (min_feedrate == 0 || (feedrate_z < min_feedrate && feedrate_z > 0)) min_feedrate = feedrate_z;
-
-	return 2 * sqrt(min_feedrate);
+	return FPoint3(2 * sqrt(feedrate_x), 2 * sqrt(feedrate_y), 2 * sqrt(feedrate_z));
 }
 
 float PathSmoother::findMinFeedrate(std::vector<FPoint3>& points, unsigned int start_idx, unsigned int end_idx, FPoint3 accelProfile) {
 	// If the indices are the same, no distance
 	if (start_idx == end_idx) return 0.0;
-	if (start_idx - end_idx == 1) return MAX_FEEDRATE;
+	if (start_idx - end_idx < 2) return MAX_FEEDRATE;
 
-	// Define our distance variable and the index to the shortest segment
-	float dist2;
-	unsigned int idx = 0;
+	float minCornerFeedrate = std::numeric_limits<float>::infinity();
+	float maxOutputFeedrate = std::numeric_limits<float>::infinity();
+	float maxInputFeedrate = std::numeric_limits<float>::infinity();
 
 	// Find the shortest segment between start_idx and end_idx
-	for (unsigned int point_idx = start_idx; point_idx < end_idx; ++point_idx) {
-		float dist2_temp = (points[point_idx + 1] - points[point_idx]).vSize2();
+	for (unsigned int point_idx = start_idx; point_idx < end_idx - 2; ++point_idx) {
+		FPoint3 xi = points[point_idx];
+		FPoint3 xm = points[point_idx + 1];
+		FPoint3 xf = points[point_idx + 2];
 
-		if (point_idx == start_idx || dist2_temp < dist2) {
-			dist2 = dist2_temp;
-			idx = point_idx;
-		}
+		float minDelta;
+		float delta_1 = 0.5 * (xm - xi).vSize();
+		float delta_2 = 0.5 * (xf - xm).vSize();
+		minDelta = (delta_1 < delta_2) ? delta_1 : delta_2;
+
+		FPoint3 feedrate = computeFeedrate(xm - xi, xf - xm, accelProfile, minDelta);
+		float smallestComponent = chooseSmallestNonZeroComponent(feedrate);
+
+		if (smallestComponent < minCornerFeedrate) minCornerFeedrate = smallestComponent;
 	}
 
-	logAlways("[INFO] Smallest distance^2: %f\n", dist2);
+	FPoint3 lastSegment = points[end_idx - 1] - points[end_idx - 2];
+	float lastSegmentSize = lastSegment.vSize();
+	FPoint3 maxFinalVel = FPoint3(
+		sqrt(accelProfile.x * lastSegment.x) * lastSegmentSize / lastSegment.x,
+		sqrt(accelProfile.y * lastSegment.y) * lastSegmentSize / lastSegment.y,
+		sqrt(accelProfile.z * lastSegment.z) * lastSegmentSize / lastSegment.z);
+	maxOutputFeedrate = chooseSmallestNonZeroComponent(maxFinalVel);
 
-	// The smallest feedrate may be between the shortest segment and the segment before it,
-	// or the shortest segment and the segment after it
-	float delta = sqrt(dist2) * 0.5;
-	float f1 = computeFeedrate(points[idx + 1] - points[idx], points[idx + 2] - points[idx + 1], accelProfile, delta);
-	float f2 = f1;
-	if (idx > 0) {
-		f2 = computeFeedrate(points[idx] - points[idx - 1], points[idx + 1] - points[idx], accelProfile, delta);
-	}
+	if (minCornerFeedrate < maxOutputFeedrate) return minCornerFeedrate;
+	else return maxOutputFeedrate;
+}
 
-	if (f1 < f2) return f1;
-	return f2;
+float PathSmoother::chooseSmallestNonZeroComponent(FPoint3 fp) {
+	float smallest = std::numeric_limits<float>::infinity();
+
+	if (fp.x != 0 && fp.x < smallest) smallest = fp.x;
+	else if (fp.y != 0 && fp.y < smallest) smallest = fp.y;
+	else if (fp.z != 0 && fp.z < smallest) smallest = fp.z;
+
+	return smallest;
 }
 
 FPoint3 PathSmoother::pointFromGCommand(std::shared_ptr<GCommand> comm) {

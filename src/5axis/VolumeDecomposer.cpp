@@ -49,9 +49,9 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
                         std::vector<std::pair<Point3, Point3>> splitPoints;
                         int numSplitPairs = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
                         
-                        for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
-                            seedVertices.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
-                        }
+                        // for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
+                        //     seedVertices.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
+                        // }
                     }
                 }
             }
@@ -994,741 +994,6 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
     }
 }
 
-//void VolumeDecomposer::splitFaces(Mesh& mesh, PolygonRef intersectingPolyRef, int faceID, int numSplitPoints, pair<Point3, Point3>& splitPoints) {
-//    if (numSplitPoints == 0) return;
-//
-//    // Grab the actual MeshFace
-//    MeshFace& face = mesh.faces[faceID];
-//
-//    // If there's only one splitpoint, or the splitpoints are the same, draw a line from that point
-//    // up and see if an intersect with another of the face's sides is found, then you've found your split
-//    //
-//    if (numSplitPoints == 1 || splitPoints.first == splitPoints.second) {
-//        //TODO ahhhh what do we do here???
-//    } else {
-//        //save original vertex indices for future reference
-//        int originalVertexIndices[3] = {-1};
-//        originalVertexIndices[0] = face.vertex_index[0];
-//        originalVertexIndices[1] = face.vertex_index[1];
-//        originalVertexIndices[2] = face.vertex_index[2];
-//
-//        //determine which edges split points are on
-//        pair<int, int> splitPointEdgeIndices(-1, -1);
-//        FPoint3 edges[3];
-//        edges[0] = mesh.vertices[face.vertex_index[1]].p - mesh.vertices[face.vertex_index[0]].p;
-//        edges[1] = mesh.vertices[face.vertex_index[2]].p - mesh.vertices[face.vertex_index[1]].p;
-//        edges[2] = mesh.vertices[face.vertex_index[0]].p - mesh.vertices[face.vertex_index[2]].p;
-//
-//        if (edges[0].cross(splitPoints.first - mesh.vertices[face.vertex_index[0]].p).vSize2() == 0) {
-//            splitPointEdgeIndices.first = 0;
-//        } else if (edges[1].cross(splitPoints.first - mesh.vertices[face.vertex_index[1]].p).vSize2() == 0) {
-//            splitPointEdgeIndices.first = 1;
-//        } else if (edges[2].cross(splitPoints.first - mesh.vertices[face.vertex_index[2]].p).vSize2() == 0) {
-//            splitPointEdgeIndices.first = 2;
-//        } else {
-//            log("[ERROR] split point was not found to be on any edge of face");
-//            return;
-//        }
-//
-//        if (splitPointEdgeIndices.first == splitPointEdgeIndices.second) {
-//            log("[ERROR] split points are on same edge");
-//            return;
-//        }
-//
-//        //if order is either 1-0, 2-0, or 2-1 switch it to 0-1, 0-2, or 1-2 repsectively so there's only 3 scenarios
-//        bool switched = false;
-//        if ((splitPointEdgeIndices.first == 1) && (splitPointEdgeIndices.second == 0)) {
-//            splitPointEdgeIndices = pair<int, int>(0, 1);
-//            switched = true;
-//        } else if ((splitPointEdgeIndices.first == 2) && (splitPointEdgeIndices.first == 1)) {
-//            splitPointEdgeIndices = pair<int, int>(1, 2);
-//            switched = true;
-//        } else if ((splitPointEdgeIndices.second == 0) && (splitPointEdgeIndices.first == 2)) {
-//            splitPointEdgeIndices = pair<int, int>(2, 0);
-//            switched = true;
-//        }
-//
-//        if (switched) {
-//            Point3 temp = splitPoints.first;
-//            splitPoints.first = splitPoints.second;
-//            splitPoints.second = temp;
-//        }
-//
-//        //at this point, the edges that the split points are on are determined
-//
-//        int x, y, z;
-//        if ((splitPointEdgeIndices.first == 0) && (splitPointEdgeIndices.second == 1)) {
-//            x = 0;
-//            y = 1;
-//            z = 2;
-//        } else if ((splitPointEdgeIndices.first == 1) && (splitPointEdgeIndices.second == 2)) {
-//            x = 1;
-//            y = 2;
-//            z = 0;
-//        } else if ((splitPointEdgeIndices.first == 2) && (splitPointEdgeIndices.second == 0)) {
-//            x = 2;
-//            y = 0;
-//            z = 1;
-//        } else {
-//            log("[ERROR] split points are on impossible order of edges");
-//            return;
-//        }
-//
-//        bool trapezoidInOverhang = intersectingPolyRef.inside(face.vertex_index[y]); //y vertex is connected to base volume
-//
-//        //add split points to vertex list
-//        mesh.vertices.push_back(MeshVertex(splitPoints.first));
-//        mesh.vertices.push_back(MeshVertex(splitPoints.second));
-//        pair<int, int> newVertexIndices(mesh.vertices.size() - 2, mesh.vertices.size() - 1); //indexes of new vertices in mesh
-//
-//        mesh.vertices.push_back(MeshVertex(splitPoints.first));
-//        mesh.vertices.push_back(MeshVertex(splitPoints.second));
-//        pair<int, int> newVertexPrimeIndices(mesh.vertices.size() - 2, mesh.vertices.size() - 1); //indexes of new vertices in mesh
-//
-//        //add new faces
-//        mesh.faces.push_back(MeshFace());
-//        mesh.faces.push_back(MeshFace());
-//        pair<int, int> newFaceIDs(mesh.faces.size() - 2, mesh.faces.size() - 1);
-//        pair<MeshFace&, MeshFace&> newFaces(mesh.faces[newFaceIDs.first], mesh.faces[newFaceIDs.second]);
-//
-//        if (trapezoidInOverhang) {
-//            //alter original face
-//            face.vertex_index[x] = newVertexIndices.first;
-//            face.vertex_index[z] = newVertexIndices.second;
-//
-//            //add first face
-//            newFaces.first.vertex_index[0] = originalVertexIndices[x];
-//            newFaces.first.vertex_index[1] = newVertexPrimeIndices.first;
-//            newFaces.first.vertex_index[2] = newVertexPrimeIndices.second;
-//
-//            //add second face
-//            newFaces.second.vertex_index[0] = originalVertexIndices[z];
-//            newFaces.second.vertex_index[1] = originalVertexIndices[x];
-//            newFaces.second.vertex_index[2] = newVertexPrimeIndices.second;
-//        } else {
-//            //alter original face
-//            face.vertex_index[x] = newVertexPrimeIndices.first;
-//            face.vertex_index[z] = newVertexPrimeIndices.second;
-//
-//            //add first face
-//            newFaces.first.vertex_index[0] = originalVertexIndices[x];
-//            newFaces.first.vertex_index[1] = newVertexIndices.first;
-//            newFaces.first.vertex_index[2] = newVertexIndices.second;
-//
-//            //add second face
-//            newFaces.second.vertex_index[0] = originalVertexIndices[z];
-//            newFaces.second.vertex_index[1] = originalVertexIndices[x];
-//            newFaces.second.vertex_index[2] = newVertexIndices.second;
-//        }
-//
-//        //add connected faces to new vertices
-//        if (trapezoidInOverhang) {
-//            mesh.vertices[newVertexIndices.first].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexIndices.second].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(newFaceIDs.second);
-//        } else {
-//            mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexIndices.first].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexIndices.second].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexIndices.second].connected_faces.push_back(newFaceIDs.second);
-//        }
-//
-//        //--fix adjacent faces--
-//
-//        //remove connected faces from existing vertices
-//
-//        vector<uint32_t>::iterator it; //index of faceID in vector
-//
-//        //remove original face from xth vertex
-//        it = find(mesh.vertices[originalVertexIndices[x]].connected_faces.begin(), mesh.vertices[originalVertexIndices[x]].connected_faces.end(), faceID);
-//        if (it != mesh.vertices[originalVertexIndices[x]].connected_faces.end()) {
-//            mesh.vertices[originalVertexIndices[x]].connected_faces.erase(it);
-//        }
-//        //add first and second added face to xth vertex
-//        mesh.vertices[originalVertexIndices[x]].connected_faces.push_back(newFaceIDs.first);
-//        mesh.vertices[originalVertexIndices[x]].connected_faces.push_back(newFaceIDs.second);
-//
-//        //remove original face from zth vertex
-//        it = find(mesh.vertices[originalVertexIndices[z]].connected_faces.begin(), mesh.vertices[originalVertexIndices[z]].connected_faces.end(), faceID);
-//        if (it != mesh.vertices[originalVertexIndices[z]].connected_faces.end()) {
-//            mesh.vertices[originalVertexIndices[z]].connected_faces.erase(it);
-//        }
-//        //add just second added face to xth vertex
-//        mesh.vertices[originalVertexIndices[z]].connected_faces.push_back(newFaceIDs.second);
-//
-//
-//        //updated index of adjacent face
-//        if (mesh.faces[face.connected_face_index[z]].connected_face_index[0] == faceID) {
-//            mesh.faces[face.connected_face_index[z]].connected_face_index[0] = newFaceIDs.second;
-//        } else if (mesh.faces[face.connected_face_index[z]].connected_face_index[1] == faceID) {
-//            mesh.faces[face.connected_face_index[z]].connected_face_index[1] = newFaceIDs.second;
-//        } else if (mesh.faces[face.connected_face_index[z]].connected_face_index[2] == faceID) {
-//            mesh.faces[face.connected_face_index[z]].connected_face_index[2] = newFaceIDs.second;
-//        } else {
-//            log("[ERROR] original face is not listed as an adjacent face of adjacent face");
-//            return;
-//        }
-//        newFaces.first.connected_face_index[2] = newFaceIDs.second;
-//        newFaces.second.connected_face_index[1] = newFaceIDs.first;
-//        newFaces.second.connected_face_index[0] = face.connected_face_index[z];
-//        face.connected_face_index[z] = -1;
-//
-//        //call recursive function
-//        int nextFaceID = face.connected_face_index[x];
-//
-//        pair<Point3, Point3> nextSplitPoints;
-//        int nextNumSplitPoints = findSplitPoints(mesh, nextFaceID, intersectingPolyRef, nextSplitPoints);
-//
-//        splitFaceRecursiveA(mesh, intersectingPolyRef, face.connected_face_index[0], nextNumSplitPoints, nextSplitPoints, splitPoints.first, newVertexIndices.first, newVertexPrimeIndices.first, true, faceID, newFaceIDs.first, newFaceIDs.second, faceID, newFaceIDs.first, newFaceIDs.second);
-//    }
-//}
-//
-////TODO this may not need to be recursive - look into
-////this should only be called if the previous split point does NOT lie on a vertex
-//void VolumeDecomposer::splitFaceRecursiveA(Mesh& mesh, PolygonRef intersectingPolyRef, int faceID, int numSplitPoints, pair<Point3, Point3>& splitPoints, Point3 prevSplitPoint, int prevSplitPointIndex, int prevSplitPointPrimeIndex, bool pointOnPrevFirstEdge, int prevFaceIDA, int prevFaceIDB, int prevFaceIDC, int originalFaceIDA, int originalFaceIDB, int originalFaceIDC) {
-//
-//    if (numSplitPoints == 0) {
-//        log("[ERROR] adjacent face of split face has no split points");
-//        return;
-//    }
-//
-//    // Grab the actual MeshFace
-//    MeshFace& face = mesh.faces[faceID];
-//
-//    //save original vertex indices for future reference
-//    int originalVertexIndices[3] = {-1};
-//    originalVertexIndices[0] = face.vertex_index[0];
-//    originalVertexIndices[1] = face.vertex_index[1];
-//    originalVertexIndices[2] = face.vertex_index[2];
-//
-//    pair<int, int> splitPointVertexIntersectionIndices(-1, -1);
-//
-//    if (splitPoints.first == mesh.vertices[face.vertex_index[0]].p)
-//        splitPointVertexIntersectionIndices.first = 0;
-//    else if (splitPoints.first == mesh.vertices[face.vertex_index[1]].p)
-//        splitPointVertexIntersectionIndices.first = 1;
-//    else if (splitPoints.first == mesh.vertices[face.vertex_index[2]].p) {
-//        splitPointVertexIntersectionIndices.first = 2;
-//    }
-//
-//    if (splitPoints.second == mesh.vertices[face.vertex_index[0]].p)
-//        splitPointVertexIntersectionIndices.second = 0;
-//    else if (splitPoints.second == mesh.vertices[face.vertex_index[1]].p)
-//        splitPointVertexIntersectionIndices.second = 1;
-//    else if (splitPoints.second == mesh.vertices[face.vertex_index[2]].p) {
-//        splitPointVertexIntersectionIndices.second = 2;
-//    }
-//
-//    if ((splitPointVertexIntersectionIndices.first >= 0) && (splitPointVertexIntersectionIndices.second >= 0)) {
-//        log("[ERROR] splitFaceRecursiveA() has two split points intersecting vertices");
-//        return;
-//    }
-//
-//    if ((splitPointVertexIntersectionIndices.first >= 0) || (splitPointVertexIntersectionIndices.second >= 0)) { //this means one of the split points is intersecting a vertex
-//
-//        bool switched = false;
-//        if (splitPointVertexIntersectionIndices.second >= 0) {
-//            switched = true;
-//
-//            int tempInt = splitPointVertexIntersectionIndices.first;
-//            splitPointVertexIntersectionIndices.first = splitPointVertexIntersectionIndices.second;
-//            splitPointVertexIntersectionIndices.second = tempInt;
-//
-//            Point3 tempPoint = splitPoints.first;
-//            splitPoints.first = splitPoints.second;
-//            splitPoints.second = tempPoint;
-//        }
-//
-//        int x, y, z;
-//        if (splitPointVertexIntersectionIndices.first == 0) {
-//            x = 0;
-//            y = 1;
-//            z = 2;
-//        } else if (splitPointVertexIntersectionIndices.first == 1) {
-//            x = 1;
-//            y = 2;
-//            z = 0;
-//        } else if (splitPointVertexIntersectionIndices.first == 2) {
-//            x = 2;
-//            y = 0;
-//            z = 1;
-//        } else {
-//            log("[ERROR] split points vertex intersection index is not 0, 1, or 2");
-//            return;
-//        }
-//
-//        int newVertexIndex = prevSplitPointIndex;
-//
-//        mesh.vertices.push_back(MeshVertex(splitPoints.second));
-//        pair<int, int> newVertexPrimeIndices(prevSplitPointPrimeIndex, mesh.vertices.size() - 1);
-//
-//        mesh.faces.push_back(MeshFace());
-//        int newFaceID = mesh.faces.size() - 1;
-//        MeshFace& newFace = mesh.faces[newFaceID];
-//
-//        if (intersectingPolyRef.inside(Point(mesh.vertices[face.vertex_index[y]].p.x, mesh.vertices[face.vertex_index[y]].p.y))) {
-//            newFace.vertex_index[0] = newVertexPrimeIndices.second;
-//            newFace.vertex_index[1] = face.vertex_index[y];
-//            newFace.vertex_index[2] = newVertexPrimeIndices.first;
-//            newFace.connected_face_index[0] = face.connected_face_index[0];
-//
-//            face.vertex_index[y] = newVertexIndex;
-//            face.connected_face_index[x] = -1;
-//
-//            if (pointOnPrevFirstEdge) {
-//                //conect A and prevB
-//                face.connected_face_index[1] = prevFaceIDB;
-//                mesh.faces[prevFaceIDB].connected_face_index[0] = faceID;
-//
-//                //connect B and prevA
-//                newFace.connected_face_index[1] = prevFaceIDA;
-//                mesh.faces[prevFaceIDA].connected_face_index[0] = newFaceID;
-//
-//                //call recursively on xth edge of newFace
-//            }
-//
-//        } else {
-//            newFace.vertex_index[0] = newVertexPrimeIndices.second;
-//            newFace.vertex_index[1] = newVertexPrimeIndices.first;
-//            newFace.vertex_index[2] = face.vertex_index[z];
-//            newFace.connected_face_index[2] = face.connected_face_index[2];
-//
-//            face.vertex_index[z] = newVertexIndex;
-//            face.connected_face_index[z] = -1;
-//
-//            if (pointOnPrevFirstEdge) {
-//                //connect A and prevA
-//                face.connected_face_index[1] = prevFaceIDA;
-//                mesh.faces[prevFaceIDA].connected_face_index[0] = faceID;
-//
-//                //conect B and prevB
-//                newFace.connected_face_index[1] = prevFaceIDB;
-//                mesh.faces[prevFaceIDB].connected_face_index[0] = newFaceID;
-//
-//                //call recursively on zth edge of newFace
-//            }
-//        }
-//
-//    } else {
-//
-//        //determine which edges split points are on
-//        pair<int, int> splitPointEdgeIndices(-1, -1);
-//
-//        FPoint3 edges[3];
-//        edges[0] = mesh.vertices[face.vertex_index[1]].p - mesh.vertices[face.vertex_index[0]].p;
-//        edges[1] = mesh.vertices[face.vertex_index[2]].p - mesh.vertices[face.vertex_index[1]].p;
-//        edges[2] = mesh.vertices[face.vertex_index[0]].p - mesh.vertices[face.vertex_index[2]].p;
-//
-//        if (edges[0].cross(splitPoints.first - mesh.vertices[face.vertex_index[0]].p).vSize2() == 0) {
-//            splitPointEdgeIndices.first = 0;
-//        } else if (edges[1].cross(splitPoints.first - mesh.vertices[face.vertex_index[1]].p).vSize2() == 0) {
-//            splitPointEdgeIndices.first = 1;
-//        } else if (edges[2].cross(splitPoints.first - mesh.vertices[face.vertex_index[2]].p).vSize2() == 0) {
-//            splitPointEdgeIndices.first = 2;
-//        } else {
-//            log("[ERROR] split point was not found to be on any edge of face");
-//            return;
-//        }
-//
-//        if (splitPointEdgeIndices.first == splitPointEdgeIndices.second) {
-//            log("[ERROR] split points are on same edge");
-//            return;
-//        }
-//
-//        //if order is either 1-0, 2-0, or 2-1 switch it to 0-1, 0-2, or 1-2 repsectively so there's only 3 scenarios
-//        bool switched = false;
-//        if ((splitPointEdgeIndices.first == 1) && (splitPointEdgeIndices.second == 0)) {
-//            splitPointEdgeIndices = pair<int, int>(0, 1);
-//            switched = true;
-//        } else if ((splitPointEdgeIndices.first == 2) && (splitPointEdgeIndices.first == 1)) {
-//            splitPointEdgeIndices = pair<int, int>(1, 2);
-//            switched = true;
-//        } else if ((splitPointEdgeIndices.second == 0) && (splitPointEdgeIndices.first == 2)) {
-//            splitPointEdgeIndices = pair<int, int>(2, 0);
-//            switched = true;
-//        }
-//
-//        if (switched) {
-//            Point3 temp = splitPoints.first;
-//            splitPoints.first = splitPoints.second;
-//            splitPoints.second = temp;
-//        }
-//
-//        //at this point, the edges that the split points are on are determined
-//
-//        int x, y, z;
-//        if ((splitPointEdgeIndices.first == 0) && (splitPointEdgeIndices.second == 1)) {
-//            x = 0;
-//            y = 1;
-//            z = 2;
-//        } else if ((splitPointEdgeIndices.first == 1) && (splitPointEdgeIndices.second == 2)) {
-//            x = 1;
-//            y = 2;
-//            z = 0;
-//        } else if ((splitPointEdgeIndices.first == 2) && (splitPointEdgeIndices.second == 0)) {
-//            x = 2;
-//            y = 0;
-//            z = 1;
-//        } else {
-//            log("[ERROR] split points are on impossible order of edges");
-//            return;
-//        }
-//
-//        //if this is the last triangle before return to original face where cut was started
-//        bool isFinalFaceInCycle = (((face.connected_face_index[x] == originalFaceIDA) || (face.connected_face_index[y] == originalFaceIDA)) && (prevFaceIDA != originalFaceIDA)); //oh shit it's OG!!
-//
-//        //whether or not the trapezoid created by the cut is in the overhang
-//        bool trapezoidInOverhang = intersectingPolyRef.inside(face.vertex_index[y]); //y vertex is connected to base volume
-//
-//        //whether or not the first split point is the split point from the previous face
-//        bool firstPointMatch = true;
-//
-//        pair<int, int> newVertexIndices, newVertexPrimeIndices;
-//        if (isFinalFaceInCycle) {
-//            if (splitPoints.first == prevSplitPoint) {
-//                firstPointMatch = true;
-//
-//                if (trapezoidInOverhang) {
-//                    newVertexIndices = pair<int, int>(prevSplitPointIndex, mesh.faces[originalFaceIDA].vertex_index[2] - 2); //indexes of new vertices in mesh
-//                    newVertexPrimeIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.faces[originalFaceIDA].vertex_index[2]); //indexes of new vertices in mesh
-//                } else {
-//                    newVertexIndices = pair<int, int>(prevSplitPointIndex, mesh.faces[originalFaceIDA].vertex_index[2]); //indexes of new vertices in mesh
-//                    newVertexPrimeIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.faces[originalFaceIDA].vertex_index[2] + 2); //indexes of new vertices in mesh
-//                }
-//            } else if (splitPoints.second == prevSplitPoint) {
-//                firstPointMatch = false;
-//
-//                if (trapezoidInOverhang) {
-//                    newVertexIndices = pair<int, int>(mesh.faces[originalFaceIDA].vertex_index[2], prevSplitPointIndex); //indexes of new vertices in mesh
-//                    newVertexPrimeIndices = pair<int, int>(mesh.faces[originalFaceIDA].vertex_index[2] + 2, prevSplitPointPrimeIndex); //indexes of new vertices in mesh
-//                } else {
-//                    newVertexIndices = pair<int, int>(mesh.faces[originalFaceIDA].vertex_index[2] - 2, prevSplitPointIndex); //indexes of new vertices in mesh
-//                    newVertexPrimeIndices = pair<int, int>(mesh.faces[originalFaceIDA].vertex_index[2], prevSplitPointPrimeIndex); //indexes of new vertices in mesh
-//                }
-//            } else {
-//                log("[ERROR] adjacent face to split face does not have a matching split point");
-//                return;
-//            }
-//        } else {
-//            if (splitPoints.first == prevSplitPoint) {
-//                firstPointMatch = true;
-//
-//                //add split points to vertex list
-//                mesh.vertices.push_back(MeshVertex(splitPoints.second));
-//                newVertexIndices = pair<int, int>(prevSplitPointIndex, mesh.vertices.size() - 1); //indexes of new vertices in mesh
-//
-//                mesh.vertices.push_back(MeshVertex(splitPoints.second));
-//                newVertexPrimeIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.vertices.size() - 1); //indexes of new vertices in mesh
-//            } else if (splitPoints.second == prevSplitPoint) {
-//                firstPointMatch = false;
-//
-//                mesh.vertices.push_back(MeshVertex(splitPoints.first));
-//                newVertexIndices = pair<int, int>(mesh.vertices.size() - 1, prevSplitPointIndex); //indexes of new vertices in mesh
-//
-//                mesh.vertices.push_back(MeshVertex(splitPoints.first));
-//                newVertexPrimeIndices = pair<int, int>(mesh.vertices.size() - 1, prevSplitPointPrimeIndex); //indexes of new vertices in mesh
-//            } else {
-//                log("[ERROR] adjacent face to split face does not have a matching split point");
-//                return;
-//            }
-//        }
-//
-//        //add new faces
-//        mesh.faces.push_back(MeshFace());
-//        mesh.faces.push_back(MeshFace());
-//        pair<int, int> newFaceIDs(mesh.faces.size() - 2, mesh.faces.size() - 1);
-//        pair<MeshFace&, MeshFace&> newFaces(mesh.faces[newFaceIDs.first], mesh.faces[newFaceIDs.second]);
-//
-//        if (trapezoidInOverhang) {
-//            //alter original face
-//            face.vertex_index[x] = newVertexIndices.first;
-//            face.vertex_index[z] = newVertexIndices.second;
-//
-//            //add first face
-//            newFaces.first.vertex_index[0] = originalVertexIndices[x];
-//            newFaces.first.vertex_index[1] = newVertexPrimeIndices.first;
-//            newFaces.first.vertex_index[2] = newVertexPrimeIndices.second;
-//
-//            //add second face
-//            newFaces.second.vertex_index[0] = originalVertexIndices[z];
-//            newFaces.second.vertex_index[1] = originalVertexIndices[x];
-//            newFaces.second.vertex_index[2] = newVertexPrimeIndices.second;
-//        } else {
-//            //alter original face
-//            face.vertex_index[x] = newVertexPrimeIndices.first;
-//            face.vertex_index[z] = newVertexPrimeIndices.second;
-//
-//            //add first face
-//            newFaces.first.vertex_index[0] = originalVertexIndices[x];
-//            newFaces.first.vertex_index[1] = newVertexIndices.first;
-//            newFaces.first.vertex_index[2] = newVertexIndices.second;
-//
-//            //add second face
-//            newFaces.second.vertex_index[0] = originalVertexIndices[z];
-//            newFaces.second.vertex_index[1] = originalVertexIndices[x];
-//            newFaces.second.vertex_index[2] = newVertexIndices.second;
-//        }
-//
-//        //add connected faces to new vertices
-//        if (trapezoidInOverhang) {
-//            mesh.vertices[newVertexIndices.first].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexIndices.second].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(newFaceIDs.second);
-//        } else {
-//            mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(faceID);
-//            mesh.vertices[newVertexIndices.first].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexIndices.second].connected_faces.push_back(newFaceIDs.first);
-//            mesh.vertices[newVertexIndices.second].connected_faces.push_back(newFaceIDs.second);
-//        }
-//
-//        //--fix adjacent faces--
-//
-//        //remove connected faces from existing vertices
-//
-//        vector<uint32_t>::iterator it; //index of faceID in vector
-//
-//        //remove original face from xth vertex
-//        it = find(mesh.vertices[originalVertexIndices[x]].connected_faces.begin(), mesh.vertices[originalVertexIndices[x]].connected_faces.end(), faceID);
-//        if (it != mesh.vertices[originalVertexIndices[x]].connected_faces.end()) {
-//            mesh.vertices[originalVertexIndices[x]].connected_faces.erase(it);
-//        }
-//        //add first and second added face to xth vertex
-//        mesh.vertices[originalVertexIndices[x]].connected_faces.push_back(newFaceIDs.first);
-//        mesh.vertices[originalVertexIndices[x]].connected_faces.push_back(newFaceIDs.second);
-//
-//        //remove original face from zth vertex
-//        it = find(mesh.vertices[originalVertexIndices[z]].connected_faces.begin(), mesh.vertices[originalVertexIndices[z]].connected_faces.end(), faceID);
-//        if (it != mesh.vertices[originalVertexIndices[z]].connected_faces.end()) {
-//            mesh.vertices[originalVertexIndices[z]].connected_faces.erase(it);
-//        }
-//        //add just second added face to xth vertex
-//        mesh.vertices[originalVertexIndices[z]].connected_faces.push_back(newFaceIDs.second);
-//
-//        //updated index of adjacent face
-//        if (mesh.faces[face.connected_face_index[z]].connected_face_index[0] == faceID) {
-//            mesh.faces[face.connected_face_index[z]].connected_face_index[0] = newFaceIDs.second;
-//        } else if (mesh.faces[face.connected_face_index[z]].connected_face_index[1] == faceID) {
-//            mesh.faces[face.connected_face_index[z]].connected_face_index[1] = newFaceIDs.second;
-//        } else if (mesh.faces[face.connected_face_index[z]].connected_face_index[2] == faceID) {
-//            mesh.faces[face.connected_face_index[z]].connected_face_index[2] = newFaceIDs.second;
-//        } else {
-//            log("[ERROR] original face is not listed as an adjacent face of adjacent face");
-//            return;
-//        }
-//        newFaces.first.connected_face_index[2] = newFaceIDs.second;
-//        newFaces.second.connected_face_index[1] = newFaceIDs.first;
-//        newFaces.second.connected_face_index[0] = face.connected_face_index[z];
-//        face.connected_face_index[z] = -1;
-//
-//        //----ADDITION RECURSIVE CODE----
-//
-//        if (firstPointMatch) {
-//            if (pointOnPrevFirstEdge) {
-//                //connect A and prevB
-//                face.connected_face_index[0] = prevFaceIDB;
-//                mesh.faces[prevFaceIDB].connected_face_index[0] = faceID;
-//
-//                //connect B and prevA
-//                newFaces.first.connected_face_index[0] = prevFaceIDA;
-//                mesh.faces[prevFaceIDA].connected_face_index[0] = newFaceIDs.first;
-//
-//                if (trapezoidInOverhang) {
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(prevFaceIDB);
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(prevFaceIDA);
-//                } else {
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(prevFaceIDB);
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(prevFaceIDA);
-//                }
-//
-//            } else {
-//                //connect A and prevA
-//                face.connected_face_index[0] = prevFaceIDA;
-//                mesh.faces[prevFaceIDA].connected_face_index[1] = faceID;
-//
-//                //connect B and prevC
-//                newFaces.first.connected_face_index[0] = prevFaceIDC;
-//                mesh.faces[prevFaceIDC].connected_face_index[2] = newFaceIDs.first;
-//
-//                if (trapezoidInOverhang) {
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(prevFaceIDA);
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(prevFaceIDB);
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(prevFaceIDC);
-//                } else {
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(prevFaceIDA);
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(prevFaceIDB);
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(prevFaceIDC);
-//                }
-//            }
-//        } else {
-//            if (pointOnPrevFirstEdge) {
-//                //connect A and prevA
-//                face.connected_face_index[1] = prevFaceIDA;
-//                mesh.faces[prevFaceIDA].connected_face_index[0] = faceID;
-//
-//                //connect C and prevB
-//                newFaces.second.connected_face_index[2] = prevFaceIDB;
-//                mesh.faces[prevFaceIDB].connected_face_index[0] = newFaceIDs.second;
-//
-//                if (trapezoidInOverhang) {
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(prevFaceIDA);
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(prevFaceIDB);
-//                } else {
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(prevFaceIDB);
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(prevFaceIDA);
-//                }
-//
-//            } else {
-//                //connect A and prevC
-//                face.connected_face_index[1] = prevFaceIDC;
-//                mesh.faces[prevFaceIDC].connected_face_index[2] = faceID;
-//
-//                //connect C and prevA
-//                newFaces.second.connected_face_index[2] = prevFaceIDA;
-//                mesh.faces[prevFaceIDA].connected_face_index[1] = newFaceIDs.second;
-//
-//                if (trapezoidInOverhang) {
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(prevFaceIDB);
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(prevFaceIDC);
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(prevFaceIDA);
-//                } else {
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(prevFaceIDB);
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(prevFaceIDC);
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(prevFaceIDA);
-//                }
-//
-//            }
-//        }
-//
-//        if (isFinalFaceInCycle) {
-//            if (firstPointMatch) {
-//                if (trapezoidInOverhang) {
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(originalFaceIDB);
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(originalFaceIDC);
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(originalFaceIDA);
-//                } else {
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(originalFaceIDB);
-//                    mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(originalFaceIDC);
-//                    mesh.vertices[newVertexIndices.second].connected_faces.push_back(originalFaceIDA);
-//                }
-//
-//                //connect A to originalC
-//                face.connected_face_index[1] = originalFaceIDC;
-//                mesh.faces[originalFaceIDC].connected_face_index[2] = faceID;
-//
-//                //connect C to originalA
-//                newFaces.second.connected_face_index[2] = originalFaceIDA;
-//                mesh.faces[originalFaceIDA].connected_face_index[1] = newFaceIDs.second;
-//
-//            } else {
-//                if (trapezoidInOverhang) {
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(originalFaceIDA);
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(originalFaceIDB);
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(originalFaceIDC);
-//                } else {
-//                    mesh.vertices[newVertexPrimeIndices.first].connected_faces.push_back(originalFaceIDA);
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(originalFaceIDB);
-//                    mesh.vertices[newVertexIndices.first].connected_faces.push_back(originalFaceIDC);
-//                }
-//
-//                //connect A to connectA
-//                face.connected_face_index[0] = originalFaceIDA;
-//                mesh.faces[originalFaceIDA].connected_face_index[0] = faceID;
-//
-//                //conect B to connectC
-//                newFaces.first.connected_face_index[0] = originalFaceIDC;
-//                mesh.faces[originalFaceIDC].connected_face_index[0] = newFaceIDs.first;
-//            }
-//        } else {
-//
-//            if (firstPointMatch) {
-//                int nextFaceID = face.connected_face_index[y];
-//
-//                pair<Point3, Point3> nextSplitPoints;
-//                int nextNumSplitPoints = findSplitPoints(mesh, nextFaceID, intersectingPolyRef, nextSplitPoints);
-//
-//                splitFaceRecursiveA(mesh, intersectingPolyRef, nextFaceID, nextNumSplitPoints, nextSplitPoints, splitPoints.second, newVertexIndices.second, newVertexPrimeIndices.second, false, faceID, newFaceIDs.first, newFaceIDs.second, originalFaceIDA, originalFaceIDB, originalFaceIDC);
-//            } else {
-//                int nextFaceID = face.connected_face_index[x];
-//
-//                pair<Point3, Point3> nextSplitPoints;
-//                int nextNumSplitPoints = findSplitPoints(mesh, nextFaceID, intersectingPolyRef, nextSplitPoints);
-//
-//                splitFaceRecursiveA(mesh, intersectingPolyRef, nextFaceID, nextNumSplitPoints, nextSplitPoints, splitPoints.first, newVertexIndices.first, newVertexPrimeIndices.first, true, faceID, newFaceIDs.first, newFaceIDs.second, originalFaceIDA, originalFaceIDB, originalFaceIDC);
-//            }
-//        }
-//    }
-//
-//    //----END ADDITION RECURSIVE CODE----
-//}
-//
-//void VolumeDecomposer::splitFaceRecursiveB(Mesh& mesh, PolygonRef intersectingPolyRef, int faceID, int numSplitPoints, pair<Point3, Point3>& splitPoints, Point3 prevSplitPoint, int prevSplitPointIndex, int prevSplitPointPrimeIndex, bool pointOnPrevFirstEdge, int prevFaceID, int originalFaceIDA, int originalFaceIDB, int originalFaceIDC) {
-//
-//    if (splitPoints.first == splitPoints.second) {
-//        //this is assuming that the face is on the overhang side
-//
-//        // Grab the actual MeshFace
-//        MeshFace& face = mesh.faces[faceID];
-//
-//        //save original vertex indices for future reference
-//        int originalVertexIndices[3] = {-1};
-//        originalVertexIndices[0] = face.vertex_index[0];
-//        originalVertexIndices[1] = face.vertex_index[1];
-//        originalVertexIndices[2] = face.vertex_index[2];
-//
-//        int x, y, z;
-//        if (splitPoints.first == mesh.vertices[face.vertex_index[0]].p) {
-//            x = 0;
-//            y = 1;
-//            z = 2;
-//        } else if (splitPoints.first == mesh.vertices[face.vertex_index[1]].p) {
-//            x = 1;
-//            y = 2;
-//            z = 0;
-//        } else if (splitPoints.first == mesh.vertices[face.vertex_index[2]].p) {
-//            x = 2;
-//            y = 0;
-//            z = 1;
-//        } else {
-//            log("[ERROR] splitFaceRecursiveB() has matching split points not on a vertex");
-//            return;
-//        }
-//
-//        vector<uint32_t>::iterator it; //index of faceID in vector
-//
-//        //remove original face from xth vertex
-//        it = find(mesh.vertices[originalVertexIndices[x]].connected_faces.begin(), mesh.vertices[originalVertexIndices[x]].connected_faces.end(), faceID);
-//        if (it != mesh.vertices[originalVertexIndices[x]].connected_faces.end()) {
-//            mesh.vertices[originalVertexIndices[x]].connected_faces.erase(it);
-//        }
-//
-//        //add face to overhang vertex
-//        mesh.vertices[prevSplitPointPrimeIndex].connected_faces.push_back(faceID);
-//
-//        int nextFaceID = -1;
-//
-//        if (face.connected_face_index[x] == prevFaceID) {
-//            nextFaceID = z;
-//        } else if (face.connected_face_index[z] == prevFaceID) {
-//            nextFaceID = x;
-//        }
-//
-//        pair<Point3, Point3> nextSplitPoints;
-//        int nextNumSplitPoints = findSplitPoints(mesh, nextFaceID, intersectingPolyRef, nextSplitPoints);
-//
-//        //TODO call recursively
-//
-//    } else {
-//
-//    }
-//
-//}
-
 bool VolumeDecomposer::isOn(Point a, Point b, Point c, int tolerance) {
     // Return true iff point c intersects the line segment from a to b.
     // (or the degenerate case that all 3 points are coincident)
@@ -1828,7 +1093,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     const MeshVertex& v1 = mesh.vertices[face.vertex_index[1]];
     const MeshVertex& v2 = mesh.vertices[face.vertex_index[2]];
     
-    log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
+    // log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
     
     // Build out the face polygon and retrieve area
     p0 = v0.p;
@@ -1839,8 +1104,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     intersectingPoly.add(intersectingPolyRef);
     double facePolyArea = facePoly[0].area();
     
-    log("[INFO] facePolyArea = %f\n", facePolyArea);
-    log("[INFO] face:\n%s\n", polygonRefToString(facePoly[0]).c_str());
+    // log("[INFO] facePolyArea = %f\n", facePolyArea);
+    // log("[INFO] face:\n%s\n", polygonRefToString(facePoly[0]).c_str());
     
     // Keep the zeros consistent
     if (facePolyArea == -0) {
@@ -1861,7 +1126,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     // The following section gets the diff polygon by subtracting the comparison poly from the face poly
     Polygons diff;
     
-    log("[INFO] pre-offset intersectingPoly:\n%s\n", polygonRefToString(intersectingPolyRef).c_str());
+    // log("[INFO] pre-offset intersectingPoly:\n%s\n", polygonRefToString(intersectingPolyRef).c_str());
     
     if (facePolyArea == 0) {
         // If the face is a simple polyline and that polyline is on the egde of the intersecting
@@ -1893,8 +1158,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     for (unsigned int cutPoly_idx = 0; cutPoly_idx < diff.size(); cutPoly_idx++) {
         // Look for the (up to) two new points, which will be the split point
         PolygonRef cutPoly = diff[0];
-        log("[INFO] diff size = %d\n", diff.size());
-        log("[INFO] pre-simplification:\n%s\n", polygonRefToString(cutPoly).c_str());
+        // log("[INFO] diff size = %d\n", diff.size());
+        // log("[INFO] pre-simplification:\n%s\n", polygonRefToString(cutPoly).c_str());
         
         // This step checks if the resulting diff poly is too small/insignificant to be properly split
         // It uses the ClipperLib simplify function and checks if the resulting poly still exists
@@ -1912,7 +1177,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
             }
         }
         
-        log("[INFO] not simplified:\n%s\n", polygonRefToString(cutPoly).c_str());
+        // log("[INFO] not simplified:\n%s\n", polygonRefToString(cutPoly).c_str());
         
         unsigned int numPointsFound = 0;
         Point3 pt;
@@ -1922,17 +1187,18 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
         for (unsigned int i = 0; i < cutPoly.size() && numPointsFound < 2; ++i) {
             Point cutPolyPt = cutPoly[i];
             
-            log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
+            // log("[INFO] Point being checked: <%d, %d>\n", cutPolyPt.X, cutPolyPt.Y);
             
             // The point is a split point only if it's inside (i.e. on the edge) of the comparison
             // poly
             if (!intersectingPoly.inside(cutPolyPt, true)) continue;
             
-            log("[INFO] Point is inside\n");
             
             // Check if the split point is any of the face's vertices, in which case
             // we use the vertex value which is better than using the potentially
             // slightly off split point value
+            // TODO: Quick and dirty hack to have multiple if statements all ligned up,
+            //       change it so it's smarter
             if ((cutPolyPt.X <= v0.p.x + 1 && cutPolyPt.X >= v0.p.x - 1) &&
                 (cutPolyPt.Y <= v0.p.y + 1 && cutPolyPt.Y >= v0.p.y - 1)) {
                 if (numPointsFound == 0) {
@@ -1942,8 +1208,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if ((cutPolyPt.X <= v1.p.x + 1 && cutPolyPt.X >= v1.p.x - 1) &&
-                     (cutPolyPt.Y <= v1.p.y + 1 && cutPolyPt.Y >= v1.p.y - 1)) {
+            if ((cutPolyPt.X <= v1.p.x + 1 && cutPolyPt.X >= v1.p.x - 1) &&
+                (cutPolyPt.Y <= v1.p.y + 1 && cutPolyPt.Y >= v1.p.y - 1)) {
                 if (numPointsFound == 0) {
                     result.first = v1.p;
                 } else {
@@ -1951,8 +1217,8 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if ((cutPolyPt.X <= v2.p.x + 1 && cutPolyPt.X >= v2.p.x - 1) &&
-                     (cutPolyPt.Y <= v2.p.y + 1 && cutPolyPt.Y >= v2.p.y - 1)) {
+            if ((cutPolyPt.X <= v2.p.x + 1 && cutPolyPt.X >= v2.p.x - 1) &&
+                (cutPolyPt.Y <= v2.p.y + 1 && cutPolyPt.Y >= v2.p.y - 1)) {
                 if (numPointsFound == 0) {
                     result.first = v2.p;
                 } else {
@@ -1962,7 +1228,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
             }
             // If the split point was not a vertex, we check to see which edge of the face it's
             // on in order to retrieve the point's z-value
-            else if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
+            if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
                 } else {
@@ -1970,7 +1236,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
+            if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
                 } else {
@@ -1978,7 +1244,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                 }
                 numPointsFound++;
             }
-            else if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
+            if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
                 if (numPointsFound == 0) {
                     result.first = pt;
                 } else {
@@ -1995,10 +1261,10 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
         resultVect.push_back(result);
         numPairsFound++;
 
-        log("split points: <%d, %d, %d>, <%d, %d, %d>\n", result.first.x, result.first.y, result.first.z, result.second.x, result.second.y, result.second.z);
+        // log("split points: <%d, %d, %d>, <%d, %d, %d>\n", result.first.x, result.first.y, result.first.z, result.second.x, result.second.y, result.second.z);
     }
     
-    log("numPairsFound = %d, resultVectSize = %d\n", numPairsFound, resultVect.size());
+    // log("numPairsFound = %d, resultVectSize = %d\n", numPairsFound, resultVect.size());
     return numPairsFound;
 }
 
