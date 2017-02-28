@@ -15,8 +15,6 @@ using namespace cura;
 using namespace std;
 
 VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
-    StudentTestCase("hullo");
-    
     // SerialComms sc = SerialComms("/dev/ttyACM0");
     std::vector<SlicerLayer> & layers = slicer->layers;
     
@@ -583,9 +581,9 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
             
             if (fabs(edges[0].cross(splitPoints.second - mesh.vertices[face.vertex_index[0]].p).vSize2()) <= 0.01) {
                 splitPointEdgeIndices.second = 0;
-            } else if (fabs(edges[1].cross(splitPoints.second - mesh.vertices[face.vertex_index[1]].p).vSize2()) <= 0.0) {
+            } else if (fabs(edges[1].cross(splitPoints.second - mesh.vertices[face.vertex_index[1]].p).vSize2()) <= 0.01) {
                 splitPointEdgeIndices.second = 1;
-            } else if (fabs(edges[2].cross(splitPoints.second - mesh.vertices[face.vertex_index[2]].p).vSize2()) <= 0) {
+            } else if (fabs(edges[2].cross(splitPoints.second - mesh.vertices[face.vertex_index[2]].p).vSize2()) <= 0.01) {
                 splitPointEdgeIndices.second = 2;
             } else {
                 log("[ERROR] Second split point was not found to be on any edge of face\n");
