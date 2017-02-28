@@ -93,7 +93,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
         // Grab the actual MeshFace
         MeshFace& face = mesh.faces[faceID];
         
-        log("[INFO] Splitting face %d\n", faceID);
+        log("[INFO] --Splitting face %d--\n", faceID);
         log("[INFO] Vertex[0]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[0]].p.x, mesh.vertices[face.vertex_index[0]].p.y, mesh.vertices[face.vertex_index[0]].p.z);
         log("[INFO] Vertex[1]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[1]].p.x, mesh.vertices[face.vertex_index[1]].p.y, mesh.vertices[face.vertex_index[1]].p.z);
         log("[INFO] Vertex[2]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[2]].p.x, mesh.vertices[face.vertex_index[2]].p.y, mesh.vertices[face.vertex_index[2]].p.z);
