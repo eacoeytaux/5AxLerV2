@@ -12,6 +12,8 @@
 using namespace std;
 
 namespace cura{
+	CPPUNIT_TEST_SUITE_REGISTRATION(TestVolumeDecomposer);
+	
 	void TestVolumeDecomposer::setUp(){
 		string test = "machine_extruder_count";
 		SettingsBase settings;

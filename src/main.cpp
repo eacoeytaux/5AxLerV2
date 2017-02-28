@@ -2,7 +2,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <algorithm>
+#include <vector>
 #include <sys/time.h>
+#include <iterator>
 #include <signal.h>
 #if defined(__linux__) || (defined(__APPLE__) && defined(__MACH__))
 #include <execinfo.h>
@@ -23,6 +26,8 @@
 // CUSTOM CODE
 #include "5axis/MeshToSTL.hpp"
 #include "5axis/path_smoothing/PathSmoother.hpp"
+#include "5axis/TransformationMatrix3D.hpp"
+#include "5axis/OBB3D.hpp"
 // END CUSTOM CODE
 
 namespace cura
@@ -289,28 +294,81 @@ void slice(int argc, char **argv)
     FffProcessor::getInstance()->finalize();
 	
 	
-	FMatrix3x3 transformationMatrix = FMatrix3x3();
-	transformationMatrix.m[0][0] = cos(3.14159265/4);
-	transformationMatrix.m[1][0] = -sin(3.14159265/4);
-	transformationMatrix.m[2][0] = 0;
-	transformationMatrix.m[0][1] = sin(3.14159265/4);
-	transformationMatrix.m[1][1] = cos(3.14159265/4);
-	transformationMatrix.m[2][1] = 0;
-	transformationMatrix.m[0][2] = 0;
-	transformationMatrix.m[1][2] = 0;
-	transformationMatrix.m[2][2] = 1;
 	
-	for(MeshVertex &vertex : meshgroup->meshes[0].vertices){
-		vertex = transformationMatrix.apply(vertex.p);
+	
+	//MeshToSTL::constructSTLfromMesh(meshgroup->meshes[0], "output.stl");
+	
+	/*
+	printf("\nALL OF THE FACES OF THE MESH:------------------------------");
+	for ( int k = 0; k < meshgroup->meshes[0].faces.size(); k++){
+		MeshFace currentFace = meshgroup->meshes[0].faces[k];
+		MeshVertex v0 = meshgroup->meshes[0].vertices[currentFace.vertex_index[0]];
+		MeshVertex v1 = meshgroup->meshes[0].vertices[currentFace.vertex_index[2]];
+		MeshVertex v2 = meshgroup->meshes[0].vertices[currentFace.vertex_index[2]];
+
+		printf("-FACE ID: %i\n	V0: %i\n",  k, currentFace.vertex_index[0]);
+		printf("		connected to: ");
+		for(int j = 0; j < v0.connected_faces.size(); j++){
+			printf("%i, ", v0.connected_faces[j]);
+		}
+		printf("\n	V1: %i\n", currentFace.vertex_index[1]);
+		printf("		connected to: ");
+		for(int j = 0; j < v1.connected_faces.size(); j++){
+			printf("%i, ", v1.connected_faces[j]);
+		}
+		printf("\n	V1: %i\n", currentFace.vertex_index[2]);
+		printf("		connected to: ");
+		for(int j = 0; j < v2.connected_faces.size(); j++){
+			printf("%i, ", v2.connected_faces[j]);
+		}
+		printf("\n");
 	}
 	
-	MeshToSTL::constructSTLfromMesh(meshgroup->meshes[0], "rotation.stl");
+	printf("\nALL OF THE VERTICES OF THE MESH:------------------------------\n");
+	for ( int k = 0; k < meshgroup->meshes[0].vertices.size(); k++){
+		MeshVertex currentVertex = meshgroup->meshes[0].vertices[k];
+		
+		printf("-VERTEX ID: %i", k);
+		printf("		Point: [%i, %i, %i]", currentVertex.p.z, currentVertex.p.x, currentVertex.p.y);
+		printf("		connected to: ");
+		for(int j = 0; j < currentVertex.connected_faces.size(); j++){
+			printf("%i, ", currentVertex.connected_faces[j]);
+		}
+		printf("\n");
+	}
+	*/
 	
+	TransformationMatrix3D transMatrix = *new TransformationMatrix3D();
+	transMatrix.matrix[0][0] = 1;
+	transMatrix.matrix[1][0] = 0;
+	transMatrix.matrix[2][0] = 0;
+	transMatrix.matrix[3][0] = 0;
+	transMatrix.matrix[0][1] = 0;
+	transMatrix.matrix[1][1] = -cos(3.14159265/2);
+	transMatrix.matrix[2][1] = sin(3.14159265/2);
+	transMatrix.matrix[3][1] = 0;
+	transMatrix.matrix[0][2] = 0;
+	transMatrix.matrix[1][2] = -sin(3.14159265/2);
+	transMatrix.matrix[2][2] = -cos(3.14159265/2);
+	transMatrix.matrix[3][2] = 0;
+	transMatrix.matrix[0][3] = 0;
+	transMatrix.matrix[1][3] = 0;
+	transMatrix.matrix[2][3] = 0;
+	transMatrix.matrix[3][3] = 1;
 	
+	OBB3D obb = *new OBB3D(transMatrix);
+	obb.aabb.include(*new Point3(0,0,0));
+	obb.aabb.include(*new Point3(15,15,15));
 	
-	//printf("PPPPPPOINTL:::::   ( %i,  %i,  %i )", point.x, point.y, point.z);
+	AABB3D aabb = *new AABB3D();
+	aabb.include(*new Point3(10,10,10));
+	aabb.include(*new Point3(30,30,30));
 	
-	//}
+	if(obb.hit(aabb)){
+		printf("\n\n\n ---- THEY HIT ----\n\n");
+	}else{
+		printf("\n\n\n ---- NO HIT ----\n\n");
+	}
 
     delete meshgroup;
 }
@@ -357,7 +415,6 @@ int main(int argc, char **argv)
         print_usage();
         exit(1);
     }
-	printf("\n New rotati");
 	
     if (stringcasecompare(argv[1], "connect") == 0)
     {

@@ -116,7 +116,6 @@ set(engine_SRCS # Except main.cpp.
     src/5axis/VolumeDecomposer.cpp
 	src/5axis/MeshToSTL.cpp
     src/5axis/comms/SerialComms.cpp
-	src/5axis/SequenceNode.cpp
 	src/5axis/collisionDetection.cpp
 	src/5axis/seqGraph.cpp
     src/5axis/path_smoothing/PathSmoother.cpp
@@ -159,7 +158,7 @@ add_executable(CuraEngine src/main.cpp) #Then compile main.cpp as separate execu
 target_link_libraries(CuraEngine _CuraEngine)
 
 # Compiling the test environment.
-if (BUILD_TESTS)
+ if (BUILD_TESTS)
     message(STATUS "Building tests...")
     enable_testing()
     foreach (test ${engine_TEST})

@@ -29,6 +29,7 @@ namespace cura {
 		 */
 		Mesh mesh;
 		
+		SeqNode(Mesh & mesh) : mesh(mesh){};
 		
 		/**
 		 *The transformation necessary to print sub-volume in positive z-axis at origin
@@ -73,6 +74,7 @@ namespace cura {
 	
 	class SeqGraph {
 	public:
+		
 		/**
 		 *Vector of all nodes in the graph.
 		 */
@@ -89,13 +91,13 @@ namespace cura {
 		std::vector<std::vector<int>> collisionChildren;
 		
 		/**
-		 *returns the node of the graph with the specified index
+		 * returns the node of the graph with the specified index
 		 *
 		 * @param index the index of the node
 		 *
 		 * @return the node with specified index
 		 */
-		SeqNode getNode(int index){ return graphNodes[index]; }
+		SeqNode & getNode(int index){ return graphNodes[index]; }
 		
 		/**
 		 *returns the geometric children of the node with given index
@@ -107,7 +109,7 @@ namespace cura {
 		std::vector<int> getGeometricChildren(int index){ return geometricChildren[index]; }
 		
 		/**
-		 *returns the mesh of the node with the specified index
+		 * returns the mesh of the node with the specified index
 		 *
 		 * @param index The index of the node
 		 *
@@ -116,9 +118,16 @@ namespace cura {
 		Mesh getMesh(int index){ return graphNodes[index].getMesh(); }
 		
 		/**
-		 *returns the number of nodes in the graph
+		 * returns the number of nodes in the graph
 		 */
 		long int size(){ return graphNodes.size(); }
+		
+		/**
+		 * adds a new node to the graph
+		 *
+		 * @param node the node reference to be added to the grap
+		 */
+		void addNode(SeqNode & node);
 		
 		/**
 		 *Adds a Sequence Node as a geometric child
@@ -129,10 +138,10 @@ namespace cura {
 		void addGeometricChild(int parent, int child);
 		
 		/**
-		 *Adds a Sequence Node as a collision child
+		 * Adds a Sequence Node as a collision child
 		 *
-		 *@param parent The index of the parent node in the graph.  Node represents the sub-vol which is would not be able to be printed because nozzle will collide with child.
-		 *@param child The index of the child node in the graph. Node represents the sub-vol which will interfere with nozzle when printing the parent.
+		 * @param parent The index of the parent node in the graph.  Node represents the sub-vol which is would not be able to be printed because nozzle will collide with child.
+		 * @param child The index of the child node in the graph. Node represents the sub-vol which will interfere with nozzle when printing the parent.
 		 */
 		void addCollisionChild(int parent, int child);
 	private:

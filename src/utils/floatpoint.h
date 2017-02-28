@@ -123,26 +123,6 @@ public:
             MM2INT(p.x * m[0][1] + p.y * m[1][1] + p.z * m[2][1]),
             MM2INT(p.x * m[0][2] + p.y * m[1][2] + p.z * m[2][2]));
     }
-	
-	
-	
-	
-	//
-	//
-	//
-	//
-	//
-	//
-	//CUSTOM CODE
-	Point3 apply(Point3& p) const
-	{
-		//adding 0.5 is to correct floating point truncation so eg. 1.99999 will round to 2
-		int x = static_cast<int>(p.x * m[0][0] + p.y * m[1][0] + p.z * m[2][0]) + 0.5;
-		int y = static_cast<int>(p.x * m[0][1] + p.y * m[1][1] + p.z * m[2][1]) + 0.5;
-		int z = static_cast<int>(p.x * m[0][2] + p.y * m[1][2] + p.z * m[2][2]) + 0.5;
-		
-		return Point3(x, y, z);
-	}
 };
 
 }//namespace cura

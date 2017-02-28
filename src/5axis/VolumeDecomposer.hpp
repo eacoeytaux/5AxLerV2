@@ -13,6 +13,8 @@
 #include "../utils/floatpoint.h"
 #include "../utils/intpoint.h"
 #include "../FffProcessor.h"
+#include "SeqGraph.hpp"
+
 
 namespace cura {
 	
@@ -23,8 +25,11 @@ namespace cura {
 
 class VolumeDecomposer {
 public:
-	VolumeDecomposer(Mesh& mesh, Slicer* slicer);
+	SeqGraph sequenceGraph;
 	
+	VolumeDecomposer(Mesh& mesh, Slicer* slicer);
+	MeshSequence separateMesh(Mesh mesh, std::vector<int> seedVertices);
+
 private:
 	/**
 	 * Outputs a string with all the vertices of the specified face
@@ -104,7 +109,6 @@ private:
 	 * @param mesh The mesh that is being divided into multiple meshes.  It has been modified to have disjoint parts via splitFace()
 	 * @param seedVertices a list of vertex indices, which we identified to be in parts of the mesh other than the base/parent.  At least one index is guaranteed to be in each of the disjoint sub-meshes that have been created.
 	 */
-	MeshSequence separateMesh(Mesh mesh, std::vector<int> seedVertices);
 	
 	/**
 	 * Discovers if the face is an overhang intersection for any of the polygons
