@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ;FLAVOR:RepRap
 ;TIME:6666
 ;Filament used: 0m
@@ -67393,3 +67394,5 @@ G28 X0 Y0
 M84
 M104 S0
 ;End of Gcode
+=======
+>>>>>>> d72ff49a57dc29e5524c5e21a3ae5a20d9723438

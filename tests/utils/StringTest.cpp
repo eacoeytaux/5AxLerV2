@@ -166,7 +166,7 @@ void StringTest::writeDoubleToStreamTestLowestNeg()
 }
 void StringTest::writeDoubleToStreamTestLow()
 {
-    writeDoubleToStreamAssert(0.00000001d);
+    writeDoubleToStreamAssert(0.00000001);
 }
 
 

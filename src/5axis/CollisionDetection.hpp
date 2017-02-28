@@ -15,10 +15,10 @@
 
 #include "SeqGraph.hpp"
 #include "../mesh.h"
-#include "../Slicer.h"
+#include "../slicer.h"
 #include "../settings/settings.h"
 #include "../MeshGroup.h"
-#include "../SliceDataStorage.h"
+#include "../sliceDataStorage.h"
 #include "../FffProcessor.h"
 #include "OBB3D.hpp"
 #include <clipper/clipper.hpp>
