@@ -9,8 +9,6 @@
 #include "Utility.hpp"
 #include "MeshToSTL.hpp"
 
-#include "5AxLerTests.hpp"
-
 using namespace cura;
 using namespace std;
 
