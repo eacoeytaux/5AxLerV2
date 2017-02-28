@@ -156,8 +156,6 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     if (intersectingPoly.inside(Point(mesh.vertices[face.vertex_index[y]].p.x, mesh.vertices[face.vertex_index[y]].p.y))) { //face is inside overhang, this should not be our first face
                         //go to the xth face and rerun cycle to see if face is not entirely on overhang
                         faceID = face.connected_face_index[x];
-                        
-                        splitPointsVector.clear();
                         findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
                         splitPoints = splitPointsVector[0];
                         
@@ -212,7 +210,6 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     }
                 }
                 
-                splitPointsVector.clear();
                 findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
                 splitPoints = splitPointsVector[0];
                 
@@ -246,7 +243,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     y = 0;
                     z = 1;
                 } else {
-                    log("[ERROR] Split points are on impossible order of edges: (%d:%d)\n", splitPointVertexIntersectionIndices.first, splitPointVertexIntersectionIndices.second);
+                    log("[ERROR] Split points are on impossible order of edges\n");
                     return seedVertex;
                 }
                 
@@ -258,8 +255,6 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                 if (firstCycle) {
                     if (intersectingPoly.inside(Point(mesh.vertices[face.vertex_index[z]].p.x, mesh.vertices[face.vertex_index[z]].p.y))) { //if face is entirely not in overhang, this should not be our first face
                         faceID = face.connected_face_index[x];
-                        
-                        splitPointsVector.clear();
                         findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
                         splitPoints = splitPointsVector[0];
                         
@@ -282,12 +277,12 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     
                     seedVertex = prevSplitPointPrimeIndex;
                 } else {
-                    if (Point3Equals(splitPoints.first, prevSplitPoint, 1)) { //TODO temp hack fix
+                    if (splitPoints.first == prevSplitPoint) {
                         firstPointMatch = true;
                         
                         mesh.vertices.push_back(MeshVertex(splitPoints.second));
                         newVertexPrimeIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.vertices.size() - 1); //indexes of new vertices in mesh
-                    } else if (Point3Equals(splitPoints.second, prevSplitPoint, 1)) { //TODO temp hack fix
+                    } else if (splitPoints.second == prevSplitPoint) {
                         firstPointMatch = false;
                         
                         mesh.vertices.push_back(MeshVertex(splitPoints.first));
@@ -365,7 +360,6 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     }
                 }
                 
-                splitPointsVector.clear();
                 findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
                 splitPoints = splitPointsVector[0];
                 
@@ -543,7 +537,6 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                 prevSplitPointPrimeIndex = newVertexPrimeIndices.second;
             }
             
-            splitPointsVector.clear();
             findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
             splitPoints = splitPointsVector[0];
             
@@ -605,10 +598,10 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
             if ((splitPointEdgeIndices.first == 1) && (splitPointEdgeIndices.second == 0)) {
                 splitPointEdgeIndices = pair<int, int>(0, 1);
                 switched = true;
-            } else if ((splitPointEdgeIndices.first == 2) && (splitPointEdgeIndices.second == 1)) {
+            } else if ((splitPointEdgeIndices.first == 2) && (splitPointEdgeIndices.first == 1)) {
                 splitPointEdgeIndices = pair<int, int>(1, 2);
                 switched = true;
-            } else if ((splitPointEdgeIndices.first == 0) && (splitPointEdgeIndices.second == 2)) {
+            } else if ((splitPointEdgeIndices.second == 0) && (splitPointEdgeIndices.first == 2)) {
                 splitPointEdgeIndices = pair<int, int>(2, 0);
                 switched = true;
             }
@@ -635,15 +628,12 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                 y = 0;
                 z = 1;
             } else {
-                log("[ERROR] Split points are on impossible order of edges: (%d:%d)\n", splitPointEdgeIndices.first, splitPointEdgeIndices.second);
+                log("[ERROR] Split points are on impossible order of edges\n");
                 return seedVertex;
             }
             
             //if this is the last triangle before return to original face where cut was started
             bool isFinalFaceInCycle = (((face.connected_face_index[x] == get<0>(firstFaceIDs)) || (face.connected_face_index[y] == get<0>(firstFaceIDs))) && (get<0>(prevFaceIDs) != get<0>(firstFaceIDs))); //oh shit it's OG!!
-            if (isFinalFaceInCycle) {
-                log("[INFO] Last face is split face cycle\n");
-            }
             
             //whether or not the trapezoid created by the cut is in the overhang
             bool trapezoidInOverhang = intersectingPoly.inside(face.vertex_index[y]); //y vertex is connected to base volume
@@ -662,7 +652,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                 mesh.vertices.push_back(MeshVertex(splitPoints.second));
                 pair<int, int> newVertexPrimeIndices(mesh.vertices.size() - 2, mesh.vertices.size() - 1); //indexes of new vertices in mesh
             } else if (isFinalFaceInCycle) {
-                if (Point3Equals(splitPoints.first, prevSplitPoint, 1)) { //TODO temp hack fix
+                if (splitPoints.first == prevSplitPoint) {
                     firstPointMatch = true;
                     
                     if (trapezoidInOverhang) {
@@ -672,7 +662,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                         newVertexIndices = pair<int, int>(prevSplitPointIndex, mesh.faces[get<0>(firstFaceIDs)].vertex_index[2]); //indexes of new vertices in mesh
                         newVertexPrimeIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.faces[get<0>(firstFaceIDs)].vertex_index[2] + 2); //indexes of new vertices in mesh
                     }
-                } else if (Point3Equals(splitPoints.second, prevSplitPoint, 1)) { //TODO temp hack fix
+                } else if (splitPoints.second == prevSplitPoint) {
                     firstPointMatch = false;
                     
                     if (trapezoidInOverhang) {
@@ -683,11 +673,11 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                         newVertexPrimeIndices = pair<int, int>(mesh.faces[get<0>(firstFaceIDs)].vertex_index[2], prevSplitPointPrimeIndex); //indexes of new vertices in mesh
                     }
                 } else {
-                    log("[ERROR] Adjacent face to split face does not have a matching split point to previous split point <%d, %d, %d>\n", prevSplitPoint.x, prevSplitPoint.y, prevSplitPoint.z);
+                    log("[ERROR] Adjacent face to split face does not have a matching split point\n");
                     return seedVertex;
                 }
             } else {
-                if (Point3Equals(splitPoints.first, prevSplitPoint, 1)) { //TODO temp hack fix
+                if (splitPoints.first == prevSplitPoint) {
                     firstPointMatch = true;
                     
                     //add split points to vertex list
@@ -696,7 +686,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     
                     mesh.vertices.push_back(MeshVertex(splitPoints.second));
                     newVertexPrimeIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.vertices.size() - 1); //indexes of new vertices in mesh
-                } else if (Point3Equals(splitPoints.second, prevSplitPoint, 1)) { //TODO temp hack fix
+                } else if (splitPoints.second == prevSplitPoint) {
                     firstPointMatch = false;
                     
                     mesh.vertices.push_back(MeshVertex(splitPoints.first));
@@ -705,7 +695,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     mesh.vertices.push_back(MeshVertex(splitPoints.first));
                     newVertexPrimeIndices = pair<int, int>(mesh.vertices.size() - 1, prevSplitPointPrimeIndex); //indexes of new vertices in mesh
                 } else {
-                    log("[ERROR] Adjacent face to split face does not have a matching split point to previous split point <%d, %d, %d>\n", prevSplitPoint.x, prevSplitPoint.y, prevSplitPoint.z);
+                    log("[ERROR] Adjacent face to split face does not have a matching split point\n");
                     return seedVertex;
                 }
             }
@@ -812,8 +802,6 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                 
                 pointOnPrevFirstEdge = true;
                 faceID = face.connected_face_index[x];
-                
-                splitPointsVector.clear();
                 findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
                 splitPoints = splitPointsVector[0];
                 
@@ -988,20 +976,19 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
                     if (firstPointMatch) {
                         faceID = face.connected_face_index[y];
                         
-                        prevSplitPoint = splitPoints.second;
-                        prevSplitPointIndex = newVertexIndices.second;
-                        prevSplitPointPrimeIndex = newVertexPrimeIndices.second;
+                        prevSplitPoint = splitPoints.first;
+                        prevSplitPointIndex = newVertexIndices.first;
+                        prevSplitPointPrimeIndex = newVertexPrimeIndices.first;
                         pointOnPrevFirstEdge = true;
                     } else {
                         faceID = face.connected_face_index[x];
                         
-                        prevSplitPoint = splitPoints.first;
-                        prevSplitPointIndex = newVertexIndices.first;
-                        prevSplitPointPrimeIndex = newVertexPrimeIndices.first;
-                        pointOnPrevFirstEdge = false;
+                        prevSplitPoint = splitPoints.second;
+                        prevSplitPointIndex = newVertexIndices.second;
+                        prevSplitPointPrimeIndex = newVertexPrimeIndices.second;
+                        pointOnPrevFirstEdge = true;
                     }
                     
-                    splitPointsVector.clear();
                     findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
                     splitPoints = splitPointsVector[0];
                 }
@@ -1113,7 +1100,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     const MeshVertex& v1 = mesh.vertices[face.vertex_index[1]];
     const MeshVertex& v2 = mesh.vertices[face.vertex_index[2]];
     
-    log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
+    logAlways("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
     
     // Build out the face polygon and retrieve area
     p0 = v0.p;
@@ -1256,7 +1243,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.first = pt;
                     numPointsFound++;
                 } else {
-                    if (!(result.first == pt)) {
+                    if (!(p3EQ(result.first, pt, 1))) {
                         result.second = pt;
                         numPointsFound++;
                     }
@@ -1267,7 +1254,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.first = pt;
                     numPointsFound++;
                 } else {
-                    if (!(result.first == pt)) {
+                    if (!(p3EQ(result.first, pt, 1))) {
                         result.second = pt;
                         numPointsFound++;
                     }
@@ -1278,7 +1265,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.first = pt;
                     numPointsFound++;
                 } else {
-                    if (!(result.first == pt)) {
+                    if (!(p3EQ(result.first, pt, 1))) {
                         result.second = pt;
                         numPointsFound++;
                     }
@@ -1298,6 +1285,18 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     
     // log("numPairsFound = %d, resultVectSize = %d\n", numPairsFound, resultVect.size());
     return numPairsFound;
+}
+
+bool VolumeDecomposer::p3EQ(Point3 fp1, Point3 fp2, int tolerance) {
+    int xLo, xHi, yLo, yHi, zLo, zHi;
+    xLo = fp1.x - tolerance;
+    xHi = fp1.x + tolerance;
+    yLo = fp1.y - tolerance;
+    yHi = fp1.y + tolerance;
+    zLo = fp1.z - tolerance;
+    zHi = fp1.z + tolerance;
+
+    return (fp2.x >= xLo && fp2.x <= xHi && fp2.y >= yLo && fp2.y <= yHi && fp2.z >= zLo && fp2.z <= zHi);
 }
 
 MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVertices){
