@@ -124,8 +124,12 @@ set(engine_SRCS # Except main.cpp.
     src/5axis/TransformationMatrix3D.cpp
     src/5axis/OBB3D.cpp
 <<<<<<< HEAD
+<<<<<<< HEAD
     src/5axis/path_smoothing/ForwardKinematics.cpp
     src/5axis/path_smoothing/InverseKinematics.cpp
+=======
+    src/5axis/5AxLerTests.cpp
+>>>>>>> parent of 27338b7... fixed a few small bugs in splitFaces()
 =======
     src/5axis/5AxLerTests.cpp
 >>>>>>> parent of 27338b7... fixed a few small bugs in splitFaces()
