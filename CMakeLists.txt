@@ -113,8 +113,6 @@ set(engine_SRCS # Except main.cpp.
     src/utils/polygon.cpp
     src/utils/ProximityPointLink.cpp
 
-    src/5axis/Catch/catch.hpp
-
     src/5axis/VolumeDecomposer.cpp
     src/5axis/BuildMap.cpp
     src/5axis/MeshToSTL.cpp
