@@ -1100,7 +1100,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     const MeshVertex& v1 = mesh.vertices[face.vertex_index[1]];
     const MeshVertex& v2 = mesh.vertices[face.vertex_index[2]];
     
-    log("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
+    logAlways("[INFO] Vertices: <%d, %d, %d>, <%d, %d, %d>, <%d, %d, %d>\n", v0.p.x, v0.p.y, v0.p.z, v1.p.x, v1.p.y, v1.p.z, v2.p.x, v2.p.y, v2.p.z);
     
     // Build out the face polygon and retrieve area
     p0 = v0.p;
@@ -1243,7 +1243,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.first = pt;
                     numPointsFound++;
                 } else {
-                    if (!(result.first == pt)) {
+                    if (!(p3EQ(result.first, pt, 1))) {
                         result.second = pt;
                         numPointsFound++;
                     }
@@ -1254,7 +1254,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.first = pt;
                     numPointsFound++;
                 } else {
-                    if (!(result.first == pt)) {
+                    if (!(p3EQ(result.first, pt, 1))) {
                         result.second = pt;
                         numPointsFound++;
                     }
@@ -1265,7 +1265,7 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
                     result.first = pt;
                     numPointsFound++;
                 } else {
-                    if (!(result.first == pt)) {
+                    if (!(p3EQ(result.first, pt, 1))) {
                         result.second = pt;
                         numPointsFound++;
                     }
@@ -1285,6 +1285,18 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
     
     // log("numPairsFound = %d, resultVectSize = %d\n", numPairsFound, resultVect.size());
     return numPairsFound;
+}
+
+bool VolumeDecomposer::p3EQ(Point3 fp1, Point3 fp2, int tolerance) {
+    int xLo, xHi, yLo, yHi, zLo, zHi;
+    xLo = fp1.x - tolerance;
+    xHi = fp1.x + tolerance;
+    yLo = fp1.y - tolerance;
+    yHi = fp1.y + tolerance;
+    zLo = fp1.z - tolerance;
+    zHi = fp1.z + tolerance;
+
+    return (fp2.x >= xLo && fp2.x <= xHi && fp2.y >= yLo && fp2.y <= yHi && fp2.z >= zLo && fp2.z <= zHi);
 }
 
 MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVertices){

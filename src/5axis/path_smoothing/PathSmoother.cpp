@@ -3,10 +3,37 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
+#include "ForwardKinematics.hpp"
+#include "InverseKinematics.hpp"
 
 namespace cura {
 
 PathSmoother::PathSmoother(char* gcodeFilePath) {
+	float x_buildplate = 0;
+	float y_buildplate = 0;
+	float z_buildplate = 0;
+	float x_frame = 0;
+	float y_frame = 0;
+	float z_frame = 8;
+	float rho = 0;
+	float theta = 0;
+	float phi = 0;
+	float psi = 0;
+	float z_offset = 4;
+	ForwardKinematics fk = ForwardKinematics();
+	float* forwardPosMatrix = fk.position(x_frame, y_frame, z_frame, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	
+	float x_S = forwardPosMatrix[0];
+	float y_S = forwardPosMatrix[1];
+	float z_S = forwardPosMatrix[2];
+	z_buildplate = 4;
+	theta = M_PI / 2;
+	InverseKinematics ik = InverseKinematics();
+	float* inversePosMatrix = ik.position(x_S, y_S, z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	logAlways("[ ");
+	for (uint16_t i = 0; i < 3; ++i) {
+		logAlways("  %f %s\t%s %f %s", forwardPosMatrix[i], (i == 2) ? ']' : ' ', (i == 0) ? '[' : ' ');
+	}
 	// Set the initial value of x/y/z point to be 0, 0, 0
 	lastX = lastY = lastZ = 0;
 
@@ -74,16 +101,14 @@ void PathSmoother::processLayer() {
 		FPoint3 p2 = layerPoints[point_idx + 1];
 		FPoint3 p3 = layerPoints[point_idx + 2];
 
-		FPoint3 firstSegmentUnit = (p2 - p1).normalized();
-		float delta = 0.5 * (p2 - p1).vSize();
-		float vm_x = sqrt(maxAccel_vect.x * delta * firstSegmentUnit.x + initialVel.x / 2 + firstSegmentUnit.x * maxFeedrate / 2);
-		float vm_y = sqrt(maxAccel_vect.y * delta * firstSegmentUnit.y + initialVel.y / 2 + firstSegmentUnit.y * maxFeedrate / 2);
-		float vm_z = sqrt(maxAccel_vect.z * delta * firstSegmentUnit.z + initialVel.z / 2 + firstSegmentUnit.z * maxFeedrate / 2);
+		float firstSegmentDistance = (p2 - p1).vSize();
+		float vf_x = maxFeedrate * (p2.x - p1.x) / firstSegmentDistance;
+		float vf_y = maxFeedrate * (p2.y - p1.y) / firstSegmentDistance;
+		float vf_z = maxFeedrate * (p2.z - p1.z) / firstSegmentDistance;
+		float vm_x = sqrt((maxAccel_vect.x * (p2.x - p1.x) / 2) + (pow(initialVel.x, 2) / 2) + (pow(vf_x, 2) / 2));
+		float vm_y = sqrt((maxAccel_vect.y * (p2.y - p1.y) / 2) + (pow(initialVel.y, 2) / 2) + (pow(vf_y, 2) / 2));
+		float vm_z = sqrt((maxAccel_vect.z * (p2.z - p1.z) / 2) + (pow(initialVel.z, 2) / 2) + (pow(vf_z, 2) / 2));
 		FPoint3 maxInputFeedrate = FPoint3(vm_x, vm_y, vm_z);
-
-		logAlways("sqrt(%f * %f + %f + %f * %f)\n", maxAccel_vect.x, delta, initialVel.x, firstSegmentUnit.x, maxFeedrate);
-		logAlways("sqrt(%f * %f + %f + %f * %f)\n", maxAccel_vect.y, delta, initialVel.y, firstSegmentUnit.y, maxFeedrate);
-		logAlways("sqrt(%f * %f + %f + %f * %f)\n", maxAccel_vect.z, delta, initialVel.z, firstSegmentUnit.z, maxFeedrate);
 
 		logAlways("maxFeedrate = %f\n", maxFeedrate);
 		logAlways("maxInputFeedrate = <%f, %f, %f>\n", maxInputFeedrate.x, maxInputFeedrate.y, maxInputFeedrate.z);
