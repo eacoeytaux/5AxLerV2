@@ -30,9 +30,8 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 	theta = M_PI / 2;
 	InverseKinematics ik = InverseKinematics();
 	float* inversePosMatrix = ik.position(x_S, y_S, z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
-	logAlways("[ ");
 	for (uint16_t i = 0; i < 3; ++i) {
-		logAlways("  %f %s\t%s %f %s", forwardPosMatrix[i], (i == 2) ? ']' : ' ', (i == 0) ? '[' : ' ');
+		logAlways("%s %f %s\t%s %f %s\n", (i == 0) ? "[" : " ", forwardPosMatrix[i], (i == 2) ? "]" : " ", (i == 0) ? "[" : " ", inversePosMatrix[i], (i == 2) ? "]" : " ");
 	}
 	// Set the initial value of x/y/z point to be 0, 0, 0
 	lastX = lastY = lastZ = 0;
