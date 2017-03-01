@@ -93,7 +93,7 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
         // Grab the actual MeshFace
         MeshFace& face = mesh.faces[faceID];
         
-        log("[INFO] Splitting face %d\n", faceID);
+        log("[INFO] --Splitting face %d--\n", faceID);
         log("[INFO] Vertex[0]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[0]].p.x, mesh.vertices[face.vertex_index[0]].p.y, mesh.vertices[face.vertex_index[0]].p.z);
         log("[INFO] Vertex[1]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[1]].p.x, mesh.vertices[face.vertex_index[1]].p.y, mesh.vertices[face.vertex_index[1]].p.z);
         log("[INFO] Vertex[2]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[2]].p.x, mesh.vertices[face.vertex_index[2]].p.y, mesh.vertices[face.vertex_index[2]].p.z);
@@ -579,9 +579,9 @@ int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersecting
             
             if (fabs(edges[0].cross(splitPoints.second - mesh.vertices[face.vertex_index[0]].p).vSize2()) <= 0.01) {
                 splitPointEdgeIndices.second = 0;
-            } else if (fabs(edges[1].cross(splitPoints.second - mesh.vertices[face.vertex_index[1]].p).vSize2()) <= 0.0) {
+            } else if (fabs(edges[1].cross(splitPoints.second - mesh.vertices[face.vertex_index[1]].p).vSize2()) <= 0.01) {
                 splitPointEdgeIndices.second = 1;
-            } else if (fabs(edges[2].cross(splitPoints.second - mesh.vertices[face.vertex_index[2]].p).vSize2()) <= 0) {
+            } else if (fabs(edges[2].cross(splitPoints.second - mesh.vertices[face.vertex_index[2]].p).vSize2()) <= 0.01) {
                 splitPointEdgeIndices.second = 2;
             } else {
                 log("[ERROR] Second split point was not found to be on any edge of face\n");
