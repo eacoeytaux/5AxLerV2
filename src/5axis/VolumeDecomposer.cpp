@@ -17,7 +17,7 @@ namespace cura {
     }
     
     void VolumeDecomposer::decompose(Mesh& mesh, bool first){
-        
+        std::vector<int> seeds;
         if(first){
             SeqNode parentNode = SeqNode(mesh);
             sequenceGraph.addNode(parentNode);
@@ -49,34 +49,37 @@ namespace cura {
             Polygons & openPolys = slice.openPolylines;
             std::vector<std::vector<int>> polyFaces = slice.polyFaces;
             
-            if ((int)(100.0 * ((double)layer_idx / (double)(numLayers - 1))) % 5 == 0) {
-                log("=");
+            // Main loop
+            for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
+                std::vector<int> faces = polyFaces[polyfaces_idx];
+                
+                for (unsigned int comparisonPolys_idx = 0; comparisonPolys_idx < comparisonPolys.size(); ++comparisonPolys_idx) {
+                    for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
+                        int faceID = faces[face_idx];
+                        std::string faceString = VolumeDecomposer::faceToString(mesh, faceID);
+                        
+                        bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
+                        if (intersectingOverhang) {
+                            std::vector<std::pair<Point3, Point3>> splitPoints;
+                            int numSplitPairs = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
+                            
+                            for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
+                                seeds.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
+                            }
+                        }
+                    }
+                }
             }
-            /*
-             // Main loop
-             for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
-             std::vector<int> faces = polyFaces[polyfaces_idx];
-             bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
-             if (intersectingOverhang) {
-             std::pair<Point3, Point3> splitPoints;
-             int numSplitPoints = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
-             log("[INFO] numSplitPoints = %d, <%d, %d, %d>, <%d, %d, %d>\n", numSplitPoints, splitPoints.first.x, splitPoints.first.y, splitPoints.first.z, splitPoints.second.x, splitPoints.second.y, splitPoints.second.z);
-             splitFace(mesh, faceID, numSplitPoints, splitPoints);
-             }
-             }
-             }
-             }
-             
-             comparisonPolys = polys;
-             */
+            
+            comparisonPolys = polys;
         }
         
         //Creating the graph by recursivley decomposing meshes
         
         //TODO:get these from decomp
-        std::vector<int> seeds;
-        seeds.push_back(19);
-        seeds.push_back(18);
+        
+        // seeds.push_back(19);
+        // seeds.push_back(18);
         
         
         MeshSequence sub_graph = separateMesh(mesh, seeds);
@@ -1379,7 +1382,7 @@ namespace cura {
         
         
         //create new meshes for all of the sub-meshes (overhangs) using the seed vertices
-        for(int i = 0; i < seedVertices.size(); i++){
+        for(unsigned int i = 0; i < seedVertices.size(); i++){
             
             //find one face on the sob-mesh which we can use to start the BFS queue
             int anAdjacentFaceIndex = -1;
@@ -1600,14 +1603,14 @@ namespace cura {
         return ret;
     }
     
-    FPoint3 VolumeDecomposer::faceNormal(const Mesh& mesh, const MeshFace& face) {
-        Point3 v0 = mesh.vertices[face.vertex_index[1]].p - mesh.vertices[face.vertex_index[0]].p;
-        Point3 v1 = mesh.vertices[face.vertex_index[2]].p - mesh.vertices[face.vertex_index[1]].p;
-        
-        FPoint3 norm = FPoint3::cross(v0, v1);
-        
-        return norm;
-    }
+    // FPoint3 VolumeDecomposer::faceNormal(const Mesh& mesh, const MeshFace& face) {
+    //     Point3 v0 = mesh.vertices[face.vertex_index[1]].p - mesh.vertices[face.vertex_index[0]].p;
+    //     Point3 v1 = mesh.vertices[face.vertex_index[2]].p - mesh.vertices[face.vertex_index[1]].p;
+    
+    //     FPoint3 norm = FPoint3::cross(v0, v1);
+    
+    //     return norm;
+    // }
     
     Point3 VolumeDecomposer::truncatedFaceNormal(const Mesh& mesh, const MeshFace& face) {
         FPoint3 norm = faceNormal(mesh, face);
@@ -1616,3 +1619,5 @@ namespace cura {
         
         return truncNorm;
     }
+    
+}

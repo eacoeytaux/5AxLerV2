@@ -37,9 +37,9 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 	logAlways("[ %f\n  %f\n  %f ]\n\n", forwardPosMatrix[0][0], forwardPosMatrix[1][0], forwardPosMatrix[2][0]);
 
 	logAlways("Forward velocity kinematics:\n");
-	logAlways("[ %f %f %f %f %f %f %f %f\n\\
-  %f %f %f %f %f %f %f %f\n\\
-  %f %f %f %f %f %f %f %f ]\n\n", forwardVelMatrix[0][0], forwardVelMatrix[0][1], forwardVelMatrix[0][2],
+	logAlways("[ %f %f %f %f %f %f %f %f\n"
+ 			  "  %f %f %f %f %f %f %f %f\n"
+			  "  %f %f %f %f %f %f %f %f ]\n\n", forwardVelMatrix[0][0], forwardVelMatrix[0][1], forwardVelMatrix[0][2],
 		forwardVelMatrix[0][3], forwardVelMatrix[0][4], forwardVelMatrix[0][5], forwardVelMatrix[0][6],
 		forwardVelMatrix[0][7], forwardVelMatrix[1][0], forwardVelMatrix[1][1], forwardVelMatrix[1][2],
 		forwardVelMatrix[1][3], forwardVelMatrix[1][4], forwardVelMatrix[1][5], forwardVelMatrix[1][6],
@@ -48,9 +48,9 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 		forwardVelMatrix[2][7]);
 
 	logAlways("Forward acceleration kinematics:\n");
-	logAlways("[ %f %f %f %f %f %f %f %f\n\\
-  %f %f %f %f %f %f %f %f\n\\
-  %f %f %f %f %f %f %f %f ]\n\n", forwardAccMatrix[0][0], forwardAccMatrix[0][1], forwardAccMatrix[0][2],
+	logAlways("[ %f %f %f %f %f %f %f %f\n"
+  			  "  %f %f %f %f %f %f %f %f\n"
+			  "  %f %f %f %f %f %f %f %f ]\n\n", forwardAccMatrix[0][0], forwardAccMatrix[0][1], forwardAccMatrix[0][2],
 		forwardAccMatrix[0][3], forwardAccMatrix[0][4], forwardAccMatrix[0][5], forwardAccMatrix[0][6],
 		forwardAccMatrix[0][7], forwardAccMatrix[1][0], forwardAccMatrix[1][1], forwardAccMatrix[1][2],
 		forwardAccMatrix[1][3], forwardAccMatrix[1][4], forwardAccMatrix[1][5], forwardAccMatrix[1][6],
@@ -58,13 +58,10 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 		forwardAccMatrix[2][3], forwardAccMatrix[2][4], forwardAccMatrix[2][5], forwardAccMatrix[2][6],
 		forwardAccMatrix[2][7]);
 
-	float x_S = forwardPosMatrix[0][0];
-	float y_S = forwardPosMatrix[1][0];
-	float z_S = forwardPosMatrix[2][0];
 	z_buildplate = 4;
 	theta = M_PI / 2;
 	InverseKinematics ik = InverseKinematics();
-	Matrix3x1 inversePosMatrix = ik.position(x_S, y_S, z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	Matrix3x1 inversePosMatrix = ik.position(forwardPosMatrix, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
 
 	logAlways("Inverse position kinematics:\n");
 	logAlways("[ %f\n  %f\n  %f ]\n", inversePosMatrix[0][0], inversePosMatrix[1][0], inversePosMatrix[2][0]);
@@ -134,7 +131,7 @@ void PathSmoother::processLayer() {
 	for (unsigned int point_idx = 0; point_idx < layerPoints.size() - 2; ++point_idx) {
 		FPoint3 p1 = layerPoints[point_idx];
 		FPoint3 p2 = layerPoints[point_idx + 1];
-		FPoint3 p3 = layerPoints[point_idx + 2];
+		// FPoint3 p3 = layerPoints[point_idx + 2];
 
 		float firstSegmentDistance = (p2 - p1).vSize();
 		float vf_x = maxFeedrate * (p2.x - p1.x) / firstSegmentDistance;
@@ -242,7 +239,7 @@ float PathSmoother::findMinFeedrate(std::vector<FPoint3>& points, unsigned int s
 
 	float minCornerFeedrate = std::numeric_limits<float>::infinity();
 	float maxOutputFeedrate = std::numeric_limits<float>::infinity();
-	float maxInputFeedrate = std::numeric_limits<float>::infinity();
+	// float maxInputFeedrate = std::numeric_limits<float>::infinity();
 
 	// Find the shortest segment between start_idx and end_idx
 	for (unsigned int point_idx = start_idx; point_idx < end_idx - 2; ++point_idx) {

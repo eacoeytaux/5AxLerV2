@@ -112,258 +112,259 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
     // meshgroup->clear();///Clear the mesh face and vertex data, it is no longer needed after this point, and it saves a lot of memory.
 
 
-	FMatrix3x3 transformationMatrix = FMatrix3x3();
-	transformationMatrix.m[0][0] = 1;
-	transformationMatrix.m[1][0] = 0;
-	transformationMatrix.m[2][0] = 0;
-	transformationMatrix.m[0][1] = 0;
-	transformationMatrix.m[1][1] = -cos(3.14159265/2);
-	transformationMatrix.m[2][1] = sin(3.14159265/2);
-	transformationMatrix.m[0][2] = 0;
-	transformationMatrix.m[1][2] = -sin(3.14159265/2);
-	transformationMatrix.m[2][2] = -cos(3.14159265/2);
-	
-	for(MeshVertex &vertex : meshgroup->meshes[0].vertices){
-		vertex.p = transformationMatrix.apply(vertex.p);
-	}
-	
-	MeshVertex * v8 = &meshgroup->meshes[0].vertices[8];
-	MeshVertex * v9 = &meshgroup->meshes[0].vertices[9];
-	MeshVertex * v11 = &meshgroup->meshes[0].vertices[11];
-	MeshVertex * v10 = &meshgroup->meshes[0].vertices[10];
-	MeshVertex * v16 = new MeshVertex(meshgroup->meshes[0].vertices[8].p);
-	MeshVertex * v17 = new MeshVertex(meshgroup->meshes[0].vertices[9]);
-	MeshVertex * v18 = new MeshVertex(meshgroup->meshes[0].vertices[11]);
-	MeshVertex * v19 = new MeshVertex(meshgroup->meshes[0].vertices[10]);
-	
-	//creating v16
-	v16->connected_faces.push_back(4);
-	int pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 4) - v8->connected_faces.begin();
-	printf("Looking for 4 in mesh, found: %i", v8->connected_faces[pos]);
-	v8->connected_faces[pos] = -1;
-	
-	v16->connected_faces.push_back(5);
-	pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 5) - v8->connected_faces.begin();
-	v8->connected_faces[pos] = -1;
-	
-	v16->connected_faces.push_back(8);
-	pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 8) - v8->connected_faces.begin();
-	v8->connected_faces[pos] = -1;
-	
-	v16->connected_faces.push_back(9);
-	pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 9) - v8->connected_faces.begin();
-	v8->connected_faces[pos] = -1;
-	
-	//creating v17
-	v17->connected_faces.push_back(4);
-	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 4) - v9->connected_faces.begin();
-	v9->connected_faces[pos] = -1;
+	// FMatrix3x3 transformationMatrix = FMatrix3x3();
+	// transformationMatrix.m[0][0] = 1;
+	// transformationMatrix.m[1][0] = 0;
+	// transformationMatrix.m[2][0] = 0;
+	// transformationMatrix.m[0][1] = 0;
+	// transformationMatrix.m[1][1] = -cos(3.14159265/2);
+	// transformationMatrix.m[2][1] = sin(3.14159265/2);
+	// transformationMatrix.m[0][2] = 0;
+	// transformationMatrix.m[1][2] = -sin(3.14159265/2);
+	// transformationMatrix.m[2][2] = -cos(3.14159265/2);
+	
+	// for(MeshVertex &vertex : meshgroup->meshes[0].vertices){
+	// 	vertex.p = transformationMatrix.apply(vertex.p);
+	// }
+	
+	// MeshVertex * v8 = &meshgroup->meshes[0].vertices[8];
+	// MeshVertex * v9 = &meshgroup->meshes[0].vertices[9];
+	// MeshVertex * v11 = &meshgroup->meshes[0].vertices[11];
+	// MeshVertex * v10 = &meshgroup->meshes[0].vertices[10];
+	// MeshVertex * v16 = new MeshVertex(meshgroup->meshes[0].vertices[8].p);
+	// MeshVertex * v17 = new MeshVertex(meshgroup->meshes[0].vertices[9]);
+	// MeshVertex * v18 = new MeshVertex(meshgroup->meshes[0].vertices[11]);
+	// MeshVertex * v19 = new MeshVertex(meshgroup->meshes[0].vertices[10]);
+	
+	// //creating v16
+	// v16->connected_faces.push_back(4);
+	// int pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 4) - v8->connected_faces.begin();
+	// printf("Looking for 4 in mesh, found: %i", v8->connected_faces[pos]);
+	// v8->connected_faces[pos] = -1;
+	
+	// v16->connected_faces.push_back(5);
+	// pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 5) - v8->connected_faces.begin();
+	// v8->connected_faces[pos] = -1;
+	
+	// v16->connected_faces.push_back(8);
+	// pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 8) - v8->connected_faces.begin();
+	// v8->connected_faces[pos] = -1;
+	
+	// v16->connected_faces.push_back(9);
+	// pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 9) - v8->connected_faces.begin();
+	// v8->connected_faces[pos] = -1;
+	
+	// //creating v17
+	// v17->connected_faces.push_back(4);
+	// pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 4) - v9->connected_faces.begin();
+	// v9->connected_faces[pos] = -1;
 	
-	v17->connected_faces.push_back(5);
-	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 5) - v9->connected_faces.begin();
-	v9->connected_faces[pos] = -1;
+	// v17->connected_faces.push_back(5);
+	// pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 5) - v9->connected_faces.begin();
+	// v9->connected_faces[pos] = -1;
 	
-	v17->connected_faces.push_back(11);
-	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 11) - v9->connected_faces.begin();
-	v9->connected_faces[pos] = -1;
+	// v17->connected_faces.push_back(11);
+	// pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 11) - v9->connected_faces.begin();
+	// v9->connected_faces[pos] = -1;
 	
-	v17->connected_faces.push_back(10);
-	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 10) - v9->connected_faces.begin();
-	v9->connected_faces[pos] = -1;
+	// v17->connected_faces.push_back(10);
+	// pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 10) - v9->connected_faces.begin();
+	// v9->connected_faces[pos] = -1;
 	
-	//creating v18
-	v18->connected_faces.push_back(8);
-	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 8) - v11->connected_faces.begin();
-	v11->connected_faces[pos] = -1;
+	// //creating v18
+	// v18->connected_faces.push_back(8);
+	// pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 8) - v11->connected_faces.begin();
+	// v11->connected_faces[pos] = -1;
 	
-	v18->connected_faces.push_back(9);
-	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 9) - v11->connected_faces.begin();
-	v11->connected_faces[pos] = -1;
+	// v18->connected_faces.push_back(9);
+	// pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 9) - v11->connected_faces.begin();
+	// v11->connected_faces[pos] = -1;
 	
-	v18->connected_faces.push_back(6);
-	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 6) - v11->connected_faces.begin();
-	v11->connected_faces[pos] = -1;
+	// v18->connected_faces.push_back(6);
+	// pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 6) - v11->connected_faces.begin();
+	// v11->connected_faces[pos] = -1;
 	
-	v18->connected_faces.push_back(7);
-	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 7) - v11->connected_faces.begin();
-	v11->connected_faces[pos] = -1;
+	// v18->connected_faces.push_back(7);
+	// pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 7) - v11->connected_faces.begin();
+	// v11->connected_faces[pos] = -1;
 	
-	//creating v19
-	v19->connected_faces.push_back(6);
-	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 6) - v10->connected_faces.begin();
-	v10->connected_faces[pos] = -1;
+	// //creating v19
+	// v19->connected_faces.push_back(6);
+	// pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 6) - v10->connected_faces.begin();
+	// v10->connected_faces[pos] = -1;
 	
-	v19->connected_faces.push_back(7);
-	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 7) - v10->connected_faces.begin();
-	v10->connected_faces[pos] = -1;
+	// v19->connected_faces.push_back(7);
+	// pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 7) - v10->connected_faces.begin();
+	// v10->connected_faces[pos] = -1;
 	
-	v19->connected_faces.push_back(11);
-	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 11) - v10->connected_faces.begin();
-	v10->connected_faces[pos] = -1;
+	// v19->connected_faces.push_back(11);
+	// pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 11) - v10->connected_faces.begin();
+	// v10->connected_faces[pos] = -1;
 	
-	v19->connected_faces.push_back(10);
-	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 10) - v10->connected_faces.begin();
-	v10->connected_faces[pos] = -1;
+	// v19->connected_faces.push_back(10);
+	// pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 10) - v10->connected_faces.begin();
+	// v10->connected_faces[pos] = -1;
 	
 	
-	meshgroup->meshes[0].vertices.push_back(*v16);
-	meshgroup->meshes[0].vertices.push_back(*v17);
-	meshgroup->meshes[0].vertices.push_back(*v18);
-	meshgroup->meshes[0].vertices.push_back(*v19);
+	// meshgroup->meshes[0].vertices.push_back(*v16);
+	// meshgroup->meshes[0].vertices.push_back(*v17);
+	// meshgroup->meshes[0].vertices.push_back(*v18);
+	// meshgroup->meshes[0].vertices.push_back(*v19);
 	
-	//face vertices
-	MeshFace * f9 = &meshgroup->meshes[0].faces[9];
-	MeshFace * f8 = &meshgroup->meshes[0].faces[8];
-	MeshFace * f11 = &meshgroup->meshes[0].faces[11];
-	MeshFace * f10 = &meshgroup->meshes[0].faces[10];
-	MeshFace * f5 = &meshgroup->meshes[0].faces[5];
-	MeshFace * f4 = &meshgroup->meshes[0].faces[4];
-	MeshFace * f6 = &meshgroup->meshes[0].faces[6];
-	MeshFace * f7 = &meshgroup->meshes[0].faces[7];
+	// //face vertices
+	// MeshFace * f9 = &meshgroup->meshes[0].faces[9];
+	// MeshFace * f8 = &meshgroup->meshes[0].faces[8];
+	// MeshFace * f11 = &meshgroup->meshes[0].faces[11];
+	// MeshFace * f10 = &meshgroup->meshes[0].faces[10];
+	// MeshFace * f5 = &meshgroup->meshes[0].faces[5];
+	// MeshFace * f4 = &meshgroup->meshes[0].faces[4];
+	// MeshFace * f6 = &meshgroup->meshes[0].faces[6];
+	// MeshFace * f7 = &meshgroup->meshes[0].faces[7];
 	
-	MeshFace * f26 = &meshgroup->meshes[0].faces[26];
-	MeshFace * f12 = &meshgroup->meshes[0].faces[12];
-	MeshFace * f15 = &meshgroup->meshes[0].faces[15];
-	MeshFace * f20 = &meshgroup->meshes[0].faces[20];
+	// MeshFace * f26 = &meshgroup->meshes[0].faces[26];
+	// MeshFace * f12 = &meshgroup->meshes[0].faces[12];
+	// MeshFace * f15 = &meshgroup->meshes[0].faces[15];
+	// MeshFace * f20 = &meshgroup->meshes[0].faces[20];
 	
 	
-	for( int i = 0; i < 3; i++)
-		if(f9->vertex_index[i] == 8) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f9->vertex_index[i] == 8) pos = i;
 	
-	f9->vertex_index[pos] = 16;
+	// f9->vertex_index[pos] = 16;
 	
-	for( int i = 0; i < 3; i++)
-		if(f9->vertex_index[i] == 11) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f9->vertex_index[i] == 11) pos = i;
 	
-	f9->vertex_index[pos] = 18;
+	// f9->vertex_index[pos] = 18;
 	
-	for( int i = 0; i < 3; i++)
-		if(f8->vertex_index[i] == 8) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f8->vertex_index[i] == 8) pos = i;
 	
-	f8->vertex_index[pos] = 16;
+	// f8->vertex_index[pos] = 16;
 	
-	for( int i = 0; i < 3; i++)
-		if(f10->vertex_index[i] == 9) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f10->vertex_index[i] == 9) pos = i;
 	
-	f10->vertex_index[pos] = 17;
+	// f10->vertex_index[pos] = 17;
 	
-	for( int i = 0; i < 3; i++)
-		if(f10->vertex_index[i] == 10) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f10->vertex_index[i] == 10) pos = i;
 	
-	f10->vertex_index[pos] = 19;
+	// f10->vertex_index[pos] = 19;
 	
-	for( int i = 0; i < 3; i++)
-		if(f11->vertex_index[i] == 10) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f11->vertex_index[i] == 10) pos = i;
 	
-	f11->vertex_index[pos] = 19;
+	// f11->vertex_index[pos] = 19;
 	
 	
-	for( int i = 0; i < 3; i++)
-		if(f5->vertex_index[i] == 9) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f5->vertex_index[i] == 9) pos = i;
 	
-	f5->vertex_index[pos] = 17;
+	// f5->vertex_index[pos] = 17;
 	
-	for( int i = 0; i < 3; i++)
-		if(f5->vertex_index[i] == 8) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f5->vertex_index[i] == 8) pos = i;
 	
-	f5->vertex_index[pos] = 16;
+	// f5->vertex_index[pos] = 16;
 	
-	for( int i = 0; i < 3; i++)
-		if(f4->vertex_index[i] == 8) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f4->vertex_index[i] == 8) pos = i;
 	
-	f4->vertex_index[pos] = 16;
+	// f4->vertex_index[pos] = 16;
 	
-	for( int i = 0; i < 3; i++)
-		if(f7->vertex_index[i] == 11) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f7->vertex_index[i] == 11) pos = i;
 	
-	f7->vertex_index[pos] = 18;
+	// f7->vertex_index[pos] = 18;
 	
-	for( int i = 0; i < 3; i++)
-		if(f7->vertex_index[i] == 10) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f7->vertex_index[i] == 10) pos = i;
 	
-	f7->vertex_index[pos] = 19;
+	// f7->vertex_index[pos] = 19;
 	
-	for( int i = 0; i < 3; i++)
-		if(f6->vertex_index[i] == 10) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f6->vertex_index[i] == 10) pos = i;
 	
-	f6->vertex_index[pos] = 19;
+	// f6->vertex_index[pos] = 19;
 	
 	
 	
-	// fixing adjacent faces
-	for( int i = 0; i < 3; i++)
-		if(f9->connected_face_index[i] == 26) pos = i;
+	// // fixing adjacent faces
+	// for( int i = 0; i < 3; i++)
+	// 	if(f9->connected_face_index[i] == 26) pos = i;
 	
-	f9->connected_face_index[pos] = -1;
-	for( int i = 0; i < 3; i++)
-		if(f26->connected_face_index[i] == 9) pos = i;
+	// f9->connected_face_index[pos] = -1;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f26->connected_face_index[i] == 9) pos = i;
 	
-	f26->connected_face_index[pos] = -1;
+	// f26->connected_face_index[pos] = -1;
 	
-	for( int i = 0; i < 3; i++)
-		if(f5->connected_face_index[i] == 15) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f5->connected_face_index[i] == 15) pos = i;
 	
-	f5->connected_face_index[pos] = -1;
-	for( int i = 0; i < 3; i++)
-		if(f15->connected_face_index[i] == 5) pos = i;
+	// f5->connected_face_index[pos] = -1;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f15->connected_face_index[i] == 5) pos = i;
 	
-	f15->connected_face_index[pos] = -1;
+	// f15->connected_face_index[pos] = -1;
 	
-	for( int i = 0; i < 3; i++)
-		if(f7->connected_face_index[i] == 12) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f7->connected_face_index[i] == 12) pos = i;
 	
-	f7->connected_face_index[pos] = -1;
-	for( int i = 0; i < 3; i++)
-		if(f12->connected_face_index[i] == 7) pos = i;
+	// f7->connected_face_index[pos] = -1;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f12->connected_face_index[i] == 7) pos = i;
 	
-	f12->connected_face_index[pos] = -1;
+	// f12->connected_face_index[pos] = -1;
 	
-	for( int i = 0; i < 3; i++)
-		if(f10->connected_face_index[i] == 20) pos = i;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f10->connected_face_index[i] == 20) pos = i;
 	
-	f10->connected_face_index[pos] = -1;
-	for( int i = 0; i < 3; i++)
-		if(f20->connected_face_index[i] == 10) pos = i;
+	// f10->connected_face_index[pos] = -1;
+	// for( int i = 0; i < 3; i++)
+	// 	if(f20->connected_face_index[i] == 10) pos = i;
 	
-	f20->connected_face_index[pos] = -1;
+	// f20->connected_face_index[pos] = -1;
 	
-	for(int i = 0; i < meshgroup->meshes[0].vertices.size(); i++){
-		printf("\n[vertex %i] x: %i  y: %i  z: %i", i, meshgroup->meshes[0].vertices[i].p.x, meshgroup->meshes[0].vertices[i].p.y, meshgroup->meshes[0].vertices[i].p.z);
-		fflush(stdout);
-	}
+	// for(int i = 0; i < meshgroup->meshes[0].vertices.size(); i++){
+	// 	printf("\n[vertex %i] x: %i  y: %i  z: %i", i, meshgroup->meshes[0].vertices[i].p.x, meshgroup->meshes[0].vertices[i].p.y, meshgroup->meshes[0].vertices[i].p.z);
+	// 	fflush(stdout);
+	// }
 	
 	
-	MeshToSTL::constructSTLfromMesh(meshgroup->meshes[0], "output_decomp_3.STL");
+	// MeshToSTL::constructSTLfromMesh(meshgroup->meshes[0], "output_decomp_3.STL");
     VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0]);
+    // vd->decompose(meshgroup->meshes[0], true);
 	
-	TransformationMatrix3D transMatrix = *new TransformationMatrix3D();
-	transMatrix.matrix[0][0] = 1;
-	transMatrix.matrix[1][0] = 0;
-	transMatrix.matrix[2][0] = 0;
-	transMatrix.matrix[3][0] = 0;
-	transMatrix.matrix[0][1] = 0;
-	transMatrix.matrix[1][1] = -cos(3.14159265/2);
-	transMatrix.matrix[2][1] = sin(3.14159265/2);
-	transMatrix.matrix[3][1] = 0;
-	transMatrix.matrix[0][2] = 0;
-	transMatrix.matrix[1][2] = -sin(3.14159265/2);
-	transMatrix.matrix[2][2] = -cos(3.14159265/2);
-	transMatrix.matrix[3][2] = 0;
-	transMatrix.matrix[0][3] = 0;
-	transMatrix.matrix[1][3] = 0;
-	transMatrix.matrix[2][3] = 0;
-	transMatrix.matrix[3][3] = 1;
+	// TransformationMatrix3D transMatrix = *new TransformationMatrix3D();
+	// transMatrix.matrix[0][0] = 1;
+	// transMatrix.matrix[1][0] = 0;
+	// transMatrix.matrix[2][0] = 0;
+	// transMatrix.matrix[3][0] = 0;
+	// transMatrix.matrix[0][1] = 0;
+	// transMatrix.matrix[1][1] = -cos(3.14159265/2);
+	// transMatrix.matrix[2][1] = sin(3.14159265/2);
+	// transMatrix.matrix[3][1] = 0;
+	// transMatrix.matrix[0][2] = 0;
+	// transMatrix.matrix[1][2] = -sin(3.14159265/2);
+	// transMatrix.matrix[2][2] = -cos(3.14159265/2);
+	// transMatrix.matrix[3][2] = 0;
+	// transMatrix.matrix[0][3] = 0;
+	// transMatrix.matrix[1][3] = 0;
+	// transMatrix.matrix[2][3] = 0;
+	// transMatrix.matrix[3][3] = 1;
 	
-	printf("before: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
+	// printf("before: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
 	
-	for(MeshVertex & vertex : vd->sequenceGraph.graphNodes[1].getMesh().vertices){
-		transMatrix.apply(vertex.p);
-	}
+	// for(MeshVertex & vertex : vd->sequenceGraph.graphNodes[1].getMesh().vertices){
+	// 	transMatrix.apply(vertex.p);
+	// }
 	
-	printf("after: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
+	// printf("after: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
 	
-	MeshToSTL::constructSTLfromMesh(vd->sequenceGraph.graphNodes[0].getMesh(), "output_decomp_1.STL");
-	MeshToSTL::constructSTLfromMesh(vd->sequenceGraph.graphNodes[1].getMesh(), "output_decomp_2.STL");
+	// MeshToSTL::constructSTLfromMesh(vd->sequenceGraph.graphNodes[0].getMesh(), "output_decomp_1.STL");
+	// MeshToSTL::constructSTLfromMesh(vd->sequenceGraph.graphNodes[1].getMesh(), "output_decomp_2.STL");
 	
 
     // END CUSTOM CODE
