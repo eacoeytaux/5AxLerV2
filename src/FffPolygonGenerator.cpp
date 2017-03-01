@@ -110,7 +110,17 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
     // meshgroup->clear();///Clear the mesh face and vertex data, it is no longer needed after this point, and it saves a lot of memory.
 
     VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0], slicerList[0]);
-    //BuildMap bm(meshgroup->meshes[0]);
+    // BuildMap bm(meshgroup->meshes[0]);
+    // log("\narea = %f\n", bm.area());
+    // log("vector check (1) = %d, vector check (-1) = %d\n", bm.checkVector(FPoint3(0, 0, 1)), bm.checkVector(FPoint3(0, 0, -1)));
+
+    // FPoint3 bestBuildDir = bm.findBestVector();
+    // log("Best build dir = <%d, %d, %d>\n", bestBuildDir.x, bestBuildDir.y, bestBuildDir.z);
+    // log("Is best build dir good = %d\n", bm.checkVector(bestBuildDir));
+
+    // if (bm.area() == 0) {
+    //     log ("HERE\n");
+    // }
 
     // for (unsigned int mesh_idx = 0; mesh_idx < slicerList.size(); ++mesh_idx) {
     //     Slicer* meshSlicer = slicerList[mesh_idx];

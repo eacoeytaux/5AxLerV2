@@ -9,8 +9,9 @@
 #include "Utility.hpp"
 #include "MeshToSTL.hpp"
 
-using namespace cura;
 using namespace std;
+
+namespace cura {
 
 VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
     // SerialComms sc = SerialComms("/dev/ttyACM0");
@@ -1527,4 +1528,6 @@ Point3 VolumeDecomposer::truncatedFaceNormal(const Mesh& mesh, const MeshFace& f
     Point3 truncNorm = Point3((int)floor(norm.x), (int)floor(norm.y), (int)floor(norm.z));
     
     return truncNorm;
+}
+
 }

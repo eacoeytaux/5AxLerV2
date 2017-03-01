@@ -98,8 +98,8 @@ public:
 		float rho, float theta, float phi, float psi, float z_offset);
 
 	Matrix3x8 acceleration(float x_dot_buildplate, float y_dot_buildplate, float z_dot_buildplate,
-	float theta_dot, float phi_dot, float x_buildplate, float y_buildplate, float z_buildplate,
-	float rho, float theta, float phi, float psi, float z_offset);
+		float theta_dot, float phi_dot, float x_buildplate, float y_buildplate, float z_buildplate,
+		float rho, float theta, float phi, float psi, float z_offset);
 };
 
 }
