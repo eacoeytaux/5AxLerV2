@@ -61,6 +61,10 @@ namespace cura {
         return truncNorm;
     }
     
+    static bool Point3Equals(const Point3& p0, const Point3& p1, int tolerance = 0) {
+        return ((fabs(p0.x - p1.x) <= tolerance) && (fabs(p0.y - p1.y) <= tolerance) && (fabs(p0.z - p1.z) <= tolerance));
+    }
+    
     static double thetaFromCartesian(FPoint3 v) {
         return atan2(v.y, v.x); //http://keisan.casio.com/exec/system/1359533867
     }

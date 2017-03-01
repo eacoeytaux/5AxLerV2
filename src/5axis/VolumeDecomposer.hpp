@@ -161,7 +161,7 @@ namespace cura {
          *
          * @return An FPoint3 object which corresponds to the normal vector
          */
-        static FPoint3 faceNormal(const Mesh& mesh, const MeshFace& face);
+        // static FPoint3 faceNormal(const Mesh& mesh, const MeshFace& face);
         
         /**
          * Computes the normal of the given face but truncates floats into ints
