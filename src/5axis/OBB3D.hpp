@@ -32,6 +32,15 @@ namespace cura{
 		 * initializes a OBB with only the transformation
 		 */
 		OBB3D(TransformationMatrix3D matrix);
+		
+		/**
+		 *Tests to see whether the OBB intersects with an AABB3D
+		 *
+		 * @param aabb the AABB3D which the OBB is being tested against for intersections
+		 *
+		 * @return boolean indicating whether or not the two bounding boxes collide
+		 */
+		bool hit(AABB3D aabb);
 	};
 }
 

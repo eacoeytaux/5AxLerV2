@@ -117,9 +117,8 @@ set(engine_SRCS # Except main.cpp.
     src/5axis/BuildMap.cpp
     src/5axis/MeshToSTL.cpp
     src/5axis/comms/SerialComms.cpp
-    src/5axis/SequenceNode.cpp
-    src/5axis/CollisionDetection.cpp
-    src/5axis/SeqGraph.cpp
+	src/5axis/collisionDetection.cpp
+	src/5axis/seqGraph.cpp
     src/5axis/path_smoothing/PathSmoother.cpp
     src/5axis/TransformationMatrix3D.cpp
     src/5axis/OBB3D.cpp

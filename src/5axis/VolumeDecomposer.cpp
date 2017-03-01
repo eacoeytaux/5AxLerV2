@@ -5,62 +5,97 @@
 #include "../utils/polygon.h"
 #include "../utils/intpoint.h"
 #include "comms/SerialComms.hpp"
-
-#include "Utility.hpp"
 #include "MeshToSTL.hpp"
+#include "Utility.hpp"
+#include "BuildMap.hpp"
 
-using namespace cura;
 using namespace std;
+namespace cura {
+	
+VolumeDecomposer::VolumeDecomposer(Mesh& mesh) {
+	decompose(mesh, true);
+}
 
-VolumeDecomposer::VolumeDecomposer(Mesh& mesh, Slicer* slicer) {
-    // SerialComms sc = SerialComms("/dev/ttyACM0");
-    std::vector<SlicerLayer> & layers = slicer->layers;
-    
-    // Initialize all of our comparison vars
-    SlicerLayer & comparisonSlice = layers[0];
-    Polygons & comparisonPolys = comparisonSlice.polygons;
-    
-    unsigned int numLayers = layers.size();
-    
-    vector<int> seedVertices;
-    
-    for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
-        SlicerLayer & slice = layers[layer_idx];
-        Polygons & polys = slice.polygons;
-        Polygons & openPolys = slice.openPolylines;
-        std::vector<std::vector<int>> polyFaces = slice.polyFaces;
-        
-        // Main loop
-        for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
-            std::vector<int> faces = polyFaces[polyfaces_idx];
-            
-            for (unsigned int comparisonPolys_idx = 0; comparisonPolys_idx < comparisonPolys.size(); ++comparisonPolys_idx) {
-                for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
-                    int faceID = faces[face_idx];
-                    std::string faceString = VolumeDecomposer::faceToString(mesh, faceID);
-                    
-                    bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
-                    if (intersectingOverhang) {
-                        std::vector<std::pair<Point3, Point3>> splitPoints;
-                        int numSplitPairs = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
-                        
-                        for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
-                            seedVertices.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
-                        }
-                    }
-                }
-            }
-        }
-        
-        comparisonPolys = polys;
-    }
-    
-    MeshSequence sequence = separateMesh(mesh, seedVertices);
-    
-    log("SEQUENCE SIZE: %d\n", sequence.children.size());
-    for (int i = 0; i < sequence.children.size(); i++) {
-        MeshToSTL::constructSTLfromMesh(sequence.children[i], "test.STL");
-    }
+    void VolumeDecomposer::decompose(Mesh& mesh, bool first){
+	
+	if(first){
+		SeqNode parentNode = SeqNode(mesh);
+		sequenceGraph.addNode(parentNode);
+	}
+	long int parentIndex = sequenceGraph.size()-1;
+	
+	int model_max = mesh.getAABB().max.z;
+	long long int initial_layer_thickness = mesh.getSettingInMicrons("layer_height_0");
+	long long int layer_thickness = mesh.getSettingInMicrons("layer_height");
+	long long int initial_slice_z = initial_layer_thickness - layer_thickness / 2;
+	long long int slice_layer_count = (model_max - initial_slice_z) / layer_thickness + 1;
+	
+	Slicer* slicer = new Slicer(&mesh, initial_slice_z, layer_thickness, slice_layer_count, mesh.getSettingBoolean("meshfix_keep_open_polygons"), mesh.getSettingBoolean("meshfix_extensive_stitching"));
+	
+	
+	// SerialComms sc = SerialComms("/dev/ttyACM0");
+	std::vector<SlicerLayer> & layers = slicer->layers;
+	
+	// Initialize all of our comparison vars
+	SlicerLayer & comparisonSlice = layers[0];
+	Polygons & comparisonPolys = comparisonSlice.polygons;
+	
+	unsigned long int numLayers = layers.size();
+	log("Progress: [", 0);
+	
+	for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
+		SlicerLayer & slice = layers[layer_idx];
+		Polygons & polys = slice.polygons;
+		Polygons & openPolys = slice.openPolylines;
+		std::vector<std::vector<int>> polyFaces = slice.polyFaces;
+		
+		if ((int)(100.0 * ((double)layer_idx / (double)(numLayers - 1))) % 5 == 0) {
+			log("=");
+		}
+		/*
+		 // Main loop
+		 for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
+			std::vector<int> faces = polyFaces[polyfaces_idx];
+		 bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
+		 if (intersectingOverhang) {
+		 std::pair<Point3, Point3> splitPoints;
+		 int numSplitPoints = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
+		 log("[INFO] numSplitPoints = %d, <%d, %d, %d>, <%d, %d, %d>\n", numSplitPoints, splitPoints.first.x, splitPoints.first.y, splitPoints.first.z, splitPoints.second.x, splitPoints.second.y, splitPoints.second.z);
+		 splitFace(mesh, faceID, numSplitPoints, splitPoints);
+		 }
+		 }
+			}
+		 }
+		 
+		 comparisonPolys = polys;
+		 */
+	}
+	
+	//Creating the graph by recursivley decomposing meshes
+	
+	//TODO:get these from decomp
+	std::vector<int> seeds;
+	seeds.push_back(19);
+	seeds.push_back(18);
+	
+	
+	MeshSequence sub_graph = separateMesh(mesh, seeds);
+	for( Mesh child : sub_graph.children){
+		SeqNode childNode = SeqNode(child);
+		BuildMap buildmap = BuildMap(mesh);
+		FPoint3 buildVector = buildmap.findBestVector();
+		
+		sequenceGraph.addNode(childNode);
+		
+		long int childIndex = sequenceGraph.size()-1;
+		sequenceGraph.addGeometricChild(parentIndex, childIndex);
+		
+		//decompose(child, false);
+		//call volume decomp
+	}
+	
+	//set the parent node mesh to be the parent of the output of mesh separation
+	sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
 }
 
 int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, pair<Point3, Point3> splitPoints) {
@@ -1328,108 +1363,129 @@ unsigned int VolumeDecomposer::findSplitPoints(Mesh& mesh, int faceID, PolygonRe
 }
 
 MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVertices){
-    std::vector<Mesh> childrenMeshes;
-    std::vector<bool> markedFaces;
-    
-    if( seedVertices.empty()){
-        MeshSequence meshSeq = {mesh, childrenMeshes};
-        return meshSeq;
-    }
-    
-    //create new meshes for all of the sub-meshes (overhangs) using the seed vertices
-    for(int i = 0; i < seedVertices.size(); i++){
-        int anAdjacentFaceIndex = mesh.vertices[seedVertices[i]].connected_faces[0];
-        
-        if( anAdjacentFaceIndex >= markedFaces.size() || !markedFaces[anAdjacentFaceIndex] ){ //if any of the faces have been marked, this mesh has already been created so we can skip it
-            
-            std::queue<int> faceQueue;
-            Mesh child = new Mesh( FffProcessor::getInstance());
-            
-            faceQueue.push(mesh.vertices[seedVertices[i]].connected_faces[0]);
-            
-            while( !faceQueue.empty()){
-                int faceIndex = faceQueue.front();
-                
-                if(faceIndex >= markedFaces.size()){
-                    markedFaces.resize(faceIndex+1);
-                }
-                
-                markedFaces.at(faceIndex) = true;
-                
-                Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
-                Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
-                Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
-                
-                child.addFace(p0, p1, p2);
-                
-                for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
-                    if( adjacentFace >= markedFaces.size() || !markedFaces.at(adjacentFace) ){
-                        faceQueue.push(adjacentFace);
-                    }
-                }
-                
-                faceQueue.pop();
-            }
-            childrenMeshes.push_back(mesh);
-        }
-    }
-    
-    //Find the base mesh, which is the mesh the children will be build upon
-    int seedIndex = 0;
-    
-    //loop until an face that has not been already added to a mesh is found
-    while(!(seedIndex >= markedFaces.size()) && markedFaces[seedIndex]){ //find a face which has not been marked
-        seedIndex++;
-    }
-    
-    if( seedIndex >= mesh.faces.size()){ //There are no more faces to form the parent mesh
-        log("No Parent mesh found when seperating meshes!");
-        MeshSequence meshSeq = {mesh, childrenMeshes};
-        return meshSeq;
-    }
-    
-    std::queue<int> faceQueue;
-    Mesh parent = new Mesh( FffProcessor::getInstance());
-    
-    faceQueue.push(seedIndex);
-    
-    while( !faceQueue.empty()){
-        int faceIndex = faceQueue.front();
-        
-        if(faceIndex >= markedFaces.size()){
-            markedFaces.resize(faceIndex+1);
-        }
-        markedFaces.at(faceIndex) = true;
-        
-        Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
-        Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
-        Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
-        
-        parent.addFace(p0, p1, p2);
-        
-        for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
-            if( adjacentFace >= markedFaces.size() || !markedFaces[adjacentFace] ){
-                faceQueue.push(adjacentFace);
-            }
-        }
-        faceQueue.pop();
-    }
-    
-    //Error checking to ensure that all faces we processed and added to an new mesh
-    if(markedFaces.size() == mesh.faces.size()){
-        for(int i = 0; i < markedFaces.size(); i++){
-            if(markedFaces.at(i) == false){
-                log("There was a face in the original mesh that was not added to the seperated meshes");
-            }
-        }
-    }else{
-        log("There was a face in the original mesh that was not added to the seperated meshes");
-    }
-    
-    MeshSequence meshSeq = {mesh, childrenMeshes};
-    return meshSeq;
-}
 
+	std::vector<Mesh> childrenMeshes;
+	std::vector<bool> markedFaces;
+	
+	if( seedVertices.empty()){
+		MeshSequence meshSeq = {mesh, childrenMeshes};
+		return meshSeq;
+	}
+
+
+	
+	//create new meshes for all of the sub-meshes (overhangs) using the seed vertices
+	for(int i = 0; i < seedVertices.size(); i++){
+		
+		//find one face on the sob-mesh which we can use to start the BFS queue
+		int anAdjacentFaceIndex = -1;
+		if(mesh.vertices[seedVertices[i]].connected_faces[0] != -1){
+			anAdjacentFaceIndex = mesh.vertices[seedVertices[i]].connected_faces[0];
+		}
+		else if(mesh.vertices[seedVertices[i]].connected_faces.size() > 1 && mesh.vertices[seedVertices[i]].connected_faces[1] != -1){
+			anAdjacentFaceIndex = mesh.vertices[seedVertices[i]].connected_faces[1];
+		}else if(mesh.vertices[seedVertices[i]].connected_faces.size() > 2 && mesh.vertices[seedVertices[i]].connected_faces[2] != -1){
+			anAdjacentFaceIndex = mesh.vertices[seedVertices[i]].connected_faces[2];
+		}else{
+			log("[ERROR] a floating face was found");
+		}
+		
+		if( anAdjacentFaceIndex >= markedFaces.size() || !markedFaces[anAdjacentFaceIndex] ){ //if any of the faces have been marked, this mesh has already been created so we can skip it
+		
+			std::queue<int> faceQueue;
+			Mesh child = new Mesh( FffProcessor::getInstance());
+			
+			faceQueue.push(anAdjacentFaceIndex);
+			
+			//BFS on faces
+			while( !faceQueue.empty()){
+				int faceIndex = faceQueue.front();
+				
+				if(faceIndex != -1){
+				
+					if(faceIndex >= markedFaces.size()){
+						markedFaces.resize(faceIndex+1);
+					}
+				
+					markedFaces.at(faceIndex) = true;
+					
+				
+					Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
+					Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
+					Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
+				
+					child.addFace(p0, p1, p2);
+				
+					for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+						if( adjacentFace >= markedFaces.size() || !markedFaces.at(adjacentFace) ){
+							faceQueue.push(adjacentFace);
+						}
+					}
+				}
+				
+				faceQueue.pop();
+			}
+			childrenMeshes.push_back(child);
+		}
+	}
+	
+	//Find the base mesh, which is the mesh the children will be build upon
+	int seedIndex = 0;
+	
+	//loop until an face that has not been already added to a mesh is found
+	while(!(seedIndex >= markedFaces.size()) && markedFaces[seedIndex]){ //find a face which has not been marked
+			seedIndex++;
+	}
+	
+	if( seedIndex >= mesh.faces.size()){ //There are no more faces to form the parent mesh
+		log("[ERROR] No Parent mesh found when seperating meshes!");
+		MeshSequence meshSeq = {mesh, childrenMeshes};
+		return meshSeq;
+	}
+	
+	std::queue<int> faceQueue;
+	Mesh parent = new Mesh( FffProcessor::getInstance());
+	
+	faceQueue.push(seedIndex);
+	
+	while( !faceQueue.empty()){
+		int faceIndex = faceQueue.front();
+		
+		if(faceIndex != -1){
+		
+			if(faceIndex >= markedFaces.size()){
+				markedFaces.resize(faceIndex+1);
+			}
+			markedFaces.at(faceIndex) = true;
+		
+			Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
+			Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
+			Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
+		
+			parent.addFace(p0, p1, p2);
+		
+			for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+				if( adjacentFace >= markedFaces.size() || !markedFaces[adjacentFace] ){
+					faceQueue.push(adjacentFace);
+				}
+			}
+		}
+		faceQueue.pop();
+	}
+	
+	//Error checking to ensure that all faces we processed and added to an new mesh
+	if(markedFaces.size() == mesh.faces.size()){
+		for(int i = 0; i < markedFaces.size(); i++){
+			if(markedFaces.at(i) == false){
+				log("[ERROR] There was a face in the original mesh that was not added to the seperated meshes");
+			}
+		}
+	}else{
+		log("[ERROR] There was a face in the original mesh that was not added to the seperated meshes");
+	}
+	MeshSequence meshSeq = {parent, childrenMeshes};
+	return meshSeq;
+}
 
 bool VolumeDecomposer::findZValueOf2DPointon3DLine(const Point3& P3_0, const Point3& P3_1, const Point& startPoint, Point3& resultPoint) {
     const Point flat_p0 = Point(P3_0.x, P3_0.y);

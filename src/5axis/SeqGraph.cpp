@@ -15,12 +15,22 @@ namespace cura{
 		return mesh;
 	}
 	
-	void SeqGraph::addGeometricChild(int parent, int child){
-		geometricChildren[parent].push_back(child);
+	void SeqGraph::addNode(SeqNode & node){
+		graphNodes.push_back(node);
+		return;
 	}
 	
-	void SeqGraph::addCollisionChild(int parent, int child){
+	void SeqGraph::addGeometricChild(long int parent, long int child){
+		geometricChildren.resize(parent+1);
+		
+		
+		geometricChildren[parent].push_back(child);
+		return;
+	}
+	
+	void SeqGraph::addCollisionChild(long int parent, long int child){
 		collisionChildren[parent].push_back(child);
+		return;
 	}
 	
 }

@@ -13,6 +13,7 @@
 #include "../utils/floatpoint.h"
 #include "../utils/intpoint.h"
 #include "../FffProcessor.h"
+#include "SeqGraph.hpp"
 
 //#ifdef RUN_TESTS
 //#define CATCH_CONFIG_MAIN
@@ -20,7 +21,6 @@
 //#endif
 
 namespace cura {
-    
     typedef struct meshSequence{
         Mesh parent;
         std::vector<Mesh> children;
@@ -28,9 +28,12 @@ namespace cura {
     
     class VolumeDecomposer {
     public:
-        VolumeDecomposer(Mesh& mesh, Slicer* slicer);
+		SeqGraph sequenceGraph;
+        VolumeDecomposer(Mesh& mesh);
         
     private:
+		void decompose(Mesh& mesh, bool first);
+		
         /**
          * Outputs a string with all the vertices of the specified face
          *
@@ -179,7 +182,7 @@ namespace cura {
         Point closestPointOnLine(const Point start, const Point end, const Point pt);
         bool p3EQ(Point3 fp1, Point3 fp2, int tolerance);
     };
-    
+	
 }
 
 #endif

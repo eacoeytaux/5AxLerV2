@@ -61,6 +61,24 @@ namespace cura{
 			
 			return Point3(x, y, z);
 		}
+		
+		TransformationMatrix3D getInverse(){
+			TransformationMatrix3D & inverse = *new TransformationMatrix3D();
+			inverse.matrix[0][0] = matrix[0][0];
+			inverse.matrix[1][0] = matrix[0][1];
+			inverse.matrix[2][0] = matrix[0][2];
+			inverse.matrix[0][1] = matrix[1][0];
+			inverse.matrix[1][1] = matrix[1][1];
+			inverse.matrix[2][1] = matrix[1][2];
+			inverse.matrix[0][2] = matrix[2][0];
+			inverse.matrix[1][2] = matrix[2][1];
+			inverse.matrix[2][2] = matrix[2][2];
+			inverse.matrix[3][0] = -matrix[3][0];
+			inverse.matrix[3][1] = -matrix[3][0];
+			inverse.matrix[3][2] = -matrix[3][0];
+			return inverse;
+			
+		}
 	};
 }
 

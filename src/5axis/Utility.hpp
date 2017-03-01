@@ -10,6 +10,7 @@
 #define Utility_hpp
 
 #include <cmath>
+#include "../mesh.h"
 
 #define THETA_MAX 0.785398163397448309616 //in radians (should be between 0-pi)
 
@@ -20,6 +21,10 @@
 #define B_AXIS_PRECISION_DEGREES 0.1
 #define B_AXIS_RANGE_DEGREES 360.0
 #define B_AXIS_DISCRETE_POINTS (int)(B_AXIS_RANGE_DEGREES / B_AXIS_PRECISION_DEGREES)
+
+// Defines multiple dimensional array types for representing matrices
+typedef float (*Matrix3x1)[1];
+typedef float (*Matrix3x8)[8];
 
 namespace cura {
     /**
