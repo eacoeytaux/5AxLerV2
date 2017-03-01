@@ -138,8 +138,10 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
 	
 	//creating v16
 	v16->connected_faces.push_back(4);
-	int pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 4) - v8->connected_faces.begin();
+	long int pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 4) - v8->connected_faces.begin();
 	printf("Looking for 4 in mesh, found: %i", v8->connected_faces[pos]);
+	if(pos != v8->connected_faces.end())
+		v.erase(it);
 	v8->connected_faces[pos] = -1;
 	
 	v16->connected_faces.push_back(5);
