@@ -11,7 +11,6 @@
 
 using namespace std;
 namespace cura {
-    
     VolumeDecomposer::VolumeDecomposer(Mesh& mesh) {
         decompose(mesh, true);
     }
@@ -1622,5 +1621,4 @@ namespace cura {
         
         return truncNorm;
     }
-    
 }
