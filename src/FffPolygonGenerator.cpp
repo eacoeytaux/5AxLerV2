@@ -335,6 +335,7 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
 	
 	// MeshToSTL::constructSTLfromMesh(meshgroup->meshes[0], "output_decomp_3.STL");
     VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0]);
+    // vd->decompose(meshgroup->meshes[0], true);
 	
 	// TransformationMatrix3D transMatrix = *new TransformationMatrix3D();
 	// transMatrix.matrix[0][0] = 1;
