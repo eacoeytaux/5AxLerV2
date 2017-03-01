@@ -51,38 +51,41 @@ void VolumeDecomposer::decompose(Mesh& mesh, bool first){
 		if ((int)(100.0 * ((double)layer_idx / (double)(numLayers - 1))) % 5 == 0) {
 			log("=");
 		}
-		/*
+		
 		 // Main loop
 		 for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
 			std::vector<int> faces = polyFaces[polyfaces_idx];
-		 bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
-		 if (intersectingOverhang) {
-		 std::pair<Point3, Point3> splitPoints;
-		 int numSplitPoints = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
-		 log("[INFO] numSplitPoints = %d, <%d, %d, %d>, <%d, %d, %d>\n", numSplitPoints, splitPoints.first.x, splitPoints.first.y, splitPoints.first.z, splitPoints.second.x, splitPoints.second.y, splitPoints.second.z);
-		 splitFace(mesh, faceID, numSplitPoints, splitPoints);
-		 }
-		 }
+			for (unsigned int comparisonPolys_idx = 0; comparisonPolys_idx < comparisonPolys.size(); ++comparisonPolys_idx) {
+				for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
+		 			bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
+		 			if (intersectingOverhang) {
+		 				std::pair<Point3, Point3> splitPoints;
+		 				int numSplitPoints = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
+		 				log("[INFO] numSplitPoints = %d, <%d, %d, %d>, <%d, %d, %d>\n", numSplitPoints, splitPoints.first.x, splitPoints.first.y, splitPoints.first.z, splitPoints.second.x, splitPoints.second.y, splitPoints.second.z);
+		 				splitFace(mesh, faceID, numSplitPoints, splitPoints);
+					}
+				}
 			}
 		 }
 		 
 		 comparisonPolys = polys;
-		 */
+	
 	}
 	
 	//Creating the graph by recursivley decomposing meshes
-	
+
+
 	//TODO:get these from decomp
 	std::vector<int> seeds;
 	seeds.push_back(19);
 	seeds.push_back(18);
 	
-	
+
 	MeshSequence sub_graph = separateMesh(mesh, seeds);
 	for( Mesh child : sub_graph.children){
 		SeqNode childNode = SeqNode(child);
-		BuildMap buildmap = BuildMap(mesh);
-		FPoint3 buildVector = buildmap.findBestVector();
+		//BuildMap buildmap = BuildMap(mesh);
+		//FPoint3 buildVector = buildmap.findBestVector();
 		
 		sequenceGraph.addNode(childNode);
 		
@@ -95,6 +98,7 @@ void VolumeDecomposer::decompose(Mesh& mesh, bool first){
 	
 	//set the parent node mesh to be the parent of the output of mesh separation
 	sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
+
 }
 
 int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, pair<Point3, Point3> splitPoints) {
