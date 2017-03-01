@@ -16,8 +16,7 @@ VolumeDecomposer::VolumeDecomposer(Mesh& mesh) {
 	decompose(mesh, true);
 }
 
-    void VolumeDecomposer::decompose(Mesh& mesh, bool first){
-	
+void VolumeDecomposer::decompose(Mesh& mesh, bool first){
 	if(first){
 		SeqNode parentNode = SeqNode(mesh);
 		sequenceGraph.addNode(parentNode);
@@ -1375,7 +1374,7 @@ MeshSequence VolumeDecomposer::separateMesh(Mesh mesh, std::vector<int> seedVert
 
 	
 	//create new meshes for all of the sub-meshes (overhangs) using the seed vertices
-	for(int i = 0; i < seedVertices.size(); i++){
+	for(unsigned int i = 0; i < seedVertices.size(); i++){
 		
 		//find one face on the sob-mesh which we can use to start the BFS queue
 		int anAdjacentFaceIndex = -1;
@@ -1596,14 +1595,14 @@ std::string VolumeDecomposer::polygonRefToString(const PolygonRef& pref) {
     return ret;
 }
 
-FPoint3 VolumeDecomposer::faceNormal(const Mesh& mesh, const MeshFace& face) {
-    Point3 v0 = mesh.vertices[face.vertex_index[1]].p - mesh.vertices[face.vertex_index[0]].p;
-    Point3 v1 = mesh.vertices[face.vertex_index[2]].p - mesh.vertices[face.vertex_index[1]].p;
+// FPoint3 VolumeDecomposer::faceNormal(const Mesh& mesh, const MeshFace& face) {
+//     Point3 v0 = mesh.vertices[face.vertex_index[1]].p - mesh.vertices[face.vertex_index[0]].p;
+//     Point3 v1 = mesh.vertices[face.vertex_index[2]].p - mesh.vertices[face.vertex_index[1]].p;
     
-    FPoint3 norm = FPoint3::cross(v0, v1);
+//     FPoint3 norm = FPoint3::cross(v0, v1);
     
-    return norm;
-}
+//     return norm;
+// }
 
 Point3 VolumeDecomposer::truncatedFaceNormal(const Mesh& mesh, const MeshFace& face) {
     FPoint3 norm = faceNormal(mesh, face);
@@ -1611,4 +1610,6 @@ Point3 VolumeDecomposer::truncatedFaceNormal(const Mesh& mesh, const MeshFace& f
     Point3 truncNorm = Point3((int)floor(norm.x), (int)floor(norm.y), (int)floor(norm.z));
     
     return truncNorm;
+}
+
 }

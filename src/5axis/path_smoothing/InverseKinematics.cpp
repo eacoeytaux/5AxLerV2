@@ -2,7 +2,7 @@
 
 namespace cura {
 
-float InverseKinematics::pos_00(float x_S, float x_buildplate, float y_buildplate,
+float InverseKinematics::pos_00(float forwPos_00, float x_buildplate, float y_buildplate,
 	float z_buildplate, float rho, float theta, float phi, float psi, float z_offset) {
 	// Pre-compute trigonometric values
 	float s_rho, s_theta, s_phi, s_psi, c_rho, c_theta, c_phi, c_psi, commonExpr;
@@ -16,7 +16,7 @@ float InverseKinematics::pos_00(float x_S, float x_buildplate, float y_buildplat
 	c_psi = cos(psi);
 	commonExpr = (c_rho * s_theta + c_phi * c_theta * s_rho);
 
-	return		x_S
+	return		forwPos_00
 			-	(	
 					  x_buildplate * (s_rho * s_theta - c_phi * c_rho * c_theta)
 					- z_offset * s_theta
@@ -25,7 +25,7 @@ float InverseKinematics::pos_00(float x_S, float x_buildplate, float y_buildplat
 				);
 }
 
-float InverseKinematics::pos_10(float y_S, float x_buildplate, float y_buildplate,
+float InverseKinematics::pos_10(float forwPos_10, float x_buildplate, float y_buildplate,
 	float z_buildplate, float rho, float phi, float psi) {
 	// Pre-compute trigonometric values
 	float s_rho, s_phi, s_psi, c_rho, c_phi, c_psi;
@@ -36,7 +36,7 @@ float InverseKinematics::pos_10(float y_S, float x_buildplate, float y_buildplat
 	c_phi = cos(phi);
 	c_psi = cos(psi);
 
-	return		y_S
+	return		forwPos_10
 			-	(
 					  y_buildplate * (c_phi * c_psi + s_phi * s_psi * s_rho)
 					- z_buildplate * (c_phi * s_psi - c_psi * s_phi * s_rho)
@@ -44,7 +44,7 @@ float InverseKinematics::pos_10(float y_S, float x_buildplate, float y_buildplat
 				);
 }
 
-float InverseKinematics::pos_20(float z_S, float x_buildplate, float y_buildplate,
+float InverseKinematics::pos_20(float forwPos_20, float x_buildplate, float y_buildplate,
 	float z_buildplate, float rho, float theta, float phi, float psi, float z_offset) {
 	float s_rho, s_theta, s_phi, s_psi, c_rho, c_theta, c_phi, c_psi;
 	// Pre-compute trigonometric values
@@ -57,7 +57,7 @@ float InverseKinematics::pos_20(float z_S, float x_buildplate, float y_buildplat
 	c_phi = cos(phi);
 	c_psi = cos(psi);
 
-	return		z_S
+	return		forwPos_20
 			-	(
 					  z_offset
 					- x_buildplate * (c_theta * s_rho - c_phi * c_rho * s_theta)
@@ -68,102 +68,102 @@ float InverseKinematics::pos_20(float z_S, float x_buildplate, float y_buildplat
 				);
 }
 
-float InverseKinematics::vel_00(float forwVel_00, float forwVel_01, float forwVel_02, float forwVel_03, float forwVel_04,
+float InverseKinematics::vel_00(float forwVel_03, float forwVel_04, float forwVel_05, float forwVel_06, float forwVel_07,
 	float x_dot_buildplate, float y_dot_buildplate, float z_dot_buildplate, float theta_dot, float phi_dot) {
 	return	-	(
-					  forwVel_00 * x_dot_buildplate
-					+ forwVel_01 * y_dot_buildplate
-					+ forwVel_02 * z_dot_buildplate
-					+ forwVel_03 * theta_dot
-					+ forwVel_04 * phi_dot
+					  forwVel_03 * x_dot_buildplate
+					+ forwVel_04 * y_dot_buildplate
+					+ forwVel_05 * z_dot_buildplate
+					+ forwVel_06 * theta_dot
+					+ forwVel_07 * phi_dot
 				);
 }
 
-float InverseKinematics::vel_10(float forwVel_10, float forwVel_11, float forwVel_12, float forwVel_13, float forwVel_14,
+float InverseKinematics::vel_10(float forwVel_13, float forwVel_14, float forwVel_15, float forwVel_16, float forwVel_17,
 	float x_dot_buildplate, float y_dot_buildplate, float z_dot_buildplate, float theta_dot, float phi_dot) {
 	return	-	(
-					  forwVel_10 * x_dot_buildplate
-					+ forwVel_11 * y_dot_buildplate
-					+ forwVel_12 * z_dot_buildplate
-					+ forwVel_13 * theta_dot
-					+ forwVel_14 * phi_dot
+					  forwVel_13 * x_dot_buildplate
+					+ forwVel_14 * y_dot_buildplate
+					+ forwVel_15 * z_dot_buildplate
+					+ forwVel_16 * theta_dot
+					+ forwVel_17 * phi_dot
 				);
 }
 
-float InverseKinematics::vel_20(float forwVel_20, float forwVel_21, float forwVel_22, float forwVel_23, float forwVel_24,
+float InverseKinematics::vel_20(float forwVel_23, float forwVel_24, float forwVel_25, float forwVel_26, float forwVel_27,
 	float x_dot_buildplate, float y_dot_buildplate, float z_dot_buildplate, float theta_dot, float phi_dot) {
 	return	-	(
-					  forwVel_20 * x_dot_buildplate
-					+ forwVel_21 * y_dot_buildplate
-					+ forwVel_22 * z_dot_buildplate
-					+ forwVel_23 * theta_dot
-					+ forwVel_24 * phi_dot
+					  forwVel_23 * x_dot_buildplate
+					+ forwVel_24 * y_dot_buildplate
+					+ forwVel_25 * z_dot_buildplate
+					+ forwVel_26 * theta_dot
+					+ forwVel_27 * phi_dot
 				);
 }
 
-float InverseKinematics::acc_00(float forwAcc_00, float forwAcc_01, float forwAcc_02, float forwAcc_03, float forwAcc_04,
-	float forwVel_00, float forwVel_01, float forwVel_02, float forwVel_03, float forwVel_04,
+float InverseKinematics::acc_00(float forwAcc_03, float forwAcc_04, float forwAcc_05, float forwAcc_06, float forwAcc_07,
+	float forwVel_03, float forwVel_04, float forwVel_05, float forwVel_06, float forwVel_07,
 	float x_ddot_buildplate, float y_ddot_buildplate, float z_ddot_buildplate, float theta_ddot, float phi_ddot,
 	float x_dot_buildplate, float y_dot_buildplate, float z_dot_buildplate, float theta_dot, float phi_dot) {
-	float velComponent =		forwAcc_00 * x_dot_buildplate
-							+	forwAcc_01 * y_dot_buildplate
-							+	forwAcc_02 * z_dot_buildplate
-							+	forwAcc_03 * theta_dot
-							+	forwAcc_04 * phi_dot;
+	float velComponent =		forwAcc_03 * x_dot_buildplate
+							+	forwAcc_04 * y_dot_buildplate
+							+	forwAcc_05 * z_dot_buildplate
+							+	forwAcc_06 * theta_dot
+							+	forwAcc_07 * phi_dot;
 
-	float accComponent =		forwVel_00 * x_ddot_buildplate
-							+	forwVel_01 * y_ddot_buildplate
-							+	forwVel_02 * z_ddot_buildplate
-							+	forwVel_03 * theta_ddot
-							+	forwVel_04 * phi_ddot;
+	float accComponent =		forwVel_03 * x_ddot_buildplate
+							+	forwVel_04 * y_ddot_buildplate
+							+	forwVel_05 * z_ddot_buildplate
+							+	forwVel_06 * theta_ddot
+							+	forwVel_07 * phi_ddot;
 
 	return -velComponent - accComponent;
 }
 
-float InverseKinematics::acc_10(float forwAcc_10, float forwAcc_11, float forwAcc_12, float forwAcc_13, float forwAcc_14,
-	float forwVel_10, float forwVel_11, float forwVel_12, float forwVel_13, float forwVel_14,
+float InverseKinematics::acc_10(float forwAcc_13, float forwAcc_14, float forwAcc_15, float forwAcc_16, float forwAcc_17,
+	float forwVel_13, float forwVel_14, float forwVel_15, float forwVel_16, float forwVel_17,
 	float x_ddot_buildplate, float y_ddot_buildplate, float z_ddot_buildplate, float theta_ddot, float phi_ddot,
 	float x_dot_buildplate, float y_dot_buildplate, float z_dot_buildplate, float theta_dot, float phi_dot) {
-	float velComponent =		forwAcc_10 * x_dot_buildplate
-							+	forwAcc_11 * y_dot_buildplate
-							+	forwAcc_12 * z_dot_buildplate
-							+	forwAcc_13 * theta_dot
-							+	forwAcc_14 * phi_dot;
+	float velComponent =		forwAcc_13 * x_dot_buildplate
+							+	forwAcc_14 * y_dot_buildplate
+							+	forwAcc_15 * z_dot_buildplate
+							+	forwAcc_16 * theta_dot
+							+	forwAcc_17 * phi_dot;
 
-	float accComponent =		forwVel_10 * x_ddot_buildplate
-							+	forwVel_11 * y_ddot_buildplate
-							+	forwVel_12 * z_ddot_buildplate
-							+	forwVel_13 * theta_ddot
-							+	forwVel_14 * phi_ddot;
+	float accComponent =		forwVel_13 * x_ddot_buildplate
+							+	forwVel_14 * y_ddot_buildplate
+							+	forwVel_15 * z_ddot_buildplate
+							+	forwVel_16 * theta_ddot
+							+	forwVel_17 * phi_ddot;
 
 	return -velComponent - accComponent;
 }
 
-float InverseKinematics::acc_20(float forwAcc_20, float forwAcc_21, float forwAcc_22, float forwAcc_23, float forwAcc_24,
-		float forwVel_20, float forwVel_21, float forwVel_22, float forwVel_23, float forwVel_24,
+float InverseKinematics::acc_20(float forwAcc_23, float forwAcc_24, float forwAcc_25, float forwAcc_26, float forwAcc_27,
+		float forwVel_23, float forwVel_24, float forwVel_25, float forwVel_26, float forwVel_27,
 		float x_ddot_buildplate, float y_ddot_buildplate, float z_ddot_buildplate, float theta_ddot, float phi_ddot,
 		float x_dot_buildplate, float y_dot_buildplate, float z_dot_buildplate, float theta_dot, float phi_dot) {
-	float velComponent =		forwAcc_20 * x_dot_buildplate
-							+	forwAcc_21 * y_dot_buildplate
-							+	forwAcc_22 * z_dot_buildplate
-							+	forwAcc_23 * theta_dot
-							+	forwAcc_24 * phi_dot;
+	float velComponent =		forwAcc_23 * x_dot_buildplate
+							+	forwAcc_24 * y_dot_buildplate
+							+	forwAcc_25 * z_dot_buildplate
+							+	forwAcc_26 * theta_dot
+							+	forwAcc_27 * phi_dot;
 
-	float accComponent =		forwVel_20 * x_ddot_buildplate
-							+	forwVel_21 * y_ddot_buildplate
-							+	forwVel_22 * z_ddot_buildplate
-							+	forwVel_23 * theta_ddot
-							+	forwVel_24 * phi_ddot;
+	float accComponent =		forwVel_23 * x_ddot_buildplate
+							+	forwVel_24 * y_ddot_buildplate
+							+	forwVel_25 * z_ddot_buildplate
+							+	forwVel_26 * theta_ddot
+							+	forwVel_27 * phi_ddot;
 
 	return -velComponent - accComponent;
 }
 
-Matrix3x1 InverseKinematics::position(float x_S, float y_S, float z_S, float x_buildplate, float y_buildplate,
+Matrix3x1 InverseKinematics::position(Matrix3x1 forwardPosMatrix, float x_buildplate, float y_buildplate,
 		float z_buildplate, float rho, float theta, float phi, float psi, float z_offset) {
 	float r1, r2, r3;
-	r1 = pos_00(x_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
-	r2 = pos_10(y_S, x_buildplate, y_buildplate, z_buildplate, rho, phi, psi);
-	r3 = pos_20(z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	r1 = pos_00(forwardPosMatrix[0][0], x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	r2 = pos_10(forwardPosMatrix[1][0], x_buildplate, y_buildplate, z_buildplate, rho, phi, psi);
+	r3 = pos_20(forwardPosMatrix[2][0], x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
 
 	posMatrix[0][0] = r1;
 	posMatrix[1][0] = r2;
