@@ -30,9 +30,6 @@ void VolumeDecomposer::decompose(Mesh& mesh, bool first){
 	long long int initial_slice_z = initial_layer_thickness - layer_thickness / 2;
 	long long int slice_layer_count = (model_max - initial_slice_z) / layer_thickness + 1;
 	
-	printf("\n\n---------About to SLIE ---------\n\n");
-	fflush(stdout);
-	
 	Slicer* slicer = new Slicer(&mesh, initial_slice_z, layer_thickness, slice_layer_count, mesh.getSettingBoolean("meshfix_keep_open_polygons"), mesh.getSettingBoolean("meshfix_extensive_stitching"));
 	
 	
