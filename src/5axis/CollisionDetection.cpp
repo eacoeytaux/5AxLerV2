@@ -85,6 +85,7 @@ namespace cura{
 		int slice_layer_count = (storage.model_max.z - initial_slice_z) / layer_thickness + 1;
 		int extended_slice_layer_count = slice_layer_count;  // this needs to be set to how many slices are needed for the sliced printing node
 		
+		
 		//the transformation which moves the sub-volume to a orientation/position where it can be printed in the positive Z axis.
 		//this must be applied to all meshes which are dealt with
 		TransformationMatrix3D transformationMatrix = sequenceGraph.getNode(printingNode).getTransformation();

@@ -29,8 +29,6 @@ namespace cura {
 		 */
 		Mesh mesh;
 		
-		SeqNode(Mesh & mesh) : mesh(mesh){};
-		
 		/**
 		 *The transformation necessary to print sub-volume in positive z-axis at origin
 		 */
@@ -40,6 +38,10 @@ namespace cura {
 		 *The transformation which moves the mesh back to it's original orientation
 		 */
 		TransformationMatrix3D transformationToOriginal;
+		
+		SeqNode(Mesh mesh_c) : mesh(mesh_c){
+			transformationToOrigin = TransformationMatrix3D();
+		};
 		
 		/**
 		 *Get the mesh of this node
@@ -83,12 +85,12 @@ namespace cura {
 		/**
 		 *vector of each node's geometric children indices
 		 */
-		std::vector<std::vector<int>> geometricChildren;
+		std::vector<std::vector<long int>> geometricChildren;
 		
 		/**
 		 *vector of each node's collision children indices
 		 */
-		std::vector<std::vector<int>> collisionChildren;
+		std::vector<std::vector<long int>> collisionChildren;
 		
 		/**
 		 * returns the node of the graph with the specified index
@@ -97,7 +99,7 @@ namespace cura {
 		 *
 		 * @return the node with specified index
 		 */
-		SeqNode & getNode(int index){ return graphNodes[index]; }
+		SeqNode & getNode(long int index){ return graphNodes[index]; }
 		
 		/**
 		 *returns the geometric children of the node with given index
@@ -106,7 +108,7 @@ namespace cura {
 		 *
 		 * @return the array of the node's geometric children
 		 */
-		std::vector<int> getGeometricChildren(int index){ return geometricChildren[index]; }
+		std::vector<long int> getGeometricChildren(long int index){ return geometricChildren[index]; }
 		
 		/**
 		 * returns the mesh of the node with the specified index
@@ -115,7 +117,7 @@ namespace cura {
 		 *
 		 * @return the mesh of the node
 		 */
-		Mesh getMesh(int index){ return graphNodes[index].getMesh(); }
+		Mesh getMesh(long int index){ return graphNodes[index].getMesh(); }
 		
 		/**
 		 * returns the number of nodes in the graph
@@ -135,7 +137,7 @@ namespace cura {
 		 *@param parent The index of the parent node in the graph. Node represents the base upon which the child will be built.
 		 *@param child The index of the child node in the graph. Node represents the overhanging sub-volume.
 		 */
-		void addGeometricChild(int parent, int child);
+		void addGeometricChild(long int parent, long int child);
 		
 		/**
 		 * Adds a Sequence Node as a collision child
@@ -143,7 +145,7 @@ namespace cura {
 		 * @param parent The index of the parent node in the graph.  Node represents the sub-vol which is would not be able to be printed because nozzle will collide with child.
 		 * @param child The index of the child node in the graph. Node represents the sub-vol which will interfere with nozzle when printing the parent.
 		 */
-		void addCollisionChild(int parent, int child);
+		void addCollisionChild(long int parent, long int child);
 	private:
 		
 	};

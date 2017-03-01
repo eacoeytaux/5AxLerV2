@@ -20,7 +20,7 @@ namespace cura{
 		return;
 	}
 	
-	void SeqGraph::addGeometricChild(int parent, int child){
+	void SeqGraph::addGeometricChild(long int parent, long int child){
 		geometricChildren.resize(parent+1);
 		
 		
@@ -28,7 +28,7 @@ namespace cura{
 		return;
 	}
 	
-	void SeqGraph::addCollisionChild(int parent, int child){
+	void SeqGraph::addCollisionChild(long int parent, long int child){
 		collisionChildren[parent].push_back(child);
 		return;
 	}
