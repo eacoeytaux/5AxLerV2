@@ -16,6 +16,11 @@
 #include "SeqGraph.hpp"
 
 
+//#ifdef RUN_TESTS
+//#define CATCH_CONFIG_MAIN
+//#include "../libs/Catch/catch.hpp"
+//#endif
+
 namespace cura {
     typedef struct meshSequence{
         Mesh parent;
