@@ -120,10 +120,11 @@ set(engine_SRCS # Except main.cpp.
 	src/5axis/collisionDetection.cpp
 	src/5axis/seqGraph.cpp
     src/5axis/path_smoothing/PathSmoother.cpp
+    src/5axis/TransformationMatrix3D.cpp
+    src/5axis/OBB3D.cpp
     src/5axis/path_smoothing/ForwardKinematics.cpp
     src/5axis/path_smoothing/InverseKinematics.cpp
-	src/5axis/TransformationMatrix3D.cpp
-	src/5axis/OBB3D.cpp
+    src/5axis/5AxLerTests.hpp
 )
 
 # List of tests. For each test there must be a file tests/${NAME}.cpp and a file tests/${NAME}.h.
@@ -161,7 +162,7 @@ add_executable(CuraEngine src/main.cpp) #Then compile main.cpp as separate execu
 target_link_libraries(CuraEngine _CuraEngine)
 
 # Compiling the test environment.
- if (BUILD_TESTS)
+if (BUILD_TESTS)
     message(STATUS "Building tests...")
     enable_testing()
     foreach (test ${engine_TEST})

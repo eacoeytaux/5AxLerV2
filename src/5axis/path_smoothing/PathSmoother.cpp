@@ -9,6 +9,11 @@
 namespace cura {
 
 PathSmoother::PathSmoother(char* gcodeFilePath) {
+	float x_dot_buildplate = 0;
+	float y_dot_buildplate = 0;
+	float z_dot_buildplate = 0;
+	float theta_dot = 0;
+	float phi_dot = 0;
 	float x_buildplate = 0;
 	float y_buildplate = 0;
 	float z_buildplate = 0;
@@ -21,18 +26,49 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 	float psi = 0;
 	float z_offset = 4;
 	ForwardKinematics fk = ForwardKinematics();
-	float* forwardPosMatrix = fk.position(x_frame, y_frame, z_frame, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
-	
-	float x_S = forwardPosMatrix[0];
-	float y_S = forwardPosMatrix[1];
-	float z_S = forwardPosMatrix[2];
+	Matrix3x1 forwardPosMatrix = fk.position(x_frame, y_frame, z_frame, x_buildplate, y_buildplate,
+		z_buildplate, rho, theta, phi, psi, z_offset);
+	Matrix3x8 forwardVelMatrix = fk.velocity(x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi,
+		z_offset);
+	Matrix3x8 forwardAccMatrix = fk.acceleration(x_dot_buildplate, y_dot_buildplate, z_dot_buildplate, theta_dot,
+		phi_dot, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+
+	logAlways("Forward position kinematics:\n");
+	logAlways("[ %f\n  %f\n  %f ]\n\n", forwardPosMatrix[0][0], forwardPosMatrix[1][0], forwardPosMatrix[2][0]);
+
+	logAlways("Forward velocity kinematics:\n");
+	logAlways("[ %f %f %f %f %f %f %f %f\n\\
+  %f %f %f %f %f %f %f %f\n\\
+  %f %f %f %f %f %f %f %f ]\n\n", forwardVelMatrix[0][0], forwardVelMatrix[0][1], forwardVelMatrix[0][2],
+		forwardVelMatrix[0][3], forwardVelMatrix[0][4], forwardVelMatrix[0][5], forwardVelMatrix[0][6],
+		forwardVelMatrix[0][7], forwardVelMatrix[1][0], forwardVelMatrix[1][1], forwardVelMatrix[1][2],
+		forwardVelMatrix[1][3], forwardVelMatrix[1][4], forwardVelMatrix[1][5], forwardVelMatrix[1][6],
+		forwardVelMatrix[1][7], forwardVelMatrix[2][0], forwardVelMatrix[2][1], forwardVelMatrix[2][2],
+		forwardVelMatrix[2][3], forwardVelMatrix[2][4], forwardVelMatrix[2][5], forwardVelMatrix[2][6],
+		forwardVelMatrix[2][7]);
+
+	logAlways("Forward acceleration kinematics:\n");
+	logAlways("[ %f %f %f %f %f %f %f %f\n\\
+  %f %f %f %f %f %f %f %f\n\\
+  %f %f %f %f %f %f %f %f ]\n\n", forwardAccMatrix[0][0], forwardAccMatrix[0][1], forwardAccMatrix[0][2],
+		forwardAccMatrix[0][3], forwardAccMatrix[0][4], forwardAccMatrix[0][5], forwardAccMatrix[0][6],
+		forwardAccMatrix[0][7], forwardAccMatrix[1][0], forwardAccMatrix[1][1], forwardAccMatrix[1][2],
+		forwardAccMatrix[1][3], forwardAccMatrix[1][4], forwardAccMatrix[1][5], forwardAccMatrix[1][6],
+		forwardAccMatrix[1][7], forwardAccMatrix[2][0], forwardAccMatrix[2][1], forwardAccMatrix[2][2],
+		forwardAccMatrix[2][3], forwardAccMatrix[2][4], forwardAccMatrix[2][5], forwardAccMatrix[2][6],
+		forwardAccMatrix[2][7]);
+
+	float x_S = forwardPosMatrix[0][0];
+	float y_S = forwardPosMatrix[1][0];
+	float z_S = forwardPosMatrix[2][0];
 	z_buildplate = 4;
 	theta = M_PI / 2;
 	InverseKinematics ik = InverseKinematics();
-	float* inversePosMatrix = ik.position(x_S, y_S, z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
-	for (uint16_t i = 0; i < 3; ++i) {
-		logAlways("%s %f %s\t%s %f %s\n", (i == 0) ? "[" : " ", forwardPosMatrix[i], (i == 2) ? "]" : " ", (i == 0) ? "[" : " ", inversePosMatrix[i], (i == 2) ? "]" : " ");
-	}
+	Matrix3x1 inversePosMatrix = ik.position(x_S, y_S, z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+
+	logAlways("Inverse position kinematics:\n");
+	logAlways("[ %f\n  %f\n  %f ]\n", inversePosMatrix[0][0], inversePosMatrix[1][0], inversePosMatrix[2][0]);
+
 	// Set the initial value of x/y/z point to be 0, 0, 0
 	lastX = lastY = lastZ = 0;
 
