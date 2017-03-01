@@ -276,10 +276,10 @@ namespace cura {
                     if ((splitPointVertexIntersectionIndices.first == 1) && (splitPointVertexIntersectionIndices.second == 0)) {
                         splitPointVertexIntersectionIndices = pair<int, int>(0, 1);
                         switched = true;
-                    } else if ((splitPointVertexIntersectionIndices.first == 2) && (splitPointVertexIntersectionIndices.first == 1)) {
+                    } else if ((splitPointVertexIntersectionIndices.first == 2) && (splitPointVertexIntersectionIndices.second == 1)) {
                         splitPointVertexIntersectionIndices = pair<int, int>(1, 2);
                         switched = true;
-                    } else if ((splitPointVertexIntersectionIndices.second == 0) && (splitPointVertexIntersectionIndices.first == 2)) {
+                    } else if ((splitPointVertexIntersectionIndices.first == 0) && (splitPointVertexIntersectionIndices.second == 2)) {
                         splitPointVertexIntersectionIndices = pair<int, int>(2, 0);
                         switched = true;
                     }
@@ -350,6 +350,7 @@ namespace cura {
                         }
                     }
                     
+                    
                     face.vertex_index[x] = newVertexPrimeIndices.first;
                     face.vertex_index[y] = newVertexPrimeIndices.second;
                     
@@ -369,7 +370,10 @@ namespace cura {
                         mesh.vertices[originalVertexIndices[y]].connected_faces.erase(it);
                     }
                     //add face to new yth vertex
+                    log("here %d\n", newVertexPrimeIndices.second);
+                    log("here %d\n", mesh.vertices.size());
                     mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(faceID);
+                    log("here\n");
                     
                     MeshFace& adjacentFace = mesh.faces[face.connected_face_index[x]]; //adjacent face on other side of split
                     //remove face from adjacent face list of adjacent face on other side of split
@@ -511,7 +515,7 @@ namespace cura {
                         newVertexIndices = pair<int, int>(prevSplitPointIndex, mesh.vertices.size() - 1);
                         
                         mesh.vertices.push_back(MeshVertex(splitPoints.second));
-                        newVertexIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.vertices.size() - 1);
+                        newVertexPrimeIndices = pair<int, int>(prevSplitPointPrimeIndex, mesh.vertices.size() - 1);
                     }
                 }
                 
@@ -593,7 +597,6 @@ namespace cura {
                 prevFaceCase = 2;
                 prevFaceIDs = tuple<int, int, int>(faceID, newFaceID, -1);
                 pointOnPrevFirstEdge = !switched;
-                
                 
                 if (firstPointMatch) {
                     faceID = face.connected_face_index[y];
