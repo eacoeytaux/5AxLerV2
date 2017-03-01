@@ -21,6 +21,7 @@
 #include "../sliceDataStorage.h"
 #include "../FffProcessor.h"
 #include "OBB3D.hpp"
+#include <clipper/clipper.hpp>
 
 namespace cura {
 	class CollisionDetection {

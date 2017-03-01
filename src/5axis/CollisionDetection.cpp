@@ -7,6 +7,9 @@
 //
 
 #include "CollisionDetection.hpp"
+
+using namespace ClipperLib;
+
 namespace cura{
 	void CollisionDetection::detectPrintCollisions(SeqGraph sequence){
 		sequenceGraph = sequence; //store the entire graph (root) to be used in collision detections
@@ -38,30 +41,29 @@ namespace cura{
 	
 	std::vector<int> CollisionDetection::aabbCollisionDetection(int printingIndex){
 		std::vector<int> possibleCollisions;
-		SeqNode printingNode = sequenceGraph.getNode(printingIndex);
+		SeqNode & printingNode = sequenceGraph.getNode(printingIndex);
 		
 		AABB3D * unorientedBB = new AABB3D();
-		OBB3D * obb = new OBB3D(printingNode.getTransformation());
+		OBB3D * OBB = new OBB3D(printingNode.getTransformation().getInverse());
 		
-		//loop through all points in printing node, making the obb and the transformed mesh
+		//loop through all points in printing node, transforming the mesh.  simultaneously compute an AABB to be used in the OBB
+		for( int i = 0; i < printingNode.getMesh().vertices.size(); i++){
+			MeshVertex vertex = printingNode.getMesh().vertices[i];
+			vertex.p = printingNode.getTransformation().apply(vertex.p);
+			unorientedBB->include(vertex.p);
+		}
 		
-		
-		//TODO: rotate everything so printingNode build direction is +Z
-		
+		OBB->aabb = *unorientedBB;
+		OBB->aabb.max.z = std::numeric_limits<int32_t>::max();
 		//TODO: find max Z direction and extend printingNode AABB to this z value
 		
 		for(int i = 0; i < sequenceGraph.size(); i++){
 			AABB3D collidingNodeAABB = sequenceGraph.getNode(i).getMesh().getAABB();
 			
-			if( i != printingIndex && collidingNodeAABB.hit(collidingNodeAABB) ){
+			if( i != printingIndex && OBB->hit(collidingNodeAABB) ){
 				possibleCollisions.push_back(i);
 			}
 		}
-		/*
-		for(int i = 0; i < collidingNode.geometricChildren.size(); i++){
-			aabbCollisionDetection(printingNode, *collidingNode.geometricChildren[i], possibleCollisions);
-		}
-		 */
 		
 		return possibleCollisions;
 		
@@ -69,24 +71,62 @@ namespace cura{
 	
 	void CollisionDetection::sliceCollisionDetection(int printingNode, std::vector<int> possibleCollisions){
 		
-		Mesh currentMesh = sequenceGraph.getMesh(printingNode);
+		std::vector<int> verifiedCollisions;
 		
-		//TODO: Get this matrix from the current nodes build direction
+		//the Mesh of the sub-volume that is being printed
+		Mesh printingMesh = sequenceGraph.getMesh(printingNode);
 		
-		///////TransformationMatrix3D
+		//setting variables needed to slice a mesh
+		//TODO: Test that all these settings are correct for the mesh
+		SliceDataStorage storage(meshgroup);
+		int initial_layer_thickness = printingMesh.getSettingInMicrons("layer_height_0");
+		int layer_thickness = printingMesh.getSettingInMicrons("layer_height");
+		int initial_slice_z = initial_layer_thickness - layer_thickness / 2;
+		int slice_layer_count = (storage.model_max.z - initial_slice_z) / layer_thickness + 1;
+		int extended_slice_layer_count = slice_layer_count;  // this needs to be set to how many slices are needed for the sliced printing node
 		
-		FMatrix3x3 transformationMatrix = FMatrix3x3();
-		transformationMatrix.m[0][0] = cos(3.14159265);
-		transformationMatrix.m[1][0] = -sin(3.14159265);
-		transformationMatrix.m[2][0] = 0;
-		transformationMatrix.m[0][0] = sin(3.14159265);
-		transformationMatrix.m[1][0] = cos(3.14159265);
-		transformationMatrix.m[2][0] = 0;
-		transformationMatrix.m[0][0] = 0;
-		transformationMatrix.m[1][0] = 0;
-		transformationMatrix.m[2][0] = 1;
 		
-		//TODO: Slice the current mesh collision detection style
+		//the transformation which moves the sub-volume to a orientation/position where it can be printed in the positive Z axis.
+		//this must be applied to all meshes which are dealt with
+		TransformationMatrix3D transformationMatrix = sequenceGraph.getNode(printingNode).getTransformation();
+		
+		//apply the transformation to the mesh being printed
+		for(MeshVertex &vertex : printingMesh.vertices){
+			vertex = transformationMatrix.apply(vertex.p);
+		}
+		
+		//slice the mesh that is being printed regularly first
+		Slicer printingSlicer = Slicer(&printingMesh, initial_layer_thickness, layer_thickness, extended_slice_layer_count, printingMesh.getSettingBoolean("meshfix_keep_open_polygons"), printingMesh.getSettingBoolean("meshfix_extensive_stitching"));
+
+		//first slice is not modified, but every slice after is expanded to include the slice below
+		for(int i = 1; i < extended_slice_layer_count; i++){
+			SlicerLayer & topLayer = printingSlicer.layers[i];
+			SlicerLayer & bottomLayer = printingSlicer.layers[i-1];
+			
+			if(printingSlicer.layers[i-1].polygons.size() == 0){
+				log("[ERROR] COLLISION DETECTION - the special slicing has come across a previously processed layer which was empty.");
+				return;
+			}else if(printingSlicer.layers[i].polygons.size() == 0){ //this layer is above the actual height of the object, so will be the same as the layer below it.
+				for( int m = 0; m < printingSlicer.layers[i-1].polygons.size(); m++){
+					printingSlicer.layers[i].polygons.add(printingSlicer.layers[i-1].polygons[m]);
+				}
+			}else{
+				double initialLayerArea = 0;
+				double finalLayerArea = 0;
+				for( Path path : topLayer.polygons){
+					initialLayerArea += ClipperLib::Area(path);
+				}
+				
+				topLayer.polygons = topLayer.polygons.unionPolygons(bottomLayer.polygons);
+				
+				for( Path path : topLayer.polygons){
+					finalLayerArea += ClipperLib::Area(path);
+				}
+				
+				if(initialLayerArea > finalLayerArea) //the next layer should always either stay the same or grow in area
+					log("[ERROR] COLLISION DETECTION - A special slice layer is smaller than the one before it");
+			}
+		}
 		
 		
 		//loop through each node (sub-volume) that the nozzle may collide with when printing the current mesh
@@ -94,146 +134,34 @@ namespace cura{
 			Mesh collisionMesh = sequenceGraph.getMesh(collisionIndex);
 			
 			//apply the transformation
-			//TODO: Apply this transformation to reference, not copy, then account for this transformation so that it doesnt have to be undone but instead worked over
 			for(MeshVertex &vertex : collisionMesh.vertices){
 				vertex = transformationMatrix.apply(vertex.p);
 			}
 			
-			SliceDataStorage storage(meshgroup);
-			
-			int initial_layer_thickness = collisionMesh.getSettingInMicrons("layer_height_0");
-			int layer_thickness = collisionMesh.getSettingInMicrons("layer_height");
-			int initial_slice_z = initial_layer_thickness - layer_thickness / 2;
-			int slice_layer_count = (storage.model_max.z - initial_slice_z) / layer_thickness + 1;
 
-			Slicer slicer = Slicer(&collisionMesh, initial_layer_thickness, layer_thickness, slice_layer_count, collisionMesh.getSettingBoolean("meshfix_keep_open_polygons"), collisionMesh.getSettingBoolean("meshfix_extensive_stitching"));
+			Slicer collisionSlicer = Slicer(&collisionMesh, initial_layer_thickness, layer_thickness, slice_layer_count, collisionMesh.getSettingBoolean("meshfix_keep_open_polygons"), collisionMesh.getSettingBoolean("meshfix_extensive_stitching"));
 			
+			//jump to the layer of the printing slicer where the z value is the same as the first populated slice of the collision slicer
+			int startIndex = 0;
+			while(printingSlicer.layers[startIndex].z != collisionSlicer.layers[0].z && startIndex <= printingSlicer.layers.size()) //ASSUMES THAT THE SLICER STARTS AT THE BASE OF AN OBJECT may be wrong
+				startIndex++;
 			
-			//TODO: Test that all these settings are correct for the mesh
-		}
-		
-	}
-	
-	//based off of cura's slicer (copied, than modified)
-	void CollisionDetection::specialSlice(Mesh* mesh, int initial, int thickness, int slice_layer_count, bool keep_none_closed, bool extensive_stitching){
-		std::vector<SlicerLayer> layers;
-		//const Mesh* slicedMesh = nullptr; //!< The sliced mesh
-		
-		//CURA CODE
-		assert(slice_layer_count > 0);
-		
-		TimeKeeper slice_timer;
-		
-		layers.resize(slice_layer_count);
-		//END CURA CODE
-		
-		//need to go one layer at a time
-		for(int32_t layer_nr = 0; layer_nr < slice_layer_count; layer_nr++)
-		{
-			layers[layer_nr].z = initial + thickness * layer_nr;
+			if(startIndex >= printingSlicer.layers.size())
+				log("[ERROR] COLLISION DETECTION - Could not find a matching z value to start testing for precise collisions");
 			
-			for(unsigned int mesh_idx = 0; mesh_idx < mesh->faces.size(); mesh_idx++)
-			{
+			for(int n = startIndex; n < printingSlicer.layers.size(); n++){
+				Polygons intersection = printingSlicer.layers[n].polygons.intersection(collisionSlicer.layers[n - startIndex].polygons);
+				
+				//if the intersection contains any polygons, there was a collision detected and we can move onto the next possible collision
+				if(intersection.size() > 0){
+					verifiedCollisions.push_back(collisionIndex);
+					break;
+				}
 				
 			}
 		}
-		
-		
-		//CURA CODE
-		for(unsigned int mesh_idx = 0; mesh_idx < mesh->faces.size(); mesh_idx++)
-		{
-			const MeshFace& face = mesh->faces[mesh_idx];
-			const MeshVertex& v0 = mesh->vertices[face.vertex_index[0]];
-			const MeshVertex& v1 = mesh->vertices[face.vertex_index[1]];
-			const MeshVertex& v2 = mesh->vertices[face.vertex_index[2]];
-			Point3 p0 = v0.p;
-			Point3 p1 = v1.p;
-			Point3 p2 = v2.p;
-			int32_t minZ = p0.z;
-			int32_t maxZ = p0.z;
-			if (p1.z < minZ) minZ = p1.z;
-			if (p2.z < minZ) minZ = p2.z;
-			if (p1.z > maxZ) maxZ = p1.z;
-			if (p2.z > maxZ) maxZ = p2.z;
-			int32_t layer_max = (maxZ - initial) / thickness;
-			for(int32_t layer_nr = (minZ - initial) / thickness; layer_nr <= layer_max; layer_nr++)
-			{
-				int32_t z = layer_nr * thickness + initial;
-				if (z < minZ) continue;
-				if (layer_nr < 0) continue;
-				
-				SlicerSegment s;
-				s.endVertex = nullptr;
-				int end_edge_idx = -1;
-				if (p0.z < z && p1.z >= z && p2.z >= z)
-				{
-					s = project2D(p0, p2, p1, z);
-					end_edge_idx = 0;
-					if (p1.z == z)
-					{
-						s.endVertex = &v1;
-					}
-				}
-				else if (p0.z > z && p1.z < z && p2.z < z)
-				{
-					s = project2D(p0, p1, p2, z);
-					end_edge_idx = 2;
-					
-				}
-				
-				else if (p1.z < z && p0.z >= z && p2.z >= z)
-				{
-					s = project2D(p1, p0, p2, z);
-					end_edge_idx = 1;
-					if (p2.z == z)
-					{
-						s.endVertex = &v2;
-					}
-				}
-				else if (p1.z > z && p0.z < z && p2.z < z)
-				{
-					s = project2D(p1, p2, p0, z);
-					end_edge_idx = 0;
-					
-				}
-				
-				else if (p2.z < z && p1.z >= z && p0.z >= z)
-				{
-					s = project2D(p2, p1, p0, z);
-					end_edge_idx = 2;
-					if (p0.z == z)
-					{
-						s.endVertex = &v0;
-					}
-				}
-				else if (p2.z > z && p1.z < z && p0.z < z)
-				{
-					s = project2D(p2, p0, p1, z);
-					end_edge_idx = 1;
-				}
-				else
-				{
-					//Not all cases create a segment, because a point of a face could create just a dot, and two touching faces
-					//  on the slice would create two segments
-					continue;
-				}
-				layers[layer_nr].face_idx_to_segment_idx.insert(std::make_pair(mesh_idx, layers[layer_nr].segments.size()));
-				s.faceIndex = mesh_idx;
-				s.endOtherFaceIdx = face.connected_face_index[end_edge_idx];
-				s.addedToPolygon = false;
-				layers[layer_nr].segments.push_back(s);
-			}
-		}
-		log("slice of mesh took %.3f seconds\n",slice_timer.restart());
-		for(unsigned int layer_nr=0; layer_nr<layers.size(); layer_nr++)
-		{
-			layers[layer_nr].makePolygons(mesh, keep_none_closed, extensive_stitching);
-		}
-		mesh->expandXY(mesh->getSettingInMicrons("xy_offset"));
-		log("slice make polygons took %.3f seconds\n",slice_timer.restart());
 	}
-	//END CURA CODE
-	
+		
 	static std::vector<std::vector<int>> extractRotation(std::vector<std::vector<int>> fullTransformation){
 		std::vector<std::vector<int>> rotationMatrix;
 		std::vector<int> row;

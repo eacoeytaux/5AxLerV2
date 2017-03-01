@@ -24,7 +24,9 @@
 #include "progress/ProgressStageEstimator.h"
 #include "progress/ProgressEstimatorLinear.h"
 
+//CUSTOM CODE
 #include "5axis/VolumeDecomposer.hpp"
+#include "5axis/MeshToSTL.hpp"
 #include "5axis/BuildMap.hpp"
 
 
@@ -109,62 +111,261 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
     // Commented this out so we can still access the mesh later on
     // meshgroup->clear();///Clear the mesh face and vertex data, it is no longer needed after this point, and it saves a lot of memory.
 
-    VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0], slicerList[0]);
-    // BuildMap bm(meshgroup->meshes[0]);
-    // log("\narea = %f\n", bm.area());
-    // log("vector check (1) = %d, vector check (-1) = %d\n", bm.checkVector(FPoint3(0, 0, 1)), bm.checkVector(FPoint3(0, 0, -1)));
 
-    // FPoint3 bestBuildDir = bm.findBestVector();
-    // log("Best build dir = <%d, %d, %d>\n", bestBuildDir.x, bestBuildDir.y, bestBuildDir.z);
-    // log("Is best build dir good = %d\n", bm.checkVector(bestBuildDir));
+	FMatrix3x3 transformationMatrix = FMatrix3x3();
+	transformationMatrix.m[0][0] = 1;
+	transformationMatrix.m[1][0] = 0;
+	transformationMatrix.m[2][0] = 0;
+	transformationMatrix.m[0][1] = 0;
+	transformationMatrix.m[1][1] = -cos(3.14159265/2);
+	transformationMatrix.m[2][1] = sin(3.14159265/2);
+	transformationMatrix.m[0][2] = 0;
+	transformationMatrix.m[1][2] = -sin(3.14159265/2);
+	transformationMatrix.m[2][2] = -cos(3.14159265/2);
+	
+	for(MeshVertex &vertex : meshgroup->meshes[0].vertices){
+		vertex.p = transformationMatrix.apply(vertex.p);
+	}
+	
+	MeshVertex * v8 = &meshgroup->meshes[0].vertices[8];
+	MeshVertex * v9 = &meshgroup->meshes[0].vertices[9];
+	MeshVertex * v11 = &meshgroup->meshes[0].vertices[11];
+	MeshVertex * v10 = &meshgroup->meshes[0].vertices[10];
+	MeshVertex * v16 = new MeshVertex(meshgroup->meshes[0].vertices[8].p);
+	MeshVertex * v17 = new MeshVertex(meshgroup->meshes[0].vertices[9]);
+	MeshVertex * v18 = new MeshVertex(meshgroup->meshes[0].vertices[11]);
+	MeshVertex * v19 = new MeshVertex(meshgroup->meshes[0].vertices[10]);
+	
+	//creating v16
+	v16->connected_faces.push_back(4);
+	int pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 4) - v8->connected_faces.begin();
+	printf("Looking for 4 in mesh, found: %i", v8->connected_faces[pos]);
+	v8->connected_faces[pos] = -1;
+	
+	v16->connected_faces.push_back(5);
+	pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 5) - v8->connected_faces.begin();
+	v8->connected_faces[pos] = -1;
+	
+	v16->connected_faces.push_back(8);
+	pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 8) - v8->connected_faces.begin();
+	v8->connected_faces[pos] = -1;
+	
+	v16->connected_faces.push_back(9);
+	pos = std::find(v8->connected_faces.begin(), v8->connected_faces.end(), 9) - v8->connected_faces.begin();
+	v8->connected_faces[pos] = -1;
+	
+	//creating v17
+	v17->connected_faces.push_back(4);
+	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 4) - v9->connected_faces.begin();
+	v9->connected_faces[pos] = -1;
+	
+	v17->connected_faces.push_back(5);
+	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 5) - v9->connected_faces.begin();
+	v9->connected_faces[pos] = -1;
+	
+	v17->connected_faces.push_back(11);
+	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 11) - v9->connected_faces.begin();
+	v9->connected_faces[pos] = -1;
+	
+	v17->connected_faces.push_back(10);
+	pos = std::find(v9->connected_faces.begin(), v9->connected_faces.end(), 10) - v9->connected_faces.begin();
+	v9->connected_faces[pos] = -1;
+	
+	//creating v18
+	v18->connected_faces.push_back(8);
+	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 8) - v11->connected_faces.begin();
+	v11->connected_faces[pos] = -1;
+	
+	v18->connected_faces.push_back(9);
+	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 9) - v11->connected_faces.begin();
+	v11->connected_faces[pos] = -1;
+	
+	v18->connected_faces.push_back(6);
+	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 6) - v11->connected_faces.begin();
+	v11->connected_faces[pos] = -1;
+	
+	v18->connected_faces.push_back(7);
+	pos = std::find(v11->connected_faces.begin(), v11->connected_faces.end(), 7) - v11->connected_faces.begin();
+	v11->connected_faces[pos] = -1;
+	
+	//creating v19
+	v19->connected_faces.push_back(6);
+	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 6) - v10->connected_faces.begin();
+	v10->connected_faces[pos] = -1;
+	
+	v19->connected_faces.push_back(7);
+	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 7) - v10->connected_faces.begin();
+	v10->connected_faces[pos] = -1;
+	
+	v19->connected_faces.push_back(11);
+	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 11) - v10->connected_faces.begin();
+	v10->connected_faces[pos] = -1;
+	
+	v19->connected_faces.push_back(10);
+	pos = std::find(v10->connected_faces.begin(), v10->connected_faces.end(), 10) - v10->connected_faces.begin();
+	v10->connected_faces[pos] = -1;
+	
+	
+	meshgroup->meshes[0].vertices.push_back(*v16);
+	meshgroup->meshes[0].vertices.push_back(*v17);
+	meshgroup->meshes[0].vertices.push_back(*v18);
+	meshgroup->meshes[0].vertices.push_back(*v19);
+	
+	//face vertices
+	MeshFace * f9 = &meshgroup->meshes[0].faces[9];
+	MeshFace * f8 = &meshgroup->meshes[0].faces[8];
+	MeshFace * f11 = &meshgroup->meshes[0].faces[11];
+	MeshFace * f10 = &meshgroup->meshes[0].faces[10];
+	MeshFace * f5 = &meshgroup->meshes[0].faces[5];
+	MeshFace * f4 = &meshgroup->meshes[0].faces[4];
+	MeshFace * f6 = &meshgroup->meshes[0].faces[6];
+	MeshFace * f7 = &meshgroup->meshes[0].faces[7];
+	
+	MeshFace * f26 = &meshgroup->meshes[0].faces[26];
+	MeshFace * f12 = &meshgroup->meshes[0].faces[12];
+	MeshFace * f15 = &meshgroup->meshes[0].faces[15];
+	MeshFace * f20 = &meshgroup->meshes[0].faces[20];
+	
+	
+	for( int i = 0; i < 3; i++)
+		if(f9->vertex_index[i] == 8) pos = i;
+	
+	f9->vertex_index[pos] = 16;
+	
+	for( int i = 0; i < 3; i++)
+		if(f9->vertex_index[i] == 11) pos = i;
+	
+	f9->vertex_index[pos] = 18;
+	
+	for( int i = 0; i < 3; i++)
+		if(f8->vertex_index[i] == 8) pos = i;
+	
+	f8->vertex_index[pos] = 16;
+	
+	for( int i = 0; i < 3; i++)
+		if(f10->vertex_index[i] == 9) pos = i;
+	
+	f10->vertex_index[pos] = 17;
+	
+	for( int i = 0; i < 3; i++)
+		if(f10->vertex_index[i] == 10) pos = i;
+	
+	f10->vertex_index[pos] = 19;
+	
+	for( int i = 0; i < 3; i++)
+		if(f11->vertex_index[i] == 10) pos = i;
+	
+	f11->vertex_index[pos] = 19;
+	
+	
+	for( int i = 0; i < 3; i++)
+		if(f5->vertex_index[i] == 9) pos = i;
+	
+	f5->vertex_index[pos] = 17;
+	
+	for( int i = 0; i < 3; i++)
+		if(f5->vertex_index[i] == 8) pos = i;
+	
+	f5->vertex_index[pos] = 16;
+	
+	for( int i = 0; i < 3; i++)
+		if(f4->vertex_index[i] == 8) pos = i;
+	
+	f4->vertex_index[pos] = 16;
+	
+	for( int i = 0; i < 3; i++)
+		if(f7->vertex_index[i] == 11) pos = i;
+	
+	f7->vertex_index[pos] = 18;
+	
+	for( int i = 0; i < 3; i++)
+		if(f7->vertex_index[i] == 10) pos = i;
+	
+	f7->vertex_index[pos] = 19;
+	
+	for( int i = 0; i < 3; i++)
+		if(f6->vertex_index[i] == 10) pos = i;
+	
+	f6->vertex_index[pos] = 19;
+	
+	
+	
+	// fixing adjacent faces
+	for( int i = 0; i < 3; i++)
+		if(f9->connected_face_index[i] == 26) pos = i;
+	
+	f9->connected_face_index[pos] = -1;
+	for( int i = 0; i < 3; i++)
+		if(f26->connected_face_index[i] == 9) pos = i;
+	
+	f26->connected_face_index[pos] = -1;
+	
+	for( int i = 0; i < 3; i++)
+		if(f5->connected_face_index[i] == 15) pos = i;
+	
+	f5->connected_face_index[pos] = -1;
+	for( int i = 0; i < 3; i++)
+		if(f15->connected_face_index[i] == 5) pos = i;
+	
+	f15->connected_face_index[pos] = -1;
+	
+	for( int i = 0; i < 3; i++)
+		if(f7->connected_face_index[i] == 12) pos = i;
+	
+	f7->connected_face_index[pos] = -1;
+	for( int i = 0; i < 3; i++)
+		if(f12->connected_face_index[i] == 7) pos = i;
+	
+	f12->connected_face_index[pos] = -1;
+	
+	for( int i = 0; i < 3; i++)
+		if(f10->connected_face_index[i] == 20) pos = i;
+	
+	f10->connected_face_index[pos] = -1;
+	for( int i = 0; i < 3; i++)
+		if(f20->connected_face_index[i] == 10) pos = i;
+	
+	f20->connected_face_index[pos] = -1;
+	
+	for(int i = 0; i < meshgroup->meshes[0].vertices.size(); i++){
+		printf("\n[vertex %i] x: %i  y: %i  z: %i", i, meshgroup->meshes[0].vertices[i].p.x, meshgroup->meshes[0].vertices[i].p.y, meshgroup->meshes[0].vertices[i].p.z);
+		fflush(stdout);
+	}
+	
+	
+	MeshToSTL::constructSTLfromMesh(meshgroup->meshes[0], "output_decomp_3.STL");
+    VolumeDecomposer* vd = new VolumeDecomposer(meshgroup->meshes[0]);
+	
+	TransformationMatrix3D transMatrix = *new TransformationMatrix3D();
+	transMatrix.matrix[0][0] = 1;
+	transMatrix.matrix[1][0] = 0;
+	transMatrix.matrix[2][0] = 0;
+	transMatrix.matrix[3][0] = 0;
+	transMatrix.matrix[0][1] = 0;
+	transMatrix.matrix[1][1] = -cos(3.14159265/2);
+	transMatrix.matrix[2][1] = sin(3.14159265/2);
+	transMatrix.matrix[3][1] = 0;
+	transMatrix.matrix[0][2] = 0;
+	transMatrix.matrix[1][2] = -sin(3.14159265/2);
+	transMatrix.matrix[2][2] = -cos(3.14159265/2);
+	transMatrix.matrix[3][2] = 0;
+	transMatrix.matrix[0][3] = 0;
+	transMatrix.matrix[1][3] = 0;
+	transMatrix.matrix[2][3] = 0;
+	transMatrix.matrix[3][3] = 1;
+	
+	printf("before: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
+	
+	for(MeshVertex & vertex : vd->sequenceGraph.graphNodes[1].getMesh().vertices){
+		transMatrix.apply(vertex.p);
+	}
+	
+	printf("after: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
+	
+	MeshToSTL::constructSTLfromMesh(vd->sequenceGraph.graphNodes[0].getMesh(), "output_decomp_1.STL");
+	MeshToSTL::constructSTLfromMesh(vd->sequenceGraph.graphNodes[1].getMesh(), "output_decomp_2.STL");
+	
 
-    // if (bm.area() == 0) {
-    //     log ("HERE\n");
-    // }
-
-    // for (unsigned int mesh_idx = 0; mesh_idx < slicerList.size(); ++mesh_idx) {
-    //     Slicer* meshSlicer = slicerList[mesh_idx];
-    //     std::vector<SlicerLayer> layers = meshSlicer->layers;
-
-    //     for (unsigned int layer_idx = 0; layer_idx < layers.size(); ++layer_idx) {
-    //         SlicerLayer layer = layers[layer_idx];
-    //         Polygons polys = layer.polygons;
-    //         Polygons openPolys = layer.openPolylines;
-    //         std::vector<std::vector<int>> polyFaces = layer.polyFaces;
-
-    //         log("[CUSTOM] %d) polygons size: %d, open polys size: %d, poly faces size: %d, height: %d\n", layer_idx, polys.size(), openPolys.size(), polyFaces.size(), initial_slice_z + layer_thickness * layer_idx);
-
-    //         // For printing the polygons
-    //         for (unsigned int poly_idx = 0; poly_idx < polys.size(); ++poly_idx) {
-    //             const PolygonRef polyRef = polys[poly_idx];
-
-    //             log("[CUSTOM] Polygon ID: %d\n", poly_idx);
-    //             for (unsigned int point_idx = 0; point_idx < polyRef.size(); ++point_idx) {
-    //                 Point p = polyRef[point_idx];
-
-    //                 log("\t(%d) %d, %d\n", point_idx, p.X, p.Y);
-    //             }
-    //         }
-
-    //         // For printing the faces in each polygon
-    //         Mesh& mesh = meshgroup->meshes[0];
-    //         for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
-    //             std::vector<int> faces = polyFaces[polyfaces_idx];
-
-    //             log("[CUSTOM] Polygon #%d\n", polyfaces_idx);
-
-    //             for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
-    //                 int faceID = faces[face_idx];
-    //                 const MeshFace& face = mesh.faces[faceID];
-    //                 const MeshVertex& v0 = mesh.vertices[face.vertex_index[0]];
-    //                 const MeshVertex& v1 = mesh.vertices[face.vertex_index[1]];
-    //                 const MeshVertex& v2 = mesh.vertices[face.vertex_index[2]];
-
-    //                 log("\tv0: [%d, %d, %d], v1: [%d, %d, %d], v2: [%d, %d, %d]\n", v0.p.x - 50000, v0.p.y - 50000, v0.p.z, v1.p.x - 50000, v1.p.y - 50000, v1.p.z, v2.p.x - 50000, v2.p.y - 50000, v2.p.z);
-    //             }
-    //         }
-    //     }
-    // }
     // END CUSTOM CODE
 
     for(unsigned int meshIdx=0; meshIdx < slicerList.size(); meshIdx++)
