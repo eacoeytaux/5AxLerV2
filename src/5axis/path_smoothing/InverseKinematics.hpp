@@ -2,6 +2,7 @@
 #define INVERSE_KINEMATICS
 
 #include "../../utils/logoutput.h"
+#include "../Utility.hpp"
 #include <math.h>
 
 namespace cura {
@@ -15,14 +16,15 @@ private:
 	float pos_row3(float z_S, float x_buildplate, float y_buildplate,
 		float z_buildplate, float rho, float theta, float phi, float psi, float z_offset);
 public:
-	float posMatrix[3];
-	float velMatrix[3];
-	float accelMatrix[3];
+	float posMatrix[3][1];
+	float velMatrix[3][1];
+	float accelMatrix[3][1];
 
 	InverseKinematics() {}
 
-	float* position(float x_S, float y_S, float z_S, float x_buildplate, float y_buildplate,
+	Matrix3x1 position(float x_S, float y_S, float z_S, float x_buildplate, float y_buildplate,
 		float z_buildplate, float rho, float theta, float phi, float psi, float z_offset);
+	Matrix3x1 velocity();
 };
 
 }

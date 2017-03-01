@@ -21,17 +21,17 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 	float psi = 0;
 	float z_offset = 4;
 	ForwardKinematics fk = ForwardKinematics();
-	float* forwardPosMatrix = fk.position(x_frame, y_frame, z_frame, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	Matrix3x1 forwardPosMatrix = fk.position(x_frame, y_frame, z_frame, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
 	
-	float x_S = forwardPosMatrix[0];
-	float y_S = forwardPosMatrix[1];
-	float z_S = forwardPosMatrix[2];
+	float x_S = forwardPosMatrix[0][0];
+	float y_S = forwardPosMatrix[1][0];
+	float z_S = forwardPosMatrix[2][0];
 	z_buildplate = 4;
 	theta = M_PI / 2;
 	InverseKinematics ik = InverseKinematics();
-	float* inversePosMatrix = ik.position(x_S, y_S, z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	Matrix3x1 inversePosMatrix = ik.position(x_S, y_S, z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
 	for (uint16_t i = 0; i < 3; ++i) {
-		logAlways("%s %f %s\t%s %f %s\n", (i == 0) ? "[" : " ", forwardPosMatrix[i], (i == 2) ? "]" : " ", (i == 0) ? "[" : " ", inversePosMatrix[i], (i == 2) ? "]" : " ");
+		logAlways("%s %f %s\t%s %f %s\n", (i == 0) ? "[" : " ", forwardPosMatrix[i][0], (i == 2) ? "]" : " ", (i == 0) ? "[" : " ", inversePosMatrix[i][0], (i == 2) ? "]" : " ");
 	}
 	// Set the initial value of x/y/z point to be 0, 0, 0
 	lastX = lastY = lastZ = 0;

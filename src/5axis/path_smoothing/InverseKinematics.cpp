@@ -72,7 +72,7 @@ float InverseKinematics::pos_row3(float z_S, float x_buildplate, float y_buildpl
 	return retVal;
 }
 
-float* InverseKinematics::position(float x_S, float y_S, float z_S, float x_buildplate, float y_buildplate,
+Matrix3x1 InverseKinematics::position(float x_S, float y_S, float z_S, float x_buildplate, float y_buildplate,
 		float z_buildplate, float rho, float theta, float phi, float psi, float z_offset) {
 	float r1, r2, r3;
 
@@ -80,9 +80,9 @@ float* InverseKinematics::position(float x_S, float y_S, float z_S, float x_buil
 	r2 = pos_row2(y_S, x_buildplate, y_buildplate, z_buildplate, rho, phi, psi);
 	r3 = pos_row3(z_S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
 
-	posMatrix[0] = r1;
-	posMatrix[1] = r2;
-	posMatrix[2] = r3;
+	posMatrix[0][0] = r1;
+	posMatrix[1][0] = r2;
+	posMatrix[2][0] = r3;
 
 	return posMatrix;
 }
