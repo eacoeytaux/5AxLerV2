@@ -43,6 +43,8 @@ namespace cura {
         unsigned long int numLayers = layers.size();
         log("Progress: [", 0);
         
+        bool TOTALLY_HACK_VARIABLE_DELETE = false;
+        
         for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
             SlicerLayer & slice = layers[layer_idx];
             Polygons & polys = slice.polygons;
@@ -65,10 +67,22 @@ namespace cura {
                             
                             for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
                                 seeds.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
+                                
+                                TOTALLY_HACK_VARIABLE_DELETE = true;
+                                break;
                             }
                         }
+                        
+                        if (TOTALLY_HACK_VARIABLE_DELETE)
+                            break;
                     }
+                    
+                    if (TOTALLY_HACK_VARIABLE_DELETE)
+                        break;
                 }
+                
+                if (TOTALLY_HACK_VARIABLE_DELETE)
+                    break;
             }
             
             comparisonPolys = polys;
@@ -82,23 +96,25 @@ namespace cura {
         // seeds.push_back(18);
         
         
-        MeshSequence sub_graph = separateMesh(mesh, seeds);
-        for( Mesh child : sub_graph.children){
-            SeqNode childNode = SeqNode(child);
-            BuildMap buildmap = BuildMap(mesh);
-            FPoint3 buildVector = buildmap.findBestVector();
-            
-            sequenceGraph.addNode(childNode);
-            
-            long int childIndex = sequenceGraph.size()-1;
-            sequenceGraph.addGeometricChild(parentIndex, childIndex);
-            
-            //decompose(child, false);
-            //call volume decomp
-        }
+//        MeshSequence sub_graph = separateMesh(mesh, seeds);
+//        for( Mesh child : sub_graph.children){
+//            SeqNode childNode = SeqNode(child);
+//            BuildMap buildmap = BuildMap(mesh);
+//            FPoint3 buildVector = buildmap.findBestVector();
+//            
+//            sequenceGraph.addNode(childNode);
+//            
+//            long int childIndex = sequenceGraph.size()-1;
+//            sequenceGraph.addGeometricChild(parentIndex, childIndex);
+//            
+//            //decompose(child, false);
+//            //call volume decomp
+//        }
+        
+        log("nyah hah\n");
         
         //set the parent node mesh to be the parent of the output of mesh separation
-        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
+//        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
     }
     
     int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, pair<Point3, Point3> splitPoints) {
@@ -370,10 +386,7 @@ namespace cura {
                         mesh.vertices[originalVertexIndices[y]].connected_faces.erase(it);
                     }
                     //add face to new yth vertex
-                    log("here %d\n", newVertexPrimeIndices.second);
-                    log("here %d\n", mesh.vertices.size());
                     mesh.vertices[newVertexPrimeIndices.second].connected_faces.push_back(faceID);
-                    log("here\n");
                     
                     MeshFace& adjacentFace = mesh.faces[face.connected_face_index[x]]; //adjacent face on other side of split
                     //remove face from adjacent face list of adjacent face on other side of split
