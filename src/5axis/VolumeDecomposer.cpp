@@ -42,7 +42,7 @@ namespace cura {
         unsigned long int numLayers = layers.size();
         
         bool TOTALLY_HACK_VARIABLE_DELETE = false;
-
+        
         for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
             SlicerLayer & slice = layers[layer_idx];
             Polygons & polys = slice.polygons;
@@ -76,7 +76,7 @@ namespace cura {
                             }
                         }
                     }
-
+                    
                     processedFaceIndices[faceID] = true;
                 }
             }
@@ -92,25 +92,25 @@ namespace cura {
         // seeds.push_back(18);
         
         
-//        MeshSequence sub_graph = separateMesh(mesh, seeds);
-//        for( Mesh child : sub_graph.children){
-//            SeqNode childNode = SeqNode(child);
-//            BuildMap buildmap = BuildMap(mesh);
-//            FPoint3 buildVector = buildmap.findBestVector();
-//            
-//            sequenceGraph.addNode(childNode);
-//            
-//            long int childIndex = sequenceGraph.size()-1;
-//            sequenceGraph.addGeometricChild(parentIndex, childIndex);
-//            
-//            //decompose(child, false);
-//            //call volume decomp
-//        }
+        //        MeshSequence sub_graph = separateMesh(mesh, seeds);
+        //        for( Mesh child : sub_graph.children){
+        //            SeqNode childNode = SeqNode(child);
+        //            BuildMap buildmap = BuildMap(mesh);
+        //            FPoint3 buildVector = buildmap.findBestVector();
+        //
+        //            sequenceGraph.addNode(childNode);
+        //
+        //            long int childIndex = sequenceGraph.size()-1;
+        //            sequenceGraph.addGeometricChild(parentIndex, childIndex);
+        //
+        //            //decompose(child, false);
+        //            //call volume decomp
+        //        }
         
         log("nyah hah\n");
         
         //set the parent node mesh to be the parent of the output of mesh separation
-//        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
+        //        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
     }
     
     int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, pair<Point3, Point3> splitPoints) {
@@ -148,12 +148,13 @@ namespace cura {
             log("[INFO] Vertex[1]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[1]].p.x, mesh.vertices[face.vertex_index[1]].p.y, mesh.vertices[face.vertex_index[1]].p.z);
             log("[INFO] Vertex[2]: <%d, %d, %d>\n", mesh.vertices[face.vertex_index[2]].p.x, mesh.vertices[face.vertex_index[2]].p.y, mesh.vertices[face.vertex_index[2]].p.z);
             
-            log("[INFO] Split point[0]: <%d, %d, %d>\n", splitPoints.first.x, splitPoints.first.y, splitPoints.first.z);
-            log("[INFO] Split point[1]: <%d, %d, %d>\n", splitPoints.second.x, splitPoints.second.y, splitPoints.second.z);
-            
             log("[INFO] Adjacent Face[0]: %d\n", face.connected_face_index[0]);
             log("[INFO] Adjacent Face[1]: %d\n", face.connected_face_index[1]);
             log("[INFO] Adjacent Face[2]: %d\n", face.connected_face_index[2]);
+            
+            log("[INFO] Previous split point: <%d, %d, %d>\n", prevSplitPoint.x, prevSplitPoint.y, prevSplitPoint.z);
+            log("[INFO] Split point[0]: <%d, %d, %d>\n", splitPoints.first.x, splitPoints.first.y, splitPoints.first.z);
+            log("[INFO] Split point[1]: <%d, %d, %d>\n", splitPoints.second.x, splitPoints.second.y, splitPoints.second.z);
             
             //save original vertex indices for future reference
             int originalVertexIndices[3] = {-1};
@@ -179,7 +180,7 @@ namespace cura {
             } else if (Point3Equals(splitPoints.second, mesh.vertices[face.vertex_index[2]].p, 2)) {
                 splitPointVertexIntersectionIndices.second = 2;
             }
-
+            
             log("splitPointVertexIntersectionIndices = <%d, %d>\n", splitPointVertexIntersectionIndices.first, splitPointVertexIntersectionIndices.second);
             
             if ((splitPointVertexIntersectionIndices.first >= 0) && (splitPointVertexIntersectionIndices.second >= 0)) { //case III or case IV
@@ -296,6 +297,14 @@ namespace cura {
                     } else if ((splitPointVertexIntersectionIndices.first == 0) && (splitPointVertexIntersectionIndices.second == 2)) {
                         splitPointVertexIntersectionIndices = pair<int, int>(2, 0);
                         switched = true;
+                    }
+                    
+                    //perform the switch
+                    if (switched) {
+                        log("[INFO] Switching split points");
+                        Point3 tempPoint = splitPoints.first;
+                        splitPoints.first = splitPoints.second;
+                        splitPoints.second = tempPoint;
                     }
                     
                     int x, y, z;
@@ -465,6 +474,8 @@ namespace cura {
                     Point3 tempPoint = splitPoints.first;
                     splitPoints.first = splitPoints.second;
                     splitPoints.second = tempPoint;
+                    
+                    log("[INFO] Switching split points");
                 }
                 
                 int x, y, z;
@@ -699,6 +710,8 @@ namespace cura {
                 }
                 
                 if (switched) {
+                    
+                    log("[INFO] Switching split points");
                     Point3 temp = splitPoints.first;
                     splitPoints.first = splitPoints.second;
                     splitPoints.second = temp;
