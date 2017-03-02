@@ -164,19 +164,19 @@ namespace cura {
             //determine if the edge intersections any vertices
             pair<int, int> splitPointVertexIntersectionIndices(-1, -1);
             
-            if (splitPoints.first == mesh.vertices[face.vertex_index[0]].p) {
+            if (Point3Equals(splitPoints.first, mesh.vertices[face.vertex_index[0]].p, 2)) {
                 splitPointVertexIntersectionIndices.first = 0;
-            } else if (splitPoints.first == mesh.vertices[face.vertex_index[1]].p) {
+            } else if (Point3Equals(splitPoints.first, mesh.vertices[face.vertex_index[1]].p, 2)) {
                 splitPointVertexIntersectionIndices.first = 1;
-            } else if (splitPoints.first == mesh.vertices[face.vertex_index[2]].p) {
+            } else if (Point3Equals(splitPoints.first, mesh.vertices[face.vertex_index[2]].p, 2)) {
                 splitPointVertexIntersectionIndices.first = 2;
             }
             
-            if (splitPoints.second == mesh.vertices[face.vertex_index[0]].p) {
+            if (Point3Equals(splitPoints.second, mesh.vertices[face.vertex_index[0]].p, 2)) {
                 splitPointVertexIntersectionIndices.second = 0;
-            } else if (splitPoints.second == mesh.vertices[face.vertex_index[1]].p) {
+            } else if (Point3Equals(splitPoints.second, mesh.vertices[face.vertex_index[1]].p, 2)) {
                 splitPointVertexIntersectionIndices.second = 1;
-            } else if (splitPoints.second == mesh.vertices[face.vertex_index[2]].p) {
+            } else if (Point3Equals(splitPoints.second, mesh.vertices[face.vertex_index[2]].p, 2)) {
                 splitPointVertexIntersectionIndices.second = 2;
             }
             
