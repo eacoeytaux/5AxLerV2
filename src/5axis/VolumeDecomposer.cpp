@@ -262,8 +262,6 @@ namespace cura {
                     pointOnPrevFirstEdge = true;
                     
                     prevFaceIDs = tuple<int, int, int>(tempFaceID, -1, -1);
-
-                    log("firstFaceIDs: %d %d %d\n", get<0>(firstFaceIDs), get<1>(firstFaceIDs), get<2>(firstFaceIDs));
                     
                     if (faceID == get<0>(firstFaceIDs)) {
                         if ((firstFaceCase == 2) || (firstFaceCase == 3) || (firstFaceCase == 4)) {
@@ -429,7 +427,6 @@ namespace cura {
                     }
                     pointOnPrevFirstEdge = true;
                     
-                    log("firstFaceIDs: %d\n", get<0>(firstFaceIDs));
                     if (faceID == get<0>(firstFaceIDs)) {
                         if ((firstFaceCase == 2) || (firstFaceCase == 3) || (firstFaceCase == 4)) {
                             return seedVertex; //nothing more needs to be done here
