@@ -32,6 +32,8 @@ namespace cura {
         VolumeDecomposer(Mesh& mesh);
         
     private:
+        std::vector<int> recentlyMadeFaces;
+        std::vector<bool> processedFaceIndices;
 		void decompose(Mesh& mesh, bool first);
 		
         /**
