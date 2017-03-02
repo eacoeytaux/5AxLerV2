@@ -139,6 +139,7 @@ namespace cura {
          */
         
         while (true) {
+            processedFaceIndices[faceID] = true;
             // Grab the actual MeshFace
             MeshFace& face = mesh.faces[faceID];
             
