@@ -60,6 +60,7 @@ namespace cura {
                     log("processed = %s\n", processedFaceIndices[faceID] ? "true" : "false");
                     fflush(stdout);
                     if (!processedFaceIndices[faceID]) {
+                        processedFaceIndices[faceID] = true;
                         for (unsigned int comparisonPolys_idx = 0; comparisonPolys_idx < comparisonPolys.size(); ++comparisonPolys_idx) {
                             std::string faceString = VolumeDecomposer::faceToString(mesh, faceID);
                             
@@ -76,8 +77,6 @@ namespace cura {
                             }
                         }
                     }
-                    
-                    processedFaceIndices[faceID] = true;
                 }
             }
             
@@ -1318,8 +1317,7 @@ namespace cura {
                 // slightly off split point value
                 // TODO: Quick and dirty hack to have multiple if statements all ligned up,
                 //       change it so it's smarter
-                if ((cutPolyPt.X <= v0.p.x + 1 && cutPolyPt.X >= v0.p.x - 1) &&
-                    (cutPolyPt.Y <= v0.p.y + 1 && cutPolyPt.Y >= v0.p.y - 1)) {
+                if (IntEquals(cutPolyPt.X, v0.p.x, 3) && IntEquals(cutPolyPt.Y, v0.p.y, 3)) {
                     log("First vertex\n");
                     if (numPointsFound == 0) {
                         result.first = v0.p;
@@ -1329,8 +1327,7 @@ namespace cura {
                     numPointsFound++;
                     foundPoint = true;
                 }
-                if ((cutPolyPt.X <= v1.p.x + 1 && cutPolyPt.X >= v1.p.x - 1) &&
-                    (cutPolyPt.Y <= v1.p.y + 1 && cutPolyPt.Y >= v1.p.y - 1)) {
+                if (IntEquals(cutPolyPt.X, v1.p.x, 3) && IntEquals(cutPolyPt.Y, v1.p.y, 3)) {
                     log("Second vertex\n");
                     if (numPointsFound == 0) {
                         result.first = v1.p;
@@ -1340,9 +1337,8 @@ namespace cura {
                     numPointsFound++;
                     foundPoint = true;
                 }
-                if ((cutPolyPt.X <= v2.p.x + 1 && cutPolyPt.X >= v2.p.x - 1) &&
-                    (cutPolyPt.Y <= v2.p.y + 1 && cutPolyPt.Y >= v2.p.y - 1)) {
-                    log("First vertex\n");
+                if (IntEquals(cutPolyPt.X, v2.p.x, 3) && IntEquals(cutPolyPt.Y, v2.p.y, 3)) {
+                    log("Third vertex\n");
                     if (numPointsFound == 0) {
                         result.first = v2.p;
                     } else {
@@ -1359,7 +1355,7 @@ namespace cura {
                             result.first = pt;
                             numPointsFound++;
                         } else {
-                            if (!(Point3Equals(result.first, pt, 1))) {
+                            if (!(Point3Equals(result.first, pt, 3))) {
                                 result.second = pt;
                                 numPointsFound++;
                             }
@@ -1370,7 +1366,7 @@ namespace cura {
                             result.first = pt;
                             numPointsFound++;
                         } else {
-                            if (!(Point3Equals(result.first, pt, 1))) {
+                            if (!(Point3Equals(result.first, pt, 3))) {
                                 result.second = pt;
                                 numPointsFound++;
                             }
@@ -1381,7 +1377,7 @@ namespace cura {
                             result.first = pt;
                             numPointsFound++;
                         } else {
-                            if (!(Point3Equals(result.first, pt, 1))) {
+                            if (!(Point3Equals(result.first, pt, 3))) {
                                 result.second = pt;
                                 numPointsFound++;
                             }
