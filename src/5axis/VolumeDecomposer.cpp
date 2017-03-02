@@ -179,6 +179,8 @@ namespace cura {
             } else if (Point3Equals(splitPoints.second, mesh.vertices[face.vertex_index[2]].p, 2)) {
                 splitPointVertexIntersectionIndices.second = 2;
             }
+
+            log("splitPointVertexIntersectionIndices = <%d, %d>\n", splitPointVertexIntersectionIndices.first, splitPointVertexIntersectionIndices.second);
             
             if ((splitPointVertexIntersectionIndices.first >= 0) && (splitPointVertexIntersectionIndices.second >= 0)) { //case III or case IV
                 
@@ -321,6 +323,7 @@ namespace cura {
                     
                     if (firstCycle) {
                         if (intersectingPoly.inside(Point(mesh.vertices[face.vertex_index[z]].p.x, mesh.vertices[face.vertex_index[z]].p.y))) { //if face is entirely not in overhang, this should not be our first face
+                            log("LINE 324\n");
                             faceID = face.connected_face_index[x];
                             
                             splitPointsVector.clear();
@@ -404,11 +407,13 @@ namespace cura {
                     prevFaceCase = 4;
                     prevFaceIDs = tuple<int, int, int>(faceID, -1, -1);
                     if (firstPointMatch) {
+                        log("LINE 408\n");
                         faceID = face.connected_face_index[y];
                         prevSplitPoint = splitPoints.second;
                         prevSplitPointIndex = originalVertexIndices[y];
                         prevSplitPointPrimeIndex = newVertexPrimeIndices.second;
                     } else {
+                        log("LINE 414: %d\n", z);
                         faceID = face.connected_face_index[z];
                         prevSplitPoint = splitPoints.first;
                         prevSplitPointIndex = originalVertexIndices[x];
