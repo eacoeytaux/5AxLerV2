@@ -91,25 +91,25 @@ namespace cura {
         // seeds.push_back(18);
         
         
-        //        MeshSequence sub_graph = separateMesh(mesh, seeds);
-        //        for( Mesh child : sub_graph.children){
-        //            SeqNode childNode = SeqNode(child);
-        //            BuildMap buildmap = BuildMap(mesh);
-        //            FPoint3 buildVector = buildmap.findBestVector();
-        //
-        //            sequenceGraph.addNode(childNode);
-        //
-        //            long int childIndex = sequenceGraph.size()-1;
-        //            sequenceGraph.addGeometricChild(parentIndex, childIndex);
-        //
-        //            //decompose(child, false);
-        //            //call volume decomp
-        //        }
+        MeshSequence sub_graph = separateMesh(mesh, seeds);
+        for( Mesh child : sub_graph.children){
+            SeqNode childNode = SeqNode(child);
+            // BuildMap buildmap = BuildMap(mesh);
+            // FPoint3 buildVector = buildmap.findBestVector();
+
+            sequenceGraph.addNode(childNode);
+
+            long int childIndex = sequenceGraph.size()-1;
+            sequenceGraph.addGeometricChild(parentIndex, childIndex);
+
+        //decompose(child, false);
+        //call volume decomp
+        }
         
         log("nyah hah\n");
         
         //set the parent node mesh to be the parent of the output of mesh separation
-        //        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
+        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
     }
     
     int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, pair<Point3, Point3> splitPoints) {
