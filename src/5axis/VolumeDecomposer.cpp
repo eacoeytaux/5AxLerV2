@@ -11,7 +11,7 @@
 
 using namespace std;
 namespace cura {
-    VolumeDecomposer::VolumeDecomposer(Mesh& mesh) {
+    VolumeDecomposer::VolumeDecomposer(Mesh& mesh) : processedFaceIndices(mesh.faces.size()) {
         decompose(mesh, true);
     }
     
@@ -40,10 +40,9 @@ namespace cura {
         Polygons & comparisonPolys = comparisonSlice.polygons;
         
         unsigned long int numLayers = layers.size();
-        log("Progress: [", 0);
         
         bool TOTALLY_HACK_VARIABLE_DELETE = false;
-        
+
         for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
             SlicerLayer & slice = layers[layer_idx];
             Polygons & polys = slice.polygons;
@@ -53,35 +52,33 @@ namespace cura {
             // Main loop
             for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
                 std::vector<int> faces = polyFaces[polyfaces_idx];
-                
-                for (unsigned int comparisonPolys_idx = 0; comparisonPolys_idx < comparisonPolys.size(); ++comparisonPolys_idx) {
-                    for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
-                        int faceID = faces[face_idx];
-                        std::string faceString = VolumeDecomposer::faceToString(mesh, faceID);
-                        
-                        bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
-                        if (intersectingOverhang) {
-                            std::vector<std::pair<Point3, Point3>> splitPoints;
-                            int numSplitPairs = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
+                log("faces size = %d\n", faces.size());
+                log("STARTING ITERATION\n");
+                for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
+                    int faceID = faces[face_idx];
+                    log("layer: %d, poly in layer: %d, face in poly: %d\n", layer_idx, polyfaces_idx, faceID);
+                    log("processed = %s\n", processedFaceIndices[faceID] ? "true" : "false");
+                    fflush(stdout);
+                    if (!processedFaceIndices[faceID]) {
+                        for (unsigned int comparisonPolys_idx = 0; comparisonPolys_idx < comparisonPolys.size(); ++comparisonPolys_idx) {
+                            std::string faceString = VolumeDecomposer::faceToString(mesh, faceID);
                             
-                            for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
-                                seeds.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
+                            bool intersectingOverhang = faceIsOverhangIntersect(mesh, faceID, comparisonPolys[comparisonPolys_idx]);
+                            if (intersectingOverhang) {
+                                std::vector<std::pair<Point3, Point3>> splitPoints;
+                                int numSplitPairs = findSplitPoints(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints);
                                 
-                                TOTALLY_HACK_VARIABLE_DELETE = true;
-                                break;
+                                log("comparisonPolys.size() = %d, numSplitPairs = %d, splitPoints.size() = %d\n", comparisonPolys.size(), numSplitPairs, splitPoints.size());
+                                for (unsigned int splitPointPair_idx = 0; splitPointPair_idx < splitPoints.size(); ++splitPointPair_idx) {
+                                    log("ONE ITERATION OF SPLITFACE\n");
+                                    seeds.push_back(splitFaces(mesh, faceID, comparisonPolys[comparisonPolys_idx], splitPoints[splitPointPair_idx]));
+                                }
                             }
                         }
-                        
-                        if (TOTALLY_HACK_VARIABLE_DELETE)
-                            break;
                     }
-                    
-                    if (TOTALLY_HACK_VARIABLE_DELETE)
-                        break;
+
+                    processedFaceIndices[faceID] = true;
                 }
-                
-                if (TOTALLY_HACK_VARIABLE_DELETE)
-                    break;
             }
             
             comparisonPolys = polys;
@@ -1220,11 +1217,11 @@ namespace cura {
         
         // log("Face poly:\n");
         // for (unsigned int i = 0; i < facePoly[0].size(); ++i) {
-        // 	log("\tPoint #%d: <%d, %d>\n", i, facePoly[0][i].X, facePoly[0][i].Y);
+        //  log("\tPoint #%d: <%d, %d>\n", i, facePoly[0][i].X, facePoly[0][i].Y);
         // }
         // log("Intersecting poly:\n");
         // for (unsigned int i = 0; i < intersectingPoly[0].size(); ++i) {
-        // 	log("\tPoint #%d: <%d, %d>\n", i, intersectingPoly[0][i].X, intersectingPoly[0][i].Y);
+        //  log("\tPoint #%d: <%d, %d>\n", i, intersectingPoly[0][i].X, intersectingPoly[0][i].Y);
         // }
         
         // The following section gets the diff polygon by subtracting the comparison poly from the face poly
@@ -1305,6 +1302,7 @@ namespace cura {
                 //       change it so it's smarter
                 if ((cutPolyPt.X <= v0.p.x + 1 && cutPolyPt.X >= v0.p.x - 1) &&
                     (cutPolyPt.Y <= v0.p.y + 1 && cutPolyPt.Y >= v0.p.y - 1)) {
+                    log("First vertex\n");
                     if (numPointsFound == 0) {
                         result.first = v0.p;
                     } else {
@@ -1315,6 +1313,7 @@ namespace cura {
                 }
                 if ((cutPolyPt.X <= v1.p.x + 1 && cutPolyPt.X >= v1.p.x - 1) &&
                     (cutPolyPt.Y <= v1.p.y + 1 && cutPolyPt.Y >= v1.p.y - 1)) {
+                    log("Second vertex\n");
                     if (numPointsFound == 0) {
                         result.first = v1.p;
                     } else {
@@ -1325,6 +1324,7 @@ namespace cura {
                 }
                 if ((cutPolyPt.X <= v2.p.x + 1 && cutPolyPt.X >= v2.p.x - 1) &&
                     (cutPolyPt.Y <= v2.p.y + 1 && cutPolyPt.Y >= v2.p.y - 1)) {
+                    log("First vertex\n");
                     if (numPointsFound == 0) {
                         result.first = v2.p;
                     } else {
@@ -1333,38 +1333,40 @@ namespace cura {
                     numPointsFound++;
                     foundPoint = true;
                 }
-                // If the split point was not a vertex, we check to see which edge of the face it's
-                // on in order to retrieve the point's z-value
-                if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
-                    if (numPointsFound == 0) {
-                        result.first = pt;
-                        numPointsFound++;
-                    } else {
-                        if (!(Point3Equals(result.first, pt, 1))) {
-                            result.second = pt;
+                if (numPointsFound < 2) {
+                    // If the split point was not a vertex, we check to see which edge of the face it's
+                    // on in order to retrieve the point's z-value
+                    if (findZValueOf2DPointon3DLine(v0.p, v1.p, cutPolyPt, pt)) {
+                        if (numPointsFound == 0) {
+                            result.first = pt;
                             numPointsFound++;
+                        } else {
+                            if (!(Point3Equals(result.first, pt, 1))) {
+                                result.second = pt;
+                                numPointsFound++;
+                            }
                         }
                     }
-                }
-                if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
-                    if (numPointsFound == 0) {
-                        result.first = pt;
-                        numPointsFound++;
-                    } else {
-                        if (!(Point3Equals(result.first, pt, 1))) {
-                            result.second = pt;
+                    if (findZValueOf2DPointon3DLine(v1.p, v2.p, cutPolyPt, pt)) {
+                        if (numPointsFound == 0) {
+                            result.first = pt;
                             numPointsFound++;
+                        } else {
+                            if (!(Point3Equals(result.first, pt, 1))) {
+                                result.second = pt;
+                                numPointsFound++;
+                            }
                         }
                     }
-                }
-                if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
-                    if (numPointsFound == 0) {
-                        result.first = pt;
-                        numPointsFound++;
-                    } else {
-                        if (!(Point3Equals(result.first, pt, 1))) {
-                            result.second = pt;
+                    if (findZValueOf2DPointon3DLine(v2.p, v0.p, cutPolyPt, pt)) {
+                        if (numPointsFound == 0) {
+                            result.first = pt;
                             numPointsFound++;
+                        } else {
+                            if (!(Point3Equals(result.first, pt, 1))) {
+                                result.second = pt;
+                                numPointsFound++;
+                            }
                         }
                     }
                 }
