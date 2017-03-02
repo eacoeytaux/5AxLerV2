@@ -262,6 +262,8 @@ namespace cura {
                     pointOnPrevFirstEdge = true;
                     
                     prevFaceIDs = tuple<int, int, int>(tempFaceID, -1, -1);
+
+                    log("firstFaceIDs: %d %d %d\n", get<0>(firstFaceIDs), get<1>(firstFaceIDs), get<2>(firstFaceIDs));
                     
                     if (faceID == get<0>(firstFaceIDs)) {
                         if ((firstFaceCase == 2) || (firstFaceCase == 3) || (firstFaceCase == 4)) {
@@ -332,7 +334,6 @@ namespace cura {
                     
                     if (firstCycle) {
                         if (intersectingPoly.inside(Point(mesh.vertices[face.vertex_index[z]].p.x, mesh.vertices[face.vertex_index[z]].p.y))) { //if face is entirely not in overhang, this should not be our first face
-                            log("LINE 324\n");
                             faceID = face.connected_face_index[x];
                             
                             splitPointsVector.clear();
@@ -342,7 +343,7 @@ namespace cura {
                             continue;
                         }
                         
-                        firstCycle = true;
+                        firstCycle = false;
                         firstFaceCase = 4;
                         
                         firstPointMatch = true;
@@ -416,13 +417,11 @@ namespace cura {
                     prevFaceCase = 4;
                     prevFaceIDs = tuple<int, int, int>(faceID, -1, -1);
                     if (firstPointMatch) {
-                        log("LINE 408\n");
                         faceID = face.connected_face_index[y];
                         prevSplitPoint = splitPoints.second;
                         prevSplitPointIndex = originalVertexIndices[y];
                         prevSplitPointPrimeIndex = newVertexPrimeIndices.second;
                     } else {
-                        log("LINE 414: %d\n", z);
                         faceID = face.connected_face_index[z];
                         prevSplitPoint = splitPoints.first;
                         prevSplitPointIndex = originalVertexIndices[x];
@@ -430,6 +429,7 @@ namespace cura {
                     }
                     pointOnPrevFirstEdge = true;
                     
+                    log("firstFaceIDs: %d\n", get<0>(firstFaceIDs));
                     if (faceID == get<0>(firstFaceIDs)) {
                         if ((firstFaceCase == 2) || (firstFaceCase == 3) || (firstFaceCase == 4)) {
                             return seedVertex; //nothing more needs to be done here
