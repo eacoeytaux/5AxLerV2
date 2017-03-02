@@ -32,6 +32,8 @@ namespace cura {
         VolumeDecomposer(Mesh& mesh);
         
     private:
+        std::vector<int> recentlyMadeFaces;
+        std::vector<bool> processedFaceIndices;
 		void decompose(Mesh& mesh, bool first);
 		
         /**
@@ -180,7 +182,6 @@ namespace cura {
         bool within(double p, double q, double r);
         
         Point closestPointOnLine(const Point start, const Point end, const Point pt);
-        bool p3EQ(Point3 fp1, Point3 fp2, int tolerance);
     };
 	
 }
