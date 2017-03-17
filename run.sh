@@ -15,8 +15,6 @@ subprocess.call("rm *.gcov", shell=True)
 
 os.chdir("../../../../..")
 
-subprocess.call("pwd > hi.txt", shell=True)
-
 #run tests
 subprocess.call('./build/CuraEngine slice -v -j ./5axistests/fdmprinter.def.json -o "test.gcode" -e0 -l "./5axistests/simple.STL"', shell=True)
 subprocess.call('./build/CuraEngine slice -v -j ./5axistests/fdmprinter.def.json -o "test.gcode" -e0 -l "./5axistests/radial_overhang.STL"', shell=True)
