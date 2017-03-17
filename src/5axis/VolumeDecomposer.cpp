@@ -91,25 +91,25 @@ namespace cura {
         // seeds.push_back(18);
         
         
-        //        MeshSequence sub_graph = separateMesh(mesh, seeds);
-        //        for( Mesh child : sub_graph.children){
-        //            SeqNode childNode = SeqNode(child);
-        //            BuildMap buildmap = BuildMap(mesh);
-        //            FPoint3 buildVector = buildmap.findBestVector();
-        //
-        //            sequenceGraph.addNode(childNode);
-        //
-        //            long int childIndex = sequenceGraph.size()-1;
-        //            sequenceGraph.addGeometricChild(parentIndex, childIndex);
-        //
-        //            //decompose(child, false);
-        //            //call volume decomp
-        //        }
+        MeshSequence sub_graph = separateMesh(mesh, seeds);
+        for( Mesh child : sub_graph.children){
+            SeqNode childNode = SeqNode(child);
+            // BuildMap buildmap = BuildMap(mesh);
+            // FPoint3 buildVector = buildmap.findBestVector();
+
+            sequenceGraph.addNode(childNode);
+
+            long int childIndex = sequenceGraph.size()-1;
+            sequenceGraph.addGeometricChild(parentIndex, childIndex);
+
+        //decompose(child, false);
+        //call volume decomp
+        }
         
         log("nyah hah\n");
         
         //set the parent node mesh to be the parent of the output of mesh separation
-        //        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
+        sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
     }
     
     int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, pair<Point3, Point3> splitPoints) {
@@ -332,7 +332,6 @@ namespace cura {
                     
                     if (firstCycle) {
                         if (intersectingPoly.inside(Point(mesh.vertices[face.vertex_index[z]].p.x, mesh.vertices[face.vertex_index[z]].p.y))) { //if face is entirely not in overhang, this should not be our first face
-                            log("LINE 324\n");
                             faceID = face.connected_face_index[x];
                             
                             splitPointsVector.clear();
@@ -342,7 +341,7 @@ namespace cura {
                             continue;
                         }
                         
-                        firstCycle = true;
+                        firstCycle = false;
                         firstFaceCase = 4;
                         
                         firstPointMatch = true;
@@ -416,13 +415,11 @@ namespace cura {
                     prevFaceCase = 4;
                     prevFaceIDs = tuple<int, int, int>(faceID, -1, -1);
                     if (firstPointMatch) {
-                        log("LINE 408\n");
                         faceID = face.connected_face_index[y];
                         prevSplitPoint = splitPoints.second;
                         prevSplitPointIndex = originalVertexIndices[y];
                         prevSplitPointPrimeIndex = newVertexPrimeIndices.second;
                     } else {
-                        log("LINE 414: %d\n", z);
                         faceID = face.connected_face_index[z];
                         prevSplitPoint = splitPoints.first;
                         prevSplitPointIndex = originalVertexIndices[x];
