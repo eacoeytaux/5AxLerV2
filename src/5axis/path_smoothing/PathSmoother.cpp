@@ -9,6 +9,7 @@
 namespace cura {
 
 PathSmoother::PathSmoother(char* gcodeFilePath) {
+	float S[3][1];
 	float x_dot_buildplate = 0;
 	float y_dot_buildplate = 0;
 	float z_dot_buildplate = 0;
@@ -26,11 +27,20 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 	float psi = 0;
 	float z_offset = 4;
 	ForwardKinematics fk = ForwardKinematics();
+
+	// Compute the forward position kinematics and create the S matrix for calibration
 	Matrix3x1 forwardPosMatrix = fk.position(x_frame, y_frame, z_frame, x_buildplate, y_buildplate,
 		z_buildplate, rho, theta, phi, psi, z_offset);
-	Matrix3x8 forwardVelMatrix = fk.velocity(x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi,
+	S[0][0] = forwardPosMatrix[0][0];
+	S[1][0] = forwardPosMatrix[1][0];
+	S[2][0] = forwardPosMatrix[2][0];
+
+	// Compute the forward velocity kinematics
+	Matrix3x8 forwardVelMatrix = fk.velocity_jacobian(x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi,
 		z_offset);
-	Matrix3x8 forwardAccMatrix = fk.acceleration(x_dot_buildplate, y_dot_buildplate, z_dot_buildplate, theta_dot,
+
+	// Compute the forward acceleration kinematics
+	Matrix3x8 forwardAccMatrix = fk.acceleration_jacobian(x_dot_buildplate, y_dot_buildplate, z_dot_buildplate, theta_dot,
 		phi_dot, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
 
 	logAlways("Forward position kinematics:\n");
@@ -61,7 +71,7 @@ PathSmoother::PathSmoother(char* gcodeFilePath) {
 	z_buildplate = 4;
 	theta = M_PI / 2;
 	InverseKinematics ik = InverseKinematics();
-	Matrix3x1 inversePosMatrix = ik.position(forwardPosMatrix, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
+	Matrix3x1 inversePosMatrix = ik.position_frame(S, x_buildplate, y_buildplate, z_buildplate, rho, theta, phi, psi, z_offset);
 
 	logAlways("Inverse position kinematics:\n");
 	logAlways("[ %f\n  %f\n  %f ]\n", inversePosMatrix[0][0], inversePosMatrix[1][0], inversePosMatrix[2][0]);

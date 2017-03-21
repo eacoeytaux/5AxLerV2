@@ -367,6 +367,7 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
 	for(SeqNode node : vd->sequenceGraph.graphNodes){
 		std::string filename = "output_decomp_" + std::to_string(fileIndex)+ ".STL";
 	 	MeshToSTL::constructSTLfromMesh(node.getMesh(), filename);
+	 	// MeshToGCode::getGCodeFromMesh(node.getMesh());
 		fileIndex++;
 	}
 	

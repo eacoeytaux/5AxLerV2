@@ -31,7 +31,6 @@ namespace cura {
         
         Slicer* slicer = new Slicer(&mesh, initial_slice_z, layer_thickness, slice_layer_count, mesh.getSettingBoolean("meshfix_keep_open_polygons"), mesh.getSettingBoolean("meshfix_extensive_stitching"));
         
-        
         // SerialComms sc = SerialComms("/dev/ttyACM0");
         std::vector<SlicerLayer> & layers = slicer->layers;
         
@@ -43,11 +42,20 @@ namespace cura {
         
         bool TOTALLY_HACK_VARIABLE_DELETE = false;
         
-        for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
+        for (unsigned int layer_idx = 100; layer_idx < layers.size(); ++layer_idx) {
             SlicerLayer & slice = layers[layer_idx];
             Polygons & polys = slice.polygons;
             Polygons & openPolys = slice.openPolylines;
             std::vector<std::vector<int>> polyFaces = slice.polyFaces;
+
+            PolygonRef poly = slice.polygons[0];
+            for (unsigned int temp_idx = 1; temp_idx < poly.size(); ++temp_idx) {
+                Point p = poly[temp_idx];
+
+                log("[%d, %d],", p.X, p.Y);
+            }
+            log("\n");
+            exit(0);
             
             // Main loop
             for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
