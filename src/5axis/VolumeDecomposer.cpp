@@ -104,14 +104,14 @@ namespace cura {
             SeqNode childNode = SeqNode(child);
             // BuildMap buildmap = BuildMap(mesh);
             // FPoint3 buildVector = buildmap.findBestVector();
-
+            
             sequenceGraph.addNode(childNode);
-
+            
             long int childIndex = sequenceGraph.size()-1;
             sequenceGraph.addGeometricChild(parentIndex, childIndex);
-
-        //decompose(child, false);
-        //call volume decomp
+            
+            //decompose(child, false);
+            //call volume decomp
         }
         
         log("nyah hah\n");
@@ -224,7 +224,11 @@ namespace cura {
                             
                             splitPointsVector.clear();
                             findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                            splitPoints = splitPointsVector[0];
+                            for (int i = 0; i < splitPointsVector.size(); i++) {
+                                if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
+                                    splitPoints = splitPointsVector[i];
+                                }
+                            }
                             
                             continue;
                         }
@@ -289,7 +293,11 @@ namespace cura {
                     
                     splitPointsVector.clear();
                     findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                    splitPoints = splitPointsVector[0];
+                    for (int i = 0; i < splitPointsVector.size(); i++) {
+                        if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
+                            splitPoints = splitPointsVector[i];
+                        }
+                    }
                     
                 } else { //case IV
                     
@@ -344,7 +352,11 @@ namespace cura {
                             
                             splitPointsVector.clear();
                             findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                            splitPoints = splitPointsVector[0];
+                            for (int i = 0; i < splitPointsVector.size(); i++) {
+                                if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
+                                    splitPoints = splitPointsVector[i];
+                                }
+                            }
                             
                             continue;
                         }
@@ -453,7 +465,11 @@ namespace cura {
                     
                     splitPointsVector.clear();
                     findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                    splitPoints = splitPointsVector[0];
+                    for (int i = 0; i < splitPointsVector.size(); i++) {
+                        if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
+                            splitPoints = splitPointsVector[i];
+                        }
+                    }
                     
                 }
                 
@@ -647,7 +663,11 @@ namespace cura {
                 
                 splitPointsVector.clear();
                 findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                splitPoints = splitPointsVector[0];
+                for (int i = 0; i < splitPointsVector.size(); i++) {
+                    if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
+                        splitPoints = splitPointsVector[i];
+                    }
+                }
                 
             } else { //case I
                 
@@ -918,7 +938,11 @@ namespace cura {
                     
                     splitPointsVector.clear();
                     findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                    splitPoints = splitPointsVector[0];
+                    for (int i = 0; i < splitPointsVector.size(); i++) {
+                        if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
+                            splitPoints = splitPointsVector[i];
+                        }
+                    }
                     
                     seedVertex = prevSplitPointPrimeIndex;
                     
@@ -1107,7 +1131,12 @@ namespace cura {
                         
                         splitPointsVector.clear();
                         findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                        splitPoints = splitPointsVector[0];
+                        
+                        for (int i = 0; i < splitPointsVector.size(); i++) {
+                            if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
+                                splitPoints = splitPointsVector[i];
+                            }
+                        }
                     }
                 }
             }

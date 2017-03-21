@@ -5,6 +5,8 @@ cmake_minimum_required(VERSION 2.8.12)
 option (ENABLE_ARCUS
     "Enable support for ARCUS" ON)
 
+
+
 if (ENABLE_ARCUS)
     message(STATUS "Building with Arcus")
     find_package(Arcus REQUIRED)
@@ -25,7 +27,7 @@ set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/lib")
 
 set(CURA_ENGINE_VERSION "master" CACHE STRING "Version name of Cura")
 
-option(BUILD_TESTS OFF)
+option(BUILD_TESTS ON)
 
 # Add a compiler flag to check the output for insane values if we are in debug mode.
 if(CMAKE_BUILD_TYPE MATCHES DEBUG OR CMAKE_BUILD_TYPE MATCHES RelWithDebInfo)
@@ -37,6 +39,20 @@ endif()
 
 # Add warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+
+
+# CUSOTM CODE -begin
+
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0 -fprofile-arcs -ftest-coverage")
+message(STATUS "COVERAGE ENABLED...................................................................")
+
+# set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR})
+# Include(CodeCoverage)
+# setup_target_for_coverage(${TESTONE} ${TESTTWO} coverage)
+
+# CUSTOM CODE -end
+
+
 
 if(NOT APPLE AND NOT WIN32)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libstdc++")
@@ -140,6 +156,7 @@ set(engine_TEST_UTILS
     StringTest
 )
 
+
 # Generating ProtoBuf protocol
 if (ENABLE_ARCUS)
 protobuf_generate_cpp(engine_PB_SRCS engine_PB_HEADERS Cura.proto)
@@ -160,23 +177,27 @@ endif()
 add_executable(CuraEngine src/main.cpp) #Then compile main.cpp as separate executable, and link the library to it.
 target_link_libraries(CuraEngine _CuraEngine)
 
+
 # Compiling the test environment.
 if (BUILD_TESTS)
     message(STATUS "Building tests...")
     enable_testing()
     foreach (test ${engine_TEST})
         add_executable(${test} tests/main.cpp tests/${test}.cpp)
-        target_link_libraries(${test} _CuraEngine cppunit)
+		link_directories( /usr/local/Cellar )
+        target_link_libraries(${test} _CuraEngine /usr/local/Cellar/cppunit/1.13.2/lib/libcppunit.a)
         add_test(${test} ${test})
     endforeach()
     foreach (test ${engine_TEST_INFILL})
         add_executable(${test} tests/main.cpp tests/infill/${test}.cpp)
-        target_link_libraries(${test} _CuraEngine cppunit)
+		link_directories( /usr/local/Cellar )
+        target_link_libraries(${test} _CuraEngine /usr/local/Cellar/cppunit/1.13.2/lib/libcppunit.a)
         add_test(${test} ${test})
     endforeach()
     foreach (test ${engine_TEST_UTILS})
         add_executable(${test} tests/main.cpp tests/utils/${test}.cpp)
-        target_link_libraries(${test} _CuraEngine cppunit)
+		link_directories( /usr/local/Cellar )
+        target_link_libraries(${test} _CuraEngine /usr/local/Cellar/cppunit/1.13.2/lib/libcppunit.a)
         add_test(${test} ${test})
     endforeach()
 endif()
