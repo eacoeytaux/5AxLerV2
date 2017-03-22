@@ -77,7 +77,6 @@ namespace cura{
 			inverse.matrix[3][1] = -matrix[3][0];
 			inverse.matrix[3][2] = -matrix[3][0];
 			return inverse;
-			
 		}
 	};
 }
