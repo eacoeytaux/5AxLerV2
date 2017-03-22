@@ -41,8 +41,6 @@ namespace cura {
         
         unsigned long int numLayers = layers.size();
         
-        bool TOTALLY_HACK_VARIABLE_DELETE = false;
-        
         for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
             SlicerLayer & slice = layers[layer_idx];
             Polygons & polys = slice.polygons;

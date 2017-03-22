@@ -21,7 +21,7 @@
 //#endif
 
 namespace cura {
-    typedef struct meshSequence{
+    typedef struct MeshSequence{
         Mesh parent;
         std::vector<Mesh> children;
     } MeshSequence;
