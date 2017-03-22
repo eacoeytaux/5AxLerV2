@@ -179,7 +179,7 @@ target_link_libraries(CuraEngine _CuraEngine)
 
 
 # Compiling the test environment.
-# if (BUILD_TESTS)
+if (BUILD_TESTS)
     message(STATUS "Building tests...")
     enable_testing()
     foreach (test ${engine_TEST})
@@ -200,7 +200,7 @@ target_link_libraries(CuraEngine _CuraEngine)
         target_link_libraries(${test} _CuraEngine /usr/local/Cellar/cppunit/1.13.2/lib/libcppunit.a)
         add_test(${test} ${test})
     endforeach()
-# endif()
+endif()
 
 
 add_custom_command(TARGET CuraEngine POST_BUILD
