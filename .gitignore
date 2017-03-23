@@ -28,6 +28,11 @@
 *.out
 *.app
 
+# Gcoverage files
+*.gcov
+*.gcda
+*.gcno
+
 .DS_Store
 # The build folder
 /build
