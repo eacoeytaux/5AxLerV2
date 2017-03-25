@@ -126,8 +126,8 @@ int main(int argc, char **argv) {
     glfwPollEvents();
     glfwSetCursorPos(window, 1024/2, 768/2);
     
-    // Black background
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+    // White background
+    glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
     
     // Enable depth test
     glEnable(GL_DEPTH_TEST);

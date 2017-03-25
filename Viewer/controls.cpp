@@ -65,8 +65,8 @@ void computeMatricesFromInputs(GLFWwindow* window){
     glfwSetCursorPos(window, 1024/2, 768/2);
     
     // Compute new orientation
-    horizontalAngle += mouseSpeed * float(1024/2 - xpos );
-    verticalAngle   += mouseSpeed * float( 768/2 - ypos );
+    horizontalAngle += mouseSpeed * float(1024/2 - xpos);
+    verticalAngle   += mouseSpeed * float(768/2 - ypos);
     
     // Direction : Spherical coordinates to Cartesian coordinates conversion
     glm::vec3 direction(
@@ -83,45 +83,45 @@ void computeMatricesFromInputs(GLFWwindow* window){
                                 );
     
     // Up vector
-    glm::vec3 up = glm::cross( right, direction );
+    glm::vec3 up = glm::cross(right, direction);
     
     // Cycle forward
-    if (glfwGetKey( window, GLFW_KEY_PERIOD ) == GLFW_PRESS){
+    if (glfwGetKey(window, GLFW_KEY_PERIOD ) == GLFW_PRESS){
         if (!meshIndexPosLocked) {
             meshIndex++;
             meshIndexPosLocked = true;
         }
     }
     // Cycle back
-    if (glfwGetKey( window, GLFW_KEY_COMMA ) == GLFW_PRESS){
+    if (glfwGetKey(window, GLFW_KEY_COMMA) == GLFW_PRESS){
         if (!meshIndexNegLocked) {
             meshIndex--;
             meshIndexNegLocked = true;
         }
     }
     // Cycle forward
-    if (glfwGetKey( window, GLFW_KEY_PERIOD ) == GLFW_RELEASE){
+    if (glfwGetKey(window, GLFW_KEY_PERIOD) == GLFW_RELEASE){
         meshIndexPosLocked = false;
     }
     // Cycle back
-    if (glfwGetKey( window, GLFW_KEY_COMMA ) == GLFW_RELEASE){
+    if (glfwGetKey(window, GLFW_KEY_COMMA) == GLFW_RELEASE){
         meshIndexNegLocked = false;
     }
     
     // Move forward
-    if (glfwGetKey( window, GLFW_KEY_UP ) == GLFW_PRESS){
+    if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS){
         position += direction * deltaTime * speed;
     }
     // Move backward
-    if (glfwGetKey( window, GLFW_KEY_DOWN ) == GLFW_PRESS){
+    if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS){
         position -= direction * deltaTime * speed;
     }
     // Strafe right
-    if (glfwGetKey( window, GLFW_KEY_RIGHT ) == GLFW_PRESS){
+    if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS){
         position += right * deltaTime * speed;
     }
     // Strafe left
-    if (glfwGetKey( window, GLFW_KEY_LEFT ) == GLFW_PRESS){
+    if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS){
         position -= right * deltaTime * speed;
     }
     

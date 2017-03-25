@@ -53,7 +53,6 @@ namespace cura {
                 log("[%d, %d],", p.X, p.Y);
             }
             log("\n");
-            exit(0);
             
             // Main loop
             for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
@@ -116,6 +115,17 @@ namespace cura {
         
         //set the parent node mesh to be the parent of the output of mesh separation
         sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
+    }
+    
+    
+    pair<Point3, Point3> void findNextSplitPoint(Point3& prevSplitPoint, vector<pair<Point3, Point3>>& splitPointsVector) {
+        for (int i = 0; i < splitPointsVector.size(); i++) {
+            if ((prevSplitPoint == splitPointsVector[i].first) || (prevSplitPoint == splitPointsVector[i].second)) {
+                return splitPointsVector[i];
+            }
+        }
+        log("[ERROR] No split points matched previous split point\n");
+        return pair<Point3, Point3>(Point3(0, 0, 0), Point3(0, 0, 0));
     }
     
     int VolumeDecomposer::splitFaces(Mesh& mesh, int faceID, PolygonRef intersectingPoly, pair<Point3, Point3> splitPoints) {
@@ -222,11 +232,7 @@ namespace cura {
                             
                             splitPointsVector.clear();
                             findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                            for (int i = 0; i < splitPointsVector.size(); i++) {
-                                if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
-                                    splitPoints = splitPointsVector[i];
-                                }
-                            }
+                            splitPoints = findNextSplitPoint(prevSplitPoint, splitPointsVector);
                             
                             continue;
                         }
@@ -291,11 +297,7 @@ namespace cura {
                     
                     splitPointsVector.clear();
                     findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                    for (int i = 0; i < splitPointsVector.size(); i++) {
-                        if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
-                            splitPoints = splitPointsVector[i];
-                        }
-                    }
+                    splitPoints = findNextSplitPoint(prevSplitPoint, splitPointsVector);
                     
                 } else { //case IV
                     
@@ -350,11 +352,7 @@ namespace cura {
                             
                             splitPointsVector.clear();
                             findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                            for (int i = 0; i < splitPointsVector.size(); i++) {
-                                if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
-                                    splitPoints = splitPointsVector[i];
-                                }
-                            }
+                            splitPoints = findNextSplitPoint(prevSplitPoint, splitPointsVector);
                             
                             continue;
                         }
@@ -463,11 +461,7 @@ namespace cura {
                     
                     splitPointsVector.clear();
                     findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                    for (int i = 0; i < splitPointsVector.size(); i++) {
-                        if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
-                            splitPoints = splitPointsVector[i];
-                        }
-                    }
+                    splitPoints = findNextSplitPoint(prevSplitPoint, splitPointsVector);
                     
                 }
                 
@@ -661,11 +655,7 @@ namespace cura {
                 
                 splitPointsVector.clear();
                 findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                for (int i = 0; i < splitPointsVector.size(); i++) {
-                    if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
-                        splitPoints = splitPointsVector[i];
-                    }
-                }
+                splitPoints = findNextSplitPoint(prevSplitPoint, splitPointsVector);
                 
             } else { //case I
                 
@@ -936,11 +926,7 @@ namespace cura {
                     
                     splitPointsVector.clear();
                     findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                    for (int i = 0; i < splitPointsVector.size(); i++) {
-                        if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
-                            splitPoints = splitPointsVector[i];
-                        }
-                    }
+                    splitPoints = findNextSplitPoint(prevSplitPoint, splitPointsVector);
                     
                     seedVertex = prevSplitPointPrimeIndex;
                     
@@ -1129,12 +1115,7 @@ namespace cura {
                         
                         splitPointsVector.clear();
                         findSplitPoints(mesh, faceID, intersectingPoly, splitPointsVector);
-                        
-                        for (int i = 0; i < splitPointsVector.size(); i++) {
-                            if ((splitPoints.first == splitPointsVector[i].first) || (splitPoints.first == splitPointsVector[i].second) || (splitPoints.second == splitPointsVector[i].first) || (splitPoints.second == splitPointsVector[i].second)) {
-                                splitPoints = splitPointsVector[i];
-                            }
-                        }
+                        splitPoints = findNextSplitPoint(prevSplitPoint, splitPointsVector);
                     }
                 }
             }
