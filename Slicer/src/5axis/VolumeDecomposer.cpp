@@ -23,6 +23,10 @@ namespace cura {
         }
         long int parentIndex = sequenceGraph.size()-1;
         
+        
+        BuildMap buildmap = BuildMap(mesh);
+        buildmap.toMATLAB("./output/buildmap_full.m", BuildMap::SPHERE_SMOOTH, 50);
+        
         int model_max = mesh.getAABB().max.z;
         long long int initial_layer_thickness = mesh.getSettingInMicrons("layer_height_0");
         long long int layer_thickness = mesh.getSettingInMicrons("layer_height");
@@ -38,31 +42,31 @@ namespace cura {
         SlicerLayer & comparisonSlice = layers[0];
         Polygons & comparisonPolys = comparisonSlice.polygons;
         
-        unsigned long int numLayers = layers.size();
+//        unsigned long int numLayers = layers.size();
         
         for (unsigned int layer_idx = 1; layer_idx < layers.size(); ++layer_idx) {
             SlicerLayer & slice = layers[layer_idx];
             Polygons & polys = slice.polygons;
-            Polygons & openPolys = slice.openPolylines;
+//            Polygons & openPolys = slice.openPolylines;
             std::vector<std::vector<int>> polyFaces = slice.polyFaces;
 
-            PolygonRef poly = slice.polygons[0];
-            for (unsigned int temp_idx = 1; temp_idx < poly.size(); ++temp_idx) {
-                Point p = poly[temp_idx];
-
-                log("[%d, %d],", p.X, p.Y);
-            }
-            log("\n");
+//            PolygonRef poly = slice.polygons[0];
+//            for (unsigned int temp_idx = 1; temp_idx < poly.size(); ++temp_idx) {
+//                Point p = poly[temp_idx];
+//
+//                log("[%d, %d],", p.X, p.Y);
+//            }
+//            log("\n");
             
             // Main loop
             for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
                 std::vector<int> faces = polyFaces[polyfaces_idx];
-                log("faces size = %d\n", faces.size());
-                log("STARTING ITERATION\n");
+                //log("faces size = %d\n", faces.size());
+                //log("STARTING ITERATION\n");
                 for (unsigned int face_idx = 0; face_idx < faces.size(); ++face_idx) {
                     int faceID = faces[face_idx];
-                    log("layer: %d, poly in layer: %d, face in poly: %d\n", layer_idx, polyfaces_idx, faceID);
-                    log("processed = %s\n", processedFaceIndices[faceID] ? "true" : "false");
+                    //log("layer: %d, poly in layer: %d, face in poly: %d\n", layer_idx, polyfaces_idx, faceID);
+                    //log("processed = %s\n", processedFaceIndices[faceID] ? "true" : "false");
                     fflush(stdout);
                     if (!processedFaceIndices[faceID]) {
                         processedFaceIndices[faceID] = true;
@@ -95,11 +99,10 @@ namespace cura {
         // seeds.push_back(19);
         // seeds.push_back(18);
         
-        
         MeshSequence sub_graph = separateMesh(mesh, seeds);
+        int i = 0;
         for( Mesh child : sub_graph.children){
             SeqNode childNode = SeqNode(child);
-            // BuildMap buildmap = BuildMap(mesh);
             // FPoint3 buildVector = buildmap.findBestVector();
             
             sequenceGraph.addNode(childNode);
@@ -111,14 +114,12 @@ namespace cura {
             //call volume decomp
         }
         
-        log("nyah hah\n");
-        
         //set the parent node mesh to be the parent of the output of mesh separation
         sequenceGraph.graphNodes[parentIndex].mesh = sub_graph.parent;
     }
     
     
-    pair<Point3, Point3> void findNextSplitPoint(Point3& prevSplitPoint, vector<pair<Point3, Point3>>& splitPointsVector) {
+    pair<Point3, Point3> findNextSplitPoint(Point3& prevSplitPoint, vector<pair<Point3, Point3>>& splitPointsVector) {
         for (int i = 0; i < splitPointsVector.size(); i++) {
             if ((prevSplitPoint == splitPointsVector[i].first) || (prevSplitPoint == splitPointsVector[i].second)) {
                 return splitPointsVector[i];

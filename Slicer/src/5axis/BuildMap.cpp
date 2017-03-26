@@ -10,6 +10,7 @@
 
 #include <cmath>
 #include <vector>
+#include <fstream>
 
 #include "Utility.hpp"
 
@@ -304,7 +305,64 @@ double BuildMap::averageCuspHeight(const FPoint3 & v) const {
     return weight /= totalFaceArea;
 }
 
-FPoint3 BuildMap::mapToVector(int x, int y) {
+bool BuildMap::toMATLAB(string filePath, BuildMap::MATLABOutputType type, int precision) const {
+    double oldPrecision = precision;
+    precision = fmax(1, fmin(precision, fmin(A_AXIS_DISCRETE_POINTS, B_AXIS_DISCRETE_POINTS)));
+    
+    if (precision != oldPrecision) {
+        log("[WARNING] precision of BuildMap is out of range");
+    }
+    
+    ofstream file;
+    file.open(filePath, ios::out | ios::binary);
+    
+    if (file.is_open()) {
+        ostringstream xStr, yStr, zStr;
+        for (int y = 0; y <= A_AXIS_DISCRETE_POINTS; y += precision) {
+            for (int x = 0; x <= B_AXIS_DISCRETE_POINTS; x += precision) {
+                FPoint3 v = BuildMap::mapToFPoint3(x, y);
+                bool valid = checkVector(v);
+                double weight = valid ? averageCuspHeight(v) : 0;
+                
+                if (type == PLANE) {
+                    xStr << x << " ";
+                    yStr << y << " ";
+                    zStr << (valid ? weight : -1) << " ";
+                } else if (type == SPHERE) {
+                    v = v.normalized();
+                    v *= valid ? (weight + 1) : 0;
+                    xStr << v.x << " ";
+                    yStr << v.y << " ";
+                    zStr << v.z << " ";
+                } else if (type == SPHERE_SMOOTH) {
+                    v = v.normalized();
+                    v *= valid ? 2 : 1;
+                    xStr << v.x << " ";
+                    yStr << v.y << " ";
+                    zStr << v.z << " ";
+                }
+            }
+            
+            xStr << ";\n";
+            yStr << ";\n";
+            zStr << ";\n";
+        }
+        
+        file << "X = [\n" << xStr.str() << "];\n";
+        file << "Y = [\n" << yStr.str() << "];\n";
+        file << "Z = [\n" << zStr.str() << "];\n";
+        file << "figure\n";
+        file << "surf(X, Y, Z)";
+        file.close();
+        
+        return true;
+    } else {
+        log("[WARNING] could not open MATLAB script file");
+        return false;
+    }
+}
+
+FPoint3 BuildMap::mapToFPoint3(int x, int y) {
     return FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi(y));
 }
 

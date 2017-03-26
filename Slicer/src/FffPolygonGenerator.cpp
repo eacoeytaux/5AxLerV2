@@ -365,7 +365,11 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
 	
 	int fileIndex = 0;
 	for(SeqNode node : vd->sequenceGraph.graphNodes){
-		std::string filename = "output_decomp_" + std::to_string(fileIndex)+ ".STL";
+        BuildMap buildmap = BuildMap(node.getMesh());
+        std::string MATLABname = "./output/buildmap_" + std::to_string(fileIndex) + ".m";
+        buildmap.toMATLAB(MATLABname, BuildMap::SPHERE_SMOOTH, 50);
+        
+		std::string filename = "./output/output_decomp_" + std::to_string(fileIndex) + ".STL";
 	 	MeshToSTL::constructSTLfromMesh(node.getMesh(), filename);
 	 	// MeshToGCode::getGCodeFromMesh(node.getMesh());
 		fileIndex++;

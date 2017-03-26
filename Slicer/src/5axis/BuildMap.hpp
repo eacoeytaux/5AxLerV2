@@ -19,6 +19,12 @@
 namespace cura {
     class BuildMap {
     public:
+        enum MATLABOutputType {
+            PLANE,
+            SPHERE,
+            SPHERE_SMOOTH
+        };
+        
         BuildMap(const Mesh & mesh);
         
         double area() const;
@@ -27,7 +33,9 @@ namespace cura {
         FPoint3 findBestVector() const;
         double averageCuspHeight(const FPoint3 & v) const;
         
-        static FPoint3 mapToVector(int x, int y);
+        bool toMATLAB(std::string filePath, MATLABOutputType type, int precision) const;
+        
+        static FPoint3 mapToFPoint3(int x, int y);
         static std::pair<int, int> FPoint3ToMap(const FPoint3 & v);
         static int thetaToBAxisRange(double theta);
         static int phiToAAxisRange(double phi);
