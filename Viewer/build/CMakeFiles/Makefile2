@@ -63,8 +63,8 @@ CMAKE_BINARY_DIR = /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Viewer
 # Target rules for target CMakeFiles/5AxLerViewer.dir
 
 # All Build rule for target.
-CMakeFiles/5AxLerViewer.dir/all: external/CMakeFiles/GLEW_1130.dir/all
 CMakeFiles/5AxLerViewer.dir/all: external/glfw-3.1.2/src/CMakeFiles/glfw.dir/all
+CMakeFiles/5AxLerViewer.dir/all: external/CMakeFiles/GLEW_1130.dir/all
 	$(MAKE) -f CMakeFiles/5AxLerViewer.dir/build.make CMakeFiles/5AxLerViewer.dir/depend
 	$(MAKE) -f CMakeFiles/5AxLerViewer.dir/build.make CMakeFiles/5AxLerViewer.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Viewer/build/CMakeFiles --progress-num=1,2,3,4 "Built target 5AxLerViewer"
