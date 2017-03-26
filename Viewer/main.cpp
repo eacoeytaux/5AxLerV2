@@ -55,12 +55,15 @@ int loadSTL(const char * path, std::vector<glm::vec3> & out_vertices, std::vecto
             }
             
             double scale = 10000000;
+            printf("points[3]: %d\n", points[3]);
             out_vertices.push_back(glm::vec3(points[3] / scale, points[4] / scale, points[5] / scale));	// Get first point of triangle
             out_vertices.push_back(glm::vec3(points[6] / scale, points[7] / scale, points[8] / scale));	// Get second point of triangle
             out_vertices.push_back(glm::vec3(points[9] / scale, points[10] / scale, points[11] / scale));	// Get third point of triangle
         }
         
         file.close();	// Close the file
+    } else {
+        printf("[ERROR] could not open file %s\n", path);
     }
     
     return size;
