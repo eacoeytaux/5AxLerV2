@@ -36,7 +36,7 @@ if args.view:
     str = ""
     for f in os.listdir("."):
         if re.match("output_decomp_", f):
-            str += f + " "
+            str += "../../Slicer/" + f + " "
     os.chdir("../Viewer/build")
     subprocess.call('./5AxLerViewer ' + str, shell=True)
     os.chdir("../../Slicer")
