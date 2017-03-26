@@ -188,9 +188,6 @@ FPoint3 BuildMap::findValidVector() const {
 }
 
 FPoint3 BuildMap::findValidVectorUtil(int xStart, int yStart, int width, int height) const {
-#ifdef DEBUG_MODE
-    //writeLog(INFO, "BUILD MAP - checking build map theta(%d-%d) phi(%d-%d)", xStart, xStart + width, yStart, yStart + height);
-#endif
     if ((width == 1) && (height == 1)) {
         return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart));
     }
@@ -215,9 +212,6 @@ FPoint3 BuildMap::findValidVectorUtil(int xStart, int yStart, int width, int hei
         for (unsigned int i = 0; i < solution.size(); i++) {
             area += Area(solution[i]);
         }
-#ifdef DEBUG_MODE
-        //writeLog(INFO, "BUILD MAP - area of region: %f", area);
-#endif
         searchSuccess = (area > 0);
     } else {
         searchSuccess = false;
