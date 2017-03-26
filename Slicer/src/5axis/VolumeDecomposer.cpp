@@ -49,6 +49,7 @@ namespace cura {
             Polygons & polys = slice.polygons;
 //            Polygons & openPolys = slice.openPolylines;
             std::vector<std::vector<int>> polyFaces = slice.polyFaces;
+<<<<<<< HEAD
 
 //            PolygonRef poly = slice.polygons[0];
 //            for (unsigned int temp_idx = 1; temp_idx < poly.size(); ++temp_idx) {
@@ -57,6 +58,8 @@ namespace cura {
 //                log("[%d, %d],", p.X, p.Y);
 //            }
 //            log("\n");
+=======
+>>>>>>> 7c0511cff4e25d9ca2d2349a4201e662bf16f894
             
             // Main loop
             for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
