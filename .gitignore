@@ -35,11 +35,11 @@
 
 .DS_Store
 # The build folder
-/Slicer/build
-/Viewer/build
+./Slicer/build
+./Viewer/build
 
 # Output folder
-/Slicer/output
+./Slicer/output
 
 # The LOG output
 LOG
