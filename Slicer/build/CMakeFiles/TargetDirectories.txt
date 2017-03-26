@@ -1,3 +1,0 @@
-/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CuraEngine.dir
-/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/clipper.dir
-/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/_CuraEngine.dir
