@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/libs/clipper/clipper.cpp
+/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/libs/clipper/clipper.cpp
 clipper.hpp
-/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/libs/clipper/clipper.hpp
+/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/libs/clipper/clipper.hpp
 cmath
 -
 vector
@@ -26,7 +26,7 @@ ostream
 functional
 -
 
-/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/libs/clipper/clipper.hpp
+/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/libs/clipper/clipper.hpp
 vector
 -
 set

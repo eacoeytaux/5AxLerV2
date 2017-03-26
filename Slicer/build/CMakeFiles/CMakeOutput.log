@@ -1,6 +1,6 @@
-The system is: Darwin - 14.5.0 - x86_64
+The system is: Linux - 4.2.0-25-generic - x86_64
 Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
-Compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc 
+Compiler: /usr/bin/cc 
 Build flags: 
 Id flags: 
 
@@ -10,10 +10,10 @@ The output was:
 
 Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
 
-The C compiler identification is AppleClang, found in "/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/3.5.2/CompilerIdC/a.out"
+The C compiler identification is GNU, found in "/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/3.2.2/CompilerIdC/a.out"
 
 Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
-Compiler: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ 
+Compiler: /usr/bin/c++ 
 Build flags: 
 Id flags: 
 
@@ -23,99 +23,151 @@ The output was:
 
 Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
 
-The CXX compiler identification is AppleClang, found in "/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/3.5.2/CompilerIdCXX/a.out"
+The CXX compiler identification is GNU, found in "/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/3.2.2/CompilerIdCXX/a.out"
 
 Determining if the C compiler works passed with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b39d5/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_b39d5.dir/build.make CMakeFiles/cmTC_b39d5.dir/build
-Building C object CMakeFiles/cmTC_b39d5.dir/testCCompiler.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc     -o CMakeFiles/cmTC_b39d5.dir/testCCompiler.c.o   -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/testCCompiler.c
-Linking C executable cmTC_b39d5
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b39d5.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_b39d5.dir/testCCompiler.c.o  -o cmTC_b39d5  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1320943518/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1320943518.dir/build.make CMakeFiles/cmTryCompileExec1320943518.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1320943518.dir/testCCompiler.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1320943518.dir/testCCompiler.c.o   -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTryCompileExec1320943518
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1320943518.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1320943518.dir/testCCompiler.c.o  -o cmTryCompileExec1320943518 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
 Detecting C compiler ABI info compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a8112/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_a8112.dir/build.make CMakeFiles/cmTC_a8112.dir/build
-Building C object CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc     -o CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o   -c /Applications/CMake.app/Contents/share/cmake-3.5/Modules/CMakeCCompilerABI.c
-Linking C executable cmTC_a8112
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a8112.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o  -o cmTC_a8112   
-Apple LLVM version 7.0.2 (clang-700.1.81)
-Target: x86_64-apple-darwin14.5.0
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2541638696/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2541638696.dir/build.make CMakeFiles/cmTryCompileExec2541638696.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.2/Modules/CMakeCCompilerABI.c
+Linking C executable cmTryCompileExec2541638696
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2541638696.dir/link.txt --verbose=1
+/usr/bin/cc      -v CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2541638696 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/cc
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.2.1-22ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
 Thread model: posix
- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.10.0 -o cmTC_a8112 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a
-@(#)PROGRAM:ld  PROJECT:ld64-253.9
-configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
-Library search paths:
-	/usr/lib
-	/usr/local/lib
-Framework search paths:
-	/Library/Frameworks/
-	/System/Library/Frameworks/
+gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2541638696' '-rdynamic' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccVcc9BW.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec2541638696 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_a8112/fast"]
-  ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_a8112.dir/build.make CMakeFiles/cmTC_a8112.dir/build]
-  ignore line: [Building C object CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o]
-  ignore line: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc     -o CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o   -c /Applications/CMake.app/Contents/share/cmake-3.5/Modules/CMakeCCompilerABI.c]
-  ignore line: [Linking C executable cmTC_a8112]
-  ignore line: [/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a8112.dir/link.txt --verbose=1]
-  ignore line: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o  -o cmTC_a8112   ]
-  ignore line: [Apple LLVM version 7.0.2 (clang-700.1.81)]
-  ignore line: [Target: x86_64-apple-darwin14.5.0]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec2541638696/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec2541638696.dir/build.make CMakeFiles/cmTryCompileExec2541638696.dir/build]
+  ignore line: [make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building C object CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o   -c /usr/share/cmake-3.2/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTryCompileExec2541638696]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2541638696.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc      -v CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o  -o cmTryCompileExec2541638696 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/cc]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.2.1-22ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
   ignore line: [Thread model: posix]
-  link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.10.0 -o cmTC_a8112 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-    arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld] ==> ignore
-    arg [-demangle] ==> ignore
-    arg [-dynamic] ==> ignore
-    arg [-arch] ==> ignore
-    arg [x86_64] ==> ignore
-    arg [-macosx_version_min] ==> ignore
-    arg [10.10.0] ==> ignore
+  ignore line: [gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2541638696' '-rdynamic' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/ccVcc9BW.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec2541638696 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/ccVcc9BW.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_a8112] ==> ignore
-    arg [-search_paths_first] ==> ignore
-    arg [-headerpad_max_install_names] ==> ignore
-    arg [-v] ==> ignore
-    arg [CMakeFiles/cmTC_a8112.dir/CMakeCCompilerABI.c.o] ==> ignore
-    arg [-lSystem] ==> lib [System]
-    arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a] ==> lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-  Library search paths: [;/usr/lib;/usr/local/lib]
-  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
-  remove lib [System]
-  collapse lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-  collapse library dir [/usr/lib] ==> [/usr/lib]
-  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
-  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
-  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
-  implicit libs: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-  implicit dirs: [/usr/lib;/usr/local/lib]
-  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+    arg [cmTryCompileExec2541638696] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..]
+    arg [CMakeFiles/cmTryCompileExec2541638696.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [-lc] ==> lib [c]
+    arg [-lgcc] ==> lib [gcc]
+    arg [--as-needed] ==> ignore
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [--no-as-needed] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5] ==> [/usr/lib/gcc/x86_64-linux-gnu/5]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> [/usr/lib]
+  implicit libs: [c]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/5;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
 
 
 
 
 Detecting C [-std=c11] compiler features compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_63908/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_63908.dir/build.make CMakeFiles/cmTC_63908.dir/build
-Building C object CMakeFiles/cmTC_63908.dir/feature_tests.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -std=c11 -o CMakeFiles/cmTC_63908.dir/feature_tests.c.o   -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_63908
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_63908.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_63908.dir/feature_tests.c.o  -o cmTC_63908  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2887702112/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2887702112.dir/build.make CMakeFiles/cmTryCompileExec2887702112.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2887702112.dir/feature_tests.c.o
+/usr/bin/cc   -std=c11 -o CMakeFiles/cmTryCompileExec2887702112.dir/feature_tests.c.o   -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec2887702112
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2887702112.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2887702112.dir/feature_tests.c.o  -o cmTryCompileExec2887702112 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -125,15 +177,18 @@ Linking C executable cmTC_63908
 
 
 Detecting C [-std=c99] compiler features compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_4548c/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_4548c.dir/build.make CMakeFiles/cmTC_4548c.dir/build
-Building C object CMakeFiles/cmTC_4548c.dir/feature_tests.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -std=c99 -o CMakeFiles/cmTC_4548c.dir/feature_tests.c.o   -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_4548c
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_4548c.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_4548c.dir/feature_tests.c.o  -o cmTC_4548c  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1245226433/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1245226433.dir/build.make CMakeFiles/cmTryCompileExec1245226433.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1245226433.dir/feature_tests.c.o
+/usr/bin/cc   -std=c99 -o CMakeFiles/cmTryCompileExec1245226433.dir/feature_tests.c.o   -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec1245226433
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1245226433.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec1245226433.dir/feature_tests.c.o  -o cmTryCompileExec1245226433 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -143,15 +198,18 @@ Linking C executable cmTC_4548c
 
 
 Detecting C [-std=c90] compiler features compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_8668c/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_8668c.dir/build.make CMakeFiles/cmTC_8668c.dir/build
-Building C object CMakeFiles/cmTC_8668c.dir/feature_tests.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -std=c90 -o CMakeFiles/cmTC_8668c.dir/feature_tests.c.o   -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.c
-Linking C executable cmTC_8668c
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8668c.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8668c.dir/feature_tests.c.o  -o cmTC_8668c  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4053728113/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec4053728113.dir/build.make CMakeFiles/cmTryCompileExec4053728113.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4053728113.dir/feature_tests.c.o
+/usr/bin/cc   -std=c90 -o CMakeFiles/cmTryCompileExec4053728113.dir/feature_tests.c.o   -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.c
+Linking C executable cmTryCompileExec4053728113
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4053728113.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec4053728113.dir/feature_tests.c.o  -o cmTryCompileExec4053728113 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -159,97 +217,146 @@ Linking C executable cmTC_8668c
     Feature record: C_FEATURE:0c_static_assert
     Feature record: C_FEATURE:0c_variadic_macros
 Determining if the CXX compiler works passed with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_8b480/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_8b480.dir/build.make CMakeFiles/cmTC_8b480.dir/build
-Building CXX object CMakeFiles/cmTC_8b480.dir/testCXXCompiler.cxx.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++      -o CMakeFiles/cmTC_8b480.dir/testCXXCompiler.cxx.o -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
-Linking CXX executable cmTC_8b480
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8b480.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8b480.dir/testCXXCompiler.cxx.o  -o cmTC_8b480  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3251379398/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3251379398.dir/build.make CMakeFiles/cmTryCompileExec3251379398.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3251379398.dir/testCXXCompiler.cxx.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec3251379398.dir/testCXXCompiler.cxx.o -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+Linking CXX executable cmTryCompileExec3251379398
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3251379398.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec3251379398.dir/testCXXCompiler.cxx.o  -o cmTryCompileExec3251379398 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
 Detecting CXX compiler ABI info compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_b321f/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_b321f.dir/build.make CMakeFiles/cmTC_b321f.dir/build
-Building CXX object CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++      -o CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o -c /Applications/CMake.app/Contents/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp
-Linking CXX executable cmTC_b321f
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b321f.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_b321f   
-Apple LLVM version 7.0.2 (clang-700.1.81)
-Target: x86_64-apple-darwin14.5.0
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2834216268/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2834216268.dir/build.make CMakeFiles/cmTryCompileExec2834216268.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o
+/usr/bin/c++     -o CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.2/Modules/CMakeCXXCompilerABI.cpp
+Linking CXX executable cmTryCompileExec2834216268
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2834216268.dir/link.txt --verbose=1
+/usr/bin/c++       -v CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec2834216268 -rdynamic  
+Using built-in specs.
+COLLECT_GCC=/usr/bin/c++
+COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper
+Target: x86_64-linux-gnu
+Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.2.1-22ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu
 Thread model: posix
- "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.10.0 -o cmTC_b321f -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a
-@(#)PROGRAM:ld  PROJECT:ld64-253.9
-configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
-Library search paths:
-	/usr/lib
-	/usr/local/lib
-Framework search paths:
-	/Library/Frameworks/
-	/System/Library/Frameworks/
+gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) 
+COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/
+LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/
+COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2834216268' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cclLAwgl.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec2834216268 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
-  ignore line: [Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp]
+  ignore line: [Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_b321f/fast"]
-  ignore line: [/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_b321f.dir/build.make CMakeFiles/cmTC_b321f.dir/build]
-  ignore line: [Building CXX object CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++      -o CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o -c /Applications/CMake.app/Contents/share/cmake-3.5/Modules/CMakeCXXCompilerABI.cpp]
-  ignore line: [Linking CXX executable cmTC_b321f]
-  ignore line: [/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b321f.dir/link.txt --verbose=1]
-  ignore line: [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o  -o cmTC_b321f   ]
-  ignore line: [Apple LLVM version 7.0.2 (clang-700.1.81)]
-  ignore line: [Target: x86_64-apple-darwin14.5.0]
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTryCompileExec2834216268/fast"]
+  ignore line: [/usr/bin/make -f CMakeFiles/cmTryCompileExec2834216268.dir/build.make CMakeFiles/cmTryCompileExec2834216268.dir/build]
+  ignore line: [make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp']
+  ignore line: [/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1]
+  ignore line: [Building CXX object CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [/usr/bin/c++     -o CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake-3.2/Modules/CMakeCXXCompilerABI.cpp]
+  ignore line: [Linking CXX executable cmTryCompileExec2834216268]
+  ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2834216268.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/c++       -v CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o  -o cmTryCompileExec2834216268 -rdynamic  ]
+  ignore line: [Using built-in specs.]
+  ignore line: [COLLECT_GCC=/usr/bin/c++]
+  ignore line: [COLLECT_LTO_WRAPPER=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper]
+  ignore line: [Target: x86_64-linux-gnu]
+  ignore line: [Configured with: ../src/configure -v --with-pkgversion='Ubuntu 5.2.1-22ubuntu2' --with-bugurl=file:///usr/share/doc/gcc-5/README.Bugs --enable-languages=c,ada,c++,java,go,d,fortran,objc,obj-c++ --prefix=/usr --program-suffix=-5 --enable-shared --enable-linker-build-id --libexecdir=/usr/lib --without-included-gettext --enable-threads=posix --libdir=/usr/lib --enable-nls --with-sysroot=/ --enable-clocale=gnu --enable-libstdcxx-debug --enable-libstdcxx-time=yes --with-default-libstdcxx-abi=new --enable-gnu-unique-object --disable-vtable-verify --enable-libmpx --enable-plugin --with-system-zlib --disable-browser-plugin --enable-java-awt=gtk --enable-gtk-cairo --with-java-home=/usr/lib/jvm/java-1.5.0-gcj-5-amd64/jre --enable-java-home --with-jvm-root-dir=/usr/lib/jvm/java-1.5.0-gcj-5-amd64 --with-jvm-jar-dir=/usr/lib/jvm-exports/java-1.5.0-gcj-5-amd64 --with-arch-directory=amd64 --with-ecj-jar=/usr/share/java/eclipse-ecj.jar --enable-objc-gc --enable-multiarch --disable-werror --with-arch-32=i686 --with-abi=m64 --with-multilib-list=m32,m64,mx32 --enable-multilib --with-tune=generic --enable-checking=release --build=x86_64-linux-gnu --host=x86_64-linux-gnu --target=x86_64-linux-gnu]
   ignore line: [Thread model: posix]
-  link line: [ "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.10.0 -o cmTC_b321f -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-    arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld] ==> ignore
-    arg [-demangle] ==> ignore
-    arg [-dynamic] ==> ignore
-    arg [-arch] ==> ignore
-    arg [x86_64] ==> ignore
-    arg [-macosx_version_min] ==> ignore
-    arg [10.10.0] ==> ignore
+  ignore line: [gcc version 5.2.1 20151010 (Ubuntu 5.2.1-22ubuntu2) ]
+  ignore line: [COMPILER_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/]
+  ignore line: [LIBRARY_PATH=/usr/lib/gcc/x86_64-linux-gnu/5/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/5/../../../:/lib/:/usr/lib/]
+  ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'cmTryCompileExec2834216268' '-rdynamic' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+  link line: [ /usr/lib/gcc/x86_64-linux-gnu/5/collect2 -plugin /usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so -plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper -plugin-opt=-fresolution=/tmp/cclLAwgl.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --sysroot=/ --build-id --eh-frame-hdr -m elf_x86_64 --hash-style=gnu --as-needed -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z relro -o cmTryCompileExec2834216268 /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o /usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o -L/usr/lib/gcc/x86_64-linux-gnu/5 -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu -L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib -L/lib/x86_64-linux-gnu -L/lib/../lib -L/usr/lib/x86_64-linux-gnu -L/usr/lib/../lib -L/usr/lib/gcc/x86_64-linux-gnu/5/../../.. CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/lib/gcc/x86_64-linux-gnu/5/crtend.o /usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/collect2] ==> ignore
+    arg [-plugin] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/liblto_plugin.so] ==> ignore
+    arg [-plugin-opt=/usr/lib/gcc/x86_64-linux-gnu/5/lto-wrapper] ==> ignore
+    arg [-plugin-opt=-fresolution=/tmp/cclLAwgl.res] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lc] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+    arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+    arg [--sysroot=/] ==> ignore
+    arg [--build-id] ==> ignore
+    arg [--eh-frame-hdr] ==> ignore
+    arg [-m] ==> ignore
+    arg [elf_x86_64] ==> ignore
+    arg [--hash-style=gnu] ==> ignore
+    arg [--as-needed] ==> ignore
+    arg [-export-dynamic] ==> ignore
+    arg [-dynamic-linker] ==> ignore
+    arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+    arg [-zrelro] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_b321f] ==> ignore
-    arg [-search_paths_first] ==> ignore
-    arg [-headerpad_max_install_names] ==> ignore
-    arg [-v] ==> ignore
-    arg [CMakeFiles/cmTC_b321f.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
-    arg [-lc++] ==> lib [c++]
-    arg [-lSystem] ==> lib [System]
-    arg [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a] ==> lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-  Library search paths: [;/usr/lib;/usr/local/lib]
-  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
-  remove lib [System]
-  collapse lib [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a] ==> [/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-  collapse library dir [/usr/lib] ==> [/usr/lib]
-  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
-  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
-  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
-  implicit libs: [c++;/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/7.0.2/lib/darwin/libclang_rt.osx.a]
-  implicit dirs: [/usr/lib;/usr/local/lib]
-  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+    arg [cmTryCompileExec2834216268] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crt1.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crti.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtbegin.o] ==> ignore
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib]
+    arg [-L/lib/x86_64-linux-gnu] ==> dir [/lib/x86_64-linux-gnu]
+    arg [-L/lib/../lib] ==> dir [/lib/../lib]
+    arg [-L/usr/lib/x86_64-linux-gnu] ==> dir [/usr/lib/x86_64-linux-gnu]
+    arg [-L/usr/lib/../lib] ==> dir [/usr/lib/../lib]
+    arg [-L/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..]
+    arg [CMakeFiles/cmTryCompileExec2834216268.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [-lstdc++] ==> lib [stdc++]
+    arg [-lm] ==> lib [m]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [-lc] ==> lib [c]
+    arg [-lgcc_s] ==> lib [gcc_s]
+    arg [-lgcc] ==> lib [gcc]
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/crtend.o] ==> ignore
+    arg [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu/crtn.o] ==> ignore
+  remove lib [gcc_s]
+  remove lib [gcc]
+  remove lib [gcc_s]
+  remove lib [gcc]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5] ==> [/usr/lib/gcc/x86_64-linux-gnu/5]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../../../lib] ==> [/usr/lib]
+  collapse library dir [/lib/x86_64-linux-gnu] ==> [/lib/x86_64-linux-gnu]
+  collapse library dir [/lib/../lib] ==> [/lib]
+  collapse library dir [/usr/lib/x86_64-linux-gnu] ==> [/usr/lib/x86_64-linux-gnu]
+  collapse library dir [/usr/lib/../lib] ==> [/usr/lib]
+  collapse library dir [/usr/lib/gcc/x86_64-linux-gnu/5/../../..] ==> [/usr/lib]
+  implicit libs: [stdc++;m;c]
+  implicit dirs: [/usr/lib/gcc/x86_64-linux-gnu/5;/usr/lib/x86_64-linux-gnu;/usr/lib;/lib/x86_64-linux-gnu;/lib]
+  implicit fwks: []
 
 
 
 
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_5b1cf/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_5b1cf.dir/build.make CMakeFiles/cmTC_5b1cf.dir/build
-Building CXX object CMakeFiles/cmTC_5b1cf.dir/feature_tests.cxx.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -std=c++14 -o CMakeFiles/cmTC_5b1cf.dir/feature_tests.cxx.o -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_5b1cf
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_5b1cf.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_5b1cf.dir/feature_tests.cxx.o  -o cmTC_5b1cf  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1872260735/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec1872260735.dir/build.make CMakeFiles/cmTryCompileExec1872260735.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1872260735.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++14 -o CMakeFiles/cmTryCompileExec1872260735.dir/feature_tests.cxx.o -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTryCompileExec1872260735
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1872260735.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec1872260735.dir/feature_tests.cxx.o  -o cmTryCompileExec1872260735 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -300,7 +407,7 @@ Linking CXX executable cmTC_5b1cf
     Feature record: CXX_FEATURE:1cxx_static_assert
     Feature record: CXX_FEATURE:1cxx_strong_enums
     Feature record: CXX_FEATURE:1cxx_template_template_parameters
-    Feature record: CXX_FEATURE:0cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_thread_local
     Feature record: CXX_FEATURE:1cxx_trailing_return_types
     Feature record: CXX_FEATURE:1cxx_unicode_literals
     Feature record: CXX_FEATURE:1cxx_uniform_initialization
@@ -312,15 +419,18 @@ Linking CXX executable cmTC_5b1cf
 
 
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_30f94/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_30f94.dir/build.make CMakeFiles/cmTC_30f94.dir/build
-Building CXX object CMakeFiles/cmTC_30f94.dir/feature_tests.cxx.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -std=c++11 -o CMakeFiles/cmTC_30f94.dir/feature_tests.cxx.o -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_30f94
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_30f94.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_30f94.dir/feature_tests.cxx.o  -o cmTC_30f94  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec284968826/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec284968826.dir/build.make CMakeFiles/cmTryCompileExec284968826.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec284968826.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++11 -o CMakeFiles/cmTryCompileExec284968826.dir/feature_tests.cxx.o -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTryCompileExec284968826
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec284968826.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec284968826.dir/feature_tests.cxx.o  -o cmTryCompileExec284968826 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -371,7 +481,7 @@ Linking CXX executable cmTC_30f94
     Feature record: CXX_FEATURE:1cxx_static_assert
     Feature record: CXX_FEATURE:1cxx_strong_enums
     Feature record: CXX_FEATURE:1cxx_template_template_parameters
-    Feature record: CXX_FEATURE:0cxx_thread_local
+    Feature record: CXX_FEATURE:1cxx_thread_local
     Feature record: CXX_FEATURE:1cxx_trailing_return_types
     Feature record: CXX_FEATURE:1cxx_unicode_literals
     Feature record: CXX_FEATURE:1cxx_uniform_initialization
@@ -383,15 +493,18 @@ Linking CXX executable cmTC_30f94
 
 
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_a0eaa/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_a0eaa.dir/build.make CMakeFiles/cmTC_a0eaa.dir/build
-Building CXX object CMakeFiles/cmTC_a0eaa.dir/feature_tests.cxx.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -std=c++98 -o CMakeFiles/cmTC_a0eaa.dir/feature_tests.cxx.o -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.cxx
-Linking CXX executable cmTC_a0eaa
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a0eaa.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++     -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_a0eaa.dir/feature_tests.cxx.o  -o cmTC_a0eaa  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec3662357962/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec3662357962.dir/build.make CMakeFiles/cmTryCompileExec3662357962.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3662357962.dir/feature_tests.cxx.o
+/usr/bin/c++    -std=c++98 -o CMakeFiles/cmTryCompileExec3662357962.dir/feature_tests.cxx.o -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/feature_tests.cxx
+Linking CXX executable cmTryCompileExec3662357962
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3662357962.dir/link.txt --verbose=1
+/usr/bin/c++        CMakeFiles/cmTryCompileExec3662357962.dir/feature_tests.cxx.o  -o cmTryCompileExec3662357962 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -451,41 +564,33 @@ Linking CXX executable cmTC_a0eaa
     Feature record: CXX_FEATURE:0cxx_variable_templates
     Feature record: CXX_FEATURE:0cxx_variadic_macros
     Feature record: CXX_FEATURE:0cxx_variadic_templates
-Determining if the include file pthread.h exists passed with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Determining if files pthread.h exist passed with the following output:
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_0ae51/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_0ae51.dir/build.make CMakeFiles/cmTC_0ae51.dir/build
-Building C object CMakeFiles/cmTC_0ae51.dir/CheckIncludeFile.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc     -o CMakeFiles/cmTC_0ae51.dir/CheckIncludeFile.c.o   -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
-Linking C executable cmTC_0ae51
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0ae51.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_0ae51.dir/CheckIncludeFile.c.o  -o cmTC_0ae51  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2743802315/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2743802315.dir/build.make CMakeFiles/cmTryCompileExec2743802315.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2743802315.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2743802315.dir/CheckIncludeFiles.c.o   -c /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTryCompileExec2743802315
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2743802315.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2743802315.dir/CheckIncludeFiles.c.o  -o cmTryCompileExec2743802315 -rdynamic 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
 
-Determining if the pthread_create exist passed with the following output:
-Change Dir: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_e9e0a/fast"
-/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTC_e9e0a.dir/build.make CMakeFiles/cmTC_e9e0a.dir/build
-Building C object CMakeFiles/cmTC_e9e0a.dir/CheckSymbolExists.c.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc     -o CMakeFiles/cmTC_e9e0a.dir/CheckSymbolExists.c.o   -c /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_e9e0a
-/Applications/CMake.app/Contents/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e9e0a.dir/link.txt --verbose=1
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc    -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e9e0a.dir/CheckSymbolExists.c.o  -o cmTC_e9e0a  
+Run Build Command:"/usr/bin/make" "cmTryCompileExec2265172277/fast"
+/usr/bin/make -f CMakeFiles/cmTryCompileExec2265172277.dir/build.make CMakeFiles/cmTryCompileExec2265172277.dir/build
+make[1]: Entering directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2265172277.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec2265172277.dir/CheckFunctionExists.c.o   -c /usr/share/cmake-3.2/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2265172277
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2265172277.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec2265172277.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2265172277 -rdynamic -lpthread 
+make[1]: Leaving directory '/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp'
 
-File /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
-/* */
-#include <pthread.h>
-
-int main(int argc, char** argv)
-{
-  (void)argv;
-#ifndef pthread_create
-  return ((int*)(&pthread_create))[argc];
-#else
-  (void)argc;
-  return 0;
-#endif
-}
 

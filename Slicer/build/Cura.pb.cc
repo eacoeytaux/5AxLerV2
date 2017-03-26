@@ -19,419 +19,536 @@
 
 namespace cura {
 namespace proto {
-class ObjectListDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<ObjectList> {
-} _ObjectList_default_instance_;
-class SliceDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Slice> {
-} _Slice_default_instance_;
-class ExtruderDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Extruder> {
-} _Extruder_default_instance_;
-class ObjectDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Object> {
-} _Object_default_instance_;
-class ProgressDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Progress> {
-} _Progress_default_instance_;
-class LayerDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Layer> {
-} _Layer_default_instance_;
-class PolygonDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Polygon> {
-} _Polygon_default_instance_;
-class LayerOptimizedDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<LayerOptimized> {
-} _LayerOptimized_default_instance_;
-class PathSegmentDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PathSegment> {
-} _PathSegment_default_instance_;
-class GCodeLayerDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<GCodeLayer> {
-} _GCodeLayer_default_instance_;
-class PrintTimeMaterialEstimatesDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<PrintTimeMaterialEstimates> {
-} _PrintTimeMaterialEstimates_default_instance_;
-class MaterialEstimatesDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<MaterialEstimates> {
-} _MaterialEstimates_default_instance_;
-class SettingListDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SettingList> {
-} _SettingList_default_instance_;
-class SettingDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<Setting> {
-} _Setting_default_instance_;
-class SettingExtruderDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SettingExtruder> {
-} _SettingExtruder_default_instance_;
-class GCodePrefixDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<GCodePrefix> {
-} _GCodePrefix_default_instance_;
-class SlicingFinishedDefaultTypeInternal : public ::google::protobuf::internal::ExplicitlyConstructed<SlicingFinished> {
-} _SlicingFinished_default_instance_;
-
-namespace protobuf_Cura_2eproto {
-
 
 namespace {
 
-::google::protobuf::Metadata file_level_metadata[17];
-const ::google::protobuf::EnumDescriptor* file_level_enum_descriptors[2];
+const ::google::protobuf::Descriptor* ObjectList_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  ObjectList_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Slice_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Slice_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Extruder_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Extruder_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Object_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Object_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Progress_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Progress_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Layer_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Layer_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Polygon_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Polygon_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* Polygon_Type_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* LayerOptimized_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  LayerOptimized_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PathSegment_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PathSegment_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* PathSegment_PointType_descriptor_ = NULL;
+const ::google::protobuf::Descriptor* GCodeLayer_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  GCodeLayer_reflection_ = NULL;
+const ::google::protobuf::Descriptor* PrintTimeMaterialEstimates_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  PrintTimeMaterialEstimates_reflection_ = NULL;
+const ::google::protobuf::Descriptor* MaterialEstimates_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  MaterialEstimates_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SettingList_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SettingList_reflection_ = NULL;
+const ::google::protobuf::Descriptor* Setting_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  Setting_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SettingExtruder_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SettingExtruder_reflection_ = NULL;
+const ::google::protobuf::Descriptor* GCodePrefix_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  GCodePrefix_reflection_ = NULL;
+const ::google::protobuf::Descriptor* SlicingFinished_descriptor_ = NULL;
+const ::google::protobuf::internal::GeneratedMessageReflection*
+  SlicingFinished_reflection_ = NULL;
 
 }  // namespace
 
-const ::google::protobuf::uint32 TableStruct::offsets[] = {
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ObjectList, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ObjectList, objects_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ObjectList, settings_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, object_lists_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, global_settings_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, extruders_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, limit_to_extruder_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Extruder, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Extruder, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Extruder, settings_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, vertices_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, normals_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, indices_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, settings_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Progress, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Progress, amount_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, height_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, thickness_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, polygons_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, type_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, points_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, line_width_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, height_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, thickness_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, path_segment_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, extruder_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, point_type_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, points_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, line_type_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, line_width_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodeLayer, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodeLayer, data_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PrintTimeMaterialEstimates, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PrintTimeMaterialEstimates, time_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PrintTimeMaterialEstimates, materialestimates_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MaterialEstimates, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MaterialEstimates, id_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MaterialEstimates, material_amount_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingList, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingList, settings_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Setting, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Setting, name_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Setting, value_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingExtruder, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingExtruder, name_),
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingExtruder, extruder_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodePrefix, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodePrefix, data_),
-  ~0u,  // no _has_bits_
-  GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SlicingFinished, _internal_metadata_),
-  ~0u,  // no _extensions_
-  ~0u,  // no _oneof_case_
-};
 
-static const ::google::protobuf::internal::MigrationSchema schemas[] = {
-  { 0, -1, sizeof(ObjectList)},
-  { 6, -1, sizeof(Slice)},
-  { 14, -1, sizeof(Extruder)},
-  { 20, -1, sizeof(Object)},
-  { 29, -1, sizeof(Progress)},
-  { 34, -1, sizeof(Layer)},
-  { 42, -1, sizeof(Polygon)},
-  { 49, -1, sizeof(LayerOptimized)},
-  { 57, -1, sizeof(PathSegment)},
-  { 66, -1, sizeof(GCodeLayer)},
-  { 71, -1, sizeof(PrintTimeMaterialEstimates)},
-  { 77, -1, sizeof(MaterialEstimates)},
-  { 83, -1, sizeof(SettingList)},
-  { 88, -1, sizeof(Setting)},
-  { 94, -1, sizeof(SettingExtruder)},
-  { 100, -1, sizeof(GCodePrefix)},
-  { 105, -1, sizeof(SlicingFinished)},
-};
-
-static ::google::protobuf::Message const * const file_default_instances[] = {
-  reinterpret_cast<const ::google::protobuf::Message*>(&_ObjectList_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Slice_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Extruder_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Object_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Progress_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Layer_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Polygon_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_LayerOptimized_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_PathSegment_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_GCodeLayer_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_PrintTimeMaterialEstimates_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_MaterialEstimates_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_SettingList_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_Setting_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_SettingExtruder_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_GCodePrefix_default_instance_),
-  reinterpret_cast<const ::google::protobuf::Message*>(&_SlicingFinished_default_instance_),
-};
+void protobuf_AssignDesc_Cura_2eproto() GOOGLE_ATTRIBUTE_COLD;
+void protobuf_AssignDesc_Cura_2eproto() {
+  protobuf_AddDesc_Cura_2eproto();
+  const ::google::protobuf::FileDescriptor* file =
+    ::google::protobuf::DescriptorPool::generated_pool()->FindFileByName(
+      "Cura.proto");
+  GOOGLE_CHECK(file != NULL);
+  ObjectList_descriptor_ = file->message_type(0);
+  static const int ObjectList_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ObjectList, objects_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ObjectList, settings_),
+  };
+  ObjectList_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      ObjectList_descriptor_,
+      ObjectList::default_instance_,
+      ObjectList_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(ObjectList),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ObjectList, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(ObjectList, _is_default_instance_));
+  Slice_descriptor_ = file->message_type(1);
+  static const int Slice_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, object_lists_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, global_settings_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, extruders_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, limit_to_extruder_),
+  };
+  Slice_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Slice_descriptor_,
+      Slice::default_instance_,
+      Slice_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Slice),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Slice, _is_default_instance_));
+  Extruder_descriptor_ = file->message_type(2);
+  static const int Extruder_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Extruder, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Extruder, settings_),
+  };
+  Extruder_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Extruder_descriptor_,
+      Extruder::default_instance_,
+      Extruder_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Extruder),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Extruder, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Extruder, _is_default_instance_));
+  Object_descriptor_ = file->message_type(3);
+  static const int Object_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, vertices_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, normals_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, indices_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, settings_),
+  };
+  Object_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Object_descriptor_,
+      Object::default_instance_,
+      Object_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Object),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Object, _is_default_instance_));
+  Progress_descriptor_ = file->message_type(4);
+  static const int Progress_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Progress, amount_),
+  };
+  Progress_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Progress_descriptor_,
+      Progress::default_instance_,
+      Progress_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Progress),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Progress, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Progress, _is_default_instance_));
+  Layer_descriptor_ = file->message_type(5);
+  static const int Layer_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, height_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, thickness_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, polygons_),
+  };
+  Layer_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Layer_descriptor_,
+      Layer::default_instance_,
+      Layer_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Layer),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Layer, _is_default_instance_));
+  Polygon_descriptor_ = file->message_type(6);
+  static const int Polygon_offsets_[3] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, points_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, line_width_),
+  };
+  Polygon_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Polygon_descriptor_,
+      Polygon::default_instance_,
+      Polygon_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Polygon),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Polygon, _is_default_instance_));
+  Polygon_Type_descriptor_ = Polygon_descriptor_->enum_type(0);
+  LayerOptimized_descriptor_ = file->message_type(7);
+  static const int LayerOptimized_offsets_[4] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, height_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, thickness_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, path_segment_),
+  };
+  LayerOptimized_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      LayerOptimized_descriptor_,
+      LayerOptimized::default_instance_,
+      LayerOptimized_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(LayerOptimized),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(LayerOptimized, _is_default_instance_));
+  PathSegment_descriptor_ = file->message_type(8);
+  static const int PathSegment_offsets_[5] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, extruder_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, point_type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, points_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, line_type_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, line_width_),
+  };
+  PathSegment_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      PathSegment_descriptor_,
+      PathSegment::default_instance_,
+      PathSegment_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(PathSegment),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PathSegment, _is_default_instance_));
+  PathSegment_PointType_descriptor_ = PathSegment_descriptor_->enum_type(0);
+  GCodeLayer_descriptor_ = file->message_type(9);
+  static const int GCodeLayer_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodeLayer, data_),
+  };
+  GCodeLayer_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      GCodeLayer_descriptor_,
+      GCodeLayer::default_instance_,
+      GCodeLayer_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(GCodeLayer),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodeLayer, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodeLayer, _is_default_instance_));
+  PrintTimeMaterialEstimates_descriptor_ = file->message_type(10);
+  static const int PrintTimeMaterialEstimates_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PrintTimeMaterialEstimates, time_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PrintTimeMaterialEstimates, materialestimates_),
+  };
+  PrintTimeMaterialEstimates_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      PrintTimeMaterialEstimates_descriptor_,
+      PrintTimeMaterialEstimates::default_instance_,
+      PrintTimeMaterialEstimates_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(PrintTimeMaterialEstimates),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PrintTimeMaterialEstimates, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PrintTimeMaterialEstimates, _is_default_instance_));
+  MaterialEstimates_descriptor_ = file->message_type(11);
+  static const int MaterialEstimates_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MaterialEstimates, id_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MaterialEstimates, material_amount_),
+  };
+  MaterialEstimates_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      MaterialEstimates_descriptor_,
+      MaterialEstimates::default_instance_,
+      MaterialEstimates_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(MaterialEstimates),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MaterialEstimates, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(MaterialEstimates, _is_default_instance_));
+  SettingList_descriptor_ = file->message_type(12);
+  static const int SettingList_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingList, settings_),
+  };
+  SettingList_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      SettingList_descriptor_,
+      SettingList::default_instance_,
+      SettingList_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(SettingList),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingList, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingList, _is_default_instance_));
+  Setting_descriptor_ = file->message_type(13);
+  static const int Setting_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Setting, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Setting, value_),
+  };
+  Setting_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      Setting_descriptor_,
+      Setting::default_instance_,
+      Setting_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(Setting),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Setting, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Setting, _is_default_instance_));
+  SettingExtruder_descriptor_ = file->message_type(14);
+  static const int SettingExtruder_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingExtruder, name_),
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingExtruder, extruder_),
+  };
+  SettingExtruder_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      SettingExtruder_descriptor_,
+      SettingExtruder::default_instance_,
+      SettingExtruder_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(SettingExtruder),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingExtruder, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SettingExtruder, _is_default_instance_));
+  GCodePrefix_descriptor_ = file->message_type(15);
+  static const int GCodePrefix_offsets_[1] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodePrefix, data_),
+  };
+  GCodePrefix_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      GCodePrefix_descriptor_,
+      GCodePrefix::default_instance_,
+      GCodePrefix_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(GCodePrefix),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodePrefix, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(GCodePrefix, _is_default_instance_));
+  SlicingFinished_descriptor_ = file->message_type(16);
+  static const int SlicingFinished_offsets_[1] = {
+  };
+  SlicingFinished_reflection_ =
+    ::google::protobuf::internal::GeneratedMessageReflection::NewGeneratedMessageReflection(
+      SlicingFinished_descriptor_,
+      SlicingFinished::default_instance_,
+      SlicingFinished_offsets_,
+      -1,
+      -1,
+      -1,
+      sizeof(SlicingFinished),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SlicingFinished, _internal_metadata_),
+      GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(SlicingFinished, _is_default_instance_));
+}
 
 namespace {
 
-void protobuf_AssignDescriptors() {
-  AddDescriptors();
-  ::google::protobuf::MessageFactory* factory = NULL;
-  AssignDescriptors(
-      "Cura.proto", schemas, file_default_instances, TableStruct::offsets, factory,
-      file_level_metadata, file_level_enum_descriptors, NULL);
-}
-
-void protobuf_AssignDescriptorsOnce() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &protobuf_AssignDescriptors);
+GOOGLE_PROTOBUF_DECLARE_ONCE(protobuf_AssignDescriptors_once_);
+inline void protobuf_AssignDescriptorsOnce() {
+  ::google::protobuf::GoogleOnceInit(&protobuf_AssignDescriptors_once_,
+                 &protobuf_AssignDesc_Cura_2eproto);
 }
 
 void protobuf_RegisterTypes(const ::std::string&) GOOGLE_ATTRIBUTE_COLD;
 void protobuf_RegisterTypes(const ::std::string&) {
   protobuf_AssignDescriptorsOnce();
-  ::google::protobuf::internal::RegisterAllTypes(file_level_metadata, 17);
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      ObjectList_descriptor_, &ObjectList::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Slice_descriptor_, &Slice::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Extruder_descriptor_, &Extruder::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Object_descriptor_, &Object::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Progress_descriptor_, &Progress::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Layer_descriptor_, &Layer::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Polygon_descriptor_, &Polygon::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      LayerOptimized_descriptor_, &LayerOptimized::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      PathSegment_descriptor_, &PathSegment::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      GCodeLayer_descriptor_, &GCodeLayer::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      PrintTimeMaterialEstimates_descriptor_, &PrintTimeMaterialEstimates::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      MaterialEstimates_descriptor_, &MaterialEstimates::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      SettingList_descriptor_, &SettingList::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      Setting_descriptor_, &Setting::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      SettingExtruder_descriptor_, &SettingExtruder::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      GCodePrefix_descriptor_, &GCodePrefix::default_instance());
+  ::google::protobuf::MessageFactory::InternalRegisterGeneratedMessage(
+      SlicingFinished_descriptor_, &SlicingFinished::default_instance());
 }
 
 }  // namespace
 
-void TableStruct::Shutdown() {
-  _ObjectList_default_instance_.Shutdown();
-  delete file_level_metadata[0].reflection;
-  _Slice_default_instance_.Shutdown();
-  delete file_level_metadata[1].reflection;
-  _Extruder_default_instance_.Shutdown();
-  delete file_level_metadata[2].reflection;
-  _Object_default_instance_.Shutdown();
-  delete file_level_metadata[3].reflection;
-  _Progress_default_instance_.Shutdown();
-  delete file_level_metadata[4].reflection;
-  _Layer_default_instance_.Shutdown();
-  delete file_level_metadata[5].reflection;
-  _Polygon_default_instance_.Shutdown();
-  delete file_level_metadata[6].reflection;
-  _LayerOptimized_default_instance_.Shutdown();
-  delete file_level_metadata[7].reflection;
-  _PathSegment_default_instance_.Shutdown();
-  delete file_level_metadata[8].reflection;
-  _GCodeLayer_default_instance_.Shutdown();
-  delete file_level_metadata[9].reflection;
-  _PrintTimeMaterialEstimates_default_instance_.Shutdown();
-  delete file_level_metadata[10].reflection;
-  _MaterialEstimates_default_instance_.Shutdown();
-  delete file_level_metadata[11].reflection;
-  _SettingList_default_instance_.Shutdown();
-  delete file_level_metadata[12].reflection;
-  _Setting_default_instance_.Shutdown();
-  delete file_level_metadata[13].reflection;
-  _SettingExtruder_default_instance_.Shutdown();
-  delete file_level_metadata[14].reflection;
-  _GCodePrefix_default_instance_.Shutdown();
-  delete file_level_metadata[15].reflection;
-  _SlicingFinished_default_instance_.Shutdown();
-  delete file_level_metadata[16].reflection;
+void protobuf_ShutdownFile_Cura_2eproto() {
+  delete ObjectList::default_instance_;
+  delete ObjectList_reflection_;
+  delete Slice::default_instance_;
+  delete Slice_reflection_;
+  delete Extruder::default_instance_;
+  delete Extruder_reflection_;
+  delete Object::default_instance_;
+  delete Object_reflection_;
+  delete Progress::default_instance_;
+  delete Progress_reflection_;
+  delete Layer::default_instance_;
+  delete Layer_reflection_;
+  delete Polygon::default_instance_;
+  delete Polygon_reflection_;
+  delete LayerOptimized::default_instance_;
+  delete LayerOptimized_reflection_;
+  delete PathSegment::default_instance_;
+  delete PathSegment_reflection_;
+  delete GCodeLayer::default_instance_;
+  delete GCodeLayer_reflection_;
+  delete PrintTimeMaterialEstimates::default_instance_;
+  delete PrintTimeMaterialEstimates_reflection_;
+  delete MaterialEstimates::default_instance_;
+  delete MaterialEstimates_reflection_;
+  delete SettingList::default_instance_;
+  delete SettingList_reflection_;
+  delete Setting::default_instance_;
+  delete Setting_reflection_;
+  delete SettingExtruder::default_instance_;
+  delete SettingExtruder_reflection_;
+  delete GCodePrefix::default_instance_;
+  delete GCodePrefix_reflection_;
+  delete SlicingFinished::default_instance_;
+  delete SlicingFinished_reflection_;
 }
 
-void TableStruct::InitDefaultsImpl() {
+void protobuf_AddDesc_Cura_2eproto() GOOGLE_ATTRIBUTE_COLD;
+void protobuf_AddDesc_Cura_2eproto() {
+  static bool already_here = false;
+  if (already_here) return;
+  already_here = true;
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-  ::google::protobuf::internal::InitProtobufDefaults();
-  _ObjectList_default_instance_.DefaultConstruct();
-  _Slice_default_instance_.DefaultConstruct();
-  _Extruder_default_instance_.DefaultConstruct();
-  _Object_default_instance_.DefaultConstruct();
-  _Progress_default_instance_.DefaultConstruct();
-  _Layer_default_instance_.DefaultConstruct();
-  _Polygon_default_instance_.DefaultConstruct();
-  _LayerOptimized_default_instance_.DefaultConstruct();
-  _PathSegment_default_instance_.DefaultConstruct();
-  _GCodeLayer_default_instance_.DefaultConstruct();
-  _PrintTimeMaterialEstimates_default_instance_.DefaultConstruct();
-  _MaterialEstimates_default_instance_.DefaultConstruct();
-  _SettingList_default_instance_.DefaultConstruct();
-  _Setting_default_instance_.DefaultConstruct();
-  _SettingExtruder_default_instance_.DefaultConstruct();
-  _GCodePrefix_default_instance_.DefaultConstruct();
-  _SlicingFinished_default_instance_.DefaultConstruct();
-  _Slice_default_instance_.get_mutable()->global_settings_ = const_cast< ::cura::proto::SettingList*>(
-      ::cura::proto::SettingList::internal_default_instance());
-  _Extruder_default_instance_.get_mutable()->settings_ = const_cast< ::cura::proto::SettingList*>(
-      ::cura::proto::SettingList::internal_default_instance());
-}
-
-void InitDefaults() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &TableStruct::InitDefaultsImpl);
-}
-void AddDescriptorsImpl() {
-  InitDefaults();
-  static const char descriptor[] = {
-      "\n\nCura.proto\022\ncura.proto\"X\n\nObjectList\022#"
-      "\n\007objects\030\001 \003(\0132\022.cura.proto.Object\022%\n\010s"
-      "ettings\030\002 \003(\0132\023.cura.proto.Setting\"\310\001\n\005S"
-      "lice\022,\n\014object_lists\030\001 \003(\0132\026.cura.proto."
-      "ObjectList\0220\n\017global_settings\030\002 \001(\0132\027.cu"
-      "ra.proto.SettingList\022\'\n\textruders\030\003 \003(\0132"
-      "\024.cura.proto.Extruder\0226\n\021limit_to_extrud"
-      "er\030\004 \003(\0132\033.cura.proto.SettingExtruder\"A\n"
-      "\010Extruder\022\n\n\002id\030\001 \001(\005\022)\n\010settings\030\002 \001(\0132"
-      "\027.cura.proto.SettingList\"o\n\006Object\022\n\n\002id"
-      "\030\001 \001(\003\022\020\n\010vertices\030\002 \001(\014\022\017\n\007normals\030\003 \001("
-      "\014\022\017\n\007indices\030\004 \001(\014\022%\n\010settings\030\005 \003(\0132\023.c"
-      "ura.proto.Setting\"\032\n\010Progress\022\016\n\006amount\030"
-      "\001 \001(\002\"]\n\005Layer\022\n\n\002id\030\001 \001(\005\022\016\n\006height\030\002 \001"
-      "(\002\022\021\n\tthickness\030\003 \001(\002\022%\n\010polygons\030\004 \003(\0132"
-      "\023.cura.proto.Polygon\"\250\002\n\007Polygon\022&\n\004type"
-      "\030\001 \001(\0162\030.cura.proto.Polygon.Type\022\016\n\006poin"
-      "ts\030\002 \001(\014\022\022\n\nline_width\030\003 \001(\002\"\320\001\n\004Type\022\014\n"
-      "\010NoneType\020\000\022\016\n\nInset0Type\020\001\022\016\n\nInsetXTyp"
-      "e\020\002\022\014\n\010SkinType\020\003\022\017\n\013SupportType\020\004\022\r\n\tSk"
-      "irtType\020\005\022\016\n\nInfillType\020\006\022\025\n\021SupportInfi"
-      "llType\020\007\022\023\n\017MoveCombingType\020\010\022\026\n\022MoveRet"
-      "ractionType\020\t\022\030\n\024SupportInterfaceType\020\n\""
-      "n\n\016LayerOptimized\022\n\n\002id\030\001 \001(\005\022\016\n\006height\030"
-      "\002 \001(\002\022\021\n\tthickness\030\003 \001(\002\022-\n\014path_segment"
-      "\030\004 \003(\0132\027.cura.proto.PathSegment\"\264\001\n\013Path"
-      "Segment\022\020\n\010extruder\030\001 \001(\005\0225\n\npoint_type\030"
-      "\002 \001(\0162!.cura.proto.PathSegment.PointType"
-      "\022\016\n\006points\030\003 \001(\014\022\021\n\tline_type\030\004 \001(\014\022\022\n\nl"
-      "ine_width\030\005 \001(\014\"%\n\tPointType\022\013\n\007Point2D\020"
-      "\000\022\013\n\007Point3D\020\001\"\032\n\nGCodeLayer\022\014\n\004data\030\002 \001"
-      "(\014\"d\n\032PrintTimeMaterialEstimates\022\014\n\004time"
-      "\030\001 \001(\002\0228\n\021materialEstimates\030\002 \003(\0132\035.cura"
-      ".proto.MaterialEstimates\"8\n\021MaterialEsti"
-      "mates\022\n\n\002id\030\001 \001(\003\022\027\n\017material_amount\030\002 \001"
-      "(\002\"4\n\013SettingList\022%\n\010settings\030\001 \003(\0132\023.cu"
-      "ra.proto.Setting\"&\n\007Setting\022\014\n\004name\030\001 \001("
-      "\t\022\r\n\005value\030\002 \001(\014\"1\n\017SettingExtruder\022\014\n\004n"
-      "ame\030\001 \001(\t\022\020\n\010extruder\030\002 \001(\005\"\033\n\013GCodePref"
-      "ix\022\014\n\004data\030\002 \001(\014\"\021\n\017SlicingFinishedb\006pro"
-      "to3"
-  };
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-      descriptor, 1603);
+    "\n\nCura.proto\022\ncura.proto\"X\n\nObjectList\022#"
+    "\n\007objects\030\001 \003(\0132\022.cura.proto.Object\022%\n\010s"
+    "ettings\030\002 \003(\0132\023.cura.proto.Setting\"\310\001\n\005S"
+    "lice\022,\n\014object_lists\030\001 \003(\0132\026.cura.proto."
+    "ObjectList\0220\n\017global_settings\030\002 \001(\0132\027.cu"
+    "ra.proto.SettingList\022\'\n\textruders\030\003 \003(\0132"
+    "\024.cura.proto.Extruder\0226\n\021limit_to_extrud"
+    "er\030\004 \003(\0132\033.cura.proto.SettingExtruder\"A\n"
+    "\010Extruder\022\n\n\002id\030\001 \001(\005\022)\n\010settings\030\002 \001(\0132"
+    "\027.cura.proto.SettingList\"o\n\006Object\022\n\n\002id"
+    "\030\001 \001(\003\022\020\n\010vertices\030\002 \001(\014\022\017\n\007normals\030\003 \001("
+    "\014\022\017\n\007indices\030\004 \001(\014\022%\n\010settings\030\005 \003(\0132\023.c"
+    "ura.proto.Setting\"\032\n\010Progress\022\016\n\006amount\030"
+    "\001 \001(\002\"]\n\005Layer\022\n\n\002id\030\001 \001(\005\022\016\n\006height\030\002 \001"
+    "(\002\022\021\n\tthickness\030\003 \001(\002\022%\n\010polygons\030\004 \003(\0132"
+    "\023.cura.proto.Polygon\"\250\002\n\007Polygon\022&\n\004type"
+    "\030\001 \001(\0162\030.cura.proto.Polygon.Type\022\016\n\006poin"
+    "ts\030\002 \001(\014\022\022\n\nline_width\030\003 \001(\002\"\320\001\n\004Type\022\014\n"
+    "\010NoneType\020\000\022\016\n\nInset0Type\020\001\022\016\n\nInsetXTyp"
+    "e\020\002\022\014\n\010SkinType\020\003\022\017\n\013SupportType\020\004\022\r\n\tSk"
+    "irtType\020\005\022\016\n\nInfillType\020\006\022\025\n\021SupportInfi"
+    "llType\020\007\022\023\n\017MoveCombingType\020\010\022\026\n\022MoveRet"
+    "ractionType\020\t\022\030\n\024SupportInterfaceType\020\n\""
+    "n\n\016LayerOptimized\022\n\n\002id\030\001 \001(\005\022\016\n\006height\030"
+    "\002 \001(\002\022\021\n\tthickness\030\003 \001(\002\022-\n\014path_segment"
+    "\030\004 \003(\0132\027.cura.proto.PathSegment\"\264\001\n\013Path"
+    "Segment\022\020\n\010extruder\030\001 \001(\005\0225\n\npoint_type\030"
+    "\002 \001(\0162!.cura.proto.PathSegment.PointType"
+    "\022\016\n\006points\030\003 \001(\014\022\021\n\tline_type\030\004 \001(\014\022\022\n\nl"
+    "ine_width\030\005 \001(\014\"%\n\tPointType\022\013\n\007Point2D\020"
+    "\000\022\013\n\007Point3D\020\001\"\032\n\nGCodeLayer\022\014\n\004data\030\002 \001"
+    "(\014\"d\n\032PrintTimeMaterialEstimates\022\014\n\004time"
+    "\030\001 \001(\002\0228\n\021materialEstimates\030\002 \003(\0132\035.cura"
+    ".proto.MaterialEstimates\"8\n\021MaterialEsti"
+    "mates\022\n\n\002id\030\001 \001(\003\022\027\n\017material_amount\030\002 \001"
+    "(\002\"4\n\013SettingList\022%\n\010settings\030\001 \003(\0132\023.cu"
+    "ra.proto.Setting\"&\n\007Setting\022\014\n\004name\030\001 \001("
+    "\t\022\r\n\005value\030\002 \001(\014\"1\n\017SettingExtruder\022\014\n\004n"
+    "ame\030\001 \001(\t\022\020\n\010extruder\030\002 \001(\005\"\033\n\013GCodePref"
+    "ix\022\014\n\004data\030\002 \001(\014\"\021\n\017SlicingFinishedb\006pro"
+    "to3", 1603);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "Cura.proto", &protobuf_RegisterTypes);
-  ::google::protobuf::internal::OnShutdown(&TableStruct::Shutdown);
+  ObjectList::default_instance_ = new ObjectList();
+  Slice::default_instance_ = new Slice();
+  Extruder::default_instance_ = new Extruder();
+  Object::default_instance_ = new Object();
+  Progress::default_instance_ = new Progress();
+  Layer::default_instance_ = new Layer();
+  Polygon::default_instance_ = new Polygon();
+  LayerOptimized::default_instance_ = new LayerOptimized();
+  PathSegment::default_instance_ = new PathSegment();
+  GCodeLayer::default_instance_ = new GCodeLayer();
+  PrintTimeMaterialEstimates::default_instance_ = new PrintTimeMaterialEstimates();
+  MaterialEstimates::default_instance_ = new MaterialEstimates();
+  SettingList::default_instance_ = new SettingList();
+  Setting::default_instance_ = new Setting();
+  SettingExtruder::default_instance_ = new SettingExtruder();
+  GCodePrefix::default_instance_ = new GCodePrefix();
+  SlicingFinished::default_instance_ = new SlicingFinished();
+  ObjectList::default_instance_->InitAsDefaultInstance();
+  Slice::default_instance_->InitAsDefaultInstance();
+  Extruder::default_instance_->InitAsDefaultInstance();
+  Object::default_instance_->InitAsDefaultInstance();
+  Progress::default_instance_->InitAsDefaultInstance();
+  Layer::default_instance_->InitAsDefaultInstance();
+  Polygon::default_instance_->InitAsDefaultInstance();
+  LayerOptimized::default_instance_->InitAsDefaultInstance();
+  PathSegment::default_instance_->InitAsDefaultInstance();
+  GCodeLayer::default_instance_->InitAsDefaultInstance();
+  PrintTimeMaterialEstimates::default_instance_->InitAsDefaultInstance();
+  MaterialEstimates::default_instance_->InitAsDefaultInstance();
+  SettingList::default_instance_->InitAsDefaultInstance();
+  Setting::default_instance_->InitAsDefaultInstance();
+  SettingExtruder::default_instance_->InitAsDefaultInstance();
+  GCodePrefix::default_instance_->InitAsDefaultInstance();
+  SlicingFinished::default_instance_->InitAsDefaultInstance();
+  ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Cura_2eproto);
 }
 
-void AddDescriptors() {
-  static GOOGLE_PROTOBUF_DECLARE_ONCE(once);
-  ::google::protobuf::GoogleOnceInit(&once, &AddDescriptorsImpl);
-}
 // Force AddDescriptors() to be called at static initialization time.
-struct StaticDescriptorInitializer {
-  StaticDescriptorInitializer() {
-    AddDescriptors();
+struct StaticDescriptorInitializer_Cura_2eproto {
+  StaticDescriptorInitializer_Cura_2eproto() {
+    protobuf_AddDesc_Cura_2eproto();
   }
-} static_descriptor_initializer;
-
-}  // namespace protobuf_Cura_2eproto
-
-const ::google::protobuf::EnumDescriptor* Polygon_Type_descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_enum_descriptors[0];
-}
-bool Polygon_Type_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const Polygon_Type Polygon::NoneType;
-const Polygon_Type Polygon::Inset0Type;
-const Polygon_Type Polygon::InsetXType;
-const Polygon_Type Polygon::SkinType;
-const Polygon_Type Polygon::SupportType;
-const Polygon_Type Polygon::SkirtType;
-const Polygon_Type Polygon::InfillType;
-const Polygon_Type Polygon::SupportInfillType;
-const Polygon_Type Polygon::MoveCombingType;
-const Polygon_Type Polygon::MoveRetractionType;
-const Polygon_Type Polygon::SupportInterfaceType;
-const Polygon_Type Polygon::Type_MIN;
-const Polygon_Type Polygon::Type_MAX;
-const int Polygon::Type_ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-const ::google::protobuf::EnumDescriptor* PathSegment_PointType_descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_enum_descriptors[1];
-}
-bool PathSegment_PointType_IsValid(int value) {
-  switch (value) {
-    case 0:
-    case 1:
-      return true;
-    default:
-      return false;
-  }
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const PathSegment_PointType PathSegment::Point2D;
-const PathSegment_PointType PathSegment::Point3D;
-const PathSegment_PointType PathSegment::PointType_MIN;
-const PathSegment_PointType PathSegment::PointType_MAX;
-const int PathSegment::PointType_ARRAYSIZE;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+} static_descriptor_initializer_Cura_2eproto_;
 
 // ===================================================================
 
@@ -442,23 +559,24 @@ const int ObjectList::kSettingsFieldNumber;
 
 ObjectList::ObjectList()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.ObjectList)
 }
+
+void ObjectList::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 ObjectList::ObjectList(const ObjectList& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      objects_(from.objects_),
-      settings_(from.settings_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.ObjectList)
 }
 
 void ObjectList::SharedCtor() {
+    _is_default_instance_ = false;
   _cached_size_ = 0;
 }
 
@@ -468,6 +586,8 @@ ObjectList::~ObjectList() {
 }
 
 void ObjectList::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void ObjectList::SetCachedSize(int size) const {
@@ -476,14 +596,16 @@ void ObjectList::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* ObjectList::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[0].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return ObjectList_descriptor_;
 }
 
 const ObjectList& ObjectList::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+ObjectList* ObjectList::default_instance_ = NULL;
 
 ObjectList* ObjectList::New(::google::protobuf::Arena* arena) const {
   ObjectList* n = new ObjectList;
@@ -505,33 +627,39 @@ bool ObjectList::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.ObjectList)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .cura.proto.Object objects = 1;
       case 1: {
-        if (tag == 10u) {
+        if (tag == 10) {
           DO_(input->IncrementRecursionDepth());
+         parse_loop_objects:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_objects()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(10)) goto parse_loop_objects;
+        if (input->ExpectTag(18)) goto parse_loop_settings;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
       // repeated .cura.proto.Setting settings = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
           DO_(input->IncrementRecursionDepth());
+         parse_loop_settings:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_settings()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_loop_settings;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -576,7 +704,7 @@ void ObjectList::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* ObjectList::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.ObjectList)
   // repeated .cura.proto.Object objects = 1;
   for (unsigned int i = 0, n = this->objects_size(); i < n; i++) {
@@ -596,43 +724,38 @@ void ObjectList::SerializeWithCachedSizes(
   return target;
 }
 
-size_t ObjectList::ByteSizeLong() const {
+int ObjectList::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.ObjectList)
-  size_t total_size = 0;
+  int total_size = 0;
 
   // repeated .cura.proto.Object objects = 1;
-  {
-    unsigned int count = this->objects_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->objects(i));
-    }
+  total_size += 1 * this->objects_size();
+  for (int i = 0; i < this->objects_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->objects(i));
   }
 
   // repeated .cura.proto.Setting settings = 2;
-  {
-    unsigned int count = this->settings_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->settings(i));
-    }
+  total_size += 1 * this->settings_size();
+  for (int i = 0; i < this->settings_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->settings(i));
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void ObjectList::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.ObjectList)
-  GOOGLE_DCHECK_NE(&from, this);
-  const ObjectList* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const ObjectList* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const ObjectList>(
           &from);
   if (source == NULL) {
@@ -646,8 +769,9 @@ void ObjectList::MergeFrom(const ::google::protobuf::Message& from) {
 
 void ObjectList::MergeFrom(const ObjectList& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.ObjectList)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   objects_.MergeFrom(from.objects_);
   settings_.MergeFrom(from.settings_);
 }
@@ -667,6 +791,7 @@ void ObjectList::CopyFrom(const ObjectList& from) {
 }
 
 bool ObjectList::IsInitialized() const {
+
   return true;
 }
 
@@ -677,12 +802,16 @@ void ObjectList::Swap(ObjectList* other) {
 void ObjectList::InternalSwap(ObjectList* other) {
   objects_.UnsafeArenaSwap(&other->objects_);
   settings_.UnsafeArenaSwap(&other->settings_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata ObjectList::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[0];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = ObjectList_descriptor_;
+  metadata.reflection = ObjectList_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -761,31 +890,27 @@ const int Slice::kLimitToExtruderFieldNumber;
 
 Slice::Slice()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.Slice)
 }
+
+void Slice::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  global_settings_ = const_cast< ::cura::proto::SettingList*>(&::cura::proto::SettingList::default_instance());
+}
+
 Slice::Slice(const Slice& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      object_lists_(from.object_lists_),
-      extruders_(from.extruders_),
-      limit_to_extruder_(from.limit_to_extruder_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_global_settings()) {
-    global_settings_ = new ::cura::proto::SettingList(*from.global_settings_);
-  } else {
-    global_settings_ = NULL;
-  }
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.Slice)
 }
 
 void Slice::SharedCtor() {
-  global_settings_ = NULL;
+    _is_default_instance_ = false;
   _cached_size_ = 0;
+  global_settings_ = NULL;
 }
 
 Slice::~Slice() {
@@ -794,7 +919,7 @@ Slice::~Slice() {
 }
 
 void Slice::SharedDtor() {
-  if (this != internal_default_instance()) {
+  if (this != default_instance_) {
     delete global_settings_;
   }
 }
@@ -805,14 +930,16 @@ void Slice::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Slice::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[1].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return Slice_descriptor_;
 }
 
 const Slice& Slice::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+Slice* Slice::default_instance_ = NULL;
 
 Slice* Slice::New(::google::protobuf::Arena* arena) const {
   Slice* n = new Slice;
@@ -824,13 +951,11 @@ Slice* Slice::New(::google::protobuf::Arena* arena) const {
 
 void Slice::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.Slice)
+  if (GetArenaNoVirtual() == NULL && global_settings_ != NULL) delete global_settings_;
+  global_settings_ = NULL;
   object_lists_.Clear();
   extruders_.Clear();
   limit_to_extruder_.Clear();
-  if (GetArenaNoVirtual() == NULL && global_settings_ != NULL) {
-    delete global_settings_;
-  }
-  global_settings_ = NULL;
 }
 
 bool Slice::MergePartialFromCodedStream(
@@ -839,57 +964,69 @@ bool Slice::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.Slice)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .cura.proto.ObjectList object_lists = 1;
       case 1: {
-        if (tag == 10u) {
+        if (tag == 10) {
           DO_(input->IncrementRecursionDepth());
+         parse_loop_object_lists:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_object_lists()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(10)) goto parse_loop_object_lists;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectTag(18)) goto parse_global_settings;
         break;
       }
 
-      // .cura.proto.SettingList global_settings = 2;
+      // optional .cura.proto.SettingList global_settings = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
+         parse_global_settings:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_global_settings()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(26)) goto parse_extruders;
         break;
       }
 
       // repeated .cura.proto.Extruder extruders = 3;
       case 3: {
-        if (tag == 26u) {
+        if (tag == 26) {
+         parse_extruders:
           DO_(input->IncrementRecursionDepth());
+         parse_loop_extruders:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_extruders()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(26)) goto parse_loop_extruders;
+        if (input->ExpectTag(34)) goto parse_loop_limit_to_extruder;
         input->UnsafeDecrementRecursionDepth();
         break;
       }
 
       // repeated .cura.proto.SettingExtruder limit_to_extruder = 4;
       case 4: {
-        if (tag == 34u) {
+        if (tag == 34) {
           DO_(input->IncrementRecursionDepth());
+         parse_loop_limit_to_extruder:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_limit_to_extruder()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_loop_limit_to_extruder;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -923,7 +1060,7 @@ void Slice::SerializeWithCachedSizes(
       1, this->object_lists(i), output);
   }
 
-  // .cura.proto.SettingList global_settings = 2;
+  // optional .cura.proto.SettingList global_settings = 2;
   if (this->has_global_settings()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->global_settings_, output);
@@ -946,7 +1083,7 @@ void Slice::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Slice::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.Slice)
   // repeated .cura.proto.ObjectList object_lists = 1;
   for (unsigned int i = 0, n = this->object_lists_size(); i < n; i++) {
@@ -955,7 +1092,7 @@ void Slice::SerializeWithCachedSizes(
         1, this->object_lists(i), false, target);
   }
 
-  // .cura.proto.SettingList global_settings = 2;
+  // optional .cura.proto.SettingList global_settings = 2;
   if (this->has_global_settings()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -980,61 +1117,53 @@ void Slice::SerializeWithCachedSizes(
   return target;
 }
 
-size_t Slice::ByteSizeLong() const {
+int Slice::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.Slice)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // repeated .cura.proto.ObjectList object_lists = 1;
-  {
-    unsigned int count = this->object_lists_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->object_lists(i));
-    }
-  }
-
-  // repeated .cura.proto.Extruder extruders = 3;
-  {
-    unsigned int count = this->extruders_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->extruders(i));
-    }
-  }
-
-  // repeated .cura.proto.SettingExtruder limit_to_extruder = 4;
-  {
-    unsigned int count = this->limit_to_extruder_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->limit_to_extruder(i));
-    }
-  }
-
-  // .cura.proto.SettingList global_settings = 2;
+  // optional .cura.proto.SettingList global_settings = 2;
   if (this->has_global_settings()) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
         *this->global_settings_);
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // repeated .cura.proto.ObjectList object_lists = 1;
+  total_size += 1 * this->object_lists_size();
+  for (int i = 0; i < this->object_lists_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->object_lists(i));
+  }
+
+  // repeated .cura.proto.Extruder extruders = 3;
+  total_size += 1 * this->extruders_size();
+  for (int i = 0; i < this->extruders_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->extruders(i));
+  }
+
+  // repeated .cura.proto.SettingExtruder limit_to_extruder = 4;
+  total_size += 1 * this->limit_to_extruder_size();
+  for (int i = 0; i < this->limit_to_extruder_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->limit_to_extruder(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void Slice::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.Slice)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Slice* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const Slice* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Slice>(
           &from);
   if (source == NULL) {
@@ -1048,8 +1177,9 @@ void Slice::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Slice::MergeFrom(const Slice& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.Slice)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   object_lists_.MergeFrom(from.object_lists_);
   extruders_.MergeFrom(from.extruders_);
   limit_to_extruder_.MergeFrom(from.limit_to_extruder_);
@@ -1073,6 +1203,7 @@ void Slice::CopyFrom(const Slice& from) {
 }
 
 bool Slice::IsInitialized() const {
+
   return true;
 }
 
@@ -1082,15 +1213,19 @@ void Slice::Swap(Slice* other) {
 }
 void Slice::InternalSwap(Slice* other) {
   object_lists_.UnsafeArenaSwap(&other->object_lists_);
+  std::swap(global_settings_, other->global_settings_);
   extruders_.UnsafeArenaSwap(&other->extruders_);
   limit_to_extruder_.UnsafeArenaSwap(&other->limit_to_extruder_);
-  std::swap(global_settings_, other->global_settings_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Slice::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[1];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Slice_descriptor_;
+  metadata.reflection = Slice_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1126,9 +1261,9 @@ Slice::object_lists() const {
   return object_lists_;
 }
 
-// .cura.proto.SettingList global_settings = 2;
+// optional .cura.proto.SettingList global_settings = 2;
 bool Slice::has_global_settings() const {
-  return this != internal_default_instance() && global_settings_ != NULL;
+  return !_is_default_instance_ && global_settings_ != NULL;
 }
 void Slice::clear_global_settings() {
   if (GetArenaNoVirtual() == NULL && global_settings_ != NULL) delete global_settings_;
@@ -1136,8 +1271,7 @@ void Slice::clear_global_settings() {
 }
 const ::cura::proto::SettingList& Slice::global_settings() const {
   // @@protoc_insertion_point(field_get:cura.proto.Slice.global_settings)
-  return global_settings_ != NULL ? *global_settings_
-                         : *::cura::proto::SettingList::internal_default_instance();
+  return global_settings_ != NULL ? *global_settings_ : *default_instance_->global_settings_;
 }
 ::cura::proto::SettingList* Slice::mutable_global_settings() {
   
@@ -1236,30 +1370,28 @@ const int Extruder::kSettingsFieldNumber;
 
 Extruder::Extruder()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.Extruder)
 }
+
+void Extruder::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+  settings_ = const_cast< ::cura::proto::SettingList*>(&::cura::proto::SettingList::default_instance());
+}
+
 Extruder::Extruder(const Extruder& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_settings()) {
-    settings_ = new ::cura::proto::SettingList(*from.settings_);
-  } else {
-    settings_ = NULL;
-  }
-  id_ = from.id_;
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.Extruder)
 }
 
 void Extruder::SharedCtor() {
-  ::memset(&settings_, 0, reinterpret_cast<char*>(&id_) -
-    reinterpret_cast<char*>(&settings_) + sizeof(id_));
+    _is_default_instance_ = false;
   _cached_size_ = 0;
+  id_ = 0;
+  settings_ = NULL;
 }
 
 Extruder::~Extruder() {
@@ -1268,7 +1400,7 @@ Extruder::~Extruder() {
 }
 
 void Extruder::SharedDtor() {
-  if (this != internal_default_instance()) {
+  if (this != default_instance_) {
     delete settings_;
   }
 }
@@ -1279,14 +1411,16 @@ void Extruder::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Extruder::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[2].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return Extruder_descriptor_;
 }
 
 const Extruder& Extruder::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+Extruder* Extruder::default_instance_ = NULL;
 
 Extruder* Extruder::New(::google::protobuf::Arena* arena) const {
   Extruder* n = new Extruder;
@@ -1298,11 +1432,9 @@ Extruder* Extruder::New(::google::protobuf::Arena* arena) const {
 
 void Extruder::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.Extruder)
-  if (GetArenaNoVirtual() == NULL && settings_ != NULL) {
-    delete settings_;
-  }
-  settings_ = NULL;
   id_ = 0;
+  if (GetArenaNoVirtual() == NULL && settings_ != NULL) delete settings_;
+  settings_ = NULL;
 }
 
 bool Extruder::MergePartialFromCodedStream(
@@ -1311,31 +1443,34 @@ bool Extruder::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.Extruder)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 id = 1;
+      // optional int32 id = 1;
       case 1: {
-        if (tag == 8u) {
-
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &id_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_settings;
         break;
       }
 
-      // .cura.proto.SettingList settings = 2;
+      // optional .cura.proto.SettingList settings = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
+         parse_settings:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
                input, mutable_settings()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1363,12 +1498,12 @@ failure:
 void Extruder::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.Extruder)
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
   }
 
-  // .cura.proto.SettingList settings = 2;
+  // optional .cura.proto.SettingList settings = 2;
   if (this->has_settings()) {
     ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
       2, *this->settings_, output);
@@ -1379,14 +1514,14 @@ void Extruder::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Extruder::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.Extruder)
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
   }
 
-  // .cura.proto.SettingList settings = 2;
+  // optional .cura.proto.SettingList settings = 2;
   if (this->has_settings()) {
     target = ::google::protobuf::internal::WireFormatLite::
       InternalWriteMessageNoVirtualToArray(
@@ -1397,35 +1532,36 @@ void Extruder::SerializeWithCachedSizes(
   return target;
 }
 
-size_t Extruder::ByteSizeLong() const {
+int Extruder::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.Extruder)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // .cura.proto.SettingList settings = 2;
-  if (this->has_settings()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-        *this->settings_);
-  }
-
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->id());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // optional .cura.proto.SettingList settings = 2;
+  if (this->has_settings()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        *this->settings_);
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void Extruder::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.Extruder)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Extruder* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const Extruder* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Extruder>(
           &from);
   if (source == NULL) {
@@ -1439,13 +1575,14 @@ void Extruder::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Extruder::MergeFrom(const Extruder& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.Extruder)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.has_settings()) {
-    mutable_settings()->::cura::proto::SettingList::MergeFrom(from.settings());
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   if (from.id() != 0) {
     set_id(from.id());
+  }
+  if (from.has_settings()) {
+    mutable_settings()->::cura::proto::SettingList::MergeFrom(from.settings());
   }
 }
 
@@ -1464,6 +1601,7 @@ void Extruder::CopyFrom(const Extruder& from) {
 }
 
 bool Extruder::IsInitialized() const {
+
   return true;
 }
 
@@ -1472,36 +1610,40 @@ void Extruder::Swap(Extruder* other) {
   InternalSwap(other);
 }
 void Extruder::InternalSwap(Extruder* other) {
-  std::swap(settings_, other->settings_);
   std::swap(id_, other->id_);
+  std::swap(settings_, other->settings_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Extruder::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[2];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Extruder_descriptor_;
+  metadata.reflection = Extruder_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Extruder
 
-// int32 id = 1;
+// optional int32 id = 1;
 void Extruder::clear_id() {
   id_ = 0;
 }
-::google::protobuf::int32 Extruder::id() const {
+ ::google::protobuf::int32 Extruder::id() const {
   // @@protoc_insertion_point(field_get:cura.proto.Extruder.id)
   return id_;
 }
-void Extruder::set_id(::google::protobuf::int32 value) {
+ void Extruder::set_id(::google::protobuf::int32 value) {
   
   id_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Extruder.id)
 }
 
-// .cura.proto.SettingList settings = 2;
+// optional .cura.proto.SettingList settings = 2;
 bool Extruder::has_settings() const {
-  return this != internal_default_instance() && settings_ != NULL;
+  return !_is_default_instance_ && settings_ != NULL;
 }
 void Extruder::clear_settings() {
   if (GetArenaNoVirtual() == NULL && settings_ != NULL) delete settings_;
@@ -1509,8 +1651,7 @@ void Extruder::clear_settings() {
 }
 const ::cura::proto::SettingList& Extruder::settings() const {
   // @@protoc_insertion_point(field_get:cura.proto.Extruder.settings)
-  return settings_ != NULL ? *settings_
-                         : *::cura::proto::SettingList::internal_default_instance();
+  return settings_ != NULL ? *settings_ : *default_instance_->settings_;
 }
 ::cura::proto::SettingList* Extruder::mutable_settings() {
   
@@ -1552,40 +1693,30 @@ const int Object::kSettingsFieldNumber;
 
 Object::Object()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.Object)
 }
+
+void Object::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 Object::Object(const Object& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      settings_(from.settings_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  vertices_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.vertices().size() > 0) {
-    vertices_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.vertices_);
-  }
-  normals_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.normals().size() > 0) {
-    normals_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.normals_);
-  }
-  indices_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.indices().size() > 0) {
-    indices_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.indices_);
-  }
-  id_ = from.id_;
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.Object)
 }
 
 void Object::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  id_ = GOOGLE_LONGLONG(0);
   vertices_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   normals_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   indices_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  id_ = GOOGLE_LONGLONG(0);
-  _cached_size_ = 0;
 }
 
 Object::~Object() {
@@ -1597,6 +1728,8 @@ void Object::SharedDtor() {
   vertices_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   normals_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   indices_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
 }
 
 void Object::SetCachedSize(int size) const {
@@ -1605,14 +1738,16 @@ void Object::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Object::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[3].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return Object_descriptor_;
 }
 
 const Object& Object::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+Object* Object::default_instance_ = NULL;
 
 Object* Object::New(::google::protobuf::Arena* arena) const {
   Object* n = new Object;
@@ -1624,11 +1759,11 @@ Object* Object::New(::google::protobuf::Arena* arena) const {
 
 void Object::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.Object)
-  settings_.Clear();
+  id_ = GOOGLE_LONGLONG(0);
   vertices_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   normals_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   indices_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  id_ = GOOGLE_LONGLONG(0);
+  settings_.Clear();
 }
 
 bool Object::MergePartialFromCodedStream(
@@ -1637,66 +1772,77 @@ bool Object::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.Object)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int64 id = 1;
+      // optional int64 id = 1;
       case 1: {
-        if (tag == 8u) {
-
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &id_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_vertices;
         break;
       }
 
-      // bytes vertices = 2;
+      // optional bytes vertices = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
+         parse_vertices:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_vertices()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(26)) goto parse_normals;
         break;
       }
 
-      // bytes normals = 3;
+      // optional bytes normals = 3;
       case 3: {
-        if (tag == 26u) {
+        if (tag == 26) {
+         parse_normals:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_normals()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_indices;
         break;
       }
 
-      // bytes indices = 4;
+      // optional bytes indices = 4;
       case 4: {
-        if (tag == 34u) {
+        if (tag == 34) {
+         parse_indices:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_indices()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(42)) goto parse_settings;
         break;
       }
 
       // repeated .cura.proto.Setting settings = 5;
       case 5: {
-        if (tag == 42u) {
+        if (tag == 42) {
+         parse_settings:
           DO_(input->IncrementRecursionDepth());
+         parse_loop_settings:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_settings()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(42)) goto parse_loop_settings;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -1724,24 +1870,24 @@ failure:
 void Object::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.Object)
-  // int64 id = 1;
+  // optional int64 id = 1;
   if (this->id() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
   }
 
-  // bytes vertices = 2;
+  // optional bytes vertices = 2;
   if (this->vertices().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       2, this->vertices(), output);
   }
 
-  // bytes normals = 3;
+  // optional bytes normals = 3;
   if (this->normals().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       3, this->normals(), output);
   }
 
-  // bytes indices = 4;
+  // optional bytes indices = 4;
   if (this->indices().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       4, this->indices(), output);
@@ -1758,28 +1904,28 @@ void Object::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Object::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.Object)
-  // int64 id = 1;
+  // optional int64 id = 1;
   if (this->id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
   }
 
-  // bytes vertices = 2;
+  // optional bytes vertices = 2;
   if (this->vertices().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         2, this->vertices(), target);
   }
 
-  // bytes normals = 3;
+  // optional bytes normals = 3;
   if (this->normals().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         3, this->normals(), target);
   }
 
-  // bytes indices = 4;
+  // optional bytes indices = 4;
   if (this->indices().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
@@ -1797,60 +1943,58 @@ void Object::SerializeWithCachedSizes(
   return target;
 }
 
-size_t Object::ByteSizeLong() const {
+int Object::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.Object)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // repeated .cura.proto.Setting settings = 5;
-  {
-    unsigned int count = this->settings_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->settings(i));
-    }
-  }
-
-  // bytes vertices = 2;
-  if (this->vertices().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->vertices());
-  }
-
-  // bytes normals = 3;
-  if (this->normals().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->normals());
-  }
-
-  // bytes indices = 4;
-  if (this->indices().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->indices());
-  }
-
-  // int64 id = 1;
+  // optional int64 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->id());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // optional bytes vertices = 2;
+  if (this->vertices().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->vertices());
+  }
+
+  // optional bytes normals = 3;
+  if (this->normals().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->normals());
+  }
+
+  // optional bytes indices = 4;
+  if (this->indices().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->indices());
+  }
+
+  // repeated .cura.proto.Setting settings = 5;
+  total_size += 1 * this->settings_size();
+  for (int i = 0; i < this->settings_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->settings(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void Object::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.Object)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Object* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const Object* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Object>(
           &from);
   if (source == NULL) {
@@ -1864,9 +2008,13 @@ void Object::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Object::MergeFrom(const Object& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.Object)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   settings_.MergeFrom(from.settings_);
+  if (from.id() != 0) {
+    set_id(from.id());
+  }
   if (from.vertices().size() > 0) {
 
     vertices_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.vertices_);
@@ -1878,9 +2026,6 @@ void Object::MergeFrom(const Object& from) {
   if (from.indices().size() > 0) {
 
     indices_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.indices_);
-  }
-  if (from.id() != 0) {
-    set_id(from.id());
   }
 }
 
@@ -1899,6 +2044,7 @@ void Object::CopyFrom(const Object& from) {
 }
 
 bool Object::IsInitialized() const {
+
   return true;
 }
 
@@ -1907,79 +2053,75 @@ void Object::Swap(Object* other) {
   InternalSwap(other);
 }
 void Object::InternalSwap(Object* other) {
-  settings_.UnsafeArenaSwap(&other->settings_);
+  std::swap(id_, other->id_);
   vertices_.Swap(&other->vertices_);
   normals_.Swap(&other->normals_);
   indices_.Swap(&other->indices_);
-  std::swap(id_, other->id_);
+  settings_.UnsafeArenaSwap(&other->settings_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Object::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[3];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Object_descriptor_;
+  metadata.reflection = Object_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Object
 
-// int64 id = 1;
+// optional int64 id = 1;
 void Object::clear_id() {
   id_ = GOOGLE_LONGLONG(0);
 }
-::google::protobuf::int64 Object::id() const {
+ ::google::protobuf::int64 Object::id() const {
   // @@protoc_insertion_point(field_get:cura.proto.Object.id)
   return id_;
 }
-void Object::set_id(::google::protobuf::int64 value) {
+ void Object::set_id(::google::protobuf::int64 value) {
   
   id_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Object.id)
 }
 
-// bytes vertices = 2;
+// optional bytes vertices = 2;
 void Object::clear_vertices() {
   vertices_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& Object::vertices() const {
+ const ::std::string& Object::vertices() const {
   // @@protoc_insertion_point(field_get:cura.proto.Object.vertices)
-  return vertices_.GetNoArena();
+  return vertices_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Object::set_vertices(const ::std::string& value) {
+ void Object::set_vertices(const ::std::string& value) {
   
   vertices_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.Object.vertices)
 }
-#if LANG_CXX11
-void Object::set_vertices(::std::string&& value) {
-  
-  vertices_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.Object.vertices)
-}
-#endif
-void Object::set_vertices(const char* value) {
+ void Object::set_vertices(const char* value) {
   
   vertices_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.Object.vertices)
 }
-void Object::set_vertices(const void* value, size_t size) {
+ void Object::set_vertices(const void* value, size_t size) {
   
   vertices_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.Object.vertices)
 }
-::std::string* Object::mutable_vertices() {
+ ::std::string* Object::mutable_vertices() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.Object.vertices)
   return vertices_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Object::release_vertices() {
+ ::std::string* Object::release_vertices() {
   // @@protoc_insertion_point(field_release:cura.proto.Object.vertices)
   
   return vertices_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Object::set_allocated_vertices(::std::string* vertices) {
+ void Object::set_allocated_vertices(::std::string* vertices) {
   if (vertices != NULL) {
     
   } else {
@@ -1989,49 +2131,41 @@ void Object::set_allocated_vertices(::std::string* vertices) {
   // @@protoc_insertion_point(field_set_allocated:cura.proto.Object.vertices)
 }
 
-// bytes normals = 3;
+// optional bytes normals = 3;
 void Object::clear_normals() {
   normals_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& Object::normals() const {
+ const ::std::string& Object::normals() const {
   // @@protoc_insertion_point(field_get:cura.proto.Object.normals)
-  return normals_.GetNoArena();
+  return normals_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Object::set_normals(const ::std::string& value) {
+ void Object::set_normals(const ::std::string& value) {
   
   normals_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.Object.normals)
 }
-#if LANG_CXX11
-void Object::set_normals(::std::string&& value) {
-  
-  normals_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.Object.normals)
-}
-#endif
-void Object::set_normals(const char* value) {
+ void Object::set_normals(const char* value) {
   
   normals_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.Object.normals)
 }
-void Object::set_normals(const void* value, size_t size) {
+ void Object::set_normals(const void* value, size_t size) {
   
   normals_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.Object.normals)
 }
-::std::string* Object::mutable_normals() {
+ ::std::string* Object::mutable_normals() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.Object.normals)
   return normals_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Object::release_normals() {
+ ::std::string* Object::release_normals() {
   // @@protoc_insertion_point(field_release:cura.proto.Object.normals)
   
   return normals_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Object::set_allocated_normals(::std::string* normals) {
+ void Object::set_allocated_normals(::std::string* normals) {
   if (normals != NULL) {
     
   } else {
@@ -2041,49 +2175,41 @@ void Object::set_allocated_normals(::std::string* normals) {
   // @@protoc_insertion_point(field_set_allocated:cura.proto.Object.normals)
 }
 
-// bytes indices = 4;
+// optional bytes indices = 4;
 void Object::clear_indices() {
   indices_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& Object::indices() const {
+ const ::std::string& Object::indices() const {
   // @@protoc_insertion_point(field_get:cura.proto.Object.indices)
-  return indices_.GetNoArena();
+  return indices_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Object::set_indices(const ::std::string& value) {
+ void Object::set_indices(const ::std::string& value) {
   
   indices_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.Object.indices)
 }
-#if LANG_CXX11
-void Object::set_indices(::std::string&& value) {
-  
-  indices_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.Object.indices)
-}
-#endif
-void Object::set_indices(const char* value) {
+ void Object::set_indices(const char* value) {
   
   indices_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.Object.indices)
 }
-void Object::set_indices(const void* value, size_t size) {
+ void Object::set_indices(const void* value, size_t size) {
   
   indices_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.Object.indices)
 }
-::std::string* Object::mutable_indices() {
+ ::std::string* Object::mutable_indices() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.Object.indices)
   return indices_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Object::release_indices() {
+ ::std::string* Object::release_indices() {
   // @@protoc_insertion_point(field_release:cura.proto.Object.indices)
   
   return indices_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Object::set_allocated_indices(::std::string* indices) {
+ void Object::set_allocated_indices(::std::string* indices) {
   if (indices != NULL) {
     
   } else {
@@ -2133,24 +2259,26 @@ const int Progress::kAmountFieldNumber;
 
 Progress::Progress()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.Progress)
 }
+
+void Progress::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 Progress::Progress(const Progress& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  amount_ = from.amount_;
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.Progress)
 }
 
 void Progress::SharedCtor() {
-  amount_ = 0;
+    _is_default_instance_ = false;
   _cached_size_ = 0;
+  amount_ = 0;
 }
 
 Progress::~Progress() {
@@ -2159,6 +2287,8 @@ Progress::~Progress() {
 }
 
 void Progress::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void Progress::SetCachedSize(int size) const {
@@ -2167,14 +2297,16 @@ void Progress::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Progress::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[4].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return Progress_descriptor_;
 }
 
 const Progress& Progress::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+Progress* Progress::default_instance_ = NULL;
 
 Progress* Progress::New(::google::protobuf::Arena* arena) const {
   Progress* n = new Progress;
@@ -2195,20 +2327,21 @@ bool Progress::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.Progress)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // float amount = 1;
+      // optional float amount = 1;
       case 1: {
-        if (tag == 13u) {
-
+        if (tag == 13) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &amount_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -2236,7 +2369,7 @@ failure:
 void Progress::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.Progress)
-  // float amount = 1;
+  // optional float amount = 1;
   if (this->amount() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->amount(), output);
   }
@@ -2246,9 +2379,9 @@ void Progress::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Progress::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.Progress)
-  // float amount = 1;
+  // optional float amount = 1;
   if (this->amount() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->amount(), target);
   }
@@ -2257,26 +2390,27 @@ void Progress::SerializeWithCachedSizes(
   return target;
 }
 
-size_t Progress::ByteSizeLong() const {
+int Progress::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.Progress)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // float amount = 1;
+  // optional float amount = 1;
   if (this->amount() != 0) {
     total_size += 1 + 4;
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void Progress::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.Progress)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Progress* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const Progress* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Progress>(
           &from);
   if (source == NULL) {
@@ -2290,8 +2424,9 @@ void Progress::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Progress::MergeFrom(const Progress& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.Progress)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.amount() != 0) {
     set_amount(from.amount());
   }
@@ -2312,6 +2447,7 @@ void Progress::CopyFrom(const Progress& from) {
 }
 
 bool Progress::IsInitialized() const {
+
   return true;
 }
 
@@ -2321,26 +2457,30 @@ void Progress::Swap(Progress* other) {
 }
 void Progress::InternalSwap(Progress* other) {
   std::swap(amount_, other->amount_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Progress::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[4];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Progress_descriptor_;
+  metadata.reflection = Progress_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Progress
 
-// float amount = 1;
+// optional float amount = 1;
 void Progress::clear_amount() {
   amount_ = 0;
 }
-float Progress::amount() const {
+ float Progress::amount() const {
   // @@protoc_insertion_point(field_get:cura.proto.Progress.amount)
   return amount_;
 }
-void Progress::set_amount(float value) {
+ void Progress::set_amount(float value) {
   
   amount_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Progress.amount)
@@ -2359,28 +2499,28 @@ const int Layer::kPolygonsFieldNumber;
 
 Layer::Layer()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.Layer)
 }
+
+void Layer::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 Layer::Layer(const Layer& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      polygons_(from.polygons_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&id_, &from.id_,
-    reinterpret_cast<char*>(&thickness_) -
-    reinterpret_cast<char*>(&id_) + sizeof(thickness_));
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.Layer)
 }
 
 void Layer::SharedCtor() {
-  ::memset(&id_, 0, reinterpret_cast<char*>(&thickness_) -
-    reinterpret_cast<char*>(&id_) + sizeof(thickness_));
+    _is_default_instance_ = false;
   _cached_size_ = 0;
+  id_ = 0;
+  height_ = 0;
+  thickness_ = 0;
 }
 
 Layer::~Layer() {
@@ -2389,6 +2529,8 @@ Layer::~Layer() {
 }
 
 void Layer::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void Layer::SetCachedSize(int size) const {
@@ -2397,14 +2539,16 @@ void Layer::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Layer::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[5].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return Layer_descriptor_;
 }
 
 const Layer& Layer::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+Layer* Layer::default_instance_ = NULL;
 
 Layer* Layer::New(::google::protobuf::Arena* arena) const {
   Layer* n = new Layer;
@@ -2416,9 +2560,29 @@ Layer* Layer::New(::google::protobuf::Arena* arena) const {
 
 void Layer::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.Layer)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Layer, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<Layer*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&(first), 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(id_, height_);
+  thickness_ = 0;
+
+#undef ZR_HELPER_
+#undef ZR_
+
   polygons_.Clear();
-  ::memset(&id_, 0, reinterpret_cast<char*>(&thickness_) -
-    reinterpret_cast<char*>(&id_) + sizeof(thickness_));
 }
 
 bool Layer::MergePartialFromCodedStream(
@@ -2427,59 +2591,68 @@ bool Layer::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.Layer)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 id = 1;
+      // optional int32 id = 1;
       case 1: {
-        if (tag == 8u) {
-
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &id_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(21)) goto parse_height;
         break;
       }
 
-      // float height = 2;
+      // optional float height = 2;
       case 2: {
-        if (tag == 21u) {
-
+        if (tag == 21) {
+         parse_height:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &height_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(29)) goto parse_thickness;
         break;
       }
 
-      // float thickness = 3;
+      // optional float thickness = 3;
       case 3: {
-        if (tag == 29u) {
-
+        if (tag == 29) {
+         parse_thickness:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &thickness_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_polygons;
         break;
       }
 
       // repeated .cura.proto.Polygon polygons = 4;
       case 4: {
-        if (tag == 34u) {
+        if (tag == 34) {
+         parse_polygons:
           DO_(input->IncrementRecursionDepth());
+         parse_loop_polygons:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_polygons()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_loop_polygons;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -2507,17 +2680,17 @@ failure:
 void Layer::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.Layer)
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
   }
 
-  // float height = 2;
+  // optional float height = 2;
   if (this->height() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->height(), output);
   }
 
-  // float thickness = 3;
+  // optional float thickness = 3;
   if (this->thickness() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->thickness(), output);
   }
@@ -2533,19 +2706,19 @@ void Layer::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Layer::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.Layer)
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
   }
 
-  // float height = 2;
+  // optional float height = 2;
   if (this->height() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->height(), target);
   }
 
-  // float thickness = 3;
+  // optional float thickness = 3;
   if (this->thickness() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->thickness(), target);
   }
@@ -2561,49 +2734,47 @@ void Layer::SerializeWithCachedSizes(
   return target;
 }
 
-size_t Layer::ByteSizeLong() const {
+int Layer::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.Layer)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // repeated .cura.proto.Polygon polygons = 4;
-  {
-    unsigned int count = this->polygons_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->polygons(i));
-    }
-  }
-
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->id());
   }
 
-  // float height = 2;
+  // optional float height = 2;
   if (this->height() != 0) {
     total_size += 1 + 4;
   }
 
-  // float thickness = 3;
+  // optional float thickness = 3;
   if (this->thickness() != 0) {
     total_size += 1 + 4;
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // repeated .cura.proto.Polygon polygons = 4;
+  total_size += 1 * this->polygons_size();
+  for (int i = 0; i < this->polygons_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->polygons(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void Layer::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.Layer)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Layer* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const Layer* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Layer>(
           &from);
   if (source == NULL) {
@@ -2617,8 +2788,9 @@ void Layer::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Layer::MergeFrom(const Layer& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.Layer)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   polygons_.MergeFrom(from.polygons_);
   if (from.id() != 0) {
     set_id(from.id());
@@ -2646,6 +2818,7 @@ void Layer::CopyFrom(const Layer& from) {
 }
 
 bool Layer::IsInitialized() const {
+
   return true;
 }
 
@@ -2654,58 +2827,62 @@ void Layer::Swap(Layer* other) {
   InternalSwap(other);
 }
 void Layer::InternalSwap(Layer* other) {
-  polygons_.UnsafeArenaSwap(&other->polygons_);
   std::swap(id_, other->id_);
   std::swap(height_, other->height_);
   std::swap(thickness_, other->thickness_);
+  polygons_.UnsafeArenaSwap(&other->polygons_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Layer::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[5];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Layer_descriptor_;
+  metadata.reflection = Layer_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Layer
 
-// int32 id = 1;
+// optional int32 id = 1;
 void Layer::clear_id() {
   id_ = 0;
 }
-::google::protobuf::int32 Layer::id() const {
+ ::google::protobuf::int32 Layer::id() const {
   // @@protoc_insertion_point(field_get:cura.proto.Layer.id)
   return id_;
 }
-void Layer::set_id(::google::protobuf::int32 value) {
+ void Layer::set_id(::google::protobuf::int32 value) {
   
   id_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Layer.id)
 }
 
-// float height = 2;
+// optional float height = 2;
 void Layer::clear_height() {
   height_ = 0;
 }
-float Layer::height() const {
+ float Layer::height() const {
   // @@protoc_insertion_point(field_get:cura.proto.Layer.height)
   return height_;
 }
-void Layer::set_height(float value) {
+ void Layer::set_height(float value) {
   
   height_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Layer.height)
 }
 
-// float thickness = 3;
+// optional float thickness = 3;
 void Layer::clear_thickness() {
   thickness_ = 0;
 }
-float Layer::thickness() const {
+ float Layer::thickness() const {
   // @@protoc_insertion_point(field_get:cura.proto.Layer.thickness)
   return thickness_;
 }
-void Layer::set_thickness(float value) {
+ void Layer::set_thickness(float value) {
   
   thickness_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Layer.thickness)
@@ -2745,6 +2922,45 @@ Layer::polygons() const {
 
 // ===================================================================
 
+const ::google::protobuf::EnumDescriptor* Polygon_Type_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Polygon_Type_descriptor_;
+}
+bool Polygon_Type_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const Polygon_Type Polygon::NoneType;
+const Polygon_Type Polygon::Inset0Type;
+const Polygon_Type Polygon::InsetXType;
+const Polygon_Type Polygon::SkinType;
+const Polygon_Type Polygon::SupportType;
+const Polygon_Type Polygon::SkirtType;
+const Polygon_Type Polygon::InfillType;
+const Polygon_Type Polygon::SupportInfillType;
+const Polygon_Type Polygon::MoveCombingType;
+const Polygon_Type Polygon::MoveRetractionType;
+const Polygon_Type Polygon::SupportInterfaceType;
+const Polygon_Type Polygon::Type_MIN;
+const Polygon_Type Polygon::Type_MAX;
+const int Polygon::Type_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int Polygon::kTypeFieldNumber;
 const int Polygon::kPointsFieldNumber;
@@ -2753,32 +2969,29 @@ const int Polygon::kLineWidthFieldNumber;
 
 Polygon::Polygon()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.Polygon)
 }
+
+void Polygon::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 Polygon::Polygon(const Polygon& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  points_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.points().size() > 0) {
-    points_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.points_);
-  }
-  ::memcpy(&type_, &from.type_,
-    reinterpret_cast<char*>(&line_width_) -
-    reinterpret_cast<char*>(&type_) + sizeof(line_width_));
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.Polygon)
 }
 
 void Polygon::SharedCtor() {
-  points_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&type_, 0, reinterpret_cast<char*>(&line_width_) -
-    reinterpret_cast<char*>(&type_) + sizeof(line_width_));
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
+  type_ = 0;
+  points_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  line_width_ = 0;
 }
 
 Polygon::~Polygon() {
@@ -2788,6 +3001,8 @@ Polygon::~Polygon() {
 
 void Polygon::SharedDtor() {
   points_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
 }
 
 void Polygon::SetCachedSize(int size) const {
@@ -2796,14 +3011,16 @@ void Polygon::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Polygon::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[6].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return Polygon_descriptor_;
 }
 
 const Polygon& Polygon::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+Polygon* Polygon::default_instance_ = NULL;
 
 Polygon* Polygon::New(::google::protobuf::Arena* arena) const {
   Polygon* n = new Polygon;
@@ -2815,9 +3032,28 @@ Polygon* Polygon::New(::google::protobuf::Arena* arena) const {
 
 void Polygon::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.Polygon)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(Polygon, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<Polygon*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&(first), 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(type_, line_width_);
   points_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&type_, 0, reinterpret_cast<char*>(&line_width_) -
-    reinterpret_cast<char*>(&type_) + sizeof(line_width_));
+
+#undef ZR_HELPER_
+#undef ZR_
+
 }
 
 bool Polygon::MergePartialFromCodedStream(
@@ -2826,13 +3062,13 @@ bool Polygon::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.Polygon)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // .cura.proto.Polygon.Type type = 1;
+      // optional .cura.proto.Polygon.Type type = 1;
       case 1: {
-        if (tag == 8u) {
+        if (tag == 8) {
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -2841,30 +3077,35 @@ bool Polygon::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_points;
         break;
       }
 
-      // bytes points = 2;
+      // optional bytes points = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
+         parse_points:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_points()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(29)) goto parse_line_width;
         break;
       }
 
-      // float line_width = 3;
+      // optional float line_width = 3;
       case 3: {
-        if (tag == 29u) {
-
+        if (tag == 29) {
+         parse_line_width:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &line_width_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -2892,19 +3133,19 @@ failure:
 void Polygon::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.Polygon)
-  // .cura.proto.Polygon.Type type = 1;
+  // optional .cura.proto.Polygon.Type type = 1;
   if (this->type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       1, this->type(), output);
   }
 
-  // bytes points = 2;
+  // optional bytes points = 2;
   if (this->points().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       2, this->points(), output);
   }
 
-  // float line_width = 3;
+  // optional float line_width = 3;
   if (this->line_width() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->line_width(), output);
   }
@@ -2914,22 +3155,22 @@ void Polygon::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Polygon::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.Polygon)
-  // .cura.proto.Polygon.Type type = 1;
+  // optional .cura.proto.Polygon.Type type = 1;
   if (this->type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       1, this->type(), target);
   }
 
-  // bytes points = 2;
+  // optional bytes points = 2;
   if (this->points().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         2, this->points(), target);
   }
 
-  // float line_width = 3;
+  // optional float line_width = 3;
   if (this->line_width() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->line_width(), target);
   }
@@ -2938,39 +3179,40 @@ void Polygon::SerializeWithCachedSizes(
   return target;
 }
 
-size_t Polygon::ByteSizeLong() const {
+int Polygon::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.Polygon)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // bytes points = 2;
+  // optional .cura.proto.Polygon.Type type = 1;
+  if (this->type() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
+  }
+
+  // optional bytes points = 2;
   if (this->points().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->points());
   }
 
-  // .cura.proto.Polygon.Type type = 1;
-  if (this->type() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::EnumSize(this->type());
-  }
-
-  // float line_width = 3;
+  // optional float line_width = 3;
   if (this->line_width() != 0) {
     total_size += 1 + 4;
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void Polygon::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.Polygon)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Polygon* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const Polygon* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Polygon>(
           &from);
   if (source == NULL) {
@@ -2984,14 +3226,15 @@ void Polygon::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Polygon::MergeFrom(const Polygon& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.Polygon)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  if (from.points().size() > 0) {
-
-    points_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.points_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
   if (from.type() != 0) {
     set_type(from.type());
+  }
+  if (from.points().size() > 0) {
+
+    points_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.points_);
   }
   if (from.line_width() != 0) {
     set_line_width(from.line_width());
@@ -3013,6 +3256,7 @@ void Polygon::CopyFrom(const Polygon& from) {
 }
 
 bool Polygon::IsInitialized() const {
+
   return true;
 }
 
@@ -3021,77 +3265,73 @@ void Polygon::Swap(Polygon* other) {
   InternalSwap(other);
 }
 void Polygon::InternalSwap(Polygon* other) {
-  points_.Swap(&other->points_);
   std::swap(type_, other->type_);
+  points_.Swap(&other->points_);
   std::swap(line_width_, other->line_width_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Polygon::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[6];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Polygon_descriptor_;
+  metadata.reflection = Polygon_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Polygon
 
-// .cura.proto.Polygon.Type type = 1;
+// optional .cura.proto.Polygon.Type type = 1;
 void Polygon::clear_type() {
   type_ = 0;
 }
-::cura::proto::Polygon_Type Polygon::type() const {
+ ::cura::proto::Polygon_Type Polygon::type() const {
   // @@protoc_insertion_point(field_get:cura.proto.Polygon.type)
   return static_cast< ::cura::proto::Polygon_Type >(type_);
 }
-void Polygon::set_type(::cura::proto::Polygon_Type value) {
+ void Polygon::set_type(::cura::proto::Polygon_Type value) {
   
   type_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Polygon.type)
 }
 
-// bytes points = 2;
+// optional bytes points = 2;
 void Polygon::clear_points() {
   points_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& Polygon::points() const {
+ const ::std::string& Polygon::points() const {
   // @@protoc_insertion_point(field_get:cura.proto.Polygon.points)
-  return points_.GetNoArena();
+  return points_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Polygon::set_points(const ::std::string& value) {
+ void Polygon::set_points(const ::std::string& value) {
   
   points_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.Polygon.points)
 }
-#if LANG_CXX11
-void Polygon::set_points(::std::string&& value) {
-  
-  points_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.Polygon.points)
-}
-#endif
-void Polygon::set_points(const char* value) {
+ void Polygon::set_points(const char* value) {
   
   points_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.Polygon.points)
 }
-void Polygon::set_points(const void* value, size_t size) {
+ void Polygon::set_points(const void* value, size_t size) {
   
   points_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.Polygon.points)
 }
-::std::string* Polygon::mutable_points() {
+ ::std::string* Polygon::mutable_points() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.Polygon.points)
   return points_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Polygon::release_points() {
+ ::std::string* Polygon::release_points() {
   // @@protoc_insertion_point(field_release:cura.proto.Polygon.points)
   
   return points_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Polygon::set_allocated_points(::std::string* points) {
+ void Polygon::set_allocated_points(::std::string* points) {
   if (points != NULL) {
     
   } else {
@@ -3101,15 +3341,15 @@ void Polygon::set_allocated_points(::std::string* points) {
   // @@protoc_insertion_point(field_set_allocated:cura.proto.Polygon.points)
 }
 
-// float line_width = 3;
+// optional float line_width = 3;
 void Polygon::clear_line_width() {
   line_width_ = 0;
 }
-float Polygon::line_width() const {
+ float Polygon::line_width() const {
   // @@protoc_insertion_point(field_get:cura.proto.Polygon.line_width)
   return line_width_;
 }
-void Polygon::set_line_width(float value) {
+ void Polygon::set_line_width(float value) {
   
   line_width_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.Polygon.line_width)
@@ -3128,28 +3368,28 @@ const int LayerOptimized::kPathSegmentFieldNumber;
 
 LayerOptimized::LayerOptimized()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.LayerOptimized)
 }
+
+void LayerOptimized::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 LayerOptimized::LayerOptimized(const LayerOptimized& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      path_segment_(from.path_segment_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&id_, &from.id_,
-    reinterpret_cast<char*>(&thickness_) -
-    reinterpret_cast<char*>(&id_) + sizeof(thickness_));
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.LayerOptimized)
 }
 
 void LayerOptimized::SharedCtor() {
-  ::memset(&id_, 0, reinterpret_cast<char*>(&thickness_) -
-    reinterpret_cast<char*>(&id_) + sizeof(thickness_));
+    _is_default_instance_ = false;
   _cached_size_ = 0;
+  id_ = 0;
+  height_ = 0;
+  thickness_ = 0;
 }
 
 LayerOptimized::~LayerOptimized() {
@@ -3158,6 +3398,8 @@ LayerOptimized::~LayerOptimized() {
 }
 
 void LayerOptimized::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void LayerOptimized::SetCachedSize(int size) const {
@@ -3166,14 +3408,16 @@ void LayerOptimized::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* LayerOptimized::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[7].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return LayerOptimized_descriptor_;
 }
 
 const LayerOptimized& LayerOptimized::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+LayerOptimized* LayerOptimized::default_instance_ = NULL;
 
 LayerOptimized* LayerOptimized::New(::google::protobuf::Arena* arena) const {
   LayerOptimized* n = new LayerOptimized;
@@ -3185,9 +3429,29 @@ LayerOptimized* LayerOptimized::New(::google::protobuf::Arena* arena) const {
 
 void LayerOptimized::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.LayerOptimized)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(LayerOptimized, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<LayerOptimized*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&(first), 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(id_, height_);
+  thickness_ = 0;
+
+#undef ZR_HELPER_
+#undef ZR_
+
   path_segment_.Clear();
-  ::memset(&id_, 0, reinterpret_cast<char*>(&thickness_) -
-    reinterpret_cast<char*>(&id_) + sizeof(thickness_));
 }
 
 bool LayerOptimized::MergePartialFromCodedStream(
@@ -3196,59 +3460,68 @@ bool LayerOptimized::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.LayerOptimized)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 id = 1;
+      // optional int32 id = 1;
       case 1: {
-        if (tag == 8u) {
-
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &id_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(21)) goto parse_height;
         break;
       }
 
-      // float height = 2;
+      // optional float height = 2;
       case 2: {
-        if (tag == 21u) {
-
+        if (tag == 21) {
+         parse_height:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &height_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(29)) goto parse_thickness;
         break;
       }
 
-      // float thickness = 3;
+      // optional float thickness = 3;
       case 3: {
-        if (tag == 29u) {
-
+        if (tag == 29) {
+         parse_thickness:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &thickness_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_path_segment;
         break;
       }
 
       // repeated .cura.proto.PathSegment path_segment = 4;
       case 4: {
-        if (tag == 34u) {
+        if (tag == 34) {
+         parse_path_segment:
           DO_(input->IncrementRecursionDepth());
+         parse_loop_path_segment:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_path_segment()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_loop_path_segment;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -3276,17 +3549,17 @@ failure:
 void LayerOptimized::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.LayerOptimized)
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
   }
 
-  // float height = 2;
+  // optional float height = 2;
   if (this->height() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->height(), output);
   }
 
-  // float thickness = 3;
+  // optional float thickness = 3;
   if (this->thickness() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(3, this->thickness(), output);
   }
@@ -3302,19 +3575,19 @@ void LayerOptimized::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* LayerOptimized::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.LayerOptimized)
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->id(), target);
   }
 
-  // float height = 2;
+  // optional float height = 2;
   if (this->height() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->height(), target);
   }
 
-  // float thickness = 3;
+  // optional float thickness = 3;
   if (this->thickness() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(3, this->thickness(), target);
   }
@@ -3330,49 +3603,47 @@ void LayerOptimized::SerializeWithCachedSizes(
   return target;
 }
 
-size_t LayerOptimized::ByteSizeLong() const {
+int LayerOptimized::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.LayerOptimized)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // repeated .cura.proto.PathSegment path_segment = 4;
-  {
-    unsigned int count = this->path_segment_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->path_segment(i));
-    }
-  }
-
-  // int32 id = 1;
+  // optional int32 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->id());
   }
 
-  // float height = 2;
+  // optional float height = 2;
   if (this->height() != 0) {
     total_size += 1 + 4;
   }
 
-  // float thickness = 3;
+  // optional float thickness = 3;
   if (this->thickness() != 0) {
     total_size += 1 + 4;
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // repeated .cura.proto.PathSegment path_segment = 4;
+  total_size += 1 * this->path_segment_size();
+  for (int i = 0; i < this->path_segment_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->path_segment(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void LayerOptimized::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.LayerOptimized)
-  GOOGLE_DCHECK_NE(&from, this);
-  const LayerOptimized* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const LayerOptimized* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const LayerOptimized>(
           &from);
   if (source == NULL) {
@@ -3386,8 +3657,9 @@ void LayerOptimized::MergeFrom(const ::google::protobuf::Message& from) {
 
 void LayerOptimized::MergeFrom(const LayerOptimized& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.LayerOptimized)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   path_segment_.MergeFrom(from.path_segment_);
   if (from.id() != 0) {
     set_id(from.id());
@@ -3415,6 +3687,7 @@ void LayerOptimized::CopyFrom(const LayerOptimized& from) {
 }
 
 bool LayerOptimized::IsInitialized() const {
+
   return true;
 }
 
@@ -3423,58 +3696,62 @@ void LayerOptimized::Swap(LayerOptimized* other) {
   InternalSwap(other);
 }
 void LayerOptimized::InternalSwap(LayerOptimized* other) {
-  path_segment_.UnsafeArenaSwap(&other->path_segment_);
   std::swap(id_, other->id_);
   std::swap(height_, other->height_);
   std::swap(thickness_, other->thickness_);
+  path_segment_.UnsafeArenaSwap(&other->path_segment_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata LayerOptimized::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[7];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = LayerOptimized_descriptor_;
+  metadata.reflection = LayerOptimized_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // LayerOptimized
 
-// int32 id = 1;
+// optional int32 id = 1;
 void LayerOptimized::clear_id() {
   id_ = 0;
 }
-::google::protobuf::int32 LayerOptimized::id() const {
+ ::google::protobuf::int32 LayerOptimized::id() const {
   // @@protoc_insertion_point(field_get:cura.proto.LayerOptimized.id)
   return id_;
 }
-void LayerOptimized::set_id(::google::protobuf::int32 value) {
+ void LayerOptimized::set_id(::google::protobuf::int32 value) {
   
   id_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.LayerOptimized.id)
 }
 
-// float height = 2;
+// optional float height = 2;
 void LayerOptimized::clear_height() {
   height_ = 0;
 }
-float LayerOptimized::height() const {
+ float LayerOptimized::height() const {
   // @@protoc_insertion_point(field_get:cura.proto.LayerOptimized.height)
   return height_;
 }
-void LayerOptimized::set_height(float value) {
+ void LayerOptimized::set_height(float value) {
   
   height_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.LayerOptimized.height)
 }
 
-// float thickness = 3;
+// optional float thickness = 3;
 void LayerOptimized::clear_thickness() {
   thickness_ = 0;
 }
-float LayerOptimized::thickness() const {
+ float LayerOptimized::thickness() const {
   // @@protoc_insertion_point(field_get:cura.proto.LayerOptimized.thickness)
   return thickness_;
 }
-void LayerOptimized::set_thickness(float value) {
+ void LayerOptimized::set_thickness(float value) {
   
   thickness_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.LayerOptimized.thickness)
@@ -3514,6 +3791,27 @@ LayerOptimized::path_segment() const {
 
 // ===================================================================
 
+const ::google::protobuf::EnumDescriptor* PathSegment_PointType_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return PathSegment_PointType_descriptor_;
+}
+bool PathSegment_PointType_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const PathSegment_PointType PathSegment::Point2D;
+const PathSegment_PointType PathSegment::Point3D;
+const PathSegment_PointType PathSegment::PointType_MIN;
+const PathSegment_PointType PathSegment::PointType_MAX;
+const int PathSegment::PointType_ARRAYSIZE;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int PathSegment::kExtruderFieldNumber;
 const int PathSegment::kPointTypeFieldNumber;
@@ -3524,42 +3822,31 @@ const int PathSegment::kLineWidthFieldNumber;
 
 PathSegment::PathSegment()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.PathSegment)
 }
+
+void PathSegment::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 PathSegment::PathSegment(const PathSegment& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  points_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.points().size() > 0) {
-    points_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.points_);
-  }
-  line_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.line_type().size() > 0) {
-    line_type_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.line_type_);
-  }
-  line_width_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.line_width().size() > 0) {
-    line_width_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.line_width_);
-  }
-  ::memcpy(&extruder_, &from.extruder_,
-    reinterpret_cast<char*>(&point_type_) -
-    reinterpret_cast<char*>(&extruder_) + sizeof(point_type_));
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.PathSegment)
 }
 
 void PathSegment::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  extruder_ = 0;
+  point_type_ = 0;
   points_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   line_type_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   line_width_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&extruder_, 0, reinterpret_cast<char*>(&point_type_) -
-    reinterpret_cast<char*>(&extruder_) + sizeof(point_type_));
-  _cached_size_ = 0;
 }
 
 PathSegment::~PathSegment() {
@@ -3571,6 +3858,8 @@ void PathSegment::SharedDtor() {
   points_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   line_type_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   line_width_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
 }
 
 void PathSegment::SetCachedSize(int size) const {
@@ -3579,14 +3868,16 @@ void PathSegment::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* PathSegment::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[8].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return PathSegment_descriptor_;
 }
 
 const PathSegment& PathSegment::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+PathSegment* PathSegment::default_instance_ = NULL;
 
 PathSegment* PathSegment::New(::google::protobuf::Arena* arena) const {
   PathSegment* n = new PathSegment;
@@ -3598,11 +3889,30 @@ PathSegment* PathSegment::New(::google::protobuf::Arena* arena) const {
 
 void PathSegment::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.PathSegment)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(PathSegment, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<PathSegment*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&(first), 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(extruder_, point_type_);
   points_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   line_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   line_width_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ::memset(&extruder_, 0, reinterpret_cast<char*>(&point_type_) -
-    reinterpret_cast<char*>(&extruder_) + sizeof(point_type_));
+
+#undef ZR_HELPER_
+#undef ZR_
+
 }
 
 bool PathSegment::MergePartialFromCodedStream(
@@ -3611,26 +3921,28 @@ bool PathSegment::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.PathSegment)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int32 extruder = 1;
+      // optional int32 extruder = 1;
       case 1: {
-        if (tag == 8u) {
-
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &extruder_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(16)) goto parse_point_type;
         break;
       }
 
-      // .cura.proto.PathSegment.PointType point_type = 2;
+      // optional .cura.proto.PathSegment.PointType point_type = 2;
       case 2: {
-        if (tag == 16u) {
+        if (tag == 16) {
+         parse_point_type:
           int value;
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
@@ -3639,39 +3951,46 @@ bool PathSegment::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(26)) goto parse_points;
         break;
       }
 
-      // bytes points = 3;
+      // optional bytes points = 3;
       case 3: {
-        if (tag == 26u) {
+        if (tag == 26) {
+         parse_points:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_points()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(34)) goto parse_line_type;
         break;
       }
 
-      // bytes line_type = 4;
+      // optional bytes line_type = 4;
       case 4: {
-        if (tag == 34u) {
+        if (tag == 34) {
+         parse_line_type:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_line_type()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(42)) goto parse_line_width;
         break;
       }
 
-      // bytes line_width = 5;
+      // optional bytes line_width = 5;
       case 5: {
-        if (tag == 42u) {
+        if (tag == 42) {
+         parse_line_width:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_line_width()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -3699,30 +4018,30 @@ failure:
 void PathSegment::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.PathSegment)
-  // int32 extruder = 1;
+  // optional int32 extruder = 1;
   if (this->extruder() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->extruder(), output);
   }
 
-  // .cura.proto.PathSegment.PointType point_type = 2;
+  // optional .cura.proto.PathSegment.PointType point_type = 2;
   if (this->point_type() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       2, this->point_type(), output);
   }
 
-  // bytes points = 3;
+  // optional bytes points = 3;
   if (this->points().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       3, this->points(), output);
   }
 
-  // bytes line_type = 4;
+  // optional bytes line_type = 4;
   if (this->line_type().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       4, this->line_type(), output);
   }
 
-  // bytes line_width = 5;
+  // optional bytes line_width = 5;
   if (this->line_width().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       5, this->line_width(), output);
@@ -3733,34 +4052,34 @@ void PathSegment::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* PathSegment::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.PathSegment)
-  // int32 extruder = 1;
+  // optional int32 extruder = 1;
   if (this->extruder() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->extruder(), target);
   }
 
-  // .cura.proto.PathSegment.PointType point_type = 2;
+  // optional .cura.proto.PathSegment.PointType point_type = 2;
   if (this->point_type() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       2, this->point_type(), target);
   }
 
-  // bytes points = 3;
+  // optional bytes points = 3;
   if (this->points().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         3, this->points(), target);
   }
 
-  // bytes line_type = 4;
+  // optional bytes line_type = 4;
   if (this->line_type().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
         4, this->line_type(), target);
   }
 
-  // bytes line_width = 5;
+  // optional bytes line_width = 5;
   if (this->line_width().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
@@ -3771,55 +4090,56 @@ void PathSegment::SerializeWithCachedSizes(
   return target;
 }
 
-size_t PathSegment::ByteSizeLong() const {
+int PathSegment::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.PathSegment)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // bytes points = 3;
-  if (this->points().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->points());
-  }
-
-  // bytes line_type = 4;
-  if (this->line_type().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->line_type());
-  }
-
-  // bytes line_width = 5;
-  if (this->line_width().size() > 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::BytesSize(
-        this->line_width());
-  }
-
-  // int32 extruder = 1;
+  // optional int32 extruder = 1;
   if (this->extruder() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->extruder());
   }
 
-  // .cura.proto.PathSegment.PointType point_type = 2;
+  // optional .cura.proto.PathSegment.PointType point_type = 2;
   if (this->point_type() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->point_type());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // optional bytes points = 3;
+  if (this->points().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->points());
+  }
+
+  // optional bytes line_type = 4;
+  if (this->line_type().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->line_type());
+  }
+
+  // optional bytes line_width = 5;
+  if (this->line_width().size() > 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::BytesSize(
+        this->line_width());
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void PathSegment::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.PathSegment)
-  GOOGLE_DCHECK_NE(&from, this);
-  const PathSegment* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const PathSegment* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const PathSegment>(
           &from);
   if (source == NULL) {
@@ -3833,8 +4153,15 @@ void PathSegment::MergeFrom(const ::google::protobuf::Message& from) {
 
 void PathSegment::MergeFrom(const PathSegment& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.PathSegment)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from.extruder() != 0) {
+    set_extruder(from.extruder());
+  }
+  if (from.point_type() != 0) {
+    set_point_type(from.point_type());
+  }
   if (from.points().size() > 0) {
 
     points_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.points_);
@@ -3846,12 +4173,6 @@ void PathSegment::MergeFrom(const PathSegment& from) {
   if (from.line_width().size() > 0) {
 
     line_width_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.line_width_);
-  }
-  if (from.extruder() != 0) {
-    set_extruder(from.extruder());
-  }
-  if (from.point_type() != 0) {
-    set_point_type(from.point_type());
   }
 }
 
@@ -3870,6 +4191,7 @@ void PathSegment::CopyFrom(const PathSegment& from) {
 }
 
 bool PathSegment::IsInitialized() const {
+
   return true;
 }
 
@@ -3878,93 +4200,89 @@ void PathSegment::Swap(PathSegment* other) {
   InternalSwap(other);
 }
 void PathSegment::InternalSwap(PathSegment* other) {
+  std::swap(extruder_, other->extruder_);
+  std::swap(point_type_, other->point_type_);
   points_.Swap(&other->points_);
   line_type_.Swap(&other->line_type_);
   line_width_.Swap(&other->line_width_);
-  std::swap(extruder_, other->extruder_);
-  std::swap(point_type_, other->point_type_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata PathSegment::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[8];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PathSegment_descriptor_;
+  metadata.reflection = PathSegment_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PathSegment
 
-// int32 extruder = 1;
+// optional int32 extruder = 1;
 void PathSegment::clear_extruder() {
   extruder_ = 0;
 }
-::google::protobuf::int32 PathSegment::extruder() const {
+ ::google::protobuf::int32 PathSegment::extruder() const {
   // @@protoc_insertion_point(field_get:cura.proto.PathSegment.extruder)
   return extruder_;
 }
-void PathSegment::set_extruder(::google::protobuf::int32 value) {
+ void PathSegment::set_extruder(::google::protobuf::int32 value) {
   
   extruder_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.PathSegment.extruder)
 }
 
-// .cura.proto.PathSegment.PointType point_type = 2;
+// optional .cura.proto.PathSegment.PointType point_type = 2;
 void PathSegment::clear_point_type() {
   point_type_ = 0;
 }
-::cura::proto::PathSegment_PointType PathSegment::point_type() const {
+ ::cura::proto::PathSegment_PointType PathSegment::point_type() const {
   // @@protoc_insertion_point(field_get:cura.proto.PathSegment.point_type)
   return static_cast< ::cura::proto::PathSegment_PointType >(point_type_);
 }
-void PathSegment::set_point_type(::cura::proto::PathSegment_PointType value) {
+ void PathSegment::set_point_type(::cura::proto::PathSegment_PointType value) {
   
   point_type_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.PathSegment.point_type)
 }
 
-// bytes points = 3;
+// optional bytes points = 3;
 void PathSegment::clear_points() {
   points_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& PathSegment::points() const {
+ const ::std::string& PathSegment::points() const {
   // @@protoc_insertion_point(field_get:cura.proto.PathSegment.points)
-  return points_.GetNoArena();
+  return points_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void PathSegment::set_points(const ::std::string& value) {
+ void PathSegment::set_points(const ::std::string& value) {
   
   points_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.PathSegment.points)
 }
-#if LANG_CXX11
-void PathSegment::set_points(::std::string&& value) {
-  
-  points_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.PathSegment.points)
-}
-#endif
-void PathSegment::set_points(const char* value) {
+ void PathSegment::set_points(const char* value) {
   
   points_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.PathSegment.points)
 }
-void PathSegment::set_points(const void* value, size_t size) {
+ void PathSegment::set_points(const void* value, size_t size) {
   
   points_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.PathSegment.points)
 }
-::std::string* PathSegment::mutable_points() {
+ ::std::string* PathSegment::mutable_points() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.PathSegment.points)
   return points_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* PathSegment::release_points() {
+ ::std::string* PathSegment::release_points() {
   // @@protoc_insertion_point(field_release:cura.proto.PathSegment.points)
   
   return points_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void PathSegment::set_allocated_points(::std::string* points) {
+ void PathSegment::set_allocated_points(::std::string* points) {
   if (points != NULL) {
     
   } else {
@@ -3974,49 +4292,41 @@ void PathSegment::set_allocated_points(::std::string* points) {
   // @@protoc_insertion_point(field_set_allocated:cura.proto.PathSegment.points)
 }
 
-// bytes line_type = 4;
+// optional bytes line_type = 4;
 void PathSegment::clear_line_type() {
   line_type_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& PathSegment::line_type() const {
+ const ::std::string& PathSegment::line_type() const {
   // @@protoc_insertion_point(field_get:cura.proto.PathSegment.line_type)
-  return line_type_.GetNoArena();
+  return line_type_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void PathSegment::set_line_type(const ::std::string& value) {
+ void PathSegment::set_line_type(const ::std::string& value) {
   
   line_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.PathSegment.line_type)
 }
-#if LANG_CXX11
-void PathSegment::set_line_type(::std::string&& value) {
-  
-  line_type_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.PathSegment.line_type)
-}
-#endif
-void PathSegment::set_line_type(const char* value) {
+ void PathSegment::set_line_type(const char* value) {
   
   line_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.PathSegment.line_type)
 }
-void PathSegment::set_line_type(const void* value, size_t size) {
+ void PathSegment::set_line_type(const void* value, size_t size) {
   
   line_type_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.PathSegment.line_type)
 }
-::std::string* PathSegment::mutable_line_type() {
+ ::std::string* PathSegment::mutable_line_type() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.PathSegment.line_type)
   return line_type_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* PathSegment::release_line_type() {
+ ::std::string* PathSegment::release_line_type() {
   // @@protoc_insertion_point(field_release:cura.proto.PathSegment.line_type)
   
   return line_type_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void PathSegment::set_allocated_line_type(::std::string* line_type) {
+ void PathSegment::set_allocated_line_type(::std::string* line_type) {
   if (line_type != NULL) {
     
   } else {
@@ -4026,49 +4336,41 @@ void PathSegment::set_allocated_line_type(::std::string* line_type) {
   // @@protoc_insertion_point(field_set_allocated:cura.proto.PathSegment.line_type)
 }
 
-// bytes line_width = 5;
+// optional bytes line_width = 5;
 void PathSegment::clear_line_width() {
   line_width_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& PathSegment::line_width() const {
+ const ::std::string& PathSegment::line_width() const {
   // @@protoc_insertion_point(field_get:cura.proto.PathSegment.line_width)
-  return line_width_.GetNoArena();
+  return line_width_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void PathSegment::set_line_width(const ::std::string& value) {
+ void PathSegment::set_line_width(const ::std::string& value) {
   
   line_width_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.PathSegment.line_width)
 }
-#if LANG_CXX11
-void PathSegment::set_line_width(::std::string&& value) {
-  
-  line_width_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.PathSegment.line_width)
-}
-#endif
-void PathSegment::set_line_width(const char* value) {
+ void PathSegment::set_line_width(const char* value) {
   
   line_width_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.PathSegment.line_width)
 }
-void PathSegment::set_line_width(const void* value, size_t size) {
+ void PathSegment::set_line_width(const void* value, size_t size) {
   
   line_width_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.PathSegment.line_width)
 }
-::std::string* PathSegment::mutable_line_width() {
+ ::std::string* PathSegment::mutable_line_width() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.PathSegment.line_width)
   return line_width_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* PathSegment::release_line_width() {
+ ::std::string* PathSegment::release_line_width() {
   // @@protoc_insertion_point(field_release:cura.proto.PathSegment.line_width)
   
   return line_width_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void PathSegment::set_allocated_line_width(::std::string* line_width) {
+ void PathSegment::set_allocated_line_width(::std::string* line_width) {
   if (line_width != NULL) {
     
   } else {
@@ -4088,27 +4390,27 @@ const int GCodeLayer::kDataFieldNumber;
 
 GCodeLayer::GCodeLayer()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.GCodeLayer)
 }
+
+void GCodeLayer::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 GCodeLayer::GCodeLayer(const GCodeLayer& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.data().size() > 0) {
-    data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
-  }
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.GCodeLayer)
 }
 
 void GCodeLayer::SharedCtor() {
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
+  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 GCodeLayer::~GCodeLayer() {
@@ -4118,6 +4420,8 @@ GCodeLayer::~GCodeLayer() {
 
 void GCodeLayer::SharedDtor() {
   data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
 }
 
 void GCodeLayer::SetCachedSize(int size) const {
@@ -4126,14 +4430,16 @@ void GCodeLayer::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* GCodeLayer::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[9].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return GCodeLayer_descriptor_;
 }
 
 const GCodeLayer& GCodeLayer::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+GCodeLayer* GCodeLayer::default_instance_ = NULL;
 
 GCodeLayer* GCodeLayer::New(::google::protobuf::Arena* arena) const {
   GCodeLayer* n = new GCodeLayer;
@@ -4154,18 +4460,19 @@ bool GCodeLayer::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.GCodeLayer)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // bytes data = 2;
+      // optional bytes data = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -4193,7 +4500,7 @@ failure:
 void GCodeLayer::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.GCodeLayer)
-  // bytes data = 2;
+  // optional bytes data = 2;
   if (this->data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       2, this->data(), output);
@@ -4204,9 +4511,9 @@ void GCodeLayer::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* GCodeLayer::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.GCodeLayer)
-  // bytes data = 2;
+  // optional bytes data = 2;
   if (this->data().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
@@ -4217,28 +4524,29 @@ void GCodeLayer::SerializeWithCachedSizes(
   return target;
 }
 
-size_t GCodeLayer::ByteSizeLong() const {
+int GCodeLayer::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.GCodeLayer)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // bytes data = 2;
+  // optional bytes data = 2;
   if (this->data().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void GCodeLayer::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.GCodeLayer)
-  GOOGLE_DCHECK_NE(&from, this);
-  const GCodeLayer* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const GCodeLayer* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const GCodeLayer>(
           &from);
   if (source == NULL) {
@@ -4252,8 +4560,9 @@ void GCodeLayer::MergeFrom(const ::google::protobuf::Message& from) {
 
 void GCodeLayer::MergeFrom(const GCodeLayer& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.GCodeLayer)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.data().size() > 0) {
 
     data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
@@ -4275,6 +4584,7 @@ void GCodeLayer::CopyFrom(const GCodeLayer& from) {
 }
 
 bool GCodeLayer::IsInitialized() const {
+
   return true;
 }
 
@@ -4284,60 +4594,56 @@ void GCodeLayer::Swap(GCodeLayer* other) {
 }
 void GCodeLayer::InternalSwap(GCodeLayer* other) {
   data_.Swap(&other->data_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata GCodeLayer::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[9];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = GCodeLayer_descriptor_;
+  metadata.reflection = GCodeLayer_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // GCodeLayer
 
-// bytes data = 2;
+// optional bytes data = 2;
 void GCodeLayer::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& GCodeLayer::data() const {
+ const ::std::string& GCodeLayer::data() const {
   // @@protoc_insertion_point(field_get:cura.proto.GCodeLayer.data)
-  return data_.GetNoArena();
+  return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void GCodeLayer::set_data(const ::std::string& value) {
+ void GCodeLayer::set_data(const ::std::string& value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.GCodeLayer.data)
 }
-#if LANG_CXX11
-void GCodeLayer::set_data(::std::string&& value) {
-  
-  data_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.GCodeLayer.data)
-}
-#endif
-void GCodeLayer::set_data(const char* value) {
+ void GCodeLayer::set_data(const char* value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.GCodeLayer.data)
 }
-void GCodeLayer::set_data(const void* value, size_t size) {
+ void GCodeLayer::set_data(const void* value, size_t size) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.GCodeLayer.data)
 }
-::std::string* GCodeLayer::mutable_data() {
+ ::std::string* GCodeLayer::mutable_data() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.GCodeLayer.data)
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* GCodeLayer::release_data() {
+ ::std::string* GCodeLayer::release_data() {
   // @@protoc_insertion_point(field_release:cura.proto.GCodeLayer.data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void GCodeLayer::set_allocated_data(::std::string* data) {
+ void GCodeLayer::set_allocated_data(::std::string* data) {
   if (data != NULL) {
     
   } else {
@@ -4358,25 +4664,26 @@ const int PrintTimeMaterialEstimates::kMaterialEstimatesFieldNumber;
 
 PrintTimeMaterialEstimates::PrintTimeMaterialEstimates()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.PrintTimeMaterialEstimates)
 }
+
+void PrintTimeMaterialEstimates::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 PrintTimeMaterialEstimates::PrintTimeMaterialEstimates(const PrintTimeMaterialEstimates& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      materialestimates_(from.materialestimates_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  time_ = from.time_;
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.PrintTimeMaterialEstimates)
 }
 
 void PrintTimeMaterialEstimates::SharedCtor() {
-  time_ = 0;
+    _is_default_instance_ = false;
   _cached_size_ = 0;
+  time_ = 0;
 }
 
 PrintTimeMaterialEstimates::~PrintTimeMaterialEstimates() {
@@ -4385,6 +4692,8 @@ PrintTimeMaterialEstimates::~PrintTimeMaterialEstimates() {
 }
 
 void PrintTimeMaterialEstimates::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void PrintTimeMaterialEstimates::SetCachedSize(int size) const {
@@ -4393,14 +4702,16 @@ void PrintTimeMaterialEstimates::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* PrintTimeMaterialEstimates::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[10].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return PrintTimeMaterialEstimates_descriptor_;
 }
 
 const PrintTimeMaterialEstimates& PrintTimeMaterialEstimates::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+PrintTimeMaterialEstimates* PrintTimeMaterialEstimates::default_instance_ = NULL;
 
 PrintTimeMaterialEstimates* PrintTimeMaterialEstimates::New(::google::protobuf::Arena* arena) const {
   PrintTimeMaterialEstimates* n = new PrintTimeMaterialEstimates;
@@ -4412,8 +4723,8 @@ PrintTimeMaterialEstimates* PrintTimeMaterialEstimates::New(::google::protobuf::
 
 void PrintTimeMaterialEstimates::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.PrintTimeMaterialEstimates)
-  materialestimates_.Clear();
   time_ = 0;
+  materialestimates_.Clear();
 }
 
 bool PrintTimeMaterialEstimates::MergePartialFromCodedStream(
@@ -4422,33 +4733,38 @@ bool PrintTimeMaterialEstimates::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.PrintTimeMaterialEstimates)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // float time = 1;
+      // optional float time = 1;
       case 1: {
-        if (tag == 13u) {
-
+        if (tag == 13) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &time_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_materialEstimates;
         break;
       }
 
       // repeated .cura.proto.MaterialEstimates materialEstimates = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
+         parse_materialEstimates:
           DO_(input->IncrementRecursionDepth());
+         parse_loop_materialEstimates:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_materialestimates()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_loop_materialEstimates;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -4476,7 +4792,7 @@ failure:
 void PrintTimeMaterialEstimates::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.PrintTimeMaterialEstimates)
-  // float time = 1;
+  // optional float time = 1;
   if (this->time() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(1, this->time(), output);
   }
@@ -4492,9 +4808,9 @@ void PrintTimeMaterialEstimates::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* PrintTimeMaterialEstimates::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.PrintTimeMaterialEstimates)
-  // float time = 1;
+  // optional float time = 1;
   if (this->time() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(1, this->time(), target);
   }
@@ -4510,37 +4826,35 @@ void PrintTimeMaterialEstimates::SerializeWithCachedSizes(
   return target;
 }
 
-size_t PrintTimeMaterialEstimates::ByteSizeLong() const {
+int PrintTimeMaterialEstimates::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.PrintTimeMaterialEstimates)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // repeated .cura.proto.MaterialEstimates materialEstimates = 2;
-  {
-    unsigned int count = this->materialestimates_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->materialestimates(i));
-    }
-  }
-
-  // float time = 1;
+  // optional float time = 1;
   if (this->time() != 0) {
     total_size += 1 + 4;
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
+  // repeated .cura.proto.MaterialEstimates materialEstimates = 2;
+  total_size += 1 * this->materialestimates_size();
+  for (int i = 0; i < this->materialestimates_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->materialestimates(i));
+  }
+
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void PrintTimeMaterialEstimates::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.PrintTimeMaterialEstimates)
-  GOOGLE_DCHECK_NE(&from, this);
-  const PrintTimeMaterialEstimates* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const PrintTimeMaterialEstimates* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const PrintTimeMaterialEstimates>(
           &from);
   if (source == NULL) {
@@ -4554,8 +4868,9 @@ void PrintTimeMaterialEstimates::MergeFrom(const ::google::protobuf::Message& fr
 
 void PrintTimeMaterialEstimates::MergeFrom(const PrintTimeMaterialEstimates& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.PrintTimeMaterialEstimates)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   materialestimates_.MergeFrom(from.materialestimates_);
   if (from.time() != 0) {
     set_time(from.time());
@@ -4577,6 +4892,7 @@ void PrintTimeMaterialEstimates::CopyFrom(const PrintTimeMaterialEstimates& from
 }
 
 bool PrintTimeMaterialEstimates::IsInitialized() const {
+
   return true;
 }
 
@@ -4585,28 +4901,32 @@ void PrintTimeMaterialEstimates::Swap(PrintTimeMaterialEstimates* other) {
   InternalSwap(other);
 }
 void PrintTimeMaterialEstimates::InternalSwap(PrintTimeMaterialEstimates* other) {
-  materialestimates_.UnsafeArenaSwap(&other->materialestimates_);
   std::swap(time_, other->time_);
+  materialestimates_.UnsafeArenaSwap(&other->materialestimates_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata PrintTimeMaterialEstimates::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[10];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = PrintTimeMaterialEstimates_descriptor_;
+  metadata.reflection = PrintTimeMaterialEstimates_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PrintTimeMaterialEstimates
 
-// float time = 1;
+// optional float time = 1;
 void PrintTimeMaterialEstimates::clear_time() {
   time_ = 0;
 }
-float PrintTimeMaterialEstimates::time() const {
+ float PrintTimeMaterialEstimates::time() const {
   // @@protoc_insertion_point(field_get:cura.proto.PrintTimeMaterialEstimates.time)
   return time_;
 }
-void PrintTimeMaterialEstimates::set_time(float value) {
+ void PrintTimeMaterialEstimates::set_time(float value) {
   
   time_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.PrintTimeMaterialEstimates.time)
@@ -4653,27 +4973,27 @@ const int MaterialEstimates::kMaterialAmountFieldNumber;
 
 MaterialEstimates::MaterialEstimates()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.MaterialEstimates)
 }
+
+void MaterialEstimates::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 MaterialEstimates::MaterialEstimates(const MaterialEstimates& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  ::memcpy(&id_, &from.id_,
-    reinterpret_cast<char*>(&material_amount_) -
-    reinterpret_cast<char*>(&id_) + sizeof(material_amount_));
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.MaterialEstimates)
 }
 
 void MaterialEstimates::SharedCtor() {
-  ::memset(&id_, 0, reinterpret_cast<char*>(&material_amount_) -
-    reinterpret_cast<char*>(&id_) + sizeof(material_amount_));
+    _is_default_instance_ = false;
   _cached_size_ = 0;
+  id_ = GOOGLE_LONGLONG(0);
+  material_amount_ = 0;
 }
 
 MaterialEstimates::~MaterialEstimates() {
@@ -4682,6 +5002,8 @@ MaterialEstimates::~MaterialEstimates() {
 }
 
 void MaterialEstimates::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void MaterialEstimates::SetCachedSize(int size) const {
@@ -4690,14 +5012,16 @@ void MaterialEstimates::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* MaterialEstimates::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[11].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return MaterialEstimates_descriptor_;
 }
 
 const MaterialEstimates& MaterialEstimates::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+MaterialEstimates* MaterialEstimates::default_instance_ = NULL;
 
 MaterialEstimates* MaterialEstimates::New(::google::protobuf::Arena* arena) const {
   MaterialEstimates* n = new MaterialEstimates;
@@ -4709,8 +5033,27 @@ MaterialEstimates* MaterialEstimates::New(::google::protobuf::Arena* arena) cons
 
 void MaterialEstimates::Clear() {
 // @@protoc_insertion_point(message_clear_start:cura.proto.MaterialEstimates)
-  ::memset(&id_, 0, reinterpret_cast<char*>(&material_amount_) -
-    reinterpret_cast<char*>(&id_) + sizeof(material_amount_));
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(MaterialEstimates, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<MaterialEstimates*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&(first), 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  ZR_(id_, material_amount_);
+
+#undef ZR_HELPER_
+#undef ZR_
+
 }
 
 bool MaterialEstimates::MergePartialFromCodedStream(
@@ -4719,33 +5062,36 @@ bool MaterialEstimates::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.MaterialEstimates)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // int64 id = 1;
+      // optional int64 id = 1;
       case 1: {
-        if (tag == 8u) {
-
+        if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int64, ::google::protobuf::internal::WireFormatLite::TYPE_INT64>(
                  input, &id_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(21)) goto parse_material_amount;
         break;
       }
 
-      // float material_amount = 2;
+      // optional float material_amount = 2;
       case 2: {
-        if (tag == 21u) {
-
+        if (tag == 21) {
+         parse_material_amount:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    float, ::google::protobuf::internal::WireFormatLite::TYPE_FLOAT>(
                  input, &material_amount_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -4773,12 +5119,12 @@ failure:
 void MaterialEstimates::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.MaterialEstimates)
-  // int64 id = 1;
+  // optional int64 id = 1;
   if (this->id() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt64(1, this->id(), output);
   }
 
-  // float material_amount = 2;
+  // optional float material_amount = 2;
   if (this->material_amount() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteFloat(2, this->material_amount(), output);
   }
@@ -4788,14 +5134,14 @@ void MaterialEstimates::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* MaterialEstimates::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.MaterialEstimates)
-  // int64 id = 1;
+  // optional int64 id = 1;
   if (this->id() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt64ToArray(1, this->id(), target);
   }
 
-  // float material_amount = 2;
+  // optional float material_amount = 2;
   if (this->material_amount() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteFloatToArray(2, this->material_amount(), target);
   }
@@ -4804,33 +5150,34 @@ void MaterialEstimates::SerializeWithCachedSizes(
   return target;
 }
 
-size_t MaterialEstimates::ByteSizeLong() const {
+int MaterialEstimates::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.MaterialEstimates)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // int64 id = 1;
+  // optional int64 id = 1;
   if (this->id() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int64Size(
         this->id());
   }
 
-  // float material_amount = 2;
+  // optional float material_amount = 2;
   if (this->material_amount() != 0) {
     total_size += 1 + 4;
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void MaterialEstimates::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.MaterialEstimates)
-  GOOGLE_DCHECK_NE(&from, this);
-  const MaterialEstimates* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const MaterialEstimates* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const MaterialEstimates>(
           &from);
   if (source == NULL) {
@@ -4844,8 +5191,9 @@ void MaterialEstimates::MergeFrom(const ::google::protobuf::Message& from) {
 
 void MaterialEstimates::MergeFrom(const MaterialEstimates& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.MaterialEstimates)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.id() != 0) {
     set_id(from.id());
   }
@@ -4869,6 +5217,7 @@ void MaterialEstimates::CopyFrom(const MaterialEstimates& from) {
 }
 
 bool MaterialEstimates::IsInitialized() const {
+
   return true;
 }
 
@@ -4879,40 +5228,44 @@ void MaterialEstimates::Swap(MaterialEstimates* other) {
 void MaterialEstimates::InternalSwap(MaterialEstimates* other) {
   std::swap(id_, other->id_);
   std::swap(material_amount_, other->material_amount_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata MaterialEstimates::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[11];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = MaterialEstimates_descriptor_;
+  metadata.reflection = MaterialEstimates_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // MaterialEstimates
 
-// int64 id = 1;
+// optional int64 id = 1;
 void MaterialEstimates::clear_id() {
   id_ = GOOGLE_LONGLONG(0);
 }
-::google::protobuf::int64 MaterialEstimates::id() const {
+ ::google::protobuf::int64 MaterialEstimates::id() const {
   // @@protoc_insertion_point(field_get:cura.proto.MaterialEstimates.id)
   return id_;
 }
-void MaterialEstimates::set_id(::google::protobuf::int64 value) {
+ void MaterialEstimates::set_id(::google::protobuf::int64 value) {
   
   id_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.MaterialEstimates.id)
 }
 
-// float material_amount = 2;
+// optional float material_amount = 2;
 void MaterialEstimates::clear_material_amount() {
   material_amount_ = 0;
 }
-float MaterialEstimates::material_amount() const {
+ float MaterialEstimates::material_amount() const {
   // @@protoc_insertion_point(field_get:cura.proto.MaterialEstimates.material_amount)
   return material_amount_;
 }
-void MaterialEstimates::set_material_amount(float value) {
+ void MaterialEstimates::set_material_amount(float value) {
   
   material_amount_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.MaterialEstimates.material_amount)
@@ -4928,22 +5281,24 @@ const int SettingList::kSettingsFieldNumber;
 
 SettingList::SettingList()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.SettingList)
 }
+
+void SettingList::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 SettingList::SettingList(const SettingList& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      settings_(from.settings_),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.SettingList)
 }
 
 void SettingList::SharedCtor() {
+    _is_default_instance_ = false;
   _cached_size_ = 0;
 }
 
@@ -4953,6 +5308,8 @@ SettingList::~SettingList() {
 }
 
 void SettingList::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void SettingList::SetCachedSize(int size) const {
@@ -4961,14 +5318,16 @@ void SettingList::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* SettingList::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[12].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return SettingList_descriptor_;
 }
 
 const SettingList& SettingList::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+SettingList* SettingList::default_instance_ = NULL;
 
 SettingList* SettingList::New(::google::protobuf::Arena* arena) const {
   SettingList* n = new SettingList;
@@ -4989,20 +5348,23 @@ bool SettingList::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.SettingList)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
       // repeated .cura.proto.Setting settings = 1;
       case 1: {
-        if (tag == 10u) {
+        if (tag == 10) {
           DO_(input->IncrementRecursionDepth());
+         parse_loop_settings:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
                 input, add_settings()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(10)) goto parse_loop_settings;
         input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -5041,7 +5403,7 @@ void SettingList::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* SettingList::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.SettingList)
   // repeated .cura.proto.Setting settings = 1;
   for (unsigned int i = 0, n = this->settings_size(); i < n; i++) {
@@ -5054,32 +5416,30 @@ void SettingList::SerializeWithCachedSizes(
   return target;
 }
 
-size_t SettingList::ByteSizeLong() const {
+int SettingList::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.SettingList)
-  size_t total_size = 0;
+  int total_size = 0;
 
   // repeated .cura.proto.Setting settings = 1;
-  {
-    unsigned int count = this->settings_size();
-    total_size += 1UL * count;
-    for (unsigned int i = 0; i < count; i++) {
-      total_size +=
-        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
-          this->settings(i));
-    }
+  total_size += 1 * this->settings_size();
+  for (int i = 0; i < this->settings_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->settings(i));
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void SettingList::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.SettingList)
-  GOOGLE_DCHECK_NE(&from, this);
-  const SettingList* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const SettingList* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SettingList>(
           &from);
   if (source == NULL) {
@@ -5093,8 +5453,9 @@ void SettingList::MergeFrom(const ::google::protobuf::Message& from) {
 
 void SettingList::MergeFrom(const SettingList& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.SettingList)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   settings_.MergeFrom(from.settings_);
 }
 
@@ -5113,6 +5474,7 @@ void SettingList::CopyFrom(const SettingList& from) {
 }
 
 bool SettingList::IsInitialized() const {
+
   return true;
 }
 
@@ -5122,12 +5484,16 @@ void SettingList::Swap(SettingList* other) {
 }
 void SettingList::InternalSwap(SettingList* other) {
   settings_.UnsafeArenaSwap(&other->settings_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata SettingList::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[12];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SettingList_descriptor_;
+  metadata.reflection = SettingList_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -5174,32 +5540,28 @@ const int Setting::kValueFieldNumber;
 
 Setting::Setting()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.Setting)
 }
+
+void Setting::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 Setting::Setting(const Setting& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.name().size() > 0) {
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.value().size() > 0) {
-    value_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.value_);
-  }
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.Setting)
 }
 
 void Setting::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  _cached_size_ = 0;
 }
 
 Setting::~Setting() {
@@ -5210,6 +5572,8 @@ Setting::~Setting() {
 void Setting::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   value_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
 }
 
 void Setting::SetCachedSize(int size) const {
@@ -5218,14 +5582,16 @@ void Setting::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* Setting::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[13].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return Setting_descriptor_;
 }
 
 const Setting& Setting::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+Setting* Setting::default_instance_ = NULL;
 
 Setting* Setting::New(::google::protobuf::Arena* arena) const {
   Setting* n = new Setting;
@@ -5247,13 +5613,13 @@ bool Setting::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.Setting)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string name = 1;
+      // optional string name = 1;
       case 1: {
-        if (tag == 10u) {
+        if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5263,17 +5629,20 @@ bool Setting::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(18)) goto parse_value;
         break;
       }
 
-      // bytes value = 2;
+      // optional bytes value = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
+         parse_value:
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_value()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -5301,7 +5670,7 @@ failure:
 void Setting::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.Setting)
-  // string name = 1;
+  // optional string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -5311,7 +5680,7 @@ void Setting::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // bytes value = 2;
+  // optional bytes value = 2;
   if (this->value().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       2, this->value(), output);
@@ -5322,9 +5691,9 @@ void Setting::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* Setting::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.Setting)
-  // string name = 1;
+  // optional string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -5335,7 +5704,7 @@ void Setting::SerializeWithCachedSizes(
         1, this->name(), target);
   }
 
-  // bytes value = 2;
+  // optional bytes value = 2;
   if (this->value().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
@@ -5346,35 +5715,36 @@ void Setting::SerializeWithCachedSizes(
   return target;
 }
 
-size_t Setting::ByteSizeLong() const {
+int Setting::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.Setting)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // string name = 1;
+  // optional string name = 1;
   if (this->name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
   }
 
-  // bytes value = 2;
+  // optional bytes value = 2;
   if (this->value().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->value());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void Setting::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.Setting)
-  GOOGLE_DCHECK_NE(&from, this);
-  const Setting* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const Setting* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const Setting>(
           &from);
   if (source == NULL) {
@@ -5388,8 +5758,9 @@ void Setting::MergeFrom(const ::google::protobuf::Message& from) {
 
 void Setting::MergeFrom(const Setting& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.Setting)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.name().size() > 0) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
@@ -5415,6 +5786,7 @@ void Setting::CopyFrom(const Setting& from) {
 }
 
 bool Setting::IsInitialized() const {
+
   return true;
 }
 
@@ -5425,60 +5797,56 @@ void Setting::Swap(Setting* other) {
 void Setting::InternalSwap(Setting* other) {
   name_.Swap(&other->name_);
   value_.Swap(&other->value_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata Setting::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[13];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = Setting_descriptor_;
+  metadata.reflection = Setting_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // Setting
 
-// string name = 1;
+// optional string name = 1;
 void Setting::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& Setting::name() const {
+ const ::std::string& Setting::name() const {
   // @@protoc_insertion_point(field_get:cura.proto.Setting.name)
-  return name_.GetNoArena();
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Setting::set_name(const ::std::string& value) {
+ void Setting::set_name(const ::std::string& value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.Setting.name)
 }
-#if LANG_CXX11
-void Setting::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.Setting.name)
-}
-#endif
-void Setting::set_name(const char* value) {
+ void Setting::set_name(const char* value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.Setting.name)
 }
-void Setting::set_name(const char* value, size_t size) {
+ void Setting::set_name(const char* value, size_t size) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.Setting.name)
 }
-::std::string* Setting::mutable_name() {
+ ::std::string* Setting::mutable_name() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.Setting.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Setting::release_name() {
+ ::std::string* Setting::release_name() {
   // @@protoc_insertion_point(field_release:cura.proto.Setting.name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Setting::set_allocated_name(::std::string* name) {
+ void Setting::set_allocated_name(::std::string* name) {
   if (name != NULL) {
     
   } else {
@@ -5488,49 +5856,41 @@ void Setting::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:cura.proto.Setting.name)
 }
 
-// bytes value = 2;
+// optional bytes value = 2;
 void Setting::clear_value() {
   value_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& Setting::value() const {
+ const ::std::string& Setting::value() const {
   // @@protoc_insertion_point(field_get:cura.proto.Setting.value)
-  return value_.GetNoArena();
+  return value_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Setting::set_value(const ::std::string& value) {
+ void Setting::set_value(const ::std::string& value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.Setting.value)
 }
-#if LANG_CXX11
-void Setting::set_value(::std::string&& value) {
-  
-  value_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.Setting.value)
-}
-#endif
-void Setting::set_value(const char* value) {
+ void Setting::set_value(const char* value) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.Setting.value)
 }
-void Setting::set_value(const void* value, size_t size) {
+ void Setting::set_value(const void* value, size_t size) {
   
   value_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.Setting.value)
 }
-::std::string* Setting::mutable_value() {
+ ::std::string* Setting::mutable_value() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.Setting.value)
   return value_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* Setting::release_value() {
+ ::std::string* Setting::release_value() {
   // @@protoc_insertion_point(field_release:cura.proto.Setting.value)
   
   return value_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void Setting::set_allocated_value(::std::string* value) {
+ void Setting::set_allocated_value(::std::string* value) {
   if (value != NULL) {
     
   } else {
@@ -5551,29 +5911,28 @@ const int SettingExtruder::kExtruderFieldNumber;
 
 SettingExtruder::SettingExtruder()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.SettingExtruder)
 }
+
+void SettingExtruder::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 SettingExtruder::SettingExtruder(const SettingExtruder& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.name().size() > 0) {
-    name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
-  }
-  extruder_ = from.extruder_;
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.SettingExtruder)
 }
 
 void SettingExtruder::SharedCtor() {
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
   name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   extruder_ = 0;
-  _cached_size_ = 0;
 }
 
 SettingExtruder::~SettingExtruder() {
@@ -5583,6 +5942,8 @@ SettingExtruder::~SettingExtruder() {
 
 void SettingExtruder::SharedDtor() {
   name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
 }
 
 void SettingExtruder::SetCachedSize(int size) const {
@@ -5591,14 +5952,16 @@ void SettingExtruder::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* SettingExtruder::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[14].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return SettingExtruder_descriptor_;
 }
 
 const SettingExtruder& SettingExtruder::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+SettingExtruder* SettingExtruder::default_instance_ = NULL;
 
 SettingExtruder* SettingExtruder::New(::google::protobuf::Arena* arena) const {
   SettingExtruder* n = new SettingExtruder;
@@ -5620,13 +5983,13 @@ bool SettingExtruder::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.SettingExtruder)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // string name = 1;
+      // optional string name = 1;
       case 1: {
-        if (tag == 10u) {
+        if (tag == 10) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_name()));
           DO_(::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
@@ -5636,19 +5999,22 @@ bool SettingExtruder::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(16)) goto parse_extruder;
         break;
       }
 
-      // int32 extruder = 2;
+      // optional int32 extruder = 2;
       case 2: {
-        if (tag == 16u) {
-
+        if (tag == 16) {
+         parse_extruder:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &extruder_)));
+
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -5676,7 +6042,7 @@ failure:
 void SettingExtruder::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.SettingExtruder)
-  // string name = 1;
+  // optional string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -5686,7 +6052,7 @@ void SettingExtruder::SerializeWithCachedSizes(
       1, this->name(), output);
   }
 
-  // int32 extruder = 2;
+  // optional int32 extruder = 2;
   if (this->extruder() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->extruder(), output);
   }
@@ -5696,9 +6062,9 @@ void SettingExtruder::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* SettingExtruder::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.SettingExtruder)
-  // string name = 1;
+  // optional string name = 1;
   if (this->name().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::VerifyUtf8String(
       this->name().data(), this->name().length(),
@@ -5709,7 +6075,7 @@ void SettingExtruder::SerializeWithCachedSizes(
         1, this->name(), target);
   }
 
-  // int32 extruder = 2;
+  // optional int32 extruder = 2;
   if (this->extruder() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(2, this->extruder(), target);
   }
@@ -5718,35 +6084,36 @@ void SettingExtruder::SerializeWithCachedSizes(
   return target;
 }
 
-size_t SettingExtruder::ByteSizeLong() const {
+int SettingExtruder::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.SettingExtruder)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // string name = 1;
+  // optional string name = 1;
   if (this->name().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->name());
   }
 
-  // int32 extruder = 2;
+  // optional int32 extruder = 2;
   if (this->extruder() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->extruder());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void SettingExtruder::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.SettingExtruder)
-  GOOGLE_DCHECK_NE(&from, this);
-  const SettingExtruder* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const SettingExtruder* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SettingExtruder>(
           &from);
   if (source == NULL) {
@@ -5760,8 +6127,9 @@ void SettingExtruder::MergeFrom(const ::google::protobuf::Message& from) {
 
 void SettingExtruder::MergeFrom(const SettingExtruder& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.SettingExtruder)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.name().size() > 0) {
 
     name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
@@ -5786,6 +6154,7 @@ void SettingExtruder::CopyFrom(const SettingExtruder& from) {
 }
 
 bool SettingExtruder::IsInitialized() const {
+
   return true;
 }
 
@@ -5796,60 +6165,56 @@ void SettingExtruder::Swap(SettingExtruder* other) {
 void SettingExtruder::InternalSwap(SettingExtruder* other) {
   name_.Swap(&other->name_);
   std::swap(extruder_, other->extruder_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata SettingExtruder::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[14];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SettingExtruder_descriptor_;
+  metadata.reflection = SettingExtruder_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // SettingExtruder
 
-// string name = 1;
+// optional string name = 1;
 void SettingExtruder::clear_name() {
   name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& SettingExtruder::name() const {
+ const ::std::string& SettingExtruder::name() const {
   // @@protoc_insertion_point(field_get:cura.proto.SettingExtruder.name)
-  return name_.GetNoArena();
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SettingExtruder::set_name(const ::std::string& value) {
+ void SettingExtruder::set_name(const ::std::string& value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.SettingExtruder.name)
 }
-#if LANG_CXX11
-void SettingExtruder::set_name(::std::string&& value) {
-  
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.SettingExtruder.name)
-}
-#endif
-void SettingExtruder::set_name(const char* value) {
+ void SettingExtruder::set_name(const char* value) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.SettingExtruder.name)
 }
-void SettingExtruder::set_name(const char* value, size_t size) {
+ void SettingExtruder::set_name(const char* value, size_t size) {
   
   name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.SettingExtruder.name)
 }
-::std::string* SettingExtruder::mutable_name() {
+ ::std::string* SettingExtruder::mutable_name() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.SettingExtruder.name)
   return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* SettingExtruder::release_name() {
+ ::std::string* SettingExtruder::release_name() {
   // @@protoc_insertion_point(field_release:cura.proto.SettingExtruder.name)
   
   return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void SettingExtruder::set_allocated_name(::std::string* name) {
+ void SettingExtruder::set_allocated_name(::std::string* name) {
   if (name != NULL) {
     
   } else {
@@ -5859,15 +6224,15 @@ void SettingExtruder::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:cura.proto.SettingExtruder.name)
 }
 
-// int32 extruder = 2;
+// optional int32 extruder = 2;
 void SettingExtruder::clear_extruder() {
   extruder_ = 0;
 }
-::google::protobuf::int32 SettingExtruder::extruder() const {
+ ::google::protobuf::int32 SettingExtruder::extruder() const {
   // @@protoc_insertion_point(field_get:cura.proto.SettingExtruder.extruder)
   return extruder_;
 }
-void SettingExtruder::set_extruder(::google::protobuf::int32 value) {
+ void SettingExtruder::set_extruder(::google::protobuf::int32 value) {
   
   extruder_ = value;
   // @@protoc_insertion_point(field_set:cura.proto.SettingExtruder.extruder)
@@ -5883,27 +6248,27 @@ const int GCodePrefix::kDataFieldNumber;
 
 GCodePrefix::GCodePrefix()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.GCodePrefix)
 }
+
+void GCodePrefix::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 GCodePrefix::GCodePrefix(const GCodePrefix& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  if (from.data().size() > 0) {
-    data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
-  }
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.GCodePrefix)
 }
 
 void GCodePrefix::SharedCtor() {
-  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    _is_default_instance_ = false;
+  ::google::protobuf::internal::GetEmptyString();
   _cached_size_ = 0;
+  data_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
 
 GCodePrefix::~GCodePrefix() {
@@ -5913,6 +6278,8 @@ GCodePrefix::~GCodePrefix() {
 
 void GCodePrefix::SharedDtor() {
   data_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  if (this != default_instance_) {
+  }
 }
 
 void GCodePrefix::SetCachedSize(int size) const {
@@ -5921,14 +6288,16 @@ void GCodePrefix::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* GCodePrefix::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[15].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return GCodePrefix_descriptor_;
 }
 
 const GCodePrefix& GCodePrefix::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+GCodePrefix* GCodePrefix::default_instance_ = NULL;
 
 GCodePrefix* GCodePrefix::New(::google::protobuf::Arena* arena) const {
   GCodePrefix* n = new GCodePrefix;
@@ -5949,18 +6318,19 @@ bool GCodePrefix::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.GCodePrefix)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // bytes data = 2;
+      // optional bytes data = 2;
       case 2: {
-        if (tag == 18u) {
+        if (tag == 18) {
           DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
                 input, this->mutable_data()));
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectAtEnd()) goto success;
         break;
       }
 
@@ -5988,7 +6358,7 @@ failure:
 void GCodePrefix::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:cura.proto.GCodePrefix)
-  // bytes data = 2;
+  // optional bytes data = 2;
   if (this->data().size() > 0) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
       2, this->data(), output);
@@ -5999,9 +6369,9 @@ void GCodePrefix::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* GCodePrefix::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.GCodePrefix)
-  // bytes data = 2;
+  // optional bytes data = 2;
   if (this->data().size() > 0) {
     target =
       ::google::protobuf::internal::WireFormatLite::WriteBytesToArray(
@@ -6012,28 +6382,29 @@ void GCodePrefix::SerializeWithCachedSizes(
   return target;
 }
 
-size_t GCodePrefix::ByteSizeLong() const {
+int GCodePrefix::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.GCodePrefix)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  // bytes data = 2;
+  // optional bytes data = 2;
   if (this->data().size() > 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::BytesSize(
         this->data());
   }
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void GCodePrefix::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.GCodePrefix)
-  GOOGLE_DCHECK_NE(&from, this);
-  const GCodePrefix* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const GCodePrefix* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const GCodePrefix>(
           &from);
   if (source == NULL) {
@@ -6047,8 +6418,9 @@ void GCodePrefix::MergeFrom(const ::google::protobuf::Message& from) {
 
 void GCodePrefix::MergeFrom(const GCodePrefix& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.GCodePrefix)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
   if (from.data().size() > 0) {
 
     data_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.data_);
@@ -6070,6 +6442,7 @@ void GCodePrefix::CopyFrom(const GCodePrefix& from) {
 }
 
 bool GCodePrefix::IsInitialized() const {
+
   return true;
 }
 
@@ -6079,60 +6452,56 @@ void GCodePrefix::Swap(GCodePrefix* other) {
 }
 void GCodePrefix::InternalSwap(GCodePrefix* other) {
   data_.Swap(&other->data_);
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata GCodePrefix::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[15];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = GCodePrefix_descriptor_;
+  metadata.reflection = GCodePrefix_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // GCodePrefix
 
-// bytes data = 2;
+// optional bytes data = 2;
 void GCodePrefix::clear_data() {
   data_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-const ::std::string& GCodePrefix::data() const {
+ const ::std::string& GCodePrefix::data() const {
   // @@protoc_insertion_point(field_get:cura.proto.GCodePrefix.data)
-  return data_.GetNoArena();
+  return data_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void GCodePrefix::set_data(const ::std::string& value) {
+ void GCodePrefix::set_data(const ::std::string& value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
   // @@protoc_insertion_point(field_set:cura.proto.GCodePrefix.data)
 }
-#if LANG_CXX11
-void GCodePrefix::set_data(::std::string&& value) {
-  
-  data_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:cura.proto.GCodePrefix.data)
-}
-#endif
-void GCodePrefix::set_data(const char* value) {
+ void GCodePrefix::set_data(const char* value) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
   // @@protoc_insertion_point(field_set_char:cura.proto.GCodePrefix.data)
 }
-void GCodePrefix::set_data(const void* value, size_t size) {
+ void GCodePrefix::set_data(const void* value, size_t size) {
   
   data_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
   // @@protoc_insertion_point(field_set_pointer:cura.proto.GCodePrefix.data)
 }
-::std::string* GCodePrefix::mutable_data() {
+ ::std::string* GCodePrefix::mutable_data() {
   
   // @@protoc_insertion_point(field_mutable:cura.proto.GCodePrefix.data)
   return data_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-::std::string* GCodePrefix::release_data() {
+ ::std::string* GCodePrefix::release_data() {
   // @@protoc_insertion_point(field_release:cura.proto.GCodePrefix.data)
   
   return data_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-void GCodePrefix::set_allocated_data(::std::string* data) {
+ void GCodePrefix::set_allocated_data(::std::string* data) {
   if (data != NULL) {
     
   } else {
@@ -6151,21 +6520,24 @@ void GCodePrefix::set_allocated_data(::std::string* data) {
 
 SlicingFinished::SlicingFinished()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
-  if (GOOGLE_PREDICT_TRUE(this != internal_default_instance())) {
-    protobuf_Cura_2eproto::InitDefaults();
-  }
   SharedCtor();
   // @@protoc_insertion_point(constructor:cura.proto.SlicingFinished)
 }
+
+void SlicingFinished::InitAsDefaultInstance() {
+  _is_default_instance_ = true;
+}
+
 SlicingFinished::SlicingFinished(const SlicingFinished& from)
   : ::google::protobuf::Message(),
-      _internal_metadata_(NULL),
-      _cached_size_(0) {
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+    _internal_metadata_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
   // @@protoc_insertion_point(copy_constructor:cura.proto.SlicingFinished)
 }
 
 void SlicingFinished::SharedCtor() {
+    _is_default_instance_ = false;
   _cached_size_ = 0;
 }
 
@@ -6175,6 +6547,8 @@ SlicingFinished::~SlicingFinished() {
 }
 
 void SlicingFinished::SharedDtor() {
+  if (this != default_instance_) {
+  }
 }
 
 void SlicingFinished::SetCachedSize(int size) const {
@@ -6183,14 +6557,16 @@ void SlicingFinished::SetCachedSize(int size) const {
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
 }
 const ::google::protobuf::Descriptor* SlicingFinished::descriptor() {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[16].descriptor;
+  protobuf_AssignDescriptorsOnce();
+  return SlicingFinished_descriptor_;
 }
 
 const SlicingFinished& SlicingFinished::default_instance() {
-  protobuf_Cura_2eproto::InitDefaults();
-  return *internal_default_instance();
+  if (default_instance_ == NULL) protobuf_AddDesc_Cura_2eproto();
+  return *default_instance_;
 }
+
+SlicingFinished* SlicingFinished::default_instance_ = NULL;
 
 SlicingFinished* SlicingFinished::New(::google::protobuf::Arena* arena) const {
   SlicingFinished* n = new SlicingFinished;
@@ -6210,7 +6586,7 @@ bool SlicingFinished::MergePartialFromCodedStream(
   ::google::protobuf::uint32 tag;
   // @@protoc_insertion_point(parse_start:cura.proto.SlicingFinished)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoffNoLastTag(127u);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
   handle_unusual:
@@ -6238,27 +6614,28 @@ void SlicingFinished::SerializeWithCachedSizes(
 
 ::google::protobuf::uint8* SlicingFinished::InternalSerializeWithCachedSizesToArray(
     bool deterministic, ::google::protobuf::uint8* target) const {
-  (void)deterministic;  // Unused
+  (void)deterministic; // Unused
   // @@protoc_insertion_point(serialize_to_array_start:cura.proto.SlicingFinished)
   // @@protoc_insertion_point(serialize_to_array_end:cura.proto.SlicingFinished)
   return target;
 }
 
-size_t SlicingFinished::ByteSizeLong() const {
+int SlicingFinished::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:cura.proto.SlicingFinished)
-  size_t total_size = 0;
+  int total_size = 0;
 
-  int cached_size = ::google::protobuf::internal::ToCachedSize(total_size);
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = cached_size;
+  _cached_size_ = total_size;
   GOOGLE_SAFE_CONCURRENT_WRITES_END();
   return total_size;
 }
 
 void SlicingFinished::MergeFrom(const ::google::protobuf::Message& from) {
 // @@protoc_insertion_point(generalized_merge_from_start:cura.proto.SlicingFinished)
-  GOOGLE_DCHECK_NE(&from, this);
-  const SlicingFinished* source =
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  const SlicingFinished* source = 
       ::google::protobuf::internal::DynamicCastToGenerated<const SlicingFinished>(
           &from);
   if (source == NULL) {
@@ -6272,8 +6649,9 @@ void SlicingFinished::MergeFrom(const ::google::protobuf::Message& from) {
 
 void SlicingFinished::MergeFrom(const SlicingFinished& from) {
 // @@protoc_insertion_point(class_specific_merge_from_start:cura.proto.SlicingFinished)
-  GOOGLE_DCHECK_NE(&from, this);
-  _internal_metadata_.MergeFrom(from._internal_metadata_);
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
 }
 
 void SlicingFinished::CopyFrom(const ::google::protobuf::Message& from) {
@@ -6291,6 +6669,7 @@ void SlicingFinished::CopyFrom(const SlicingFinished& from) {
 }
 
 bool SlicingFinished::IsInitialized() const {
+
   return true;
 }
 
@@ -6299,12 +6678,16 @@ void SlicingFinished::Swap(SlicingFinished* other) {
   InternalSwap(other);
 }
 void SlicingFinished::InternalSwap(SlicingFinished* other) {
+  _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
 }
 
 ::google::protobuf::Metadata SlicingFinished::GetMetadata() const {
-  protobuf_Cura_2eproto::protobuf_AssignDescriptorsOnce();
-  return protobuf_Cura_2eproto::file_level_metadata[16];
+  protobuf_AssignDescriptorsOnce();
+  ::google::protobuf::Metadata metadata;
+  metadata.descriptor = SlicingFinished_descriptor_;
+  metadata.reflection = SlicingFinished_reflection_;
+  return metadata;
 }
 
 #if PROTOBUF_INLINE_NOT_IN_HEADERS

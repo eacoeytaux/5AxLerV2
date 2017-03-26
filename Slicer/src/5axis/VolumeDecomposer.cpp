@@ -45,14 +45,6 @@ namespace cura {
             Polygons & polys = slice.polygons;
             Polygons & openPolys = slice.openPolylines;
             std::vector<std::vector<int>> polyFaces = slice.polyFaces;
-
-            PolygonRef poly = slice.polygons[0];
-            for (unsigned int temp_idx = 1; temp_idx < poly.size(); ++temp_idx) {
-                Point p = poly[temp_idx];
-
-                log("[%d, %d],", p.X, p.Y);
-            }
-            log("\n");
             
             // Main loop
             for (unsigned int polyfaces_idx = 0; polyfaces_idx < polyFaces.size(); ++polyfaces_idx) {
@@ -118,7 +110,7 @@ namespace cura {
     }
     
     
-    pair<Point3, Point3> void findNextSplitPoint(Point3& prevSplitPoint, vector<pair<Point3, Point3>>& splitPointsVector) {
+    pair<Point3, Point3> findNextSplitPoint(Point3& prevSplitPoint, vector<pair<Point3, Point3>>& splitPointsVector) {
         for (int i = 0; i < splitPointsVector.size(); i++) {
             if ((prevSplitPoint == splitPointsVector[i].first) || (prevSplitPoint == splitPointsVector[i].second)) {
                 return splitPointsVector[i];

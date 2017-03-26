@@ -1,4 +1,4 @@
-# Install script for directory: /Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer
+# Install script for directory: /home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,15 +27,27 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "1")
+endif()
+
 if(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unspecified")
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/CuraEngine")
   if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine" AND
      NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine")
-    execute_process(COMMAND /usr/bin/install_name_tool
-      -add_rpath "/usr/local/lib"
-      "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine")
+    file(RPATH_CHECK
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine"
+         RPATH "/usr/local/lib")
+  endif()
+  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/bin" TYPE EXECUTABLE FILES "/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/CuraEngine")
+  if(EXISTS "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine" AND
+     NOT IS_SYMLINK "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine")
+    file(RPATH_CHANGE
+         FILE "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine"
+         OLD_RPATH "/usr/local/lib:"
+         NEW_RPATH "/usr/local/lib")
     if(CMAKE_INSTALL_DO_STRIP)
-      execute_process(COMMAND "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine")
+      execute_process(COMMAND "/usr/bin/strip" "$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/bin/CuraEngine")
     endif()
   endif()
 endif()
@@ -48,5 +60,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/ethancoeytaux/Documents/Xcode/5AxLerV2/5AxLerV2/Slicer/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/alexandre/Documents/test_5axler_repo/5AxLerV2/Slicer/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
