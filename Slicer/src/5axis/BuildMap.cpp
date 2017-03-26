@@ -34,10 +34,10 @@ m_mesh(mesh) {
         //to overapproximate ellipse, we extend the radius by this constant
         double radiusExtension = 1.0 / cos(M_PI / ELLIPSE_PRECISION);
         
-        log("[INFO] BUILD MAP - delta-theta: %f", deltaTheta);
-        log("[INFO] BUILD MAP - delta-phi: %f", deltaPhi);
-        log("[INFO] BUILD MAP - ellipse area: %f", M_PI * deltaTheta * deltaPhi);
-        log("[INFO] BUILD MAP - radius extension: %f", radiusExtension);
+        log("[INFO] BUILD MAP - delta-theta: %f\n", deltaTheta);
+        log("[INFO] BUILD MAP - delta-phi: %f\n", deltaPhi);
+        log("[INFO] BUILD MAP - ellipse area: %f\n", M_PI * deltaTheta * deltaPhi);
+        log("[INFO] BUILD MAP - radius extension: %f\n", radiusExtension);
         
         //polygon goes in clockwise form
         for (unsigned int i = 0; i < ELLIPSE_PRECISION; i++) {
@@ -74,7 +74,7 @@ m_mesh(mesh) {
             holeClipper.AddPaths(holes, ptSubject, true);
             holeClipper.AddPath(hole, ptClip, true);
             if (!holeClipper.Execute(ctUnion, holes, pftNonZero, pftNonZero)) {
-                log("[ERROR] BUILD MAP - error taking union of holes");
+                log("[ERROR] BUILD MAP - error taking union of holes\n");
                 //TODO return false;
             }
         } else {
@@ -126,7 +126,7 @@ m_mesh(mesh) {
             }
             
             if (!holeClipper.Execute(ctUnion, holes, pftNonZero, pftNonZero)) {
-                log("[ERROR] BUILD MAP - error taking union of holes");
+                log("[ERROR] BUILD MAP - error taking union of holes\n");
                 //TODO return false;
             }
         }
@@ -144,7 +144,7 @@ m_mesh(mesh) {
     buildMapClipper.AddPath(subject, ptSubject, true);
     buildMapClipper.AddPaths(holes, ptClip, true);
     if (!buildMapClipper.Execute(ctDifference, m_buildMap2D, pftNonZero, pftNonZero)) {
-        log("[ERROR] BUILD MAP - error taking difference of map and holes");
+        log("[ERROR] BUILD MAP - error taking difference of map and holes\n");
         //TODO return false;
     }
 }
@@ -169,8 +169,13 @@ bool BuildMap::checkVector(const FPoint3 & v, bool includeEdges) const {
     }
     
     //will return 0 if false, -1 if on edge, 1 otherwise
-    int pointIn = PointInPolygon(ClipperLib::IntPoint(thetaToBAxisRange(thetaFromCartesian(v)), phiToAAxisRange(phiFromCartesian(v))), m_buildMap2D[0]);
-    return (includeEdges ? (pointIn != 0) : (pointIn == 1));
+    for (int i = 0; i < m_buildMap2D.size(); i++) {
+        int pointIn = PointInPolygon(ClipperLib::IntPoint(thetaToBAxisRange(thetaFromCartesian(v)), phiToAAxisRange(phiFromCartesian(v))), m_buildMap2D[i]);
+        if (includeEdges ? (pointIn != 0) : (pointIn == 1)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 FPoint3 BuildMap::findValidVector() const {
@@ -182,14 +187,27 @@ FPoint3 BuildMap::findValidVector() const {
     
     FPoint3 v = findValidVectorUtil(0, 0, B_AXIS_DISCRETE_POINTS, A_AXIS_DISCRETE_POINTS);
     if (!checkVector(v)) {
-        log("[ERROR] BUILD MAP - arbitrary vector(%f, %f, %f) not in buildmap", v.x, v.y, v.z);
+        log("[ERROR] BUILD MAP - arbitrary vector(%f, %f, %f) not in buildmap\n", v.x, v.y, v.z);
     }
     return v;
 }
 
 FPoint3 BuildMap::findValidVectorUtil(int xStart, int yStart, int width, int height) const {
+    //    log("[INFO] BUILD MAP - checking build map theta(%d-%d) phi(%d-%d)\n", xStart, xStart + width, yStart, yStart + height);
+    
     if ((width == 1) && (height == 1)) {
-        return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart));
+        if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart)))) {
+            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart));
+        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart)))) {
+            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart));
+        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart + 1)))) {
+            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart + 1));
+        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart + 1)))) {
+            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart + 1));
+        }
+        
+        log("[ERROR] BUILD MAP - valid vector found is not in build map\n");
+        return FPoint3(0, 0, 0);
     }
     
     Clipper searchClipper;
@@ -212,12 +230,22 @@ FPoint3 BuildMap::findValidVectorUtil(int xStart, int yStart, int width, int hei
         for (unsigned int i = 0; i < solution.size(); i++) {
             area += Area(solution[i]);
         }
+        //        log("[INFO] BUILD MAP - area of region theta(%d-%d) phi(%d-%d): %f\n", xStart, xStart + dx, yStart, yStart + dy, area);
+        
         searchSuccess = (area > 0);
     } else {
+        //        log("[INFO] BUILD MAP - area of region theta(%d-%d) phi(%d-%d): %f\n", xStart, xStart + dx, yStart, yStart + dy, 0);
+        
         searchSuccess = false;
     }
     
-    return findValidVectorUtil(xStart + width - dx, yStart + height - dy, dx, dy);
+    //    log("[INFO] search success: %s\n", searchSuccess ? "true" : "false");
+    
+    if (searchSuccess) {
+        return findValidVectorUtil(xStart, yStart, dx, dy);
+    } else {
+        return findValidVectorUtil(xStart + width - dx, yStart + height - dy, dx, dy);
+    }
 }
 
 FPoint3 BuildMap::findBestVector() const {
@@ -269,7 +297,7 @@ pair<FPoint3, double> BuildMap::findBestVectorUtil(int x, int y, int dx, int dy,
     }
     
     if ((bestOption.first.x == 0) && (bestOption.first.y == 0) && (bestOption.first.z == 0)) {
-        log("[ERROR] BUILD MAP - finding best vector returned no valid options");
+        log("[ERROR] BUILD MAP - finding best vector returned no valid options\n");
     }
     
     return bestOption;
@@ -287,7 +315,7 @@ double BuildMap::averageCuspHeight(const FPoint3 & v) const {
         
         //find area of face
         //take cross product of (v1 - v0) and (v2 - v0)
-        FPoint3 normalUnnormalized = (m_mesh.vertices[it->vertex_index[1]].p - m_mesh.vertices[it->vertex_index[0]].p).cross(m_mesh.vertices[it->vertex_index[2]].p - m_mesh.vertices[it->vertex_index[0]].p);
+        FPoint3 normalUnnormalized = FPoint3::cross((m_mesh.vertices[it->vertex_index[1]].p - m_mesh.vertices[it->vertex_index[0]].p), (m_mesh.vertices[it->vertex_index[2]].p - m_mesh.vertices[it->vertex_index[0]].p));
         //area is equal to half the magnitude of a cross product
         double faceArea = normalUnnormalized.vSize() / 2;
         
@@ -298,7 +326,7 @@ double BuildMap::averageCuspHeight(const FPoint3 & v) const {
     return weight /= totalFaceArea;
 }
 
-FPoint3 BuildMap::mapToVector(int x, int y) {
+FPoint3 BuildMap::mapToFPoint3(int x, int y) {
     return FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi(y));
 }
 
