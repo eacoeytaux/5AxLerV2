@@ -28,6 +28,7 @@
 #include "5axis/VolumeDecomposer.hpp"
 #include "5axis/MeshToSTL.hpp"
 #include "5axis/BuildMap.hpp"
+#include "5axis/BuildMapToMATLAB.hpp"
 
 
 namespace cura
@@ -364,8 +365,15 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
 	// printf("after: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
 	
 	int fileIndex = 0;
-	for(SeqNode node : vd->sequenceGraph.graphNodes){
-		std::string filename = "output_decomp_" + std::to_string(fileIndex)+ ".STL";
+    for(SeqNode node : vd->sequenceGraph.graphNodes){
+        std::string filename = "buildmap_" + std::to_string(fileIndex)+ ".m";
+        Mesh temp = node.getMesh();
+        BuildMap buildmap(temp);
+        BuildMapToMATLAB::parse(filename, buildmap, BuildMapToMATLAB::PLANE, 25);
+        FPoint3 bestVector = buildmap.findBestVector();
+        log("BEST VECTOR: [%f, %f, %f]\n", bestVector.x, bestVector.y, bestVector.z);
+        
+		filename = "output_decomp_" + std::to_string(fileIndex)+ ".STL";
 	 	MeshToSTL::constructSTLfromMesh(node.getMesh(), filename);
 	 	// MeshToGCode::getGCodeFromMesh(node.getMesh());
 		fileIndex++;

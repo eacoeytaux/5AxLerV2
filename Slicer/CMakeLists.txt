@@ -132,6 +132,7 @@ set(engine_SRCS # Except main.cpp.
     src/5axis/VolumeDecomposer.cpp
     src/5axis/BuildMap.cpp
     src/5axis/MeshToSTL.cpp
+    src/5axis/BuildMapToMATLAB.cpp
     src/5axis/comms/SerialComms.cpp
 	src/5axis/CollisionDetection.cpp
 	src/5axis/SeqGraph.cpp
