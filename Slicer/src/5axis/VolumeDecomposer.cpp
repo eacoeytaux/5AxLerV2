@@ -1421,7 +1421,7 @@ namespace cura {
         //create new meshes for all of the sub-meshes (overhangs) using the seed vertices
         for(unsigned int i = 0; i < seedVertices.size(); i++){
             
-            //find one face on the sob-mesh which we can use to start the BFS queue
+            //find one face on the sub-mesh which we can use to start the BFS queue
             int anAdjacentFaceIndex = -1;
             if(mesh.vertices[seedVertices[i]].connected_faces[0] != -1){
                 anAdjacentFaceIndex = mesh.vertices[seedVertices[i]].connected_faces[0];
@@ -1446,25 +1446,27 @@ namespace cura {
                     int faceIndex = faceQueue.front();
                     
                     if(faceIndex != -1){
+						if(faceIndex >= markedFaces.size() || !markedFaces.at(faceIndex)){
                         
-                        if(faceIndex >= markedFaces.size()){
-                            markedFaces.resize(faceIndex+1);
-                        }
+                        	if(faceIndex >= markedFaces.size()){
+                            	markedFaces.resize(faceIndex+1);
+                        	}
                         
-                        markedFaces.at(faceIndex) = true;
+                        	markedFaces.at(faceIndex) = true;
                         
                         
-                        Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
-                        Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
-                        Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
+                        	Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
+                        	Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
+                        	Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
                         
-                        child.addFace(p0, p1, p2);
+                        	child.addFace(p0, p1, p2);
                         
-                        for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
-                            if( adjacentFace >= markedFaces.size() || !markedFaces.at(adjacentFace) ){
-                                faceQueue.push(adjacentFace);
-                            }
-                        }
+                        	for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+                           	 	if( adjacentFace >= markedFaces.size() || !markedFaces.at(adjacentFace) ){
+                                	faceQueue.push(adjacentFace);
+                            	}
+                        	}
+						}
                     }
                     
                     faceQueue.pop();
