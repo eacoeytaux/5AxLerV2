@@ -22,7 +22,7 @@ os.chdir("../../../../..")
 #run tests
 #subprocess.call('./build/CuraEngine slice -v -j ./5axistests/fdmprinter.def.json -o "test.gcode" -e0 -l "./5axistests/simple.STL"', shell=True)
 #subprocess.call('./build/CuraEngine slice -v -j ./5axistests/fdmprinter.def.json -o "test.gcode" -e0 -l "./5axistests/radial_overhang.STL"', shell=True)
-subprocess.call('./build/CuraEngine slice -v -j ./5axistests/fdmprinter.def.json -o "test.gcode" -e0 -l "./5axistests/simple.STL"', shell=True)
+subprocess.call('./build/CuraEngine slice -v -j ./5axistests/fdmprinter.def.json -o "test.gcode" -e0 -l "./5axistests/double_overhang.STL"', shell=True)
 
 if args.coverage:
 	#generate HMTL coverage file
