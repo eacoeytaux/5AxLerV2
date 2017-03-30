@@ -10,9 +10,23 @@
 
 namespace cura{
 	
-	Mesh SeqNode::rotateToOrigin(){
-		//TODO
-		return mesh;
+	void SeqNode::orientMesh(){
+		//create transformation matrices for the two rotations
+		TransformationMatrix3D rotateAroundY = TransformationMatrix3D();
+		TransformationMatrix3D rotateAroundX = TransformationMatrix3D();
+		rotateAroundY.rotateAroundYAxis(theta);
+		rotateAroundX.rotateAroundXAxis(phi);
+		
+		//first apply rotation around Y axis
+		for(MeshVertex & vertex : mesh.vertices){
+			vertex.p= rotateAroundY.apply(vertex.p);
+		}
+		
+		//apply rotation around X axis
+		for(MeshVertex & vertex : mesh.vertices){
+			vertex.p=rotateAroundX.apply(vertex.p);
+		}
+		return;
 	}
 	
 	void SeqGraph::addNode(SeqNode & node){

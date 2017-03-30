@@ -30,17 +30,18 @@ namespace cura {
 		Mesh mesh;
 		
 		/**
-		 *The transformation necessary to print sub-volume in positive z-axis at origin
+		 *The theta rotation to orient the sub-volume with build direction aligned with positive Z
 		 */
-		TransformationMatrix3D transformationToOrigin;
+		float theta;
 		
 		/**
-		 *The transformation which moves the mesh back to it's original orientation
+		 *The phi rotation to orient the sub-volume with build direction aligned with positive Z
 		 */
-		TransformationMatrix3D transformationToOriginal;
+		float phi;
 		
 		SeqNode(Mesh mesh_c) : mesh(mesh_c){
-			transformationToOrigin = TransformationMatrix3D();
+			theta = 0;
+			phi = 0;
 		};
 		
 		/**
@@ -51,27 +52,13 @@ namespace cura {
 		 */
 		Mesh getMesh(){ return mesh; }
 		
-		/**
-		 *Get the transformation of this node
-		 *The transformation is the transformation matrix which, when applied to the node, orients it so the build direction is along positive Z axis and base it at origin.
-		 *
-		 *@return the mesh
-		 */
-		TransformationMatrix3D getTransformation(){ return transformationToOrigin; }
 		
 		/**
 		 *Rotates and transforms a mesh so that it's build direction is in the positive Z axis.
 		 *
 		 *@return the rotated Mesh.
 		 */
-		Mesh rotateToOrigin();
-		
-		/**
-		 *Rotates and transforms a mesh so that it's in its original position
-		 *
-		 *@return the rotated Mesh.
-		 */
-		Mesh rotateToOriginal();
+		void orientMesh();
 	};
 	
 	class SeqGraph {

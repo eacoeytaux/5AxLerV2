@@ -30,7 +30,10 @@
 #include "5axis/BuildMap.hpp"
 #include "5axis/BuildMapToMATLAB.hpp"
 #include "5axis/Utility.hpp"
+<<<<<<< HEAD
 #include <fstream>
+=======
+>>>>>>> 3a18d7dfcc214ef3575d1eb9b7045ce6b5feb2be
 
 
 namespace cura
@@ -370,15 +373,30 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
     viewerfile.open ("output/viewer_input.txt");
 	
 	int fileIndex = 0;
+	bool baseNode = true;
+	
     for(SeqNode node : vd->sequenceGraph.graphNodes){
-        std::string filename = "output/buildmap_" + std::to_string(fileIndex)+ ".m";
-        Mesh temp = node.getMesh();
-        BuildMap buildmap(temp);
-        BuildMapToMATLAB::parse(filename, buildmap, BuildMapToMATLAB::PLANE, 25);
-        FPoint3 bestVector = buildmap.findBestVector();
-        log("BEST VECTOR: [%f, %f]\n", 180/M_PI * thetaFromCartesian(bestVector), 180/M_PI * phiFromCartesian(bestVector));
-        
-		filename = "output/output_decomp_" + std::to_string(fileIndex)+ ".STL";
+        FPoint3 bestVector;
+		if(!baseNode){
+			//find the build direction of the mesh
+			Mesh temp = node.getMesh();
+			BuildMap buildmap(temp);
+			FPoint3 bestVector = buildmap.findBestVector();
+			log("BEST VECTOR: [%f, %f, %f]\n", bestVector.x, bestVector.y, bestVector.z);
+			node.theta = phiFromCartesian(bestVector); //theta
+			node.phi = thetaFromCartesian(bestVector); //phi
+            
+            std::string filename = "output/buildmap_" + std::to_string(fileIndex)+ ".m";
+            BuildMapToMATLAB::parse(filename, buildmap, BuildMapToMATLAB::PLANE, 25);
+		
+			//orient the mesh based on this build direction
+			node.orientMesh();
+		}else{
+			baseNode = false;
+		}
+
+		//output the final STL
+		std::string filename = "output/output_decomp_" + std::to_string(fileIndex)+ ".STL";
 	 	MeshToSTL::constructSTLfromMesh(node.getMesh(), filename);
 	 	// MeshToGCode::getGCodeFromMesh(node.getMesh());
 		fileIndex++;

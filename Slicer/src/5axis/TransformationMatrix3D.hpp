@@ -25,7 +25,7 @@ namespace cura{
 		 * [0][0], [1][0], [2][0], [0][1], [1][1], [2][1], [0][2], [1][2], [2][2] make up the rotation matrix.
 		 * [3][0], [3][1], [3][2] make up the translation vector
 		 */
-		double matrix[4][4];
+		float matrix[4][4];
 		
 		TransformationMatrix3D()
 		{
@@ -55,12 +55,14 @@ namespace cura{
 		Point3 apply(Point3& p) const
 		{
 			//adding 0.5 is to correct floating point truncation so eg. 1.99999 will round to 2
-			int x = static_cast<int>(p.x * matrix[0][0] + p.y * matrix[1][0] + p.z * matrix[2][0] + 1 * matrix[3][0]) + 0.5;
-			int y = static_cast<int>(p.x * matrix[0][1] + p.y * matrix[1][1] + p.z * matrix[2][1] + 1 * matrix[3][1]) + 0.5;
-			int z = static_cast<int>(p.x * matrix[0][2] + p.y * matrix[1][2] + p.z * matrix[2][2] + 1 * matrix[3][2]) + 0.5;
+			int x = static_cast<int>(p.x * matrix[0][0] + p.y * matrix[0][1] + p.z * matrix[0][2] + 1 * matrix[0][3]) + 0.5;
+			int y = static_cast<int>(p.x * matrix[1][0] + p.y * matrix[1][1] + p.z * matrix[1][2] + 1 * matrix[1][3]) + 0.5;
+			int z = static_cast<int>(p.x * matrix[2][0] + p.y * matrix[2][1] + p.z * matrix[2][2] + 1 * matrix[2][3]) + 0.5;
 			
 			return Point3(x, y, z);
 		}
+		
+	
 		
 		TransformationMatrix3D getInverse(){
 			TransformationMatrix3D & inverse = *new TransformationMatrix3D();
@@ -77,6 +79,63 @@ namespace cura{
 			inverse.matrix[3][1] = -matrix[3][0];
 			inverse.matrix[3][2] = -matrix[3][0];
 			return inverse;
+		}
+		
+		void rotateAroundYAxis(float angle){
+			matrix[0][0] = std::cosf(angle);
+			matrix[1][0] = 0.0;
+			matrix[2][0] = - std::sinf(angle);
+			matrix[3][0] = 0.0;
+			matrix[0][1] = 0.0;
+			matrix[1][1] = 1.0;
+			matrix[2][1] = 0.0;
+			matrix[3][1] = 0.0;
+			matrix[0][2] = std::sinf(angle);
+			matrix[1][2] = 0.0;
+			matrix[2][2] = std::cosf(angle);
+			matrix[3][2] = 0.0;
+			matrix[0][3] = 0.0;
+			matrix[1][3] = 0.0;
+			matrix[2][3] = 0.0;
+			matrix[3][3] = 1.0;
+		}
+		
+		void rotateAroundXAxis(float angle){
+			matrix[0][0] = 1.0;
+			matrix[1][0] = 0.0;
+			matrix[2][0] = 0.0;
+			matrix[3][0] = 0.0;
+			matrix[0][1] = 0.0;
+			matrix[1][1] = std::cosf(angle);
+			matrix[2][1] = std::sinf(angle);
+			matrix[3][1] = 0.0;
+			matrix[0][2] = 0.0;
+			matrix[1][2] = - std::sinf(angle);
+			matrix[2][2] = std::cosf(angle);
+			matrix[3][2] = 0.0;
+			matrix[0][3] = 0.0;
+			matrix[1][3] = 0.0;
+			matrix[2][3] = 0.0;
+			matrix[3][3] = 1.0;
+		}
+		
+		void rotateAroundZAxis(float angle){
+			matrix[0][0] = std::cosf(angle);
+			matrix[1][0] = std::sinf(angle);
+			matrix[2][0] = 0.0;
+			matrix[3][0] = 0.0;
+			matrix[0][1] = - std::sinf(angle);
+			matrix[1][1] = std::cosf(angle);
+			matrix[2][1] = 0.0;
+			matrix[3][1] = 0.0;
+			matrix[0][2] = 0.0;
+			matrix[1][2] = 0.0;
+			matrix[2][2] = 1.0;
+			matrix[3][2] = 0.0;
+			matrix[0][3] = 0.0;
+			matrix[1][3] = 0.0;
+			matrix[2][3] = 0.0;
+			matrix[3][3] = 1.0;
 		}
 	};
 }

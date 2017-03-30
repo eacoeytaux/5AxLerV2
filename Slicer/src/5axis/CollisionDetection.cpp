@@ -44,12 +44,12 @@ namespace cura{
 		SeqNode & printingNode = sequenceGraph.getNode(printingIndex);
 		
 		AABB3D * unorientedBB = new AABB3D();
-		OBB3D * OBB = new OBB3D(printingNode.getTransformation().getInverse());
+		OBB3D * OBB = new OBB3D(TransformationMatrix3D());
 		
 		//loop through all points in printing node, transforming the mesh.  simultaneously compute an AABB to be used in the OBB
 		for( int i = 0; i < printingNode.getMesh().vertices.size(); i++){
 			MeshVertex vertex = printingNode.getMesh().vertices[i];
-			vertex.p = printingNode.getTransformation().apply(vertex.p);
+			//vertex.p = printingNode.getTransformation().apply(vertex.p);
 			unorientedBB->include(vertex.p);
 		}
 		
@@ -88,11 +88,11 @@ namespace cura{
 		
 		//the transformation which moves the sub-volume to a orientation/position where it can be printed in the positive Z axis.
 		//this must be applied to all meshes which are dealt with
-		TransformationMatrix3D transformationMatrix = sequenceGraph.getNode(printingNode).getTransformation();
+		//TransformationMatrix3D transformationMatrix = sequenceGraph.getNode(printingNode).getTransformation();
 		
 		//apply the transformation to the mesh being printed
 		for(MeshVertex &vertex : printingMesh.vertices){
-			vertex = transformationMatrix.apply(vertex.p);
+			//vertex = transformationMatrix.apply(vertex.p);
 		}
 		
 		//slice the mesh that is being printed regularly first
@@ -135,7 +135,7 @@ namespace cura{
 			
 			//apply the transformation
 			for(MeshVertex &vertex : collisionMesh.vertices){
-				vertex = transformationMatrix.apply(vertex.p);
+				//vertex = transformationMatrix.apply(vertex.p);
 			}
 			
 

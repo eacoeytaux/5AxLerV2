@@ -96,6 +96,18 @@ namespace cura {
     static double degreesToRadians(double degrees) {
         return degrees * M_PI / 180.0;
     }
+	
+	static FPoint3 rotateAroundXAxis(FPoint3 vector, float angle){
+		return FPoint3( vector.x, vector.y*cosf(angle) - vector.z*sinf(angle), vector.y*sinf(angle) + vector.z*cosf(angle));
+	}
+	
+	static FPoint3 rotateAroundYAxis(FPoint3 vector, float angle){
+		return FPoint3(vector.z*sinf(angle) - vector.x*cosf(angle) , vector.y, vector.z*cosf(angle) - vector.x*sinf(angle));
+	}
+	
+	static FPoint3 rotateAroundZAxis(FPoint3 vector, float angle){
+		return FPoint3( vector.x*cosf(angle) - vector.y*sinf(angle),  vector.x*sinf(angle) + vector.y*cosf(angle),  vector.z);
+	}
 }
 
 #endif /* Utility_hpp */
