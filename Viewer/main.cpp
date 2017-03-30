@@ -8,7 +8,7 @@
 #include <algorithm>
 #include <fstream>
 #include <string>
-#include <string.h>
+#include <sstream>
 #include <iostream>
 
 // Include GLEW
@@ -21,6 +21,7 @@ GLFWwindow* window;
 // Include GLM
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 #include "controls.hpp"
 #include "shader.hpp"
@@ -28,7 +29,7 @@ GLFWwindow* window;
 using namespace glm;
 using namespace std;
 
-int loadSTL(const char * path, std::vector<glm::vec3> & out_vertices, std::vector<glm::vec3> & out_normals) {
+int loadSTL(const char * path, std::vector<glm::vec3> & out_vertices, std::vector<glm::vec3> & out_normals, int scale = 1) {
     ifstream file;                                      // Our file handler
     char *header = new char[80];                        // The 80-char file header
     unsigned int size = 0;								// The number of triangles in the file
@@ -54,8 +55,6 @@ int loadSTL(const char * path, std::vector<glm::vec3> & out_vertices, std::vecto
                 out_normals.push_back(glm::normalize(glm::vec3(points[0], points[1], points[2])));           // Create normal vector
             }
             
-            double scale = 10000000;
-            printf("points[3]: %d\n", points[3]);
             out_vertices.push_back(glm::vec3(points[3] / scale, points[4] / scale, points[5] / scale));	// Get first point of triangle
             out_vertices.push_back(glm::vec3(points[6] / scale, points[7] / scale, points[8] / scale));	// Get second point of triangle
             out_vertices.push_back(glm::vec3(points[9] / scale, points[10] / scale, points[11] / scale));	// Get third point of triangle
@@ -66,13 +65,19 @@ int loadSTL(const char * path, std::vector<glm::vec3> & out_vertices, std::vecto
         printf("[ERROR] could not open file %s\n", path);
     }
     
-    return size;
+    return size * 3;
 }
 
 int main(int argc, char **argv) {
     
+    //    printf("argc: %d\nargv:", argc);
+    //    for (int i = 0; i < argc; i++) {
+    //        printf(" %s", argv[i]);
+    //    }
+    //    printf("\n");
+    
     if (argc <= 1) {
-        printf("[ERROR] must provide at least one STL file\n");
+        printf("[ERROR] must provide an input file\n");
         exit(0);
     }
     
@@ -81,11 +86,56 @@ int main(int argc, char **argv) {
     std::vector<vec3> vertices;
     std::vector<vec3> normals;
     
-    for (int i = 1; i < argc; i++) {
-        sizes.push_back(3 * loadSTL(argv[i], vertices, normals));
-//        sizes.push_back(3 * loadSTL("../output_decomp_0.STL", vertices, normals));
-//        sizes.push_back(3 * loadSTL("../output_decomp_1.STL", vertices, normals));
-//        sizes.push_back(3 * loadSTL("../output_decomp_2.STL", vertices, normals));
+    //arrow data
+    int arrowSize;
+    std::vector<vec3> arrowVertices;
+    std::vector<vec3> arrowNormals;
+    arrowSize = loadSTL("../Arrow.STL", arrowVertices, arrowNormals, 100000);
+    
+    std::ifstream input(argv[1]);
+    for(std::string line; getline(input, line);) {
+        std::istringstream iss(line);
+        std::string stlFilename;
+        double x, y, z;
+        iss >> stlFilename >> x >> y >> z;
+        printf("%s %d %d %d\n", stlFilename.c_str(), x, y, z);
+        
+        glm::vec3 meshNormal(x, y, z);
+        float theta = 0, phi = 0;
+        
+        if ((meshNormal.x != 0) && (meshNormal.y != 0)) {
+            theta = atan2(meshNormal.y, meshNormal.x);
+        }
+        
+        phi = atan2(sqrt((meshNormal.x * meshNormal.x) + (meshNormal.y * meshNormal.y)), meshNormal.z);
+        
+        printf("theta: %f, phi: %f\n", theta, phi);
+        
+        //        int meshSize;
+        //        std::vector<vec3> meshVertices;
+        //        std::vector<vec3> meshNormals;
+        sizes.push_back(loadSTL(stlFilename.c_str(), vertices, normals, 10000000));
+        
+//        sizes.push_back(arrowSize);
+        for (int i = 0; i < arrowSize; i++) {
+            glm::vec4 vertex(arrowVertices[i].x, arrowVertices[i].y, arrowVertices[i].z, 1);
+            glm::vec4 normal(arrowNormals[i].x, arrowNormals[i].y, arrowNormals[i].z, 1);
+            
+            vertex = glm::rotateX(vertex, (float)(M_PI + phi)); //+pi to flip the arrow (STL is backwards)
+            vertex = glm::rotateZ(vertex, theta);
+            
+            normal = glm::rotateX(normal, (float)(M_PI + phi)); //+pi to flip the arrow (STL is backwards)
+            normal = glm::rotateZ(normal, theta);
+            
+            //            double zAngle = M_PI;
+            //            glm::mat4 zRotation = glm::rotate//(cos(zAngle), sin(zAngle), 0, -sin(zAngle), cos(zAngle), 0, 0, 0, 1);
+            
+            //            vertex = zRotation * vertex;
+            
+            vertices.push_back(glm::vec3(vertex.x, vertex.y, vertex.z));
+            normals.push_back(arrowNormals[i]);
+        }
+        
     }
     
     // Initialise GLFW
@@ -225,10 +275,12 @@ int main(int argc, char **argv) {
         for (int i = 0; i < meshIndex; i++) {
             int start = 0;
             for (int j = 0; j < i; j++) {
-                start += sizes[j];
+                start += sizes[j] + arrowSize;
             }
             glUniform3f(ColorID, 0, 1, (i == meshIndex - 1) ? 0 : 1);
             glDrawArrays(GL_TRIANGLES, start, sizes[i]);
+            glUniform3f(ColorID, 1, 0, 1);
+            glDrawArrays(GL_TRIANGLES, start + sizes[i], arrowSize);
         }
         
         glDisableVertexAttribArray(0);
@@ -240,7 +292,7 @@ int main(int argc, char **argv) {
         
     } // Check if the ESC key was pressed or the window was closed
     while (glfwGetKey(window, GLFW_KEY_ESCAPE ) != GLFW_PRESS &&
-          glfwWindowShouldClose(window) == 0);
+           glfwWindowShouldClose(window) == 0);
     
     // Cleanup VBO and shader
     glDeleteBuffers(1, &vertexbuffer);

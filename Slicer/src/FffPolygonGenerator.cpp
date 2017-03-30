@@ -29,6 +29,8 @@
 #include "5axis/MeshToSTL.hpp"
 #include "5axis/BuildMap.hpp"
 #include "5axis/BuildMapToMATLAB.hpp"
+#include "5axis/Utility.hpp"
+#include <fstream>
 
 
 namespace cura
@@ -363,21 +365,28 @@ bool FffPolygonGenerator::sliceModel(MeshGroup* meshgroup, TimeKeeper& timeKeepe
 	// }
 	
 	// printf("after: %i, %i, %i", vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.x, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.y, vd->sequenceGraph.graphNodes[1].getMesh().vertices[0].p.z);
+    
+    std::ofstream viewerfile;
+    viewerfile.open ("output/viewer_input.txt");
 	
 	int fileIndex = 0;
     for(SeqNode node : vd->sequenceGraph.graphNodes){
-        std::string filename = "buildmap_" + std::to_string(fileIndex)+ ".m";
+        std::string filename = "output/buildmap_" + std::to_string(fileIndex)+ ".m";
         Mesh temp = node.getMesh();
         BuildMap buildmap(temp);
         BuildMapToMATLAB::parse(filename, buildmap, BuildMapToMATLAB::PLANE, 25);
         FPoint3 bestVector = buildmap.findBestVector();
-        log("BEST VECTOR: [%f, %f, %f]\n", bestVector.x, bestVector.y, bestVector.z);
+        log("BEST VECTOR: [%f, %f]\n", 180/M_PI * thetaFromCartesian(bestVector), 180/M_PI * phiFromCartesian(bestVector));
         
-		filename = "output_decomp_" + std::to_string(fileIndex)+ ".STL";
+		filename = "output/output_decomp_" + std::to_string(fileIndex)+ ".STL";
 	 	MeshToSTL::constructSTLfromMesh(node.getMesh(), filename);
 	 	// MeshToGCode::getGCodeFromMesh(node.getMesh());
 		fileIndex++;
+        
+        viewerfile << "../../Slicer/" << filename << "\n" << bestVector.x << " " << bestVector.y << " " << bestVector.z << "\n";
 	}
+    
+    viewerfile.close();
 	
 
     // END CUSTOM CODE

@@ -84,6 +84,8 @@ m_mesh(mesh) {
             int xCenter = thetaToBAxisRange(thetaFromCartesian(v));
             int yCenter = phiToAAxisRange(phiFromCartesian(v));
             
+//            log("[INFO] BUILD MAP - removing hole centered at theta(%d) phi(%d)\n", xCenter, yCenter);
+            
             double sinPhi = sin(phiFromCartesian(v));
             
             Path hole,
@@ -98,20 +100,14 @@ m_mesh(mesh) {
                 int y = it->second + yCenter;
                 hole << ClipperLib::IntPoint(x, y);
                 
-                if (!wrapAroundThetaPos) {
-                    if (x > B_AXIS_DISCRETE_POINTS) {
-                        wrapAroundThetaPos = true;
-                    }
-                }
+                wrapAroundThetaPos |= (x > B_AXIS_DISCRETE_POINTS);
                 holeWrapThetaPos << ClipperLib::IntPoint(x - B_AXIS_DISCRETE_POINTS, y);
                 
-                if (!wrapAroundThetaNeg) {
-                    if (x < 0) {
-                        wrapAroundThetaNeg = true;
-                    }
-                }
+                wrapAroundThetaNeg |= (x < 0);
                 holeWrapThetaNeg << ClipperLib::IntPoint(x + B_AXIS_DISCRETE_POINTS, y);
             }
+            
+//            break;
             
             //union all holes into one polygon
             Clipper holeClipper;
@@ -335,11 +331,19 @@ std::pair<int, int> BuildMap::FPoint3ToMap(const FPoint3 & v) {
 }
 
 int BuildMap::thetaToBAxisRange(double theta) {
-    return radiansToDegrees(theta) / B_AXIS_PRECISION_DEGREES;
+    double ret = radiansToDegrees(theta) / B_AXIS_PRECISION_DEGREES;
+    while (ret < 0) {
+        ret += B_AXIS_DISCRETE_POINTS;
+    }
+    return ret;
 }
 
 int BuildMap::phiToAAxisRange(double phi) {
-    return radiansToDegrees(phi) / A_AXIS_PRECISION_DEGREES;
+    double ret = radiansToDegrees(phi) / A_AXIS_PRECISION_DEGREES;
+    while (ret < 0) {
+        ret += A_AXIS_DISCRETE_POINTS;
+    }
+    return ret;
 }
 
 double BuildMap::bAxisValToTheta(double bAxisVal) {
