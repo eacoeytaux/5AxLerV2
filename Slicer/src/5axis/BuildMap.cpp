@@ -84,7 +84,7 @@ m_mesh(mesh) {
             int xCenter = thetaToBAxisRange(thetaFromCartesian(v));
             int yCenter = phiToAAxisRange(phiFromCartesian(v));
             
-//            log("[INFO] BUILD MAP - removing hole centered at theta(%d) phi(%d)\n", xCenter, yCenter);
+            //            log("[INFO] BUILD MAP - removing hole centered at theta(%d) phi(%d)\n", xCenter, yCenter);
             
             double sinPhi = sin(phiFromCartesian(v));
             
@@ -107,7 +107,7 @@ m_mesh(mesh) {
                 holeWrapThetaNeg << ClipperLib::IntPoint(x + B_AXIS_DISCRETE_POINTS, y);
             }
             
-//            break;
+            //            break;
             
             //union all holes into one polygon
             Clipper holeClipper;
@@ -174,140 +174,327 @@ bool BuildMap::checkVector(const FPoint3 & v, bool includeEdges) const {
     return false;
 }
 
-FPoint3 BuildMap::findValidVector() const {
+vector<FPoint3> BuildMap::findValidVectors() const {
     if (area() == 0) {
-        return FPoint3(0, 0, 0);
+        return vector<FPoint3>();
     }
     
-    //TODO can this just be done by grabbing a point from the outline of m_buildMap2D?
+    vector<FPoint3> valids;
     
-    FPoint3 v = findValidVectorUtil(0, 0, B_AXIS_DISCRETE_POINTS, A_AXIS_DISCRETE_POINTS);
-    if (!checkVector(v)) {
-        log("[ERROR] BUILD MAP - arbitrary vector(%f, %f, %f) not in buildmap\n", v.x, v.y, v.z);
+    for (int i = 0; i < m_buildMap2D.size(); i++) {
+        //        FPoint3 v = findValidVectorsUtil(0, 0, B_AXIS_DISCRETE_POINTS, A_AXIS_DISCRETE_POINTS);
+        FPoint3 v = mapToFPoint3(m_buildMap2D[i][0].X, m_buildMap2D[i][0].Y);
+        if (!checkVector(v)) {
+            log("[ERROR] BUILD MAP - arbitrary vector(%f, %f, %f) not in buildmap\n", v.x, v.y, v.z);
+        }
+        valids.push_back(v);
     }
-    return v;
+    return valids;
 }
 
-FPoint3 BuildMap::findValidVectorUtil(int xStart, int yStart, int width, int height) const {
-    //    log("[INFO] BUILD MAP - checking build map theta(%d-%d) phi(%d-%d)\n", xStart, xStart + width, yStart, yStart + height);
-    
-    if ((width == 1) && (height == 1)) {
-        if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart)))) {
-            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart));
-        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart)))) {
-            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart));
-        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart + 1)))) {
-            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart + 1));
-        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart + 1)))) {
-            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart + 1));
-        }
-        
-        log("[ERROR] BUILD MAP - valid vector found is not in build map\n");
-        return FPoint3(0, 0, 0);
-    }
-    
-    Clipper searchClipper;
-    searchClipper.AddPaths(m_buildMap2D, ptSubject, true);
-    
-    bool cutHorizontally = width < height;
-    int dx = (cutHorizontally ? width : ceil(static_cast<double>(width) / 2.0));
-    int dy = (cutHorizontally ? ceil(static_cast<double>(height) / 2.0) : height);
-    
-    Path search;
-    search << ClipperLib::IntPoint(xStart, yStart) << ClipperLib::IntPoint(xStart, yStart + dy) << ClipperLib::IntPoint(xStart + dx, yStart + dy) << ClipperLib::IntPoint(xStart + dx, yStart);
-    searchClipper.AddPath(search, ptClip, true);
-    
-    Paths solution;
-    searchClipper.Execute(ctIntersection, solution, pftNonZero, pftNonZero);
-    
-    bool searchSuccess;
-    if (solution.size() != 0) {
-        double area = 0;
-        for (unsigned int i = 0; i < solution.size(); i++) {
-            area += Area(solution[i]);
-        }
-        //        log("[INFO] BUILD MAP - area of region theta(%d-%d) phi(%d-%d): %f\n", xStart, xStart + dx, yStart, yStart + dy, area);
-        
-        searchSuccess = (area > 0);
-    } else {
-        //        log("[INFO] BUILD MAP - area of region theta(%d-%d) phi(%d-%d): %f\n", xStart, xStart + dx, yStart, yStart + dy, 0);
-        
-        searchSuccess = false;
-    }
-    
-    //    log("[INFO] search success: %s\n", searchSuccess ? "true" : "false");
-    
-    if (searchSuccess) {
-        return findValidVectorUtil(xStart, yStart, dx, dy);
-    } else {
-        return findValidVectorUtil(xStart + width - dx, yStart + height - dy, dx, dy);
-    }
-}
+//std::vector<FPoint3> BuildMap::findValidVectorUtil(int xStart, int yStart, int width, int height) const {
+//    //    log("[INFO] BUILD MAP - checking build map theta(%d-%d) phi(%d-%d)\n", xStart, xStart + width, yStart, yStart + height);
+//
+//    if ((width == 1) && (height == 1)) {
+//        if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart)))) {
+//            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart));
+//        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart)))) {
+//            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart));
+//        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart + 1)))) {
+//            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart), BuildMap::aAxisValToPhi(yStart + 1));
+//        } else if (checkVector(FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart + 1)))) {
+//            return FPoint3FromSpherical(BuildMap::bAxisValToTheta(xStart + 1), BuildMap::aAxisValToPhi(yStart + 1));
+//        }
+//
+//        log("[ERROR] BUILD MAP - valid vector found is not in build map\n");
+//        return FPoint3(0, 0, 0);
+//    }
+//
+//    Clipper searchClipper;
+//    searchClipper.AddPaths(m_buildMap2D, ptSubject, true);
+//
+//    bool cutHorizontally = width < height;
+//    int dx = (cutHorizontally ? width : ceil(static_cast<double>(width) / 2.0));
+//    int dy = (cutHorizontally ? ceil(static_cast<double>(height) / 2.0) : height);
+//
+//    Path search;
+//    search << ClipperLib::IntPoint(xStart, yStart) << ClipperLib::IntPoint(xStart, yStart + dy) << ClipperLib::IntPoint(xStart + dx, yStart + dy) << ClipperLib::IntPoint(xStart + dx, yStart);
+//    searchClipper.AddPath(search, ptClip, true);
+//
+//    Paths solution;
+//    searchClipper.Execute(ctIntersection, solution, pftNonZero, pftNonZero);
+//
+//    bool searchSuccess;
+//    if (solution.size() != 0) {
+//        double area = 0;
+//        for (unsigned int i = 0; i < solution.size(); i++) {
+//            area += Area(solution[i]);
+//        }
+//        //        log("[INFO] BUILD MAP - area of region theta(%d-%d) phi(%d-%d): %f\n", xStart, xStart + dx, yStart, yStart + dy, area);
+//
+//        searchSuccess = (area > 0);
+//    } else {
+//        //        log("[INFO] BUILD MAP - area of region theta(%d-%d) phi(%d-%d): %f\n", xStart, xStart + dx, yStart, yStart + dy, 0);
+//
+//        searchSuccess = false;
+//    }
+//
+//    //    log("[INFO] search success: %s\n", searchSuccess ? "true" : "false");
+//
+//    if (searchSuccess) {
+//        return findValidVectorUtil(xStart, yStart, dx, dy);
+//    } else {
+//        return findValidVectorUtil(xStart + width - dx, yStart + height - dy, dx, dy);
+//    }
+//}
 
 FPoint3 BuildMap::findBestVector() const {
     //TODO it may be possible build map is disjoint, in which find best vector on both disjoint areas
     
-    FPoint3 v = findValidVector();
-    double heuristic = averageCuspHeight(v);
+    //    log("[INFO] number of disjoint areas in buildmap: %d\n", m_buildMap2D.size());
     
-    return findBestVectorUtil(thetaToBAxisRange(thetaFromCartesian(v)), phiToAAxisRange(phiFromCartesian(v)), B_AXIS_DISCRETE_POINTS / 4, A_AXIS_DISCRETE_POINTS / 4, heuristic).first;
+    //    vector<FPoint3> vs = findValidVectors();
+    
+    //    pair<FPoint3, double> heuristic = pair<FPoint3, double>(FPoint3(0, 0, 0), INFINITY);
+    //    for (int i = 0; i < m_buildMap2D.size(); i++) {
+    //        for (int j = 0; j < m_buildMap2D[i].size(); j++) {
+    ////            log("[INFO] checking vector [%f, %f, %f]\n", vs[i].x, vs[i].y, vs[i].z);
+    ////            FPoint3 v = mapToFPoint3(m_buildMap2D[i][j]);
+    //
+    //            pair<FPoint3, double> tempHeuristic = findBestVectorUtil(m_buildMap2D[i][j].X, m_buildMap2D[i][j].Y, averageCuspHeight(mapToFPoint3(m_buildMap2D[i][j].X, m_buildMap2D[i][j].Y)));
+    //            if (tempHeuristic.second < heuristic.second) {
+    //                heuristic = tempHeuristic;
+    //            }
+    //        }
+    //    }
+    //
+    //    return heuristic.first;
+    
+    //    int precision = 1;
+    //
+    //    pair<FPoint3, double> heuristic = pair<FPoint3, double>(FPoint3(0, 0, 0), INFINITY);
+    //    for (int y = 0; y <= A_AXIS_DISCRETE_POINTS; y += precision) {
+    //        for (int x = 0; x <= B_AXIS_DISCRETE_POINTS; x += precision) {
+    //            FPoint3 v = BuildMap::mapToFPoint3(x, y);
+    //            double weight = averageCuspHeight(v);
+    //
+    //            if (weight < heuristic.second) {
+    //                heuristic.first = v;
+    //                heuristic.second = weight;
+    //            }
+    //        }
+    //    }
+    //
+    //    return heuristic.first;
+    
+    //see http://katrinaeg.com/simulated-annealing.html
+    pair<pair<int, int>, double> solution(pair<int, int>(m_buildMap2D[0][0].X, m_buildMap2D[0][0].Y), averageCuspHeight(mapToFPoint3(m_buildMap2D[0][0].X, m_buildMap2D[0][0].Y)));
+    
+    double temp = 1.0;
+    double minTemp = 0.00001;
+    double alpha = 0.99;
+    unsigned int interations = 200;
+    
+    while (temp > minTemp) {
+        int i = 1;
+        while (i <= interations) {
+            int x = rand() % B_AXIS_DISCRETE_POINTS;
+            int y = rand() % A_AXIS_DISCRETE_POINTS;
+            
+            pair<int, int> tempSolution(x, y);
+            
+            double tempHeuristic = averageCuspHeight(mapToFPoint3(tempSolution.first, tempSolution.second));
+            
+            double acceptanceProbability = exp((solution.second - tempHeuristic) / temp);
+            
+            if (acceptanceProbability > (static_cast<double>(rand()) / static_cast<double>(RAND_MAX))) {
+                solution.first = tempSolution;
+                solution.second = tempHeuristic;
+            }
+            i += 1;
+        }
+        temp *= alpha;
+    }
+    solution = hillClimb(solution.first.first, solution.first.second);
+    return mapToFPoint3(solution.first.first, solution.first.second);
 }
 
-pair<FPoint3, double> BuildMap::findBestVectorUtil(int x, int y, int dx, int dy, double prevHeuristic) const {
-    vector<pair<FPoint3, double>> options; //FPoint3 with lowest heuristic in this vector is the best vector
+pair<pair<int, int>, double> BuildMap::hillClimb(int x, int y) const {
+    double heuristic = averageCuspHeight(mapToFPoint3(x, y));
     
-    double north = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi((y + dy) % A_AXIS_DISCRETE_POINTS)));
-    double south = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi((y - dy) % A_AXIS_DISCRETE_POINTS)));
-    double east = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta((x + dx) % B_AXIS_DISCRETE_POINTS), aAxisValToPhi(y)));
-    double west = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta((x - dx) % B_AXIS_DISCRETE_POINTS), aAxisValToPhi(y)));
-    
-    int newDx = ceil(static_cast<double>(dx) / 2.0);
-    int newDy = ceil(static_cast<double>(dy) / 2.0);
-    
-    if (prevHeuristic < fmin(north, fmin(south, fmin(east, west)))) { //there is no better option so continue narrowing down search
-        if ((dx == 1) && (dy == 1)) {
-            options.push_back(pair<FPoint3, double>(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi(y)), prevHeuristic));
+    while (true) {
+                printf("checking [%d, %d] %f\n", x, y, heuristic);
+        
+        if (heuristic == INFINITY) {
+            return pair<pair<int, int>, double>(pair<int, int>(x, y), heuristic);
+        }
+        
+        pair<int, int> n(x, (y + 1) % (A_AXIS_DISCRETE_POINTS + 1));
+        pair<int, int> s(x, (y - 1) % (A_AXIS_DISCRETE_POINTS + 1));
+        pair<int, int> e((x + 1) % (B_AXIS_DISCRETE_POINTS + 1), y);
+        pair<int, int> w((x - 1) % (B_AXIS_DISCRETE_POINTS + 1), y);
+        
+        
+        if (s.second < 0) {
+            s.second = A_AXIS_DISCRETE_POINTS;
+        }
+        if (w.first < 0) {
+            w.first = B_AXIS_DISCRETE_POINTS;
+        }
+        
+        double nHeuristic = averageCuspHeight(mapToFPoint3(n.first, n.second));
+        double sHeuristic = averageCuspHeight(mapToFPoint3(s.first, s.second));
+        double eHeuristic = averageCuspHeight(mapToFPoint3(e.first, e.second));
+        double wHeuristic = averageCuspHeight(mapToFPoint3(w.first, w.second));
+        
+        printf(" checking n [%d, %d] %f\n", n.first, n.second, nHeuristic);
+        printf(" checking s [%d, %d] %f\n", s.first, s.second, sHeuristic);
+        printf(" checking e [%d, %d] %f\n", e.first, e.second, eHeuristic);
+        printf(" checking w [%d, %d] %f\n", w.first, w.second, wHeuristic);
+        
+        if (heuristic < fmin(nHeuristic, fmin(sHeuristic, fmin(eHeuristic, wHeuristic)))) {
+            return pair<pair<int, int>, double>(pair<int, int>(x, y), heuristic);
+        } else if (nHeuristic < fmin(sHeuristic, fmin(eHeuristic, wHeuristic))) {
+            x = n.first;
+            y = n.second;
+            heuristic = nHeuristic;
+        } else if (sHeuristic < fmin(eHeuristic, wHeuristic)) {
+            x = s.first;
+            y = s.second;
+            heuristic = sHeuristic;
+        } else if (eHeuristic < wHeuristic) {
+            x = e.first;
+            y = e.second;
+            heuristic = eHeuristic;
         } else {
-            options.push_back(findBestVectorUtil(x, y, newDx, newDy, prevHeuristic));
+            x = w.first;
+            y = w.second;
+            heuristic = wHeuristic;
         }
-    } else {
-        if (north < prevHeuristic) {
-            options.push_back(findBestVectorUtil((x + newDx) % B_AXIS_DISCRETE_POINTS, y, newDx, newDy, north));
-        }
-        if (south < prevHeuristic) {
-            options.push_back(findBestVectorUtil((x - newDx) % B_AXIS_DISCRETE_POINTS, y, newDx, newDy, south));
-        }
-        if (east < prevHeuristic) {
-            options.push_back(findBestVectorUtil(x, (y + newDy) % A_AXIS_DISCRETE_POINTS, newDx, newDy, east));
-        }
-        if (west < prevHeuristic) {
-            options.push_back(findBestVectorUtil(x, (y + newDy) % A_AXIS_DISCRETE_POINTS, newDx, newDy, west));
-        }
-    }
-    
-    pair<FPoint3, double> bestOption(FPoint3(0, 0, 0), INFINITY);
-    for (vector<pair<FPoint3, double>>::iterator it = options.begin(); it != options.end(); it++) {
-        if (it->second < bestOption.second) {
-            bestOption = *it;
-        }
-    }
-    
-    if ((bestOption.first.x == 0) && (bestOption.first.y == 0) && (bestOption.first.z == 0)) {
-        log("[ERROR] BUILD MAP - finding best vector returned no valid options\n");
-    }
-    
-    return bestOption;
+    };
 }
+
+//pair<FPoint3, double> BuildMap::findBestVectorUtil(int x, int y, double prevHeuristic, int depth) const {
+//    vector<pair<FPoint3, double>> options; //FPoint3 with lowest heuristic in this vector is the best vector
+//    
+//    std::string spaces = "";
+//    for (int i = 0; i < depth % 100; i++) {
+//        spaces += " ";
+//    }
+//    
+//    log("depth: %d\n", depth);
+//    
+//    log("[INFO] %schecking position %d, %d with heuristic %f...\n", spaces.c_str(), x, y, prevHeuristic);
+//    
+//    double north = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi(y + 1)));
+//    double south = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi(y - 1)));
+//    double east = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x + 1), aAxisValToPhi(y)));
+//    double west = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x - 1), aAxisValToPhi(y)));
+//    
+//    //    if (north < prevHeuristic) {
+//    log("[INFO] %snorth: %d, %d with heuristic %f\n", spaces.c_str(), x, y + 1, north);
+//    //    }
+//    //    if (south < prevHeuristic) {
+//    log("[INFO] %ssouth: %d, %d with heuristic %f\n", spaces.c_str(), x, y - 1, south);
+//    //    }
+//    //    if (east < prevHeuristic) {
+//    log("[INFO] %seast: %d, %d with heuristic %f\n", spaces.c_str(), x + 1, y, east);
+//    //    }
+//    //    if (west < prevHeuristic) {
+//    log("[INFO] %swest: %d, %d with heuristic %f\n", spaces.c_str(), x - 1, y, west);
+//    //    }
+//    
+//    //    log("[INFO] %snorth: %d, %d with heurisitc %f (%s)\n", spaces.c_str(), x, y + 1, north, (north > prevHeuristic) ? "greater" : "less than");
+//    //    log("[INFO] %ssouth: %d, %d with heurisitc %f (%s)\n", spaces.c_str(), x, y - 1, south, (south > prevHeuristic) ? "greater" : "less than");
+//    //    log("[INFO] %seast: %d, %d with heurisitc %f (%s)\n", spaces.c_str(), x + 1, y, east, (east > prevHeuristic) ? "greater" : "less than");
+//    //    log("[INFO] %swest: %d, %d with heurisitc %f (%s)\n", spaces.c_str(), x - 1, y, west, (west > prevHeuristic) ? "greater" : "less than");
+//    
+//    if (prevHeuristic < fmin(north, fmin(south, fmin(east, west)))) { //there is no better option so continue narrowing down search
+//        return pair<FPoint3, double>(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi(y)), prevHeuristic);
+//    } else {
+//        if (north < fmin(south, fmin(east, west))) {
+//            options.push_back(findBestVectorUtil(x, y + 1, north, depth + 1));
+//        } else if (south < fmin(east, west)) {
+//            options.push_back(findBestVectorUtil(x, y - 1, south, depth + 1));
+//        } else if (east < west) {
+//            options.push_back(findBestVectorUtil(x + 1, y, east, depth + 1));
+//        } else {
+//            options.push_back(findBestVectorUtil(x - 1, y, west, depth + 1));
+//        }
+//        
+//    }
+//    
+//    
+//    //        double north = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi((y + dy) % A_AXIS_DISCRETE_POINTS)));
+//    //        double south = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi((y - dy) % A_AXIS_DISCRETE_POINTS)));
+//    //        double east = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta((x + dx) % B_AXIS_DISCRETE_POINTS), aAxisValToPhi(y)));
+//    //        double west = averageCuspHeight(FPoint3FromSpherical(bAxisValToTheta((x - dx) % B_AXIS_DISCRETE_POINTS), aAxisValToPhi(y)));
+//    //
+//    //    log("[INFO] prev: [%d, %d] %f, n: [%d, %d] %f, s: [%d, %d] %f, e: [%d, %d] %f, w: [%d, %d] %f\n", x, y, prevHeuristic, x, (y + dy) % A_AXIS_DISCRETE_POINTS, north, x, (y - dy) % A_AXIS_DISCRETE_POINTS, south, (x + dx) % B_AXIS_DISCRETE_POINTS, y, east, (x - dx) % B_AXIS_DISCRETE_POINTS, y, west);
+//    //
+//    //    int newDx = ceil(static_cast<double>(dx) / 2.0);
+//    //    int newDy = ceil(static_cast<double>(dy) / 2.0);
+//    //
+//    //    if (prevHeuristic > fmax(north, fmax(south, fmax(east, west)))) { //there is no better option so continue narrowing down search
+//    //        if ((dx == 1) && (dy == 1)) {
+//    //            options.push_back(pair<FPoint3, double>(FPoint3FromSpherical(bAxisValToTheta(x), aAxisValToPhi(y)), prevHeuristic));
+//    //        } else {
+//    //            options.push_back(findBestVectorUtil(x, y, newDx, newDy, prevHeuristic));
+//    //        }
+//    //    } else {
+//    //        if (north > prevHeuristic) {
+//    //            options.push_back(findBestVectorUtil((x + newDx) % B_AXIS_DISCRETE_POINTS, y, newDx, newDy, north));
+//    //        }
+//    //        if (south > prevHeuristic) {
+//    //            options.push_back(findBestVectorUtil((x - newDx) % B_AXIS_DISCRETE_POINTS, y, newDx, newDy, south));
+//    //        }
+//    //        if (east > prevHeuristic) {
+//    //            options.push_back(findBestVectorUtil(x, (y + newDy) % A_AXIS_DISCRETE_POINTS, newDx, newDy, east));
+//    //        }
+//    //        if (west > prevHeuristic) {
+//    //            options.push_back(findBestVectorUtil(x, (y + newDy) % A_AXIS_DISCRETE_POINTS, newDx, newDy, west));
+//    //        }
+//    //    }
+//    
+//    pair<FPoint3, double> bestOption(FPoint3(0, 0, 0), INFINITY);
+//    for (vector<pair<FPoint3, double>>::iterator it = options.begin(); it != options.end(); it++) {
+//        //        log("[INFO] [%f, %f] heuristic: %f\n", 180/M_PI * thetaFromCartesian(it->first), 180/M_PI * phiFromCartesian(it->first), it->second);
+//        if (it->second < bestOption.second) {
+//            bestOption = *it;
+//        }
+//    }
+//    
+//    if ((bestOption.first.x == 0) && (bestOption.first.y == 0) && (bestOption.first.z == 0)) {
+//        log("[ERROR] BUILD MAP - finding best vector returned no valid options\n");
+//    }
+//    
+//    return bestOption;
+//}
 
 double BuildMap::averageCuspHeight(const FPoint3 & v) const {
     if (!checkVector(v)) {
         return INFINITY;
     }
     
+    //    printf("checking vector[%f, %f, %f]\n", v.x, v.y, v.z);
+    
     double weight = 0, totalFaceArea = 0;
     for (vector<MeshFace>::const_iterator it = m_mesh.faces.begin(); it != m_mesh.faces.end(); it++) {
-        double weightToAdd = v * faceNormal(m_mesh, *it);
-        weightToAdd /= v.vSize();
+        
+        FPoint3 normal = faceNormal(m_mesh, *it);
+        
+        double cosTheta = (v * faceNormal(m_mesh, *it)) / (v.vSize() * normal.vSize());
+        
+        //        printf("cos(theta): %f\n", cosTheta);
+        
+        //        printf("checking face with normal[%f, %f, %f]\n", normal.x, normal.y, normal.z);
+        
+        double weightToAdd = v * normal;
+        weightToAdd /= v.vSize() * normal.vSize();
+        
+        if ((cosTheta == -1) || (cosTheta == 1)) {
+            weightToAdd = 0;
+        }
         
         //find area of face
         //take cross product of (v1 - v0) and (v2 - v0)
@@ -317,9 +504,13 @@ double BuildMap::averageCuspHeight(const FPoint3 & v) const {
         
         weight += fabs(weightToAdd) * faceArea;
         
+        //        printf("weight: %f, area: %f\n", weightToAdd, faceArea);
+        
         totalFaceArea += faceArea;
+        
+        //        printf("total weight: %f, total area: %f\n", weight, totalFaceArea);
     }
-    return weight /= totalFaceArea;
+    return weight / totalFaceArea;
 }
 
 FPoint3 BuildMap::mapToFPoint3(int x, int y) {

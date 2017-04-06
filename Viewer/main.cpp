@@ -271,6 +271,33 @@ int main(int argc, char **argv) {
         int meshIndex = getMeshIndex();
         int meshIndexAdjusted = std::fmin(std::fmax(meshIndex, 0), sizes.size());
         
+//        glClear(GL_DEPTH_BUFFER_BIT);
+//        glEnable(GL_STENCIL_TEST);
+//        glColorMask(GL_FALSE, GL_FALSE, GL_FALSE, GL_FALSE);
+//        glDepthMask(GL_FALSE);
+//        glStencilFunc(GL_NEVER, 1, 0xFF);
+//        glStencilOp(GL_REPLACE, GL_KEEP, GL_KEEP);  // draw 1s on test fail (always)
+//        
+//        // draw stencil pattern
+//        glStencilMask(0xFF);
+//        glClear(GL_STENCIL_BUFFER_BIT);  // needs mask=0xFF
+        
+//        glBegin(GL_TRIANGLES);
+//        glColor3(0, 0, 0);
+//        glVertex3f(-1, -1, 0);
+//        glVertex3f(-1, 1000, 0);
+//        glVertex3f(1000, 1000, 0);
+//        glEnd();
+        
+//        glColorMask(GL_TRUE, GL_TRUE, GL_TRUE, GL_TRUE);
+//        glDepthMask(GL_TRUE);
+//        glStencilMask(0x00);
+//        // draw where stencil's value is 0
+//        glStencilFunc(GL_EQUAL, 0, 0xFF);
+//        /* (nothing to draw) */
+//        // draw only where stencil's value is 1
+//        glStencilFunc(GL_EQUAL, 1, 0xFF);
+        
         // Draw the triangles !
         for (int i = 0; i < meshIndex; i++) {
             int start = 0;
@@ -282,6 +309,8 @@ int main(int argc, char **argv) {
             glUniform3f(ColorID, 1, 0, 1);
             glDrawArrays(GL_TRIANGLES, start + sizes[i], arrowSize);
         }
+        
+//        glDisable(GL_STENCIL_TEST);
         
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);

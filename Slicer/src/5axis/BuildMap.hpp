@@ -9,7 +9,7 @@
 #ifndef BuildMap_hpp
 #define BuildMap_hpp
 
-#include <memory>
+#include <vector>
 
 #include <clipper/clipper.hpp>
 
@@ -23,7 +23,7 @@ namespace cura {
         
         double area() const;
         bool checkVector(const FPoint3 & v, bool includeEdges = true) const;
-        FPoint3 findValidVector() const;
+        std::vector<FPoint3> findValidVectors() const;
         FPoint3 findBestVector() const;
         double averageCuspHeight(const FPoint3 & v) const;
         
@@ -39,8 +39,10 @@ namespace cura {
         ClipperLib::Paths m_buildMap2D; //x->theta, y->phi
         bool m_phiZeroAvailable = true; //whether or not the point at phi = 0 is true
         
-        FPoint3 findValidVectorUtil(int xStart, int yStart, int width, int height) const;
-        std::pair<FPoint3, double> findBestVectorUtil(int x, int y, int dx, int dy, double prevHeuristic) const;
+        std::pair<std::pair<int, int>, double> hillClimb(int x, int y) const;
+        
+        //        std::vector<FPoint3> findValidVectorsUtil(int xStart, int yStart, int width, int height) const;
+        //        std::pair<FPoint3, double> findBestVectorUtil(int x, int y, double prevHeuristic, int depth = 0) const;
     };
 }
 
