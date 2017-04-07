@@ -290,30 +290,27 @@ FPoint3 BuildMap::findBestVector() const {
     //see http://katrinaeg.com/simulated-annealing.html
     pair<pair<int, int>, double> solution(pair<int, int>(m_buildMap2D[0][0].X, m_buildMap2D[0][0].Y), averageCuspHeight(mapToFPoint3(m_buildMap2D[0][0].X, m_buildMap2D[0][0].Y)));
     
-    double temp = 1.0;
-    double minTemp = 0.00001;
+    double temperature = 1.0;
+    double minTemperature = 0.00001;
     double alpha = 0.99;
     unsigned int interations = 200;
     
-    while (temp > minTemp) {
-        int i = 1;
-        while (i <= interations) {
+    while (temperature > minTemperature) {
+        for (int i = 0; i <= interations; i++) {
             int x = rand() % B_AXIS_DISCRETE_POINTS;
             int y = rand() % A_AXIS_DISCRETE_POINTS;
             
-            pair<int, int> tempSolution(x, y);
+            pair<pair<int, int>, double> tempSolution(pair<int, int>(x, y), averageCuspHeight(mapToFPoint3(x, y)));
             
-            double tempHeuristic = averageCuspHeight(mapToFPoint3(tempSolution.first, tempSolution.second));
+//            double tempHeuristic = averageCuspHeight(mapToFPoint3(tempSolution.first, tempSolution.second));
             
-            double acceptanceProbability = exp((solution.second - tempHeuristic) / temp);
+            double acceptanceProbability = exp((solution.second - tempSolution.second) / temperature);
             
             if (acceptanceProbability > (static_cast<double>(rand()) / static_cast<double>(RAND_MAX))) {
-                solution.first = tempSolution;
-                solution.second = tempHeuristic;
+                solution = tempSolution;
             }
-            i += 1;
         }
-        temp *= alpha;
+        temperature *= alpha;
     }
     solution = hillClimb(solution.first.first, solution.first.second);
     return mapToFPoint3(solution.first.first, solution.first.second);
@@ -323,7 +320,7 @@ pair<pair<int, int>, double> BuildMap::hillClimb(int x, int y) const {
     double heuristic = averageCuspHeight(mapToFPoint3(x, y));
     
     while (true) {
-                printf("checking [%d, %d] %f\n", x, y, heuristic);
+//                printf("checking [%d, %d] %f\n", x, y, heuristic);
         
         if (heuristic == INFINITY) {
             return pair<pair<int, int>, double>(pair<int, int>(x, y), heuristic);
@@ -347,10 +344,10 @@ pair<pair<int, int>, double> BuildMap::hillClimb(int x, int y) const {
         double eHeuristic = averageCuspHeight(mapToFPoint3(e.first, e.second));
         double wHeuristic = averageCuspHeight(mapToFPoint3(w.first, w.second));
         
-        printf(" checking n [%d, %d] %f\n", n.first, n.second, nHeuristic);
-        printf(" checking s [%d, %d] %f\n", s.first, s.second, sHeuristic);
-        printf(" checking e [%d, %d] %f\n", e.first, e.second, eHeuristic);
-        printf(" checking w [%d, %d] %f\n", w.first, w.second, wHeuristic);
+//        printf(" checking n [%d, %d] %f\n", n.first, n.second, nHeuristic);
+//        printf(" checking s [%d, %d] %f\n", s.first, s.second, sHeuristic);
+//        printf(" checking e [%d, %d] %f\n", e.first, e.second, eHeuristic);
+//        printf(" checking w [%d, %d] %f\n", w.first, w.second, wHeuristic);
         
         if (heuristic < fmin(nHeuristic, fmin(sHeuristic, fmin(eHeuristic, wHeuristic)))) {
             return pair<pair<int, int>, double>(pair<int, int>(x, y), heuristic);
