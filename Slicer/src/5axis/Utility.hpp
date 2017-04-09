@@ -11,6 +11,7 @@
 
 #include <cmath>
 #include "../mesh.h"
+#include "TransformationMatrix3D.hpp"
 
 #define THETA_MAX 0.785398163397448309616 //in radians (should be between 0-pi)
 
@@ -108,6 +109,41 @@ namespace cura {
 	static FPoint3 rotateAroundZAxis(FPoint3 vector, float angle){
 		return FPoint3( vector.x*cosf(angle) - vector.y*sinf(angle),  vector.x*sinf(angle) + vector.y*cosf(angle),  vector.z);
 	}
+	
+	/*
+	static FPoint3 rotateAroundArbitraryLine(FPoint3 pOnLine, FPoint3 lineDirection, FPoint3 rotatingPoint, float angle){
+		//pOnLine = <a,b,c>
+		//lineDirection = <u,v,w>
+		float u = lineDirection.x;
+		float v = lineDirection.y;
+		float w = lineDirection.z;
+		float u2 = lineDirection.x;
+		float v2 = lineDirection.y;
+		float w2 = lineDirection.z;
+		float l2 = u2 + v2 + w2;
+		
+		//the transformation matrix of the rotation
+		TransformationMatrix3D transformation = TransformationMatrix3D();
+		transformation.matrix[0][0] = u2+(v2+w2)*std::cosf(angle);
+		transformation.matrix[1][0] = u*v*(1-(std::cosf(angle))) - w * (;
+		transformation.matrix[2][0] = - std::sinf(angle);
+		transformation.matrix[3][0] = 0.0;
+		transformation.matrix[0][1] = 0.0;
+		transformation.matrix[1][1] = 1.0;
+		transformation.matrix[2][1] = 0.0;
+		transformation.matrix[3][1] = 0.0;
+		transformation.matrix[0][2] = std::sinf(angle);
+		transformation.matrix[1][2] = 0.0;
+		transformation.matrix[2][2] = std::cosf(angle);
+		transformation.matrix[3][2] = 0.0;
+		transformation.matrix[0][3] = 0.0;
+		transformation.matrix[1][3] = 0.0;
+		transformation.matrix[2][3] = 0.0;
+		transformation.matrix[3][3] = 1.0;
+
+	
+	}
+	 */
 }
 
 #endif /* Utility_hpp */

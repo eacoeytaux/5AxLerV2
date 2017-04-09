@@ -1,13 +1,13 @@
 {
-    "id": "fdmprinter",
-    "name": "FDM Printer Base Description",
-    "version": 2,
+    "id": "5AxisFDM",
+    "name": "5AxisFDM Printer Base Description",
+    "version": 1,
     "metadata":
     {
         "type": "machine",
-        "author": "Ultimaker B.V.",
-        "category": "Ultimaker",
-        "manufacturer": "Ultimaker",
+        "author": "5Axler",
+        "category": "5Axler",
+        "manufacturer": "Cam",
         "file_formats": "text/x-gcode;application/x-stl-ascii;application/x-stl-binary;application/x-wavefront-obj;application/x3g",
         "visible": false,
         "has_materials": true,
@@ -17,7 +17,7 @@
         {
             "0": "fdmextruder"
         },
-        "supports_usb_connection": true
+        "supports_usb_connection": false
     },
     "settings":
     {
@@ -121,7 +121,7 @@
                 {
                     "label": "Machine width",
                     "description": "The width (X-direction) of the printable area.",
-                    "default_value": 100,
+                    "default_value": 203.2,
                     "type": "float",
                     "settable_per_mesh": false,
                     "settable_per_extruder": false,
@@ -131,7 +131,7 @@
                 {
                     "label": "Machine depth",
                     "description": "The depth (Y-direction) of the printable area.",
-                    "default_value": 100,
+                    "default_value": 203.2,
                     "type": "float",
                     "settable_per_mesh": false,
                     "settable_per_extruder": false,
@@ -156,7 +156,7 @@
                 {
                     "label": "Machine height",
                     "description": "The height (Z-direction) of the printable area.",
-                    "default_value": 100,
+                    "default_value": 203.2,
                     "type": "float",
                     "settable_per_mesh": false,
                     "settable_per_extruder": false,
@@ -3915,7 +3915,7 @@
                     "label": "Extensive Stitching",
                     "description": "Extensive stitching tries to stitch up open holes in the mesh by closing the hole with touching polygons. This option can introduce a lot of processing time.",
                     "type": "bool",
-                    "default_value": false,
+                    "default_value": true,
                     "settable_per_mesh": true
                 },
                 "meshfix_keep_open_polygons":

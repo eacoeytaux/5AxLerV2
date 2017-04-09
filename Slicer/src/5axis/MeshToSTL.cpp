@@ -39,15 +39,15 @@ namespace cura {
 				float normalX =  normal.x;
 				float normalY =  normal.y;
 				float normalZ =  normal.z;
-				float vertex0X = (float)vertex0.x;
-				float vertex0Y = (float)vertex0.y;
-				float vertex0Z = (float)vertex0.z;
-				float vertex1X = (float)vertex1.x;
-				float vertex1Y = (float)vertex1.y;
-				float vertex1Z = (float)vertex1.z;
-				float vertex2X = (float)vertex2.x;
-				float vertex2Y = (float)vertex2.y;
-				float vertex2Z = (float)vertex2.z;
+				float vertex0X = (float)vertex0.x/1000;
+				float vertex0Y = (float)vertex0.y/1000;
+				float vertex0Z = (float)vertex0.z/1000;
+				float vertex1X = (float)vertex1.x/1000;
+				float vertex1Y = (float)vertex1.y/1000;
+				float vertex1Z = (float)vertex1.z/1000;
+				float vertex2X = (float)vertex2.x/1000;
+				float vertex2Y = (float)vertex2.y/1000;
+				float vertex2Z = (float)vertex2.z/1000;
 				
 				file.write((char *)&normalX, 4);
 				file.write((char *)&normalY, 4);

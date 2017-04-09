@@ -286,12 +286,20 @@ Point3 GCodeExport::getPosition()
 }
 Point GCodeExport::getPositionXY()
 {
-    return Point(currentPosition.x, currentPosition.y);
+	//CUSTOM CODE
+	//int32_t newX = currentPosition.z * std::sinf(-1.57079) + currentPosition.x * std::cosf(-1.57079);
+	//return Point(newX, currentPosition.y);
+	return Point(currentPosition.x, currentPosition.y);
+	//END CUSTOM CODE
 }
 
 int GCodeExport::getPositionZ()
 {
+	//CUSTOM CODE
+	//int32_t newZ = currentPosition.z*std::cosf(-1.57079) - currentPosition.x * (-1 * std::sinf(-1.57079));
+	//return newZ;
     return currentPosition.z;
+	//END CUSTOM CODE
 }
 
 int GCodeExport::getExtruderNr()
@@ -485,12 +493,18 @@ void GCodeExport::writeDelay(double timeAmount)
 
 void GCodeExport::writeMove(Point p, double speed, double extrusion_mm3_per_mm)
 {
+	//CUSTOM CODE
+	//writeMove(current_layer_z * std::sinf(-1.57079) + p.X * std::cosf(-1.57079), p.Y, current_layer_z*std::cosf(-1.57079) - p.X * (-1 * std::sinf(-1.57079)), speed, extrusion_mm3_per_mm);
     writeMove(p.X, p.Y, current_layer_z, speed, extrusion_mm3_per_mm);
+	//END CUSTOM CODE
 }
 
 void GCodeExport::writeMove(Point3 p, double speed, double extrusion_mm3_per_mm)
 {
+	//CUSTOM CODE
+	//writeMove(p.z * std::sinf(-1.57079) + p.x * std::cosf(-1.57079), p.y, p.z*std::cosf(-1.57079) - p.x * (-1 * std::sinf(-1.57079)), speed, extrusion_mm3_per_mm);
     writeMove(p.x, p.y, p.z, speed, extrusion_mm3_per_mm);
+	//END CUSTOM CODE
 }
 
 void GCodeExport::writeMoveBFB(int x, int y, int z, double speed, double extrusion_mm3_per_mm)

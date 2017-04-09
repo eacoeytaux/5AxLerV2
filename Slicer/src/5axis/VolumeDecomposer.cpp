@@ -22,7 +22,8 @@ namespace cura {
             sequenceGraph.addNode(parentNode);
         }
         long int parentIndex = sequenceGraph.size()-1;
-        
+		
+		
         int model_max = mesh.getAABB().max.z;
         long long int initial_layer_thickness = mesh.getSettingInMicrons("layer_height_0");
         long long int layer_thickness = mesh.getSettingInMicrons("layer_height");
@@ -30,7 +31,7 @@ namespace cura {
         long long int slice_layer_count = (model_max - initial_slice_z) / layer_thickness + 1;
         
         Slicer* slicer = new Slicer(&mesh, initial_slice_z, layer_thickness, slice_layer_count, mesh.getSettingBoolean("meshfix_keep_open_polygons"), mesh.getSettingBoolean("meshfix_extensive_stitching"));
-        
+		
         // SerialComms sc = SerialComms("/dev/ttyACM0");
         std::vector<SlicerLayer> & layers = slicer->layers;
         
@@ -1499,21 +1500,24 @@ namespace cura {
             
             if(faceIndex != -1){
                 
-                if(faceIndex >= markedFaces.size()){
-                    markedFaces.resize(faceIndex+1);
-                }
-                markedFaces.at(faceIndex) = true;
+                if(faceIndex >= markedFaces.size() || !markedFaces.at(faceIndex)){
+					if(faceIndex >= markedFaces.size()){
+                    	markedFaces.resize(faceIndex+1);
+                	}
+					
+					markedFaces.at(faceIndex) = true;
                 
-                Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
-                Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
-                Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
+					Point3 p0 = mesh.vertices[mesh.faces[faceIndex].vertex_index[0]].p;
+                	Point3 p1 = mesh.vertices[mesh.faces[faceIndex].vertex_index[1]].p;
+                	Point3 p2 = mesh.vertices[mesh.faces[faceIndex].vertex_index[2]].p;
                 
-                parent.addFace(p0, p1, p2);
+                	parent.addFace(p0, p1, p2);
                 
-                for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
-                    if( adjacentFace >= markedFaces.size() || !markedFaces[adjacentFace] ){
-                        faceQueue.push(adjacentFace);
-                    }
+                	for( int adjacentFace : mesh.faces[faceIndex].connected_face_index){
+                    	if( adjacentFace >= markedFaces.size() || !markedFaces[adjacentFace] ){
+                    	    faceQueue.push(adjacentFace);
+                    	}
+					}
                 }
             }
             faceQueue.pop();

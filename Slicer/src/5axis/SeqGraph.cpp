@@ -47,4 +47,26 @@ namespace cura{
 		return;
 	}
 	
+	void SeqGraph::outputGraphJSON(){
+		std::ofstream outputFile;
+		outputFile.open ("sequence_data.json");
+		outputFile << "{\n	\"subvolumes\":[\n";
+		for(int i = 0; i < graphNodes.size(); i++){
+			outputFile << "		{\"filename\": output_decomp_";
+			outputFile << i;
+			outputFile << ", \"sequence\":";
+			outputFile << graphNodes[i].sequence;
+			outputFile << ", \"theta\":";
+			outputFile << graphNodes[i].theta;
+			outputFile << ", \"phi\":";
+			outputFile << graphNodes[i].phi;
+			outputFile << "}";
+			if( i != graphNodes.size()-1){
+				outputFile << "'";
+			}
+			outputFile << "\n";
+		}
+		outputFile << "}";
+		outputFile.close();
+		}
 }

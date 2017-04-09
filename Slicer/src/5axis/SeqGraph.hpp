@@ -10,6 +10,9 @@
 #define SeqGraph_hpp
 
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
+
 #include "../mesh.h"
 #include "TransformationMatrix3D.hpp"
 
@@ -20,43 +23,49 @@ namespace cura {
 	class SeqNode {
 	public:
 		/**
-		 *The unique ID which is the index in the graph's collection of nodes
+		 * The unique ID which is the index in the graph's collection of nodes
 		 */
 		int Index;
 		
 		/**
-		 *The mesh of the sub-volume represented by this node.
+		 * The mesh of the sub-volume represented by this node.
 		 */
 		Mesh mesh;
 		
 		/**
-		 *The theta rotation to orient the sub-volume with build direction aligned with positive Z
+		 * the order in which this subvolume will be printed.  0 indexed
+		 */
+		int sequence;
+		
+		/**
+		 * The theta rotation to orient the sub-volume with build direction aligned with positive Z
 		 */
 		float theta;
 		
 		/**
-		 *The phi rotation to orient the sub-volume with build direction aligned with positive Z
+		 * The phi rotation to orient the sub-volume with build direction aligned with positive Z
 		 */
 		float phi;
 		
 		SeqNode(Mesh mesh_c) : mesh(mesh_c){
+			sequence = 0;
 			theta = 0;
 			phi = 0;
 		};
 		
 		/**
-		 *Get the mesh of this node
-		 *The mesh is the mesh of the sub-volume.  It is always in it's original orientation and position.
+		 * Get the mesh of this node
+		 * The mesh is the mesh of the sub-volume.  It is always in it's original orientation and position.
 		 *
-		 *@return the mesh
+		 * @return the mesh
 		 */
 		Mesh getMesh(){ return mesh; }
 		
 		
 		/**
-		 *Rotates and transforms a mesh so that it's build direction is in the positive Z axis.
+		 * Rotates and transforms a mesh so that it's build direction is in the positive Z axis.
 		 *
-		 *@return the rotated Mesh.
+		 * @return the rotated Mesh.
 		 */
 		void orientMesh();
 	};
@@ -65,17 +74,17 @@ namespace cura {
 	public:
 		
 		/**
-		 *Vector of all nodes in the graph.
+		 * Vector of all nodes in the graph.
 		 */
 		std::vector<SeqNode> graphNodes;
 		
 		/**
-		 *vector of each node's geometric children indices
+		 * vector of each node's geometric children indices
 		 */
 		std::vector<std::vector<long int>> geometricChildren;
 		
 		/**
-		 *vector of each node's collision children indices
+		 * vector of each node's collision children indices
 		 */
 		std::vector<std::vector<long int>> collisionChildren;
 		
@@ -89,7 +98,7 @@ namespace cura {
 		SeqNode & getNode(long int index){ return graphNodes[index]; }
 		
 		/**
-		 *returns the geometric children of the node with given index
+		 * returns the geometric children of the node with given index
 		 *
 		 * @param index The index of the node
 		 *
@@ -133,6 +142,12 @@ namespace cura {
 		 * @param child The index of the child node in the graph. Node represents the sub-vol which will interfere with nozzle when printing the parent.
 		 */
 		void addCollisionChild(long int parent, long int child);
+		
+		/**
+		 * Outputs a JSON file of the graph, which contains names of subvolume STL files,
+		 * and corresponding sequence and build orientation
+		 */
+		void outputGraphJSON();
 	private:
 		
 	};
