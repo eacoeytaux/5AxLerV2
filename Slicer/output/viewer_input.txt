@@ -1,0 +1,4 @@
+../../Slicer/output/subvolumes/output_decomp_0.STL
+-1.80474e-09 4.59163e-41 2.73382e-30
+../../Slicer/output/subvolumes/output_decomp_1.STL
+-1.80474e-09 4.59163e-41 2.73382e-30
