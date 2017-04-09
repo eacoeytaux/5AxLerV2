@@ -116,10 +116,7 @@ namespace cura
         for(unsigned int meshIdx=0; meshIdx < slicerList.size(); meshIdx++)
         {
             Mesh& mesh = storage.meshgroup->meshes[meshIdx];
-			if (mesh.getSettingBoolean("mold_enabled"))
-			{
-				Mold::process(*slicerList[meshIdx], layer_thickness, mesh.getSettingInAngleDegrees("mold_angle"), mesh.getSettingInMicrons("mold_width"), mesh.getSettingInMicrons("wall_line_width_0"));
-			}
+		
             if (mesh.getSettingBoolean("conical_overhang_enabled") && !mesh.getSettingBoolean("anti_overhang_mesh"))
             {
                 ConicalOverhang::apply(slicerList[meshIdx], mesh.getSettingInAngleRadians("conical_overhang_angle"), layer_thickness);
